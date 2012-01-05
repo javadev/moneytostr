@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CurrencyList>
+ 
+    <language value="UKR"/>
+    <UKR>
+        <item value="0" text="нуль"/>
+        <item value="1000_10" text="тисяч,мільйонів,мільярдів,трильйонів"/>
+        <item value="1000_1" text="тисяча,мільйон,мільярд,трильйон"/>
+        <item value="1000_234" text="тисячі,мільйона,мільярда,трильйона"/>
+        <item value="1000_5" text="тисяч,мільйонів,мільярдів,трильйонів"/>
+        <item value="10_19" text="десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"/>
+        <item value="1" text="одна,один,один,одна"/>
+        <item value="2" text="дві,два,два,дві"/>
+        <item value="3_9" text="три,чотири,п’ять,шість,сім,вісім,дев’ять"/>
+        <item value="100_900" text="сто,двісті,триста,чотириста,п’ятсот,шістсот,сімсот,вісімсот,дев’ятсот"/>
+        <item value="20_90" text="двадцять,тридцять,сорок,п’ятдесят,шістдесят,сімдесят,вісімдесят,дев’яносто"/>
+    </UKR>
+    <RUS>
+        <item value="0" text="ноль"/>
+        <item value="1000_10" text="тысяч,миллионов,миллиардов,триллионов"/>
+        <item value="1000_1" text="тысяча,миллион,миллиард,триллион"/>
+        <item value="1000_234" text="тысячи,миллиона,миллиарда,триллиона"/>
+        <item value="1000_5" text="тысяч,миллионов,миллиардов,триллионов"/>
+        <item value="10_19" text="десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"/>
+        <item value="1" text="одна,один,один,одна"/>
+        <item value="2" text="две,два,два,две"/>
+        <item value="3_9" text="три,четыре,пять,шесть,семь,восемь,девять"/>
+        <item value="100_900" text="сто,двести,триста,четыреста,пятьсот,шестьсот,семьсот,восемьсот,девятьсот"/>
+        <item value="20_90" text="двадцать,тридцать,сорок,пятьдесят,шестьдесят,семьдесят,восемьдесят,девяносто"/>
+    </RUS>
+    <RUR CurrID="810" CurrName="Российские рубли" language="RUS"
+         RubOneUnit="рубль" RubTwoUnit="рубля" RubFiveUnit="рублей" RubSex="M"
+         KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
+    />
+ 
+    <UAH CurrID="980" CurrName="Украинскі гривні" language="RUS"
+         RubOneUnit="гривня" RubTwoUnit="гривни" RubFiveUnit="гривень" RubSex="F"
+         KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
+    />
+
+    <USD CurrID="840" CurrName="Долари США" language="RUS"
+         RubOneUnit="долар" RubTwoUnit="долара" RubFiveUnit="доларів" RubSex="M"
+         KopOneUnit="цент" KopTwoUnit="цена" KopFiveUnit="центов" KopSex="M"
+    />
+
+    <PER10 CurrID="556" CurrName="Вiдсотки з десятими частинами" language="RUS"
+         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
+         KopOneUnit="десятая процента" KopTwoUnit="десятых процента" KopFiveUnit="десятых процента" KopSex="M"
+    />
+
+    <PER100 CurrID="557" CurrName="Вiдсотки з сотими частинами" language="RUS"
+         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
+         KopOneUnit="сотая процента" KopTwoUnit="сотых процента" KopFiveUnit="сотых процента" KopSex="M"
+    />
+
+    <PER1000 CurrID="558" CurrName="Вiдсотки з тисячними частинами" language="RUS"
+         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
+         KopOneUnit="тысячная процента" KopTwoUnit="тысячных процента" KopFiveUnit="тысячных процента" KopSex="M"
+    />
+
+    <PER10000 CurrID="559" CurrName="Вiдсотки з десяти тисячними частинами" language="RUS"
+         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
+         KopOneUnit="десятитысячная процента" KopTwoUnit="десятитысячные процента" KopFiveUnit="десятитысячных процента" KopSex="M"
+    />
+
+    <RUR CurrID="810" CurrName="Российские рубли" language="UKR"
+         RubOneUnit="рубль" RubTwoUnit="рубля" RubFiveUnit="рублей" RubSex="M"
+         KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
+    />
+ 
+    <UAH CurrID="980" CurrName="Украинскі гривні" language="UKR"
+         RubOneUnit="гривня" RubTwoUnit="гривні" RubFiveUnit="гривень" RubSex="F"
+         KopOneUnit="копійка" KopTwoUnit="копійки" KopFiveUnit="копійок" KopSex="F"
+    />
+
+    <USD CurrID="840" CurrName="Долари США" language="UKR"
+         RubOneUnit="долар" RubTwoUnit="долара" RubFiveUnit="доларів" RubSex="M"
+         KopOneUnit="цент" KopTwoUnit="цена" KopFiveUnit="центів" KopSex="M"
+    />
+
+    <PER10 CurrID="556" CurrName="Вiдсотки з десятими частинами" language="UKR"
+         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
+         KopOneUnit="десята відсотка" KopTwoUnit="десятих відсотка" KopFiveUnit="десятих відсотка" KopSex="M"
+    />
+
+    <PER100 CurrID="557" CurrName="Вiдсотки з сотими частинами" language="UKR"
+         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
+         KopOneUnit="сота відсотка" KopTwoUnit="сотих відсотка" KopFiveUnit="сотих відсотка" KopSex="M"
+    />
+
+    <PER1000 CurrID="558" CurrName="Вiдсотки з тисячними частинами" language="UKR"
+         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
+         KopOneUnit="тисячна відсотка" KopTwoUnit="тисячних відсотка" KopFiveUnit="тисячних відсотка" KopSex="M"
+    />
+
+    <PER10000 CurrID="559" CurrName="Вiдсотки з десяти тисячними частинами" language="UKR"
+         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
+         KopOneUnit="десятитисячна відсотка" KopTwoUnit="десятитисячних відсотка" KopFiveUnit="десятитисячних відсотка" KopSex="M"
+    />
+</CurrencyList>
