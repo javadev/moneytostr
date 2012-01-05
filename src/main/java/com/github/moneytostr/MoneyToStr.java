@@ -220,7 +220,7 @@ public class MoneyToStr {
             triadNum++;
         } while (intPart > 0);
 
-        money2str.append(" " + (theKopeiki > 9 ? theKopeiki : "0" + theKopeiki) + " ");
+        money2str.append(" " + theKopeiki + " ");
         if (theKopeiki == NUM11 || theKopeiki == NUM12) {
             money2str.append(kopFiveUnit);
         } else {

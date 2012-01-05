@@ -93,7 +93,7 @@ public class MoneyToStrTest {
     @Test
     public void checkUAH() {
         assertEquals("сто двадцать три гривни 10 копеек", moneyToStrUAH.convert(V_123L, 10L));
-        assertEquals("сто двадцать три гривни 00 копеек", moneyToStrUAH.convert(V_123L, 0L));
+        assertEquals("сто двадцать три гривни 0 копеек", moneyToStrUAH.convert(V_123L, 0L));
 /*
         assertEquals("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів "
                 + "двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
@@ -143,11 +143,11 @@ public class MoneyToStrTest {
     @Test
     public void checkPER100() {
         assertEquals("одна целая, 10 сотых процента", moneyToStrPER100.convert(V_1_1D));
-        assertEquals("одна целая, 01 сотая процента", moneyToStrPER100.convert(V_1_01D));
-        assertEquals("одна целая, 02 сотых процента", moneyToStrPER100.convert(V_1_02D));
+        assertEquals("одна целая, 1 сотая процента", moneyToStrPER100.convert(V_1_01D));
+        assertEquals("одна целая, 2 сотых процента", moneyToStrPER100.convert(V_1_02D));
         assertEquals("одна целая, 11 сотых процента", moneyToStrPER100.convert(V_1_11D));
-        assertEquals("две целых, 02 сотых процента", moneyToStrPER100.convert(V_2_02D));
-        assertEquals("пять целых, 05 сотых процента", moneyToStrPER100.convert(V_5_05D));
+        assertEquals("две целых, 2 сотых процента", moneyToStrPER100.convert(V_2_02D));
+        assertEquals("пять целых, 5 сотых процента", moneyToStrPER100.convert(V_5_05D));
     }
 
     /** checkException. */
