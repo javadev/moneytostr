@@ -85,81 +85,78 @@ public class MoneyToStrTest {
     /** setUp. */
     @Before
     public void setUp() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.RUS);
-        moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS);
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
+        moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
     }
 
     /** checkUAH. */
     @Test
     public void checkUAH() {
-        assertEquals("сто двадцать три гривни 10 копеек", moneyToStrUAH.convert(V_123L, 10L));
-        assertEquals("сто двадцать три гривни 0 копеек", moneyToStrUAH.convert(V_123L, 0L));
-/*
+        assertEquals("триста гривень 00 копійок", moneyToStrUAH.convert(V_300D));
         assertEquals("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів "
                 + "двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
                 + "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(V_978637287197540L, V_12L));
         assertEquals("двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот "
                 + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
                 + "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(V_234978637287197540L, V_12L));
-        assertEquals("одинадцять гривень 0 копійок", moneyToStrUAH.convert(V_11D));
-        assertEquals("дванадцять гривень 0 копійок", moneyToStrUAH.convert(V_12D));
+        assertEquals("одинадцять гривень 00 копійок", moneyToStrUAH.convert(V_11D));
+        assertEquals("дванадцять гривень 00 копійок", moneyToStrUAH.convert(V_12D));
         assertEquals("одинадцять гривень 12 копійок", moneyToStrUAH.convert(V_11_12D));
         assertEquals("дванадцять гривень 11 копійок", moneyToStrUAH.convert(V_12_11D));
-        assertEquals("триста гривень 0 копійок", moneyToStrUAH.convert(V_300D));
-        assertEquals("чотириста гривень 0 копійок", moneyToStrUAH.convert(V_400D));
-        assertEquals("сімсот гривень 0 копійок", moneyToStrUAH.convert(V_700D));
-        assertEquals("вісімсот гривень 0 копійок", moneyToStrUAH.convert(V_800D));
-        assertEquals("п’ятдесят гривень 0 копійок", moneyToStrUAH.convert(V_50D));
-        assertEquals("шістдесят гривень 0 копійок", moneyToStrUAH.convert(60D));
-        assertEquals("тринадцять гривень 0 копійок", moneyToStrUAH.convert(V_13D));
-        assertEquals("чотирнадцять гривень 0 копійок", moneyToStrUAH.convert(V_14D));
-        assertEquals("п’ятнадцять гривень 0 копійок", moneyToStrUAH.convert(V_15D));
-        assertEquals("шiстнадцять гривень 0 копійок", moneyToStrUAH.convert(V_16D));
-        assertEquals("сiмнадцять гривень 0 копійок", moneyToStrUAH.convert(V_17D));
-        assertEquals("вiсiмнадцять гривень 0 копійок", moneyToStrUAH.convert(V_18D));
-        assertEquals("дев'ятнадцять гривень 0 копійок", moneyToStrUAH.convert(V_19D));
-        assertEquals("одна гривня 0 копійок", moneyToStrUAH.convert(1D));
-        assertEquals("дві гривні 0 копійок", moneyToStrUAH.convert(V_2D));
-        assertEquals("тридцять одна гривня 0 копійок", moneyToStrUAH.convert(V_31D));
-        assertEquals("тридцять дві гривні 0 копійок", moneyToStrUAH.convert(V_32D));
-        assertEquals("одна тисяча гривень 0 копійок", moneyToStrUAH.convert(1000D));
-        assertEquals("дві тисячі гривень 0 копійок", moneyToStrUAH.convert(V_2000D));
-        assertEquals("п’ять тисяч гривень 0 копійок", moneyToStrUAH.convert(V_5000D));
-        assertEquals("один мільйон гривень 0 копійок", moneyToStrUAH.convert(V_1000000D));
-        assertEquals("два мільйона гривень 0 копійок", moneyToStrUAH.convert(V_2000000D));
-        assertEquals("п’ять мільйонів гривень 0 копійок", moneyToStrUAH.convert(V_5000000D));
-        assertEquals("один мільярд гривень 0 копійок", moneyToStrUAH.convert(V_1000000000D));
-        assertEquals("два мільярда гривень 0 копійок", moneyToStrUAH.convert(V_2000000000D));
-        assertEquals("п’ять мільярдів гривень 0 копійок", moneyToStrUAH.convert(V_5000000000D));
-        assertEquals("один трильйон гривень 0 копійок", moneyToStrUAH.convert(V_1000000000000D));
-        assertEquals("два трильйона гривень 0 копійок", moneyToStrUAH.convert(V_2000000000000D));
-        assertEquals("п’ять трильйонів гривень 0 копійок", moneyToStrUAH.convert(V_5000000000000D));
-        assertEquals("одна гривня 1 копійка", moneyToStrUAH.convert(V_1_01D));
-        assertEquals("одна гривня 2 копійки", moneyToStrUAH.convert(V_1_02D));
-*/
+        assertEquals("триста гривень 00 копійок", moneyToStrUAH.convert(V_300D));
+        assertEquals("чотириста гривень 00 копійок", moneyToStrUAH.convert(V_400D));
+        assertEquals("сімсот гривень 00 копійок", moneyToStrUAH.convert(V_700D));
+        assertEquals("вісімсот гривень 00 копійок", moneyToStrUAH.convert(V_800D));
+        assertEquals("п’ятдесят гривень 00 копійок", moneyToStrUAH.convert(V_50D));
+        assertEquals("шістдесят гривень 00 копійок", moneyToStrUAH.convert(60D));
+        assertEquals("тринадцять гривень 00 копійок", moneyToStrUAH.convert(V_13D));
+        assertEquals("чотирнадцять гривень 00 копійок", moneyToStrUAH.convert(V_14D));
+        assertEquals("п’ятнадцять гривень 00 копійок", moneyToStrUAH.convert(V_15D));
+        assertEquals("шiстнадцять гривень 00 копійок", moneyToStrUAH.convert(V_16D));
+        assertEquals("сiмнадцять гривень 00 копійок", moneyToStrUAH.convert(V_17D));
+        assertEquals("вiсiмнадцять гривень 00 копійок", moneyToStrUAH.convert(V_18D));
+        assertEquals("дев'ятнадцять гривень 00 копійок", moneyToStrUAH.convert(V_19D));
+        assertEquals("одна гривня 00 копійок", moneyToStrUAH.convert(1D));
+        assertEquals("дві гривні 00 копійок", moneyToStrUAH.convert(V_2D));
+        assertEquals("тридцять одна гривня 00 копійок", moneyToStrUAH.convert(V_31D));
+        assertEquals("тридцять дві гривні 00 копійок", moneyToStrUAH.convert(V_32D));
+        assertEquals("одна тисяча гривень 00 копійок", moneyToStrUAH.convert(1000D));
+        assertEquals("дві тисячі гривень 00 копійок", moneyToStrUAH.convert(V_2000D));
+        assertEquals("п’ять тисяч гривень 00 копійок", moneyToStrUAH.convert(V_5000D));
+        assertEquals("один мільйон гривень 00 копійок", moneyToStrUAH.convert(V_1000000D));
+        assertEquals("два мільйона гривень 00 копійок", moneyToStrUAH.convert(V_2000000D));
+        assertEquals("п’ять мільйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000D));
+        assertEquals("один мільярд гривень 00 копійок", moneyToStrUAH.convert(V_1000000000D));
+        assertEquals("два мільярда гривень 00 копійок", moneyToStrUAH.convert(V_2000000000D));
+        assertEquals("п’ять мільярдів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000D));
+        assertEquals("один трильйон гривень 00 копійок", moneyToStrUAH.convert(V_1000000000000D));
+        assertEquals("два трильйона гривень 00 копійок", moneyToStrUAH.convert(V_2000000000000D));
+        assertEquals("п’ять трильйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000000D));
+        assertEquals("одна гривня 01 копійка", moneyToStrUAH.convert(V_1_01D));
+        assertEquals("одна гривня 02 копійки", moneyToStrUAH.convert(V_1_02D));
     }
 
     /** checkPER100. */
     @Test
     public void checkPER100() {
-        assertEquals("одна целая, 10 сотых процента", moneyToStrPER100.convert(V_1_1D));
-        assertEquals("одна целая, 1 сотая процента", moneyToStrPER100.convert(V_1_01D));
-        assertEquals("одна целая, 2 сотых процента", moneyToStrPER100.convert(V_1_02D));
-        assertEquals("одна целая, 11 сотых процента", moneyToStrPER100.convert(V_1_11D));
-        assertEquals("две целых, 2 сотых процента", moneyToStrPER100.convert(V_2_02D));
-        assertEquals("пять целых, 5 сотых процента", moneyToStrPER100.convert(V_5_05D));
+        assertEquals("одна целая, десять сотых процента", moneyToStrPER100.convert(V_1_1D));
+        assertEquals("одна целая, одна сотая процента", moneyToStrPER100.convert(V_1_01D));
+        assertEquals("одна целая, две сотых процента", moneyToStrPER100.convert(V_1_02D));
+        assertEquals("одна целая, одинадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
+        assertEquals("две целых, две сотых процента", moneyToStrPER100.convert(V_2_02D));
+        assertEquals("пять целых, пять сотых процента", moneyToStrPER100.convert(V_5_05D));
     }
 
     /** checkException. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException() {
-        moneyToStrUAH = new MoneyToStr(null, null);
+        moneyToStrUAH = new MoneyToStr(null, null, null);
     }
 
     /** checkException2. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException2() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, null);
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, null, null);
     }
 
     /** checkException3. */

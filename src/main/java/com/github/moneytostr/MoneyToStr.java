@@ -28,7 +28,7 @@ import java.io.InputStream;
  */
 public class MoneyToStr {
     private static org.w3c.dom.Document xmlDoc;
-    private static java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
+    private java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
     private static final int NUM0 = 0;
     private static final int NUM1 = 1;
     private static final int NUM2 = 2;
@@ -53,6 +53,7 @@ public class MoneyToStr {
     private String kopTwoUnit;
     private String kopFiveUnit;
     private String kopSex;
+    private Pennies pennies;
 
     static {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -86,19 +87,19 @@ public class MoneyToStr {
         Long intPart = amount.longValue();
         Long fractPart = 0L;
         if (amount.doubleValue() == amount.intValue()) {
-            return new MoneyToStr(Currency.PER10, lang).convert(amount.longValue(), 0L);
+            return new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount.longValue(), 0L);
         } else if (Double.valueOf(amount * NUM10).doubleValue() == Double.valueOf(amount * NUM10).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM10);
-            return new MoneyToStr(Currency.PER10, lang).convert(intPart, fractPart);
+            return new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if (Double.valueOf(amount * NUM100).doubleValue() == Double.valueOf(amount * NUM100).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM100);
-            return new MoneyToStr(Currency.PER100, lang).convert(intPart, fractPart);
+            return new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if (Double.valueOf(amount * NUM1000).doubleValue() == Double.valueOf(amount * NUM1000).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM1000);
-            return new MoneyToStr(Currency.PER1000, lang).convert(intPart, fractPart);
+            return new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
         }
         fractPart = Math.round((amount - intPart) * NUM10000);
-        return new MoneyToStr(Currency.PER10000, lang).convert(intPart, fractPart);
+        return new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
     }
 
     public enum Currency {
@@ -108,6 +109,11 @@ public class MoneyToStr {
     public enum Language {
         RUS, UKR
     }
+
+    public enum Pennies {
+        NUMBER, TEXT
+    }
+
     /**
      * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); Definition for currency is
      * placed into currlist.xml
@@ -115,13 +121,17 @@ public class MoneyToStr {
      * @param theISOstr
      *            the currency
      */
-    public MoneyToStr(Currency currency, Language language) {
+    public MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
             throw new IllegalArgumentException("Currency code is null");
         }
         if (language == null) {
             throw new IllegalArgumentException("Language is null");
         }
+        if (pennies == null) {
+            throw new IllegalArgumentException("Pennies is null");
+        }
+        this.pennies = pennies;
         String theISOstr = currency.name();
         org.w3c.dom.Element languageElement = (org.w3c.dom.Element) (xmlDoc.getElementsByTagName(language.name())).item(0);
         org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
@@ -220,7 +230,11 @@ public class MoneyToStr {
             triadNum++;
         } while (intPart > 0);
 
-        money2str.append(" " + theKopeiki + " ");
+        if (pennies == Pennies.TEXT) {
+            money2str.append(" ").append(triad2Word(theKopeiki, 0L, kopSex));
+        } else {
+            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
+        }
         if (theKopeiki == NUM11 || theKopeiki == NUM12) {
             money2str.append(kopFiveUnit);
         } else {
@@ -345,7 +359,7 @@ public class MoneyToStr {
         triadWord.append(concat(new String[] {""}, messages.get("100_900"))[range.byteValue()] + " ");
 
         range = (triad % NUM100) / NUM10;
-        triadWord.append(concat(new String[] {"", ""}, messages.get("20_90"))[range.byteValue()] + " ");
+        triadWord.append(concat(new String[] {"", ""}, messages.get("20_90"))[range.byteValue()]);
         return range;
     }
 
