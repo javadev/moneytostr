@@ -139,10 +139,10 @@ public class MoneyToStrTest {
     /** checkPER100. */
     @Test
     public void checkPER100() {
-        assertEquals("одна целая, десять сотых процента", moneyToStrPER100.convert(V_1_1D));
         assertEquals("одна целая, одна сотая процента", moneyToStrPER100.convert(V_1_01D));
+        assertEquals("одна целая, десять сотых процента", moneyToStrPER100.convert(V_1_1D));
         assertEquals("одна целая, две сотых процента", moneyToStrPER100.convert(V_1_02D));
-        assertEquals("одна целая, одинадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
+        assertEquals("одна целая, одиннадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
         assertEquals("две целых, две сотых процента", moneyToStrPER100.convert(V_2_02D));
         assertEquals("пять целых, пять сотых процента", moneyToStrPER100.convert(V_5_05D));
     }

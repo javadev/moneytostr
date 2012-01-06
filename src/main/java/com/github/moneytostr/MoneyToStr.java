@@ -356,7 +356,7 @@ public class MoneyToStr {
      */
     private Long check1(Long triad, StringBuilder triadWord) {
         Long range = triad / NUM100;
-        triadWord.append(concat(new String[] {""}, messages.get("100_900"))[range.byteValue()] + " ");
+        triadWord.append(concat(new String[] {""}, messages.get("100_900"))[range.byteValue()]);
 
         range = (triad % NUM100) / NUM10;
         triadWord.append(concat(new String[] {"", ""}, messages.get("20_90"))[range.byteValue()]);
