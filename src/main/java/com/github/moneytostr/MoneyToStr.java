@@ -102,7 +102,7 @@ public class MoneyToStr {
     }
 
     public enum Currency {
-        UAH, RUB, PER10, PER100, PER1000, PER10000
+        UAH, RUR, PER10, PER100, PER1000, PER10000
     }
     
     public enum Language {
