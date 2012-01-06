@@ -4,6 +4,7 @@
     "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 
 <module name="Checker">
+    <property name="charset" value="UTF-8"/>
     <property name="severity" value="error"/>
 <!--    <module name="PackageHtml">
         <property name="severity" value="warning"/>
@@ -44,7 +45,6 @@
     </module>
     <module name="TreeWalker">
         <property name="tabWidth" value="4" />
-<!--        <property name="charset" value="UTF-8"/> -->
         <module name="FileContentsHolder"/>
         <module name="JavadocType">
             <property name="scope" value="protected"/>
