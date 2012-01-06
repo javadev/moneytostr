@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2012 Valentyn V Kolesnikov
+ * Copyright 2012 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,11 @@ import java.io.InputStream;
  * @version $Revision$ $Date$
  */
 public class MoneyToStr {
+    private static final int INDEX_3 = 3;
+    private static final int INDEX_2 = 2;
+    private static final int INDEX_1 = 1;
+    private static final int INDEX_0 = 0;
     private static org.w3c.dom.Document xmlDoc;
-    private java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
     private static final int NUM0 = 0;
     private static final int NUM1 = 1;
     private static final int NUM2 = 2;
@@ -45,6 +48,7 @@ public class MoneyToStr {
     private static final int NUM100 = 100;
     private static final int NUM1000 = 1000;
     private static final int NUM10000 = 10000;
+    private java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
     private String rubOneUnit;
     private String rubTwoUnit;
     private String rubFiveUnit;
@@ -80,46 +84,45 @@ public class MoneyToStr {
         }
     }
 
-    public static String moneyToStrPercent(Double amount, Language lang) {
-        if (amount == null) {
-            throw new IllegalArgumentException("amount is null");
-        }
-        Long intPart = amount.longValue();
-        Long fractPart = 0L;
-        if (amount.doubleValue() == amount.intValue()) {
-            return new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount.longValue(), 0L);
-        } else if (Double.valueOf(amount * NUM10).doubleValue() == Double.valueOf(amount * NUM10).intValue()) {
-            fractPart = Math.round((amount - intPart) * NUM10);
-            return new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
-        } else if (Double.valueOf(amount * NUM100).doubleValue() == Double.valueOf(amount * NUM100).intValue()) {
-            fractPart = Math.round((amount - intPart) * NUM100);
-            return new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
-        } else if (Double.valueOf(amount * NUM1000).doubleValue() == Double.valueOf(amount * NUM1000).intValue()) {
-            fractPart = Math.round((amount - intPart) * NUM1000);
-            return new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
-        }
-        fractPart = Math.round((amount - intPart) * NUM10000);
-        return new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
-    }
-
+    /** Currency. */
     public enum Currency {
-        UAH, RUR, PER10, PER100, PER1000, PER10000
-    }
-    
-    public enum Language {
-        RUS, UKR
+        /**.*/
+        UAH,
+        /**.*/
+        RUR,
+        /**.*/
+        PER10,
+        /**.*/
+        PER100,
+        /**.*/
+        PER1000,
+        /**.*/
+        PER10000
     }
 
+    /** Language. */
+    public enum Language {
+        /**.*/
+        RUS,
+        /**.*/
+        UKR
+    }
+
+    /** Pennies. */
     public enum Pennies {
-        NUMBER, TEXT
+        /**.*/
+        NUMBER,
+        /**.*/
+        TEXT
     }
 
     /**
      * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); Definition for currency is
      * placed into currlist.xml
      *
-     * @param theISOstr
-     *            the currency
+     * @param currency the currency (UAH, RUR)
+     * @param language the language (UKR, RUS)
+     * @param pennies the pennies (NUMBER, TEXT
      */
     public MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
@@ -133,7 +136,8 @@ public class MoneyToStr {
         }
         this.pennies = pennies;
         String theISOstr = currency.name();
-        org.w3c.dom.Element languageElement = (org.w3c.dom.Element) (xmlDoc.getElementsByTagName(language.name())).item(0);
+        org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
+            (xmlDoc.getElementsByTagName(language.name())).item(0);
         org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
         for (int index = 0; index < items.getLength(); index += 1) {
             org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
@@ -162,6 +166,37 @@ public class MoneyToStr {
     }
 
     /**
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR)
+     * @return the string of percent
+     */
+    public static String percentToStr(Double amount, Language lang) {
+        if (amount == null) {
+            throw new IllegalArgumentException("amount is null");
+        }
+        Long intPart = amount.longValue();
+        Long fractPart = 0L;
+        String result;
+        if (amount.doubleValue() == amount.intValue()) {
+            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount.longValue(), 0L);
+        } else if (Double.valueOf(amount * NUM10).doubleValue() == Double.valueOf(amount * NUM10).intValue()) {
+            fractPart = Math.round((amount - intPart) * NUM10);
+            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
+        } else if (Double.valueOf(amount * NUM100).doubleValue() == Double.valueOf(amount * NUM100).intValue()) {
+            fractPart = Math.round((amount - intPart) * NUM100);
+            result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
+        } else if (Double.valueOf(amount * NUM1000).doubleValue() == Double.valueOf(amount * NUM1000).intValue()) {
+            fractPart = Math.round((amount - intPart) * NUM1000);
+            result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
+        } else {
+            fractPart = Math.round((amount - intPart) * NUM10000);
+            result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
+        }
+        return result;
+    }
+
+    /**
      * Converts double value to the text description.
      *
      * @param theMoney
@@ -179,7 +214,7 @@ public class MoneyToStr {
 
     /**
      * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
-     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 0 копійок
+     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
      *
      * @param theMoney
      *            the amount of money major currency
@@ -314,24 +349,24 @@ public class MoneyToStr {
             switch (range.byteValue()) {
             case NUM1:
                 if (triadNum == NUM1) {
-                    triadWord.append(messages.get("1")[0] + " ");
+                    triadWord.append(messages.get("1")[INDEX_0] + " ");
                 } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
-                    triadWord.append(messages.get("1")[1] + " ");
+                    triadWord.append(messages.get("1")[INDEX_1] + " ");
                 } else if ("M".equals(sex)) {
-                    triadWord.append(messages.get("1")[2] + " ");
+                    triadWord.append(messages.get("1")[INDEX_2] + " ");
                 } else if ("F".equals(sex)) {
-                    triadWord.append(messages.get("1")[3] + " ");
+                    triadWord.append(messages.get("1")[INDEX_3] + " ");
                 }
                 break;
             case NUM2:
                 if (triadNum == NUM1) {
-                    triadWord.append(messages.get("2")[0] + " ");
+                    triadWord.append(messages.get("2")[INDEX_0] + " ");
                 } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
-                    triadWord.append(messages.get("2")[1] + " ");
+                    triadWord.append(messages.get("2")[INDEX_1] + " ");
                 } else if ("M".equals(sex)) {
-                    triadWord.append(messages.get("2")[2] + " ");
+                    triadWord.append(messages.get("2")[INDEX_2] + " ");
                 } else if ("F".equals(sex)) {
-                    triadWord.append(messages.get("2")[3] + " ");
+                    triadWord.append(messages.get("2")[INDEX_3] + " ");
                 }
                 break;
             case NUM3:
