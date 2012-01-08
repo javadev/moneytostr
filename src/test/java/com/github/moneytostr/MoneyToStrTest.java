@@ -78,6 +78,7 @@ public class MoneyToStrTest {
     private static final double V_1_11D = 1.11D;
     private static final double V_2_02D = 2.02D;
     private static final double V_5_05D = 5.05D;
+    private static final double V_5_0005D = 5.0005D;
 
     private MoneyToStr moneyToStrUAH;
     private MoneyToStr moneyToStrPER100;
@@ -145,6 +146,18 @@ public class MoneyToStrTest {
         assertEquals("одна целая, одиннадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
         assertEquals("две целых, две сотых процента", moneyToStrPER100.convert(V_2_02D));
         assertEquals("пять целых, пять сотых процента", moneyToStrPER100.convert(V_5_05D));
+    }
+
+    /** check percentToStr. */
+    @Test
+    public void checkPercentToStrRus() {
+        assertEquals("одна целая, одна сотая процента", MoneyToStr.percentToStr(V_1_01D, MoneyToStr.Language.RUS));
+        assertEquals("одна целая, одна десятая процента", MoneyToStr.percentToStr(V_1_1D, MoneyToStr.Language.RUS));
+        assertEquals("одна целая, две сотых процента", MoneyToStr.percentToStr(V_1_02D, MoneyToStr.Language.RUS));
+        assertEquals("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(V_1_11D, MoneyToStr.Language.RUS));
+        assertEquals("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, MoneyToStr.Language.RUS));
+        assertEquals("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, MoneyToStr.Language.RUS));
+        assertEquals("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, MoneyToStr.Language.RUS));
     }
 
     /** checkException. */
