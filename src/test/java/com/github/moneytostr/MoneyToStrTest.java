@@ -79,14 +79,17 @@ public class MoneyToStrTest {
     private static final double V_2_02D = 2.02D;
     private static final double V_5_05D = 5.05D;
     private static final double V_5_0005D = 5.0005D;
+    private static final double V_777_77D = 777.77D;
 
     private MoneyToStr moneyToStrUAH;
+    private MoneyToStr moneyToStrRUR;
     private MoneyToStr moneyToStrPER100;
 
     /** setUp. */
     @Before
     public void setUp() {
         moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
+        moneyToStrRUR = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
         moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
     }
 
@@ -135,6 +138,12 @@ public class MoneyToStrTest {
         assertEquals("п’ять трильйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000000D));
         assertEquals("одна гривня 01 копійка", moneyToStrUAH.convert(V_1_01D));
         assertEquals("одна гривня 02 копійки", moneyToStrUAH.convert(V_1_02D));
+    }
+
+    /** checkRUR. */
+    @Test
+    public void checkRUR() {
+        assertEquals("семьсот семьдесят семь рублей 77 копеек", moneyToStrRUR.convert(V_777_77D));
     }
 
     /** checkPER100. */
