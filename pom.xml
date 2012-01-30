@@ -8,7 +8,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>Money to str converter</name>
   <description>The utility class to converts money and percent to the Russian/Ukrainian languages</description>
-  
+
   <build>
         <resources>
             <resource>
