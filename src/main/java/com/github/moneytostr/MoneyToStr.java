@@ -57,7 +57,8 @@ public class MoneyToStr {
     private String kopTwoUnit;
     private String kopFiveUnit;
     private String kopSex;
-    private Pennies pennies;
+    private final Pennies pennies;
+    private final Currency currency;
 
     static {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -136,6 +137,7 @@ public class MoneyToStr {
             throw new IllegalArgumentException("Pennies is null");
         }
         this.pennies = pennies;
+        this.currency = currency;
         String theISOstr = currency.name();
         org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
             (xmlDoc.getElementsByTagName(language.name())).item(0);
@@ -213,6 +215,9 @@ public class MoneyToStr {
         }
         Long intPart = theMoney.longValue();
         Long fractPart = Math.round((theMoney - intPart) * NUM100);
+        if (currency == Currency.PER1000) {
+            fractPart = Math.round((theMoney - intPart) * NUM1000);
+        }
         return convert(intPart, fractPart);
     }
 
@@ -270,7 +275,7 @@ public class MoneyToStr {
         } while (intPart > 0);
 
         if (pennies == Pennies.TEXT) {
-            money2str.append(" ").append(triad2Word(theKopeiki, 0L, kopSex));
+            money2str.append(" ").append(theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }

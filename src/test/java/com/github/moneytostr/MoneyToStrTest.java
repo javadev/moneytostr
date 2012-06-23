@@ -84,6 +84,7 @@ public class MoneyToStrTest {
     private MoneyToStr moneyToStrUAH;
     private MoneyToStr moneyToStrRUR;
     private MoneyToStr moneyToStrPER100;
+    private MoneyToStr moneyToStrPER1000;
 
     /** setUp. */
     @Before
@@ -91,6 +92,7 @@ public class MoneyToStrTest {
         moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
         moneyToStrRUR = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
         moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
+        moneyToStrPER1000 = new MoneyToStr(MoneyToStr.Currency.PER1000, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
     }
 
     /** checkUAH. */
@@ -155,6 +157,16 @@ public class MoneyToStrTest {
         assertEquals("одна целая, одиннадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
         assertEquals("две целых, две сотых процента", moneyToStrPER100.convert(V_2_02D));
         assertEquals("пять целых, пять сотых процента", moneyToStrPER100.convert(V_5_05D));
+    }
+
+    @Test
+    public void checkPER1000() {
+        assertEquals("двенадцать целых, триста сорок шесть тысячных процента", moneyToStrPER1000.convert(12.346));
+    }
+
+    @Test
+    public void percentToStr() {
+        assertEquals("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12D, MoneyToStr.Language.RUS));
     }
 
     /** check percentToStr. */
