@@ -369,8 +369,8 @@ var StringBuilder = new Class({
             return this;
     },
         
-    insert: function(index, text) {
-            this._buffer[index] = text;
+    insert: function(index, text) { 
+            this._buffer.splice(index, 0, text);
             return this;
     },
 
@@ -466,11 +466,12 @@ var MoneyToStr = new Class({
         }
         do {
             theTriad = parseInt(intPart % this.Static.NUM1000);
-console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' + this.Static.NUM1000);
+console.log("intPart - " + intPart + ", theTriad - " + theTriad);
             money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
+console.log("money2str - " + money2str.toString() + ', triadNum - ' + triadNum);
             if (triadNum == 0) {
-                var range10 = (theTriad % this.Static.NUM100) / this.Static.NUM10;
-                var range = theTriad % this.Static.NUM10;
+                var range10 = parseInt((theTriad % this.Static.NUM100) / this.Static.NUM10);
+                var range = parseInt(theTriad % this.Static.NUM10);
                 if (range10 == this.Static.NUM1) {
                     money2str.append(this.rubFiveUnit);
                 } else {
@@ -489,12 +490,13 @@ console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' +
                     }
                 }
             }
-            intPart = intPart / this.Static.NUM1000;
+            intPart = parseInt(intPart / this.Static.NUM1000);
             triadNum++;
         } while (intPart > 0);
 
+console.log("this.pennies - " + this.pennies + ", Pennies.TEXT - " + Pennies.TEXT);
         if (this.pennies == Pennies.TEXT) {
-            money2str.append(" ").append(theKopeiki == 0 ? messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
+            money2str.append(" ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
@@ -528,6 +530,7 @@ console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' +
 
         var range10 = range;
         range = parseInt(triad % this.Static.NUM10);
+console.log("range - " + range + ", triad - " + triad + ", triadNum - " + triadNum);
         this.check2(triadNum, sex, triadWord, triad, range10);
         switch (triadNum) {
         case this.Static.NUM0:
@@ -558,6 +561,7 @@ console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' +
             triadWord.append("??? ");
             break;
         }
+console.log("triadWord - " + triadWord.toString());
         return triadWord.toString();
     },
 
@@ -569,9 +573,9 @@ console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' +
      * @param range10 the range 10
      */
     check2: function(triadNum, sex, triadWord, triad, range10) {
-        var range = triad % this.Static.NUM10;
+        var range = parseInt(triad % this.Static.NUM10);
         if (range10 == 1) {
-            triadWord.append(messages["10_19"][range] + " ");
+            triadWord.append(this.messages["10_19"][range] + " ");
         } else {
             switch (range) {
             case this.Static.NUM1:
@@ -617,11 +621,12 @@ console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' +
      * @return the range
      */
     check1: function(triad, triadWord) {
-        var range = triad / this.Static.NUM100;
+        var range = parseInt(triad / this.Static.NUM100);
         triadWord.append([""].concat(this.messages["100_900"])[range]);
 
-        range = (triad % this.Static.NUM100) / this.Static.NUM10;
+        range = parseInt((triad % this.Static.NUM100) / this.Static.NUM10);
         triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
+console.log("check1 triadWord - " + triadWord.toString());
         return range;
     }
 });
