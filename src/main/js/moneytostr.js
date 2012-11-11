@@ -431,7 +431,7 @@ var MoneyToStr = new Class({
         var theTriad = 0;
         var intPart = theMoney;
         if (intPart == 0) {
-            money2str.append('messages.get("0")[0] + " "');
+            money2str.append(messages["0"][0] + " "');
         }
 /*
 
@@ -490,7 +490,7 @@ var MoneyToStr = new Class({
         }
         return money2str.toString().trim();
 */
-        return money2str.append(12).append(' ').append(20).toString();
+        return money2str.toString().trim();
     }
 
 });
