@@ -322,36 +322,42 @@ var currencyList =
 */
 
     /** Currency. */
-var Currency = {
+var Currency = new Class({
+    Static: {
         /**.*/
-        UAH: '',
+        UAH: 'UAH',
         /**.*/
-        RUR: '',
+        RUR: 'RUR',
         /**.*/
-        PER10: '',
+        PER10: 'PER10',
         /**.*/
-        PER100: '',
+        PER100: 'PER100',
         /**.*/
-        PER1000: '',
+        PER1000: 'PER1000',
         /**.*/
-        PER10000: ''
-};
+        PER10000: 'PER10000'
+    }
+});
 
     /** Language. */
-var Language = {
+var Language = new Class({
+    Static: {
         /**.*/
-        RUS: '',
+        RUS: 'RUS',
         /**.*/
-        UKR: ''
-};
+        UKR: 'UKR'
+    }
+});
 
     /** Pennies. */
-var Pennies = {
+var Pennies = new Class({
+    Static: {
         /**.*/
-        NUMBER: '',
+        NUMBER: 'NUMBER',
         /**.*/
-        TEXT: ''
-};
+        TEXT: 'TEXT'
+    }
+});
 
 var StringBuilder = new Class({
     initialize: function() {
@@ -363,13 +369,38 @@ var StringBuilder = new Class({
             return this;
     },
         
+    insert: function(index, text) {
+            this._buffer[index] = text;
+            return this;
+    },
+
     toString: function() {
             return this._buffer.join("");
     }
 });
 
 var MoneyToStr = new Class({
-
+    Static: {
+        NUM0: 0,
+        NUM1: 1,
+        NUM2: 2,
+        NUM3: 3,
+        NUM4: 4,
+        NUM5: 5,
+        NUM6: 6,
+        NUM7: 7,
+        NUM8: 8,
+        NUM9: 9,
+        NUM10: 10,
+        NUM11: 11,
+        NUM12: 12,
+        NUM100: 100,
+        NUM1000: 1000,
+        INDEX_0: 0,
+        INDEX_1: 1,
+        INDEX_2: 2,
+        INDEX_3: 3
+    },
     initialize: function(currency, language, pennies){
         this.currency = currency;
         this.language = language;
@@ -431,66 +462,165 @@ var MoneyToStr = new Class({
         var theTriad = 0;
         var intPart = theMoney;
         if (intPart == 0) {
-            money2str.append(messages["0"][0] + " "');
-        }
-/*
-
-        if (intPart == 0) {
-            money2str.append(messages.get("0")[0] + " ");
+            money2str.append(messages["0"][0] + " ");
         }
         do {
-            theTriad = intPart % NUM1000;
-            money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
+            theTriad = intPart % this.NUM1000;
+//            money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
             if (triadNum == 0) {
-                Long range10 = (theTriad % NUM100) / NUM10;
-                Long range = theTriad % NUM10;
-                if (range10 == NUM1) {
-                    money2str.append(rubFiveUnit);
+                var range10 = (theTriad % this.NUM100) / this.NUM10;
+                var range = theTriad % this.NUM10;
+                if (range10 == this.NUM1) {
+                    money2str.append(this.rubFiveUnit);
                 } else {
-                    switch (range.byteValue()) {
-                    case NUM1:
-                        money2str.append(rubOneUnit);
+                    switch (range) {
+                    case this.NUM1:
+                        money2str.append(this.rubOneUnit);
                         break;
-                    case NUM2:
-                    case NUM3:
-                    case NUM4:
-                        money2str.append(rubTwoUnit);
+                    case this.NUM2:
+                    case this.NUM3:
+                    case this.NUM4:
+                        money2str.append(this.rubTwoUnit);
                         break;
                     default:
-                        money2str.append(rubFiveUnit);
+                        money2str.append(this.rubFiveUnit);
                         break;
                     }
                 }
             }
-            intPart = intPart / NUM1000;
+            intPart = intPart / this.NUM1000;
             triadNum++;
         } while (intPart > 0);
 
-        if (pennies == Pennies.TEXT) {
-            money2str.append(" ").append(theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
+        if (this.pennies == Pennies.TEXT) {
+            money2str.append(" ").append(theKopeiki == 0 ? messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+        if (theKopeiki == this.NUM11 || theKopeiki == this.NUM12) {
             money2str.append(kopFiveUnit);
         } else {
-            switch ((byte) (theKopeiki % NUM10)) {
-            case NUM1:
-                money2str.append(kopOneUnit);
+            switch (theKopeiki % this.NUM10) {
+            case this.NUM1:
+                money2str.append(this.kopOneUnit);
                 break;
-            case NUM2:
-            case NUM3:
-            case NUM4:
-                money2str.append(kopTwoUnit);
+            case this.NUM2:
+            case this.NUM3:
+            case this.NUM4:
+                money2str.append(this.kopTwoUnit);
                 break;
             default:
-                money2str.append(kopFiveUnit);
+                money2str.append(this.kopFiveUnit);
                 break;
             }
         }
         return money2str.toString().trim();
-*/
-        return money2str.toString().trim();
-    }
+    },
+    triad2Word: function(triad, triadNum, sex) {
+        var triadWord = new StringBuilder();
 
+        if (triad == 0) {
+            return "";
+        }
+
+        var range = this.check1(triad, triadWord);
+
+        var range10 = range;
+        range = triad % this.NUM10;
+        this.check2(triadNum, sex, triadWord, triad, range10);
+        switch (triadNum) {
+        case this.NUM0:
+            break;
+        case this.NUM1:
+        case this.NUM2:
+        case this.NUM3:
+        case this.NUM4:
+            if (range10 == this.NUM1) {
+                triadWord.append(messages["1000_10"][triadNum - 1] + " ");
+            } else {
+                switch (range) {
+                case this.NUM1:
+                    triadWord.append(messages["1000_1"][triadNum - 1] + " ");
+                    break;
+                case this.NUM2:
+                case this.NUM3:
+                case this.NUM4:
+                    triadWord.append(messages["1000_234"][triadNum - 1] + " ");
+                    break;
+                default:
+                    triadWord.append(messages["1000_5"][triadNum - 1] + " ");
+                    break;
+                }
+            }
+            break;
+        default:
+            triadWord.append("??? ");
+            break;
+        }
+        return triadWord.toString();
+    },
+
+    /**
+     * @param triadNum the triad num
+     * @param sex the sex
+     * @param triadWord the triad word
+     * @param triad the triad
+     * @param range10 the range 10
+     */
+    check2: function(triadNum, sex, triadWord, triad, range10) {
+        var range = triad % this.NUM10;
+        if (range10 == 1) {
+            triadWord.append(messages["10_19"][range] + " ");
+        } else {
+            switch (range) {
+            case this.NUM1:
+                if (triadNum == this.NUM1) {
+                    triadWord.append(this.messages["1"][this.INDEX_0] + " ");
+                } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
+                    triadWord.append(this.messages["1"][this.INDEX_1] + " ");
+                } else if ("M".equals(sex)) {
+                    triadWord.append(this.messages["1"][this.INDEX_2] + " ");
+                } else if ("F".equals(sex)) {
+                    triadWord.append(this.messages["1"][this.INDEX_3] + " ");
+                }
+                break;
+            case this.NUM2:
+                if (triadNum == this.NUM1) {
+                    triadWord.append(this.messages["2"][this.INDEX_0] + " ");
+                } else if (triadNum == this.NUM2 || triadNum == this.NUM3 || triadNum == this.NUM4) {
+                    triadWord.append(this.messages["2"][this.INDEX_1] + " ");
+                } else if ("M".equals(sex)) {
+                    triadWord.append(this.messages["2"][this.INDEX_2] + " ");
+                } else if ("F".equals(sex)) {
+                    triadWord.append(this.messages["2"][this.INDEX_3] + " ");
+                }
+                break;
+            case this.NUM3:
+            case this.NUM4:
+            case this.NUM5:
+            case this.NUM6:
+            case this.NUM7:
+            case this.NUM8:
+            case this.NUM9:
+                triadWord.append(["", "", ""].concat(this.messages["3_9"])[range] + " ");
+                break;
+            default:
+                break;
+            }
+        }
+    },
+
+    /**
+     * @param triad the triad
+     * @param triadWord the triad word
+     * @return the range
+     */
+    check1: function(triad, triadWord) {
+        var range = triad / this.NUM100;
+        triadWord.append([""].concat(this.messages["100_900"])[range]);
+
+        range = (triad % this.NUM100) / this.NUM10;
+        triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
+        return range;
+    }
 });
