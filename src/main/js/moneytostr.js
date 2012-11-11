@@ -359,6 +359,87 @@ var MoneyToStr = new Class({
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
+    },
+
+    /**
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
+     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     *
+     * @param theMoney
+     *            the amount of money major currency
+     * @param theKopeiki
+     *            the amount of money minor currency
+     * @return the string description of money value
+     */
+    convert: function(theMoney, theKopeiki) {
+/*
+        if (theMoney == null) {
+            throw new IllegalArgumentException("theMoney is null");
+        }
+        if (theKopeiki == null) {
+            throw new IllegalArgumentException("theKopeiki is null");
+        }
+        StringBuilder money2str = new StringBuilder();
+        Long triadNum = 0L;
+        Long theTriad;
+
+        Long intPart = theMoney;
+        if (intPart == 0) {
+            money2str.append(messages.get("0")[0] + " ");
+        }
+        do {
+            theTriad = intPart % NUM1000;
+            money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
+            if (triadNum == 0) {
+                Long range10 = (theTriad % NUM100) / NUM10;
+                Long range = theTriad % NUM10;
+                if (range10 == NUM1) {
+                    money2str.append(rubFiveUnit);
+                } else {
+                    switch (range.byteValue()) {
+                    case NUM1:
+                        money2str.append(rubOneUnit);
+                        break;
+                    case NUM2:
+                    case NUM3:
+                    case NUM4:
+                        money2str.append(rubTwoUnit);
+                        break;
+                    default:
+                        money2str.append(rubFiveUnit);
+                        break;
+                    }
+                }
+            }
+            intPart = intPart / NUM1000;
+            triadNum++;
+        } while (intPart > 0);
+
+        if (pennies == Pennies.TEXT) {
+            money2str.append(" ").append(theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
+        } else {
+            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
+        }
+        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+            money2str.append(kopFiveUnit);
+        } else {
+            switch ((byte) (theKopeiki % NUM10)) {
+            case NUM1:
+                money2str.append(kopOneUnit);
+                break;
+            case NUM2:
+            case NUM3:
+            case NUM4:
+                money2str.append(kopTwoUnit);
+                break;
+            default:
+                money2str.append(kopFiveUnit);
+                break;
+            }
+        }
+        return money2str.toString().trim();
+*/
+        return theMoney + ' '+ theKopeiki;
     }
 
 });
