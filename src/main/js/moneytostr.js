@@ -430,14 +430,14 @@ var MoneyToStr = new Class({
         if (!theISOElement) {
             throw new Error("Currency not found " + theISOstr);
         }
-        this.rubOneUnit = theISOElement["RubOneUnit"];
-        this.rubTwoUnit = theISOElement["RubTwoUnit"];
-        this.rubFiveUnit = theISOElement["RubFiveUnit"];
-        this.kopOneUnit = theISOElement["KopOneUnit"];
-        this.kopTwoUnit = theISOElement["KopTwoUnit"];
-        this.kopFiveUnit = theISOElement["KopFiveUnit"];
-        this.rubSex = theISOElement["RubSex"];
-        this.kopSex = theISOElement["KopSex"];
+        this.rubOneUnit = theISOElement["-RubOneUnit"];
+        this.rubTwoUnit = theISOElement["-RubTwoUnit"];
+        this.rubFiveUnit = theISOElement["-RubFiveUnit"];
+        this.kopOneUnit = theISOElement["-KopOneUnit"];
+        this.kopTwoUnit = theISOElement["-KopTwoUnit"];
+        this.kopFiveUnit = theISOElement["-KopFiveUnit"];
+        this.rubSex = theISOElement["-RubSex"];
+        this.kopSex = theISOElement["-KopSex"];
     },
 
     /**
@@ -466,9 +466,7 @@ var MoneyToStr = new Class({
         }
         do {
             theTriad = parseInt(intPart % this.Static.NUM1000);
-console.log("intPart - " + intPart + ", theTriad - " + theTriad);
             money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
-console.log("money2str - " + money2str.toString() + ', triadNum - ' + triadNum);
             if (triadNum == 0) {
                 var range10 = parseInt((theTriad % this.Static.NUM100) / this.Static.NUM10);
                 var range = parseInt(theTriad % this.Static.NUM10);
@@ -495,15 +493,15 @@ console.log("money2str - " + money2str.toString() + ', triadNum - ' + triadNum);
         } while (intPart > 0);
 
 console.log("this.pennies - " + this.pennies + ", Pennies.TEXT - " + Pennies.TEXT);
-        if (this.pennies == Pennies.TEXT) {
+        if (this.pennies == 'TEXT') {
             money2str.append(" ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
         if (theKopeiki == this.Static.NUM11 || theKopeiki == this.Static.NUM12) {
-            money2str.append(kopFiveUnit);
+            money2str.append(this.kopFiveUnit);
         } else {
-            switch (theKopeiki % this.Static.NUM10) {
+            switch (parseInt(theKopeiki % this.Static.NUM10)) {
             case this.Static.NUM1:
                 money2str.append(this.kopOneUnit);
                 break;
@@ -561,7 +559,6 @@ console.log("range - " + range + ", triad - " + triad + ", triadNum - " + triadN
             triadWord.append("??? ");
             break;
         }
-console.log("triadWord - " + triadWord.toString());
         return triadWord.toString();
     },
 
@@ -626,7 +623,6 @@ console.log("triadWord - " + triadWord.toString());
 
         range = parseInt((triad % this.Static.NUM100) / this.Static.NUM10);
         triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
-console.log("check1 triadWord - " + triadWord.toString());
         return range;
     }
 });
