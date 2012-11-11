@@ -377,16 +377,36 @@ var MoneyToStr = new Class({
         var languageElement = currencyList['CurrencyList']['language']['-value'];
         var items = currencyList['CurrencyList'][languageElement]['item'];
         this.messages = {};
-        alert(items);
         for (var index in items) {
             var languageItem = items[index];
             for (var litem in languageItem) {
+                if (languageItem["-text"]) {
                 console.log(litem + ' ' + languageItem[litem]);
+                }
             }
             if (languageItem["-text"]) {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
+        var currencyItem = currencyList['CurrencyList'][currency]
+        var theISOElement = null;
+        for (var index in currencyItem) {
+            if (currencyItem[index]["-language"] == language) {
+                theISOElement = currencyItem[index];
+                break;
+            }
+        }
+        if (!theISOElement) {
+            throw new Error("Currency not found " + theISOstr);
+        }
+        this.rubOneUnit = theISOElement["RubOneUnit"];
+        this.rubTwoUnit = theISOElement["RubTwoUnit"];
+        this.rubFiveUnit = theISOElement["RubFiveUnit"];
+        this.kopOneUnit = theISOElement["KopOneUnit"];
+        this.kopTwoUnit = theISOElement["KopTwoUnit"];
+        this.kopFiveUnit = theISOElement["KopFiveUnit"];
+        this.rubSex = theISOElement["RubSex"];
+        this.kopSex = theISOElement["KopSex"];
     },
 
     /**
