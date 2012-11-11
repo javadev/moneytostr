@@ -374,6 +374,19 @@ var MoneyToStr = new Class({
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
+        var languageElement = currencyList['CurrencyList']['language']['-value'];
+        var items = currencyList['CurrencyList'][languageElement]['item'];
+        this.messages = {};
+        alert(items);
+        for (var index in items) {
+            var languageItem = items[index];
+            for (var litem in languageItem) {
+                console.log(litem + ' ' + languageItem[litem]);
+            }
+            if (languageItem["-text"]) {
+                this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
+            }
+        }
     },
 
     /**
