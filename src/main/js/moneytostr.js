@@ -465,21 +465,22 @@ var MoneyToStr = new Class({
             money2str.append(messages["0"][0] + " ");
         }
         do {
-            theTriad = intPart % this.NUM1000;
-//            money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
+            theTriad = parseInt(intPart % this.Static.NUM1000);
+console.log("theTriad - " + theTriad + ' ' + (12 % 1000) + ' ' + intPart + ' ' + this.Static.NUM1000);
+            money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
             if (triadNum == 0) {
-                var range10 = (theTriad % this.NUM100) / this.NUM10;
-                var range = theTriad % this.NUM10;
-                if (range10 == this.NUM1) {
+                var range10 = (theTriad % this.Static.NUM100) / this.Static.NUM10;
+                var range = theTriad % this.Static.NUM10;
+                if (range10 == this.Static.NUM1) {
                     money2str.append(this.rubFiveUnit);
                 } else {
                     switch (range) {
-                    case this.NUM1:
+                    case this.Static.NUM1:
                         money2str.append(this.rubOneUnit);
                         break;
-                    case this.NUM2:
-                    case this.NUM3:
-                    case this.NUM4:
+                    case this.Static.NUM2:
+                    case this.Static.NUM3:
+                    case this.Static.NUM4:
                         money2str.append(this.rubTwoUnit);
                         break;
                     default:
@@ -488,7 +489,7 @@ var MoneyToStr = new Class({
                     }
                 }
             }
-            intPart = intPart / this.NUM1000;
+            intPart = intPart / this.Static.NUM1000;
             triadNum++;
         } while (intPart > 0);
 
@@ -497,16 +498,16 @@ var MoneyToStr = new Class({
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == this.NUM11 || theKopeiki == this.NUM12) {
+        if (theKopeiki == this.Static.NUM11 || theKopeiki == this.Static.NUM12) {
             money2str.append(kopFiveUnit);
         } else {
-            switch (theKopeiki % this.NUM10) {
-            case this.NUM1:
+            switch (theKopeiki % this.Static.NUM10) {
+            case this.Static.NUM1:
                 money2str.append(this.kopOneUnit);
                 break;
-            case this.NUM2:
-            case this.NUM3:
-            case this.NUM4:
+            case this.Static.NUM2:
+            case this.Static.NUM3:
+            case this.Static.NUM4:
                 money2str.append(this.kopTwoUnit);
                 break;
             default:
@@ -526,29 +527,29 @@ var MoneyToStr = new Class({
         var range = this.check1(triad, triadWord);
 
         var range10 = range;
-        range = triad % this.NUM10;
+        range = parseInt(triad % this.Static.NUM10);
         this.check2(triadNum, sex, triadWord, triad, range10);
         switch (triadNum) {
-        case this.NUM0:
+        case this.Static.NUM0:
             break;
-        case this.NUM1:
-        case this.NUM2:
-        case this.NUM3:
-        case this.NUM4:
-            if (range10 == this.NUM1) {
-                triadWord.append(messages["1000_10"][triadNum - 1] + " ");
+        case this.Static.NUM1:
+        case this.Static.NUM2:
+        case this.Static.NUM3:
+        case this.Static.NUM4:
+            if (range10 == this.Static.NUM1) {
+                triadWord.append(this.messages["1000_10"][triadNum - 1] + " ");
             } else {
                 switch (range) {
-                case this.NUM1:
-                    triadWord.append(messages["1000_1"][triadNum - 1] + " ");
+                case this.Static.NUM1:
+                    triadWord.append(this.messages["1000_1"][triadNum - 1] + " ");
                     break;
-                case this.NUM2:
-                case this.NUM3:
-                case this.NUM4:
-                    triadWord.append(messages["1000_234"][triadNum - 1] + " ");
+                case this.Static.NUM2:
+                case this.Static.NUM3:
+                case this.Static.NUM4:
+                    triadWord.append(this.messages["1000_234"][triadNum - 1] + " ");
                     break;
                 default:
-                    triadWord.append(messages["1000_5"][triadNum - 1] + " ");
+                    triadWord.append(this.messages["1000_5"][triadNum - 1] + " ");
                     break;
                 }
             }
@@ -568,40 +569,40 @@ var MoneyToStr = new Class({
      * @param range10 the range 10
      */
     check2: function(triadNum, sex, triadWord, triad, range10) {
-        var range = triad % this.NUM10;
+        var range = triad % this.Static.NUM10;
         if (range10 == 1) {
             triadWord.append(messages["10_19"][range] + " ");
         } else {
             switch (range) {
-            case this.NUM1:
-                if (triadNum == this.NUM1) {
-                    triadWord.append(this.messages["1"][this.INDEX_0] + " ");
-                } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
-                    triadWord.append(this.messages["1"][this.INDEX_1] + " ");
-                } else if ("M".equals(sex)) {
-                    triadWord.append(this.messages["1"][this.INDEX_2] + " ");
-                } else if ("F".equals(sex)) {
-                    triadWord.append(this.messages["1"][this.INDEX_3] + " ");
+            case this.Static.NUM1:
+                if (triadNum == this.Static.NUM1) {
+                    triadWord.append(this.messages["1"][this.Static.INDEX_0] + " ");
+                } else if (triadNum == this.Static.NUM2 || triadNum == this.Static.NUM3 || triadNum == this.Static.NUM4) {
+                    triadWord.append(this.messages["1"][this.Static.INDEX_1] + " ");
+                } else if ("M" == sex) {
+                    triadWord.append(this.messages["1"][this.Static.INDEX_2] + " ");
+                } else if ("F" == sex) {
+                    triadWord.append(this.messages["1"][this.Static.INDEX_3] + " ");
                 }
                 break;
-            case this.NUM2:
-                if (triadNum == this.NUM1) {
-                    triadWord.append(this.messages["2"][this.INDEX_0] + " ");
-                } else if (triadNum == this.NUM2 || triadNum == this.NUM3 || triadNum == this.NUM4) {
-                    triadWord.append(this.messages["2"][this.INDEX_1] + " ");
-                } else if ("M".equals(sex)) {
-                    triadWord.append(this.messages["2"][this.INDEX_2] + " ");
-                } else if ("F".equals(sex)) {
-                    triadWord.append(this.messages["2"][this.INDEX_3] + " ");
+            case this.Static.NUM2:
+                if (triadNum == this.Static.NUM1) {
+                    triadWord.append(this.messages["2"][this.Static.INDEX_0] + " ");
+                } else if (triadNum == this.Static.NUM2 || triadNum == this.Static.NUM3 || triadNum == this.Static.NUM4) {
+                    triadWord.append(this.messages["2"][this.Static.INDEX_1] + " ");
+                } else if ("M" == sex) {
+                    triadWord.append(this.messages["2"][this.Static.INDEX_2] + " ");
+                } else if ("F" == sex) {
+                    triadWord.append(this.messages["2"][this.Static.INDEX_3] + " ");
                 }
                 break;
-            case this.NUM3:
-            case this.NUM4:
-            case this.NUM5:
-            case this.NUM6:
-            case this.NUM7:
-            case this.NUM8:
-            case this.NUM9:
+            case this.Static.NUM3:
+            case this.Static.NUM4:
+            case this.Static.NUM5:
+            case this.Static.NUM6:
+            case this.Static.NUM7:
+            case this.Static.NUM8:
+            case this.Static.NUM9:
                 triadWord.append(["", "", ""].concat(this.messages["3_9"])[range] + " ");
                 break;
             default:
@@ -616,10 +617,10 @@ var MoneyToStr = new Class({
      * @return the range
      */
     check1: function(triad, triadWord) {
-        var range = triad / this.NUM100;
+        var range = triad / this.Static.NUM100;
         triadWord.append([""].concat(this.messages["100_900"])[range]);
 
-        range = (triad % this.NUM100) / this.NUM10;
+        range = (triad % this.Static.NUM100) / this.Static.NUM10;
         triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
         return range;
     }
