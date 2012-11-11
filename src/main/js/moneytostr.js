@@ -353,6 +353,21 @@ var Pennies = {
         TEXT: ''
 };
 
+var StringBuilder = new Class({
+    initialize: function() {
+        this._buffer = new Array();
+    },
+
+    append: function(text) {
+            this._buffer[this._buffer.length] = text;
+            return this;
+    },
+        
+    toString: function() {
+            return this._buffer.join("");
+    }
+});
+
 var MoneyToStr = new Class({
 
     initialize: function(currency, language, pennies){
@@ -372,18 +387,21 @@ var MoneyToStr = new Class({
      * @return the string description of money value
      */
     convert: function(theMoney, theKopeiki) {
+        if (!theMoney) {
+            throw new Error("theMoney is null");
+        }
+        if (!theKopeiki) {
+            throw new Error("theKopeiki is null");
+        }
+        var money2str = new StringBuilder();
+        var triadNum = 0;
+        var theTriad = 0;
+        var intPart = theMoney;
+        if (intPart == 0) {
+            money2str.append('messages.get("0")[0] + " "');
+        }
 /*
-        if (theMoney == null) {
-            throw new IllegalArgumentException("theMoney is null");
-        }
-        if (theKopeiki == null) {
-            throw new IllegalArgumentException("theKopeiki is null");
-        }
-        StringBuilder money2str = new StringBuilder();
-        Long triadNum = 0L;
-        Long theTriad;
 
-        Long intPart = theMoney;
         if (intPart == 0) {
             money2str.append(messages.get("0")[0] + " ");
         }
@@ -439,7 +457,7 @@ var MoneyToStr = new Class({
         }
         return money2str.toString().trim();
 */
-        return theMoney + ' '+ theKopeiki;
+        return money2str.append(12).append(' ').append(20).toString();
     }
 
 });
