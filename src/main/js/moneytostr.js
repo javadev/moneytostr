@@ -321,6 +321,9 @@ var currencyList =
  * @version $Revision$ $Date$
 */
 
+Class.Mutators.Static = function(items){
+    this.extend(items);
+};
     /** Currency. */
 var Currency = new Class({
     Static: {
@@ -410,11 +413,6 @@ var MoneyToStr = new Class({
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
-            for (var litem in languageItem) {
-                if (languageItem["-text"]) {
-                console.log(litem + ' ' + languageItem[litem]);
-                }
-            }
             if (languageItem["-text"]) {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
@@ -465,21 +463,21 @@ var MoneyToStr = new Class({
             money2str.append(messages["0"][0] + " ");
         }
         do {
-            theTriad = parseInt(intPart % this.Static.NUM1000);
+            theTriad = parseInt(intPart % MoneyToStr.NUM1000);
             money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
             if (triadNum == 0) {
-                var range10 = parseInt((theTriad % this.Static.NUM100) / this.Static.NUM10);
-                var range = parseInt(theTriad % this.Static.NUM10);
-                if (range10 == this.Static.NUM1) {
+                var range10 = parseInt((theTriad % MoneyToStr.NUM100) / MoneyToStr.NUM10);
+                var range = parseInt(theTriad % MoneyToStr.NUM10);
+                if (range10 == MoneyToStr.NUM1) {
                     money2str.append(this.rubFiveUnit);
                 } else {
                     switch (range) {
-                    case this.Static.NUM1:
+                    case MoneyToStr.NUM1:
                         money2str.append(this.rubOneUnit);
                         break;
-                    case this.Static.NUM2:
-                    case this.Static.NUM3:
-                    case this.Static.NUM4:
+                    case MoneyToStr.NUM2:
+                    case MoneyToStr.NUM3:
+                    case MoneyToStr.NUM4:
                         money2str.append(this.rubTwoUnit);
                         break;
                     default:
@@ -488,26 +486,25 @@ var MoneyToStr = new Class({
                     }
                 }
             }
-            intPart = parseInt(intPart / this.Static.NUM1000);
+            intPart = parseInt(intPart / MoneyToStr.NUM1000);
             triadNum++;
         } while (intPart > 0);
 
-console.log("this.pennies - " + this.pennies + ", Pennies.TEXT - " + Pennies.TEXT);
-        if (this.pennies == 'TEXT') {
+        if (this.pennies == Pennies.TEXT) {
             money2str.append(" ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == this.Static.NUM11 || theKopeiki == this.Static.NUM12) {
+        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
             money2str.append(this.kopFiveUnit);
         } else {
-            switch (parseInt(theKopeiki % this.Static.NUM10)) {
-            case this.Static.NUM1:
+            switch (parseInt(theKopeiki % MoneyToStr.NUM10)) {
+            case MoneyToStr.NUM1:
                 money2str.append(this.kopOneUnit);
                 break;
-            case this.Static.NUM2:
-            case this.Static.NUM3:
-            case this.Static.NUM4:
+            case MoneyToStr.NUM2:
+            case MoneyToStr.NUM3:
+            case MoneyToStr.NUM4:
                 money2str.append(this.kopTwoUnit);
                 break;
             default:
@@ -527,26 +524,25 @@ console.log("this.pennies - " + this.pennies + ", Pennies.TEXT - " + Pennies.TEX
         var range = this.check1(triad, triadWord);
 
         var range10 = range;
-        range = parseInt(triad % this.Static.NUM10);
-console.log("range - " + range + ", triad - " + triad + ", triadNum - " + triadNum);
+        range = parseInt(triad % MoneyToStr.NUM10);
         this.check2(triadNum, sex, triadWord, triad, range10);
         switch (triadNum) {
-        case this.Static.NUM0:
+        case MoneyToStr.NUM0:
             break;
-        case this.Static.NUM1:
-        case this.Static.NUM2:
-        case this.Static.NUM3:
-        case this.Static.NUM4:
-            if (range10 == this.Static.NUM1) {
+        case MoneyToStr.NUM1:
+        case MoneyToStr.NUM2:
+        case MoneyToStr.NUM3:
+        case MoneyToStr.NUM4:
+            if (range10 == MoneyToStr.NUM1) {
                 triadWord.append(this.messages["1000_10"][triadNum - 1] + " ");
             } else {
                 switch (range) {
-                case this.Static.NUM1:
+                case MoneyToStr.NUM1:
                     triadWord.append(this.messages["1000_1"][triadNum - 1] + " ");
                     break;
-                case this.Static.NUM2:
-                case this.Static.NUM3:
-                case this.Static.NUM4:
+                case MoneyToStr.NUM2:
+                case MoneyToStr.NUM3:
+                case MoneyToStr.NUM4:
                     triadWord.append(this.messages["1000_234"][triadNum - 1] + " ");
                     break;
                 default:
@@ -570,40 +566,40 @@ console.log("range - " + range + ", triad - " + triad + ", triadNum - " + triadN
      * @param range10 the range 10
      */
     check2: function(triadNum, sex, triadWord, triad, range10) {
-        var range = parseInt(triad % this.Static.NUM10);
+        var range = parseInt(triad % MoneyToStr.NUM10);
         if (range10 == 1) {
             triadWord.append(this.messages["10_19"][range] + " ");
         } else {
             switch (range) {
-            case this.Static.NUM1:
-                if (triadNum == this.Static.NUM1) {
-                    triadWord.append(this.messages["1"][this.Static.INDEX_0] + " ");
-                } else if (triadNum == this.Static.NUM2 || triadNum == this.Static.NUM3 || triadNum == this.Static.NUM4) {
-                    triadWord.append(this.messages["1"][this.Static.INDEX_1] + " ");
+            case MoneyToStr.NUM1:
+                if (triadNum == MoneyToStr.NUM1) {
+                    triadWord.append(this.messages["1"][MoneyToStr.INDEX_0] + " ");
+                } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    triadWord.append(this.messages["1"][MoneyToStr.INDEX_1] + " ");
                 } else if ("M" == sex) {
-                    triadWord.append(this.messages["1"][this.Static.INDEX_2] + " ");
+                    triadWord.append(this.messages["1"][MoneyToStr.INDEX_2] + " ");
                 } else if ("F" == sex) {
-                    triadWord.append(this.messages["1"][this.Static.INDEX_3] + " ");
+                    triadWord.append(this.messages["1"][MoneyToStr.INDEX_3] + " ");
                 }
                 break;
-            case this.Static.NUM2:
-                if (triadNum == this.Static.NUM1) {
-                    triadWord.append(this.messages["2"][this.Static.INDEX_0] + " ");
-                } else if (triadNum == this.Static.NUM2 || triadNum == this.Static.NUM3 || triadNum == this.Static.NUM4) {
-                    triadWord.append(this.messages["2"][this.Static.INDEX_1] + " ");
+            case MoneyToStr.NUM2:
+                if (triadNum == MoneyToStr.NUM1) {
+                    triadWord.append(this.messages["2"][MoneyToStr.INDEX_0] + " ");
+                } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    triadWord.append(this.messages["2"][MoneyToStr.INDEX_1] + " ");
                 } else if ("M" == sex) {
-                    triadWord.append(this.messages["2"][this.Static.INDEX_2] + " ");
+                    triadWord.append(this.messages["2"][MoneyToStr.INDEX_2] + " ");
                 } else if ("F" == sex) {
-                    triadWord.append(this.messages["2"][this.Static.INDEX_3] + " ");
+                    triadWord.append(this.messages["2"][MoneyToStr.INDEX_3] + " ");
                 }
                 break;
-            case this.Static.NUM3:
-            case this.Static.NUM4:
-            case this.Static.NUM5:
-            case this.Static.NUM6:
-            case this.Static.NUM7:
-            case this.Static.NUM8:
-            case this.Static.NUM9:
+            case MoneyToStr.NUM3:
+            case MoneyToStr.NUM4:
+            case MoneyToStr.NUM5:
+            case MoneyToStr.NUM6:
+            case MoneyToStr.NUM7:
+            case MoneyToStr.NUM8:
+            case MoneyToStr.NUM9:
                 triadWord.append(["", "", ""].concat(this.messages["3_9"])[range] + " ");
                 break;
             default:
@@ -618,10 +614,10 @@ console.log("range - " + range + ", triad - " + triad + ", triadNum - " + triadN
      * @return the range
      */
     check1: function(triad, triadWord) {
-        var range = parseInt(triad / this.Static.NUM100);
+        var range = parseInt(triad / MoneyToStr.NUM100);
         triadWord.append([""].concat(this.messages["100_900"])[range]);
 
-        range = parseInt((triad % this.Static.NUM100) / this.Static.NUM10);
+        range = parseInt((triad % MoneyToStr.NUM100) / MoneyToStr.NUM10);
         triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
         return range;
     }
