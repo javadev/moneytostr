@@ -439,6 +439,25 @@ var MoneyToStr = new Class({
     },
 
     /**
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+     */
+    convertValue: function(theMoney) {
+        if (!theMoney) {
+            throw new Error("theMoney is null");
+        }
+        var intPart = parseInt(theMoney);
+        var fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM100);
+        if (this.currency == Currency.PER1000) {
+            fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM1000);
+        }
+        return this.convert(intPart, fractPart);
+    },
+
+    /**
      * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
      * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
      *
