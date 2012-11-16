@@ -1,1 +1,81 @@
-"My GitHub Page" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>Сумма в строку онлайн</title>
+<style>
+* { font-family: arial; }
+h1 { padding: 0; margin: 0; font-size: 150%;  }
+img { margin-right: 20px; }
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+<script type="text/javascript">
+$('form').addEvent('click', function(e) {
+    e = new Event(e).stop();
+    alert("I am here");
+});
+</script>
+</head>
+
+<body>
+
+<center>
+
+<br><br><br>
+
+<table border="0">
+<tbody><tr>
+<td colspan="2">
+<h1><a href="#">Сумма в строку онлайн - сервис быстрого перевода</a></h1>
+<br><br>
+<form id="form" method="get">
+<b>Введите сумму цифрами:</b> <input type="text" name="summ" value="" size="20"> <input type="submit" value="перевести" style="font-weight: bold;">
+</form>
+
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td valign="top">Результат:</td>
+<td valign="top">
+<textarea id="result1" rows="2" cols="70"></textarea>
+</td>
+</tr>
+
+<tr>
+<td valign="top">С заглавной буквы:</td>
+<td valign="top">
+<textarea id="result2" rows="2" cols="70"></textarea>
+</td>
+</tr>
+
+
+<tr>
+<td valign="top">С НДС:</td>
+<td valign="top">
+<textarea id="result3" rows="2" cols="70"></textarea>
+</td>
+</tr>
+
+
+<tr>
+<td valign="top">Копейки цифрами:</td>
+<td valign="top">
+<textarea id="result4" rows="2" cols="70"></textarea>
+</td>
+</tr>
+
+
+</tbody></table>
+
+<br><br>
+
+<br><br><a href="#">контакты</a>
+<br><br>
+
+</center>
+
+
+</body></html>
