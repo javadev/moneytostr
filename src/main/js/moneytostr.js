@@ -399,10 +399,38 @@ var MoneyToStr = new Class({
         NUM12: 12,
         NUM100: 100,
         NUM1000: 1000,
+        NUM10000: 10000,
         INDEX_0: 0,
         INDEX_1: 1,
         INDEX_2: 2,
-        INDEX_3: 3
+        INDEX_3: 3,
+        percentToStr: function(amount, lang) {
+            if (amount == null) {
+                throw new Error("amount is null");
+            }
+            if (lang == null) {
+                throw new Error("Language is null");
+            }
+            var intPart = parseInt(amount);
+            var fractPart = 0;
+            var result;
+            if (amount == parseInt(amount)) {
+                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0);
+            } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt(amount * MoneyToStr.NUM10)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
+                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else if ((amount * MoneyToStr.NUM100).toFixed(4) == parseInt(amount * MoneyToStr.NUM100)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100);
+                result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else if ((amount * MoneyToStr.NUM1000).toFixed(4) == parseInt(amount * MoneyToStr.NUM1000)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000);
+                result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10000);
+                result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            }
+            return result;
+        }
     },
     initialize: function(currency, language, pennies){
         this.currency = currency;

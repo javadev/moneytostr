@@ -63,6 +63,8 @@ module( "tests", {
     setup: function() {
         this.moneyToStrUAH = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
         this.moneyToStrRUR = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
+        this.moneyToStrPER100 = new MoneyToStr(Currency.PER100, Language.RUS, Pennies.TEXT);
+        this.moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
     }
 });
 
@@ -112,4 +114,24 @@ test( "checkUAH", function() {
 });
 test( "checkRUR", function() {
     equal(this.moneyToStrRUR.convertValue(Const.V_777_77D), "семьсот семьдесят семь рублей 77 копеек");
+});
+test( "checkPER100", function() {
+    equal("одна целая, одна сотая процента", this.moneyToStrPER100.convertValue(Const.V_1_01D));
+    equal("одна целая, десять сотых процента", this.moneyToStrPER100.convertValue(Const.V_1_1D));
+    equal("одна целая, две сотых процента", this.moneyToStrPER100.convertValue(Const.V_1_02D));
+    equal("одна целая, одиннадцать сотых процента", this.moneyToStrPER100.convertValue(Const.V_1_11D));
+    equal("две целых, две сотых процента", this.moneyToStrPER100.convertValue(Const.V_2_02D));
+    equal("пять целых, пять сотых процента", this.moneyToStrPER100.convertValue(Const.V_5_05D));
+});
+test( "checkPER1000", function() {
+    equal("двенадцать целых, триста сорок шесть тысячных процента", this.moneyToStrPER1000.convertValue(12.346));
+});
+test( "checkPercentToStrRus", function() {
+    equal("одна целая, одна сотая процента", MoneyToStr.percentToStr(Const.V_1_01D, Language.RUS));
+    equal("одна целая, одна десятая процента", MoneyToStr.percentToStr(Const.V_1_1D, Language.RUS));
+    equal("одна целая, две сотых процента", MoneyToStr.percentToStr(Const.V_1_02D, Language.RUS));
+    equal("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(Const.V_1_11D, Language.RUS));
+    equal("две целых, две сотых процента", MoneyToStr.percentToStr(Const.V_2_02D, Language.RUS));
+    equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(Const.V_5_05D, Language.RUS));
+    equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(Const.V_5_0005D, Language.RUS));
 });
