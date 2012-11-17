@@ -446,7 +446,7 @@ var MoneyToStr = new Class({
      * @return the string description of money value
      */
     convertValue: function(theMoney) {
-        if (!theMoney) {
+        if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
         var intPart = parseInt(theMoney);
@@ -468,10 +468,10 @@ var MoneyToStr = new Class({
      * @return the string description of money value
      */
     convert: function(theMoney, theKopeiki) {
-        if (!theMoney) {
+        if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
-        if (!theKopeiki) {
+        if (typeof theKopeiki === undefined || theKopeiki == null) {
             throw new Error("theKopeiki is null");
         }
         var money2str = new StringBuilder();
