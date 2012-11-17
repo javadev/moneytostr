@@ -408,12 +408,13 @@ var MoneyToStr = new Class({
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
-        var languageElement = currencyList['CurrencyList']['language']['-value'];
+        var languageElement = language;
         var items = currencyList['CurrencyList'][languageElement]['item'];
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
             if (languageItem["-text"]) {
+        console.log("lang - " + languageItem["-text"]);
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
@@ -425,9 +426,10 @@ var MoneyToStr = new Class({
                 break;
             }
         }
-        if (!theISOElement) {
+        if (theISOElement == null) {
             throw new Error("Currency not found " + theISOstr);
         }
+        console.log("Currency found - " + theISOElement["-RubOneUnit"]);
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
         this.rubFiveUnit = theISOElement["-RubFiveUnit"];

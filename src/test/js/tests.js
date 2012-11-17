@@ -62,6 +62,7 @@ Static: {
 module( "tests", {
     setup: function() {
         this.moneyToStrUAH = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+        this.moneyToStrRUR = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
     }
 });
 
@@ -108,4 +109,7 @@ test( "checkUAH", function() {
     equal("п’ять трильйонів гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_5000000000000D));
     equal("одна гривня 01 копійка", this.moneyToStrUAH.convertValue(Const.V_1_01D));
     equal("одна гривня 02 копійки", this.moneyToStrUAH.convertValue(Const.V_1_02D));
+});
+test( "checkRUR", function() {
+    equal(this.moneyToStrRUR.convertValue(Const.V_777_77D), "семьсот семьдесят семь рублей 77 копеек");
 });
