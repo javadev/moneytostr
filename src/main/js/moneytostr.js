@@ -414,7 +414,6 @@ var MoneyToStr = new Class({
         for (var index in items) {
             var languageItem = items[index];
             if (languageItem["-text"]) {
-        console.log("lang - " + languageItem["-text"]);
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
@@ -429,7 +428,6 @@ var MoneyToStr = new Class({
         if (theISOElement == null) {
             throw new Error("Currency not found " + theISOstr);
         }
-        console.log("Currency found - " + theISOElement["-RubOneUnit"]);
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
         this.rubFiveUnit = theISOElement["-RubFiveUnit"];
