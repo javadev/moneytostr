@@ -507,7 +507,7 @@ var MoneyToStr = new Class({
         var theTriad = 0;
         var intPart = theMoney;
         if (intPart == 0) {
-            money2str.append(messages["0"][0] + " ");
+            money2str.append(this.messages["0"][0] + " ");
         }
         do {
             theTriad = parseInt(intPart % MoneyToStr.NUM1000);

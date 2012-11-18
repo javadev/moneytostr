@@ -69,6 +69,7 @@ module( "tests", {
 });
 
 test( "checkUAH", function() {
+    equal("нуль гривень 00 копійок", this.moneyToStrUAH.convertValue(0));
     equal("триста гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_300D));
     equal("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів "
             + "двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
