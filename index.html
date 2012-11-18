@@ -6,11 +6,22 @@
 h1 { padding: 0; margin: 0; font-size: 150%;  }
 img { margin-right: 20px; }
 </style>
-<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
+<script src="https://raw.github.com/javadev/moneytostr-russian/master/src/main/js/moneytostr-full.min.js"></script>
 <script type="text/javascript">
-$('form').addEvent('click', function(e) {
+window.addEvent('domready', function() {
+  $('form').addEvent('submit', function(e) {
     e = new Event(e).stop();
-    alert("I am here");
+    var moneyToStrTxt = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.TEXT);
+    var moneyToStrNum = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
+    var result = moneyToStrTxt.convertValue($('summ').value);
+    var summ = parseFloat($('summ').value);
+    var nds = (summ - (summ / 1.18)).toFixed(2);
+    $('result1').set('text', result);
+    $('result2').set('text', result.substring(0, 1).toUpperCase() + result.substring(1));
+    $('result3').set('text', result + ', в т.ч. НДС ' + nds + ' руб.');
+    $('result4').set('text', result + ', в т.ч. НДС ' + moneyToStrTxt.convertValue(nds));
+    $('result5').set('text', moneyToStrNum.convertValue($('summ').value));
+  });
 });
 </script>
 </head>
@@ -27,7 +38,7 @@ $('form').addEvent('click', function(e) {
 <h1><a href="#">Сумма в строку онлайн - сервис быстрого перевода</a></h1>
 <br><br>
 <form id="form" method="get">
-<b>Введите сумму цифрами:</b> <input type="text" name="summ" value="" size="20"> <input type="submit" value="перевести" style="font-weight: bold;">
+<b>Введите сумму цифрами:</b> <input type="text" id="summ" value="" size="20"> <input type="submit" value="перевести" style="font-weight: bold;">
 </form>
 
 </td>
@@ -59,11 +70,18 @@ $('form').addEvent('click', function(e) {
 </td>
 </tr>
 
+<tr>
+<td valign="top">С НДС прописью:</td>
+<td valign="top">
+<textarea id="result4" rows="2" cols="70"></textarea>
+</td>
+</tr>
+
 
 <tr>
 <td valign="top">Копейки цифрами:</td>
 <td valign="top">
-<textarea id="result4" rows="2" cols="70"></textarea>
+<textarea id="result5" rows="2" cols="70"></textarea>
 </td>
 </tr>
 
