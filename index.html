@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
-<title>Сумма в строку онлайн</title>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>РЎСѓРјРјР° РІ СЃС‚СЂРѕРєСѓ РѕРЅР»Р°Р№РЅ</title>
 <style>
 * { font-family: arial; }
 h1 { padding: 0; margin: 0; font-size: 150%;  }
@@ -18,8 +19,8 @@ window.addEvent('domready', function() {
     var nds = (summ - (summ / 1.18)).toFixed(2);
     $('result1').set('text', result);
     $('result2').set('text', result.substring(0, 1).toUpperCase() + result.substring(1));
-    $('result3').set('text', result + ', в т.ч. НДС ' + nds + ' руб.');
-    $('result4').set('text', result + ', в т.ч. НДС ' + moneyToStrTxt.convertValue(nds));
+    $('result3').set('text', result + ', РІ С‚.С‡. РќР”РЎ ' + nds + ' СЂСѓР±.');
+    $('result4').set('text', result + ', РІ С‚.С‡. РќР”РЎ ' + moneyToStrTxt.convertValue(nds));
     $('result5').set('text', moneyToStrNum.convertValue($('summ').value));
   });
 });
@@ -35,10 +36,10 @@ window.addEvent('domready', function() {
 <table border="0">
 <tbody><tr>
 <td colspan="2">
-<h1><a href="#">Сумма в строку онлайн - сервис быстрого перевода</a></h1>
+<h1><a href="#">РЎСѓРјРјР° РІ СЃС‚СЂРѕРєСѓ РѕРЅР»Р°Р№РЅ - СЃРµСЂРІРёСЃ Р±С‹СЃС‚СЂРѕРіРѕ РїРµСЂРµРІРѕРґР°</a></h1>
 <br><br>
 <form id="form" method="get">
-<b>Введите сумму цифрами:</b> <input type="text" id="summ" value="" size="20"> <input type="submit" value="перевести" style="font-weight: bold;">
+<b>Р’РІРµРґРёС‚Рµ СЃСѓРјРјСѓ С†РёС„СЂР°РјРё:</b> <input type="text" id="summ" value="" size="20"> <input type="submit" value="РїРµСЂРµРІРµСЃС‚Рё" style="font-weight: bold;">
 </form>
 
 </td>
@@ -49,14 +50,14 @@ window.addEvent('domready', function() {
 </tr>
 
 <tr>
-<td valign="top">Результат:</td>
+<td valign="top">Р РµР·СѓР»СЊС‚Р°С‚:</td>
 <td valign="top">
 <textarea id="result1" rows="2" cols="70"></textarea>
 </td>
 </tr>
 
 <tr>
-<td valign="top">С заглавной буквы:</td>
+<td valign="top">РЎ Р·Р°РіР»Р°РІРЅРѕР№ Р±СѓРєРІС‹:</td>
 <td valign="top">
 <textarea id="result2" rows="2" cols="70"></textarea>
 </td>
@@ -64,14 +65,14 @@ window.addEvent('domready', function() {
 
 
 <tr>
-<td valign="top">С НДС:</td>
+<td valign="top">РЎ РќР”РЎ:</td>
 <td valign="top">
 <textarea id="result3" rows="2" cols="70"></textarea>
 </td>
 </tr>
 
 <tr>
-<td valign="top">С НДС прописью:</td>
+<td valign="top">РЎ РќР”РЎ РїСЂРѕРїРёСЃСЊСЋ:</td>
 <td valign="top">
 <textarea id="result4" rows="2" cols="70"></textarea>
 </td>
@@ -79,7 +80,7 @@ window.addEvent('domready', function() {
 
 
 <tr>
-<td valign="top">Копейки цифрами:</td>
+<td valign="top">РљРѕРїРµР№РєРё С†РёС„СЂР°РјРё:</td>
 <td valign="top">
 <textarea id="result5" rows="2" cols="70"></textarea>
 </td>
@@ -90,7 +91,7 @@ window.addEvent('domready', function() {
 
 <br><br>
 
-<br><br><a href="#">контакты</a>
+<br><br><a href="#">РєРѕРЅС‚Р°РєС‚С‹</a>
 <br><br>
 
 </center>
