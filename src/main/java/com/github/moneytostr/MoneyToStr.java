@@ -57,8 +57,9 @@ public class MoneyToStr {
     private String kopTwoUnit;
     private String kopFiveUnit;
     private String kopSex;
-    private final Pennies pennies;
     private final Currency currency;
+    private final Language language;
+    private final Pennies pennies;
 
     static {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
@@ -92,6 +93,8 @@ public class MoneyToStr {
         /**.*/
         RUR,
         /**.*/
+        USD,
+        /**.*/
         PER10,
         /**.*/
         PER100,
@@ -106,7 +109,9 @@ public class MoneyToStr {
         /**.*/
         RUS,
         /**.*/
-        UKR
+        UKR,
+        /**.*/
+        ENG
     }
 
     /** Pennies. */
@@ -136,8 +141,9 @@ public class MoneyToStr {
         if (pennies == null) {
             throw new IllegalArgumentException("Pennies is null");
         }
-        this.pennies = pennies;
         this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
         String theISOstr = currency.name();
         org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
             (xmlDoc.getElementsByTagName(language.name())).item(0);
@@ -275,7 +281,7 @@ public class MoneyToStr {
         } while (intPart > 0);
 
         if (pennies == Pennies.TEXT) {
-            money2str.append(" ").append(theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
+            money2str.append(language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
@@ -307,6 +313,10 @@ public class MoneyToStr {
         }
 
         Long range = check1(triad, triadWord);
+        if (language == Language.ENG && triadWord.length() > 0 && triad % NUM10 == 0) {
+            triadWord.deleteCharAt(triadWord.length() - 1);
+            triadWord.append(" ");
+        }
 
         Long range10 = range;
         range = triad % NUM10;

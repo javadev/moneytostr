@@ -28,6 +28,19 @@
         <item value="100_900" text="сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "/>
         <item value="20_90" text="двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "/>
     </RUS>
+    <ENG>
+        <item value="0" text="zero"/>
+        <item value="1000_10" text="thousand,million,billion,trillion"/>
+        <item value="1000_1" text="thousand,million,billion,trillion"/>
+        <item value="1000_234" text="thousand,million,billion,trillion"/>
+        <item value="1000_5" text="thousand,million,billion,trillion"/>
+        <item value="10_19" text="ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"/>
+        <item value="1" text="one,one,one,one"/>
+        <item value="2" text="two,two,two,two"/>
+        <item value="3_9" text="three,four,five,six,seven,eight,nine"/>
+        <item value="100_900" text="one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "/>
+        <item value="20_90" text="twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"/>
+    </ENG>
     <RUR CurrID="810" CurrName="Российские рубли" language="RUS"
          RubOneUnit="рубль" RubTwoUnit="рубля" RubFiveUnit="рублей" RubSex="M"
          KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
@@ -41,6 +54,11 @@
     <USD CurrID="840" CurrName="Долари США" language="RUS"
          RubOneUnit="долар" RubTwoUnit="долара" RubFiveUnit="доларів" RubSex="M"
          KopOneUnit="цент" KopTwoUnit="цена" KopFiveUnit="центов" KopSex="M"
+    />
+
+    <USD CurrID="840" CurrName="Долари США" language="ENG"
+         RubOneUnit="dollar" RubTwoUnit="dollars" RubFiveUnit="dollars" RubSex="M"
+         KopOneUnit="cent" KopTwoUnit="cents" KopFiveUnit="cents" KopSex="M"
     />
 
     <PER10 CurrID="556" CurrName="Вiдсотки з десятими частинами" language="RUS"
