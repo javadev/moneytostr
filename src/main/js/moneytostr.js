@@ -116,6 +116,54 @@ var currencyList =
         }
       ]
     },
+    "ENG": {
+      "item": [
+        {
+          "-value": "0",
+          "-text": "zero"
+        },
+        {
+          "-value": "1000_10",
+          "-text": "thousand,million,billion,trillion"
+        },
+        {
+          "-value": "1000_1",
+          "-text": "thousand,million,billion,trillion"
+        },
+        {
+          "-value": "1000_234",
+          "-text": "thousand,million,billion,trillion"
+        },
+        {
+          "-value": "1000_5",
+          "-text": "thousand,million,billion,trillion"
+        },
+        {
+          "-value": "10_19",
+          "-text": "ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"
+        },
+        {
+          "-value": "1",
+          "-text": "one,one,one,one"
+        },
+        {
+          "-value": "2",
+          "-text": "two,two,two,two"
+        },
+        {
+          "-value": "3_9",
+          "-text": "three,four,five,six,seven,eight,nine"
+        },
+        {
+          "-value": "100_900",
+          "-text": "one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "
+        },
+        {
+          "-value": "20_90",
+          "-text": "twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"
+        }
+      ]
+    },
     "RUR": [
       {
         "-CurrID": "810",
@@ -198,8 +246,21 @@ var currencyList =
         "-KopTwoUnit": "цена",
         "-KopFiveUnit": "центів",
         "-KopSex": "M"
+      },
+      {
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "ENG",
+        "-RubOneUnit": "dollar",
+        "-RubTwoUnit": "dollars",
+        "-RubFiveUnit": "dollars",
+        "-RubSex": "M",
+        "-KopOneUnit": "cent",
+        "-KopTwoUnit": "cents",
+        "-KopFiveUnit": "cents",
+        "-KopSex": "M"
       }
-    ],
+     ],
     "PER10": [
       {
         "-CurrID": "556",
@@ -332,6 +393,8 @@ var Currency = new Class({
         /**.*/
         RUR: 'RUR',
         /**.*/
+        USD: 'USD',
+        /**.*/
         PER10: 'PER10',
         /**.*/
         PER100: 'PER100',
@@ -348,7 +411,9 @@ var Language = new Class({
         /**.*/
         RUS: 'RUS',
         /**.*/
-        UKR: 'UKR'
+        UKR: 'UKR',
+        /**.*/
+        ENG: 'ENG'
     }
 });
 
@@ -374,6 +439,17 @@ var StringBuilder = new Class({
         
     insert: function(index, text) { 
             this._buffer.splice(index, 0, text);
+            return this;
+    },
+
+    length: function() {
+            return this.toString().length;
+    },
+
+    deleteCharAt: function(index) {
+            var str = this.toString()
+            this.initialize();
+            this.append(str.substring(0, index)); 
             return this;
     },
 
@@ -454,7 +530,7 @@ var MoneyToStr = new Class({
             }
         }
         if (theISOElement == null) {
-            throw new Error("Currency not found " + theISOstr);
+            throw new Error("Currency not found " + currency);
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
@@ -538,7 +614,7 @@ var MoneyToStr = new Class({
         } while (intPart > 0);
 
         if (this.pennies == Pennies.TEXT) {
-            money2str.append(" ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
+            money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
@@ -569,6 +645,10 @@ var MoneyToStr = new Class({
         }
 
         var range = this.check1(triad, triadWord);
+        if (this.language == Language.ENG && triadWord.length() > 0 && triad % MoneyToStr.NUM10 == 0) {
+            triadWord.deleteCharAt(triadWord.length() - 1);
+            triadWord.append(" ");
+        }
 
         var range10 = range;
         range = parseInt(triad % MoneyToStr.NUM10);

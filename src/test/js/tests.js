@@ -65,6 +65,7 @@ module( "tests", {
         this.moneyToStrRUR = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
         this.moneyToStrPER100 = new MoneyToStr(Currency.PER100, Language.RUS, Pennies.TEXT);
         this.moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
+        this.moneyToStrUSDENG =  new MoneyToStr(Currency.USD, Language.ENG, Pennies.TEXT);
     }
 });
 
@@ -135,4 +136,22 @@ test( "checkPercentToStrRus", function() {
     equal("две целых, две сотых процента", MoneyToStr.percentToStr(Const.V_2_02D, Language.RUS));
     equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(Const.V_5_05D, Language.RUS));
     equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(Const.V_5_0005D, Language.RUS));
+});
+test( "checkUSD_ENG", function() {
+    equal("one dollar and zero cents", this.moneyToStrUSDENG.convertValue(1));
+    equal("two dollars and zero cents", this.moneyToStrUSDENG.convertValue(2));
+    equal("three dollars and zero cents", this.moneyToStrUSDENG.convertValue(3));
+    equal("four dollars and zero cents", this.moneyToStrUSDENG.convertValue(4));
+    equal("five dollars and zero cents", this.moneyToStrUSDENG.convertValue(5));
+    equal("six dollars and zero cents", this.moneyToStrUSDENG.convertValue(6));
+    equal("seven dollars and zero cents", this.moneyToStrUSDENG.convertValue(7));
+    equal("eight dollars and zero cents", this.moneyToStrUSDENG.convertValue(8));
+    equal("nine dollars and zero cents", this.moneyToStrUSDENG.convertValue(9));
+    equal("ten dollars and zero cents", this.moneyToStrUSDENG.convertValue(10));
+    equal("eleven dollars and zero cents", this.moneyToStrUSDENG.convertValue(11));
+    equal("twelve dollars and zero cents", this.moneyToStrUSDENG.convertValue(12));
+    equal("thirteen dollars and zero cents", this.moneyToStrUSDENG.convertValue(13));
+    equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
+        + "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
+    this.moneyToStrUSDENG.convertValue(27451632459870.49));
 });
