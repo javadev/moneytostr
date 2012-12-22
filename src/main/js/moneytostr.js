@@ -429,7 +429,7 @@ var Pennies = new Class({
 
 var StringBuilder = new Class({
     initialize: function() {
-        this._buffer = new Array();
+        this._buffer = [];
     },
 
     append: function(text) {
@@ -447,7 +447,7 @@ var StringBuilder = new Class({
     },
 
     deleteCharAt: function(index) {
-            var str = this.toString()
+            var str = this.toString();
             this.initialize();
             this.append(str.substring(0, index)); 
             return this;
