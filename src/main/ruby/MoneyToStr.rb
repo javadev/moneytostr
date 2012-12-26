@@ -386,39 +386,156 @@ currencyList =
     ]
   }
 }
-    INDEX_3 = 3;
-    INDEX_2 = 2;
-    INDEX_1 = 1;
-    INDEX_0 = 0;
-    NUM0 = 0;
-    NUM1 = 1;
-    NUM2 = 2;
-    NUM3 = 3;
-    NUM4 = 4;
-    NUM5 = 5;
-    NUM6 = 6;
-    NUM7 = 7;
-    NUM8 = 8;
-    NUM9 = 9;
-    NUM10 = 10;
-    NUM11 = 11;
-    NUM12 = 12;
-    NUM100 = 100;
-    NUM1000 = 1000;
-    NUM10000 = 10000;
-    messages = {};
-=begin
-    rubOneUnit;
-    rubTwoUnit;
-    rubFiveUnit;
-    rubSex;
-    kopOneUnit;
-    kopTwoUnit;
-    kopFiveUnit;
-    kopSex;
-    currency;
-    language;
-    pennies;
-=end
+    #/** Currency. */
+class Currency
+        #/**.*/
+        :UAH
+        #/**.*/
+        :RUR
+        #/**.*/
+        :USD
+        #/**.*/
+        :PER10
+        #/**.*/
+        :PER100
+        #/**.*/
+        :PER1000
+        #/**.*/
+        :PER10000
+end
 
+    #/** Language. */
+class Language
+        #/**.*/
+        :RUS
+        #/**.*/
+        :UKR
+        #/**.*/
+        :ENG
+end
+
+    #/** Pennies. */
+class Pennies
+        #/**.*/
+        :NUMBER
+        #/**.*/
+        :TEXT
+end
+
+class StringBuilder
+    def initialize()
+        @buffer = [];
+    end
+
+    def append(text)
+            @buffer[@buffer.length] = text;
+            return self;
+    end
+        
+    def insert(index, text)
+            @buffer.splice(index, 0, text);
+            return self;
+    end
+
+    def length()
+            return toString().length;
+    end
+
+    def deleteCharAt(index)
+            var str = toString();
+            initialize();
+            append(str[0, index]); 
+            return self;
+    end
+
+    def toString()
+            return @buffer.join("");
+    end
+end
+
+        NUM0 = 0
+        NUM1 = 1
+        NUM2 = 2
+        NUM3 = 3
+        NUM4 = 4
+        NUM5 = 5
+        NUM6 = 6
+        NUM7 = 7
+        NUM8 = 8
+        NUM9 = 9
+        NUM10 = 10
+        NUM11 = 11
+        NUM12 = 12
+        NUM100 = 100
+        NUM1000 = 1000
+        NUM10000 = 10000
+        INDEX_0 = 0
+        INDEX_1 = 1
+        INDEX_2 = 2
+        INDEX_3 = 3
+
+        def percentToStr(amount, lang)
+            if (amount == nil)
+                throw new Error("amount is null");
+            end
+            if (lang == nil)
+                throw new Error("Language is null");
+            end
+            @intPart = amount.to_i;
+            @fractPart = 0;
+            @result = "";
+        end
+=begin
+            if (amount == parseInt(amount)) {
+                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0);
+            } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt(amount * MoneyToStr.NUM10)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
+                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else if ((amount * MoneyToStr.NUM100).toFixed(4) == parseInt(amount * MoneyToStr.NUM100)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100);
+                result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else if ((amount * MoneyToStr.NUM1000).toFixed(4) == parseInt(amount * MoneyToStr.NUM1000)) {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000);
+                result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            } else {
+                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10000);
+                result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            }
+            return result;
+        }
+    },
+    initialize: function(currency, language, pennies){
+        this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
+        var languageElement = language;
+        var items = currencyList['CurrencyList'][languageElement]['item'];
+        this.messages = {};
+        for (var index in items) {
+            var languageItem = items[index];
+            if (languageItem["-text"]) {
+                this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
+            }
+        }
+        var currencyItem = currencyList['CurrencyList'][currency]
+        var theISOElement = null;
+        for (var index in currencyItem) {
+            if (currencyItem[index]["-language"] == language) {
+                theISOElement = currencyItem[index];
+                break;
+            }
+        }
+        if (theISOElement == null) {
+            throw new Error("Currency not found " + currency);
+        }
+        this.rubOneUnit = theISOElement["-RubOneUnit"];
+        this.rubTwoUnit = theISOElement["-RubTwoUnit"];
+        this.rubFiveUnit = theISOElement["-RubFiveUnit"];
+        this.kopOneUnit = theISOElement["-KopOneUnit"];
+        this.kopTwoUnit = theISOElement["-KopTwoUnit"];
+        this.kopFiveUnit = theISOElement["-KopFiveUnit"];
+        this.rubSex = theISOElement["-RubSex"];
+        this.kopSex = theISOElement["-KopSex"];
+    },
+=end
 end
