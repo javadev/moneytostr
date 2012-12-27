@@ -504,19 +504,22 @@ end
             return result;
         }
     },
-    initialize: function(currency, language, pennies){
-        this.currency = currency;
-        this.language = language;
-        this.pennies = pennies;
-        var languageElement = language;
-        var items = currencyList['CurrencyList'][languageElement]['item'];
-        this.messages = {};
-        for (var index in items) {
-            var languageItem = items[index];
-            if (languageItem["-text"]) {
+=end
+    def initialize(currency, language, pennies)
+        @currency = currency;
+        @language = language;
+        @pennies = pennies;
+        @languageElement = language;
+        @items = currencyList['CurrencyList'][languageElement]['item'];
+        @messages = {};
+        for (index in @items) {
+            languageItem = items[index];
+            if (languageItem["-text"])
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
-            }
-        }
+            end
+        end
+    end
+=begin
         var currencyItem = currencyList['CurrencyList'][currency]
         var theISOElement = null;
         for (var index in currencyItem) {
