@@ -27,7 +27,7 @@
  */
 =end
 class MoneyToStr
-currencyList =
+@@currencyList =
 {
   "CurrencyList" => {
     "language" => { "-value" => "UKR" },
@@ -389,37 +389,37 @@ currencyList =
     #/** Currency. */
 class Currency
         #/**.*/
-        :UAH
+        UAH = :UAH
         #/**.*/
-        :RUR
+        RUR = :RUR
         #/**.*/
-        :USD
+        USD = :USD
         #/**.*/
-        :PER10
+        PER10 = :PER10
         #/**.*/
-        :PER100
+        PER100 = :PER100
         #/**.*/
-        :PER1000
+        PER1000 = :PER1000
         #/**.*/
-        :PER10000
+        PER10000 = :PER10000
 end
 
     #/** Language. */
 class Language
         #/**.*/
-        :RUS
+        RUS = :RUS
         #/**.*/
-        :UKR
+        UKR = :UKR
         #/**.*/
-        :ENG
+        ENG = :ENG
 end
 
     #/** Pennies. */
 class Pennies
         #/**.*/
-        :NUMBER
+        NUMBER = :NUMBER
         #/**.*/
-        :TEXT
+        TEXT = :TEXT
 end
 
 class StringBuilder
@@ -506,39 +506,37 @@ end
     },
 =end
     def initialize(currency, language, pennies)
-        @currency = currency;
-        @language = language;
-        @pennies = pennies;
-        @languageElement = language;
-        @items = currencyList['CurrencyList'][languageElement]['item'];
+        @currency = currency.to_s;
+        @language = language.to_s;
+        @pennies = pennies.to_s;
+        @languageElement = language.to_s;
+        @items = @@currencyList['CurrencyList'][@languageElement]['item'];
         @messages = {};
-        for (index in @items) {
-            languageItem = items[index];
-            if (languageItem["-text"])
-                this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
+        for languageItem in @items
+            if languageItem["-text"] != nil
+                @messages[languageItem["-value"]] = languageItem["-text"].split(",");
             end
         end
+        currencyItem = @@currencyList['CurrencyList'][@currency]
+        theISOElement = nil;
+        for item in currencyItem
+            if item["-language"] == @language
+                theISOElement = item;
+                next;
+            end
+        end
+        if theISOElement == nil
+            raise ArgumentError, "Currency not found " + @currency
+        end
+        @rubOneUnit = theISOElement["-RubOneUnit"];
+        @rubTwoUnit = theISOElement["-RubTwoUnit"];
+        @rubFiveUnit = theISOElement["-RubFiveUnit"];
+        @kopOneUnit = theISOElement["-KopOneUnit"];
+        @kopTwoUnit = theISOElement["-KopTwoUnit"];
+        @kopFiveUnit = theISOElement["-KopFiveUnit"];
+        @rubSex = theISOElement["-RubSex"];
+        @kopSex = theISOElement["-KopSex"];
     end
-=begin
-        var currencyItem = currencyList['CurrencyList'][currency]
-        var theISOElement = null;
-        for (var index in currencyItem) {
-            if (currencyItem[index]["-language"] == language) {
-                theISOElement = currencyItem[index];
-                break;
-            }
-        }
-        if (theISOElement == null) {
-            throw new Error("Currency not found " + currency);
-        }
-        this.rubOneUnit = theISOElement["-RubOneUnit"];
-        this.rubTwoUnit = theISOElement["-RubTwoUnit"];
-        this.rubFiveUnit = theISOElement["-RubFiveUnit"];
-        this.kopOneUnit = theISOElement["-KopOneUnit"];
-        this.kopTwoUnit = theISOElement["-KopTwoUnit"];
-        this.kopFiveUnit = theISOElement["-KopFiveUnit"];
-        this.rubSex = theISOElement["-RubSex"];
-        this.kopSex = theISOElement["-KopSex"];
-    },
-=end
 end
+
+puts MoneyToStr.new(MoneyToStr::Currency::UAH, MoneyToStr::Language::UKR, MoneyToStr::Pennies::TEXT)
