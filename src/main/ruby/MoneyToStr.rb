@@ -433,7 +433,7 @@ class StringBuilder
     end
         
     def insert(index, text)
-            @buffer.splice(index, 0, text);
+            @buffer.insert(index, text);
             return self;
     end
 
@@ -442,7 +442,7 @@ class StringBuilder
     end
 
     def deleteCharAt(index)
-            var str = toString();
+            str = toString();
             initialize();
             append(str[0, index]); 
             return self;
@@ -453,58 +453,55 @@ class StringBuilder
     end
 end
 
-        NUM0 = 0
-        NUM1 = 1
-        NUM2 = 2
-        NUM3 = 3
-        NUM4 = 4
-        NUM5 = 5
-        NUM6 = 6
-        NUM7 = 7
-        NUM8 = 8
-        NUM9 = 9
-        NUM10 = 10
-        NUM11 = 11
-        NUM12 = 12
-        NUM100 = 100
-        NUM1000 = 1000
-        NUM10000 = 10000
-        INDEX_0 = 0
-        INDEX_1 = 1
-        INDEX_2 = 2
-        INDEX_3 = 3
+    NUM0 = 0
+    NUM1 = 1
+    NUM2 = 2
+    NUM3 = 3
+    NUM4 = 4
+    NUM5 = 5
+    NUM6 = 6
+    NUM7 = 7
+    NUM8 = 8
+    NUM9 = 9
+    NUM10 = 10
+    NUM11 = 11
+    NUM12 = 12
+    NUM100 = 100
+    NUM1000 = 1000
+    NUM10000 = 10000
+    INDEX_0 = 0
+    INDEX_1 = 1
+    INDEX_2 = 2
+    INDEX_3 = 3
 
-        def percentToStr(amount, lang)
-            if (amount == nil)
-                throw new Error("amount is null");
-            end
-            if (lang == nil)
-                throw new Error("Language is null");
-            end
-            @intPart = amount.to_i;
-            @fractPart = 0;
-            @result = "";
+    def self.percentToStr(amount, lang)
+        if (amount == nil)
+            raise ArgumentError, "amount is nil"
         end
-=begin
-            if (amount == parseInt(amount)) {
-                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0);
-            } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt(amount * MoneyToStr.NUM10)) {
-                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
-                result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
-            } else if ((amount * MoneyToStr.NUM100).toFixed(4) == parseInt(amount * MoneyToStr.NUM100)) {
-                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100);
-                result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
-            } else if ((amount * MoneyToStr.NUM1000).toFixed(4) == parseInt(amount * MoneyToStr.NUM1000)) {
-                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000);
-                result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
-            } else {
-                fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10000);
-                result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
-            }
-            return result;
-        }
-    },
-=end
+        if (lang == nil)
+            raise ArgumentError, "Language is nil"
+        end
+        intPart = amount.to_i;
+        fractPart = 0;
+        @result = "";
+        if (amount == amount.to_i)
+            result = MoneyToStr.new(Currency::PER10, lang, Pennies::TEXT).convert(amount, 0);
+        elsif ((amount * MoneyToStr::NUM10).round(4) == (amount * MoneyToStr::NUM10).to_i)
+            fractPart = ((amount - intPart) * MoneyToStr::NUM10).round;
+            result = MoneyToStr.new(Currency::PER10, lang, Pennies::TEXT).convert(intPart, fractPart);
+        elsif ((amount * MoneyToStr::NUM100).round(4) == (amount * MoneyToStr::NUM100).to_i)
+            fractPart = ((amount - intPart) * MoneyToStr::NUM100).round;
+            result = MoneyToStr.new(Currency::PER100, lang, Pennies::TEXT).convert(intPart, fractPart);
+        elsif ((amount * MoneyToStr::NUM1000).round(4) == (amount * MoneyToStr::NUM1000).to_i)
+            fractPart = ((amount - intPart) * MoneyToStr::NUM1000).round;
+            result = MoneyToStr.new(Currency::PER1000, lang, Pennies::TEXT).convert(intPart, fractPart);
+        else
+            fractPart = ((amount - intPart) * MoneyToStr::NUM10000).round;
+            result = MoneyToStr.new(Currency::PER10000, lang, Pennies::TEXT).convert(intPart, fractPart);
+        end
+        return result;
+    end
+
     def initialize(currency, language, pennies)
         @currency = currency.to_s;
         @language = language.to_s;
@@ -537,6 +534,189 @@ end
         @rubSex = theISOElement["-RubSex"];
         @kopSex = theISOElement["-KopSex"];
     end
-end
 
-puts MoneyToStr.new(MoneyToStr::Currency::UAH, MoneyToStr::Language::UKR, MoneyToStr::Pennies::TEXT)
+=begin
+    /**
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+     */
+=end
+    def convertValue(theMoney)
+        if theMoney == nil
+            raise ArgumentError, "theMoney is nil"
+        end
+        intPart = theMoney.to_i
+        fractPart = ((theMoney - intPart) * NUM100).round
+        if @currency == Currency::PER1000.to_s
+            fractPart = ((theMoney - intPart) * NUM1000).round
+        end
+        return convert(intPart, fractPart);
+    end
+
+=begin
+    /**
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
+     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     *
+     * @param theMoney
+     *            the amount of money major currency
+     * @param theKopeiki
+     *            the amount of money minor currency
+     * @return the string description of money value
+     */
+=end
+    def convert(theMoney, theKopeiki)
+        if theMoney == nil
+            raise ArgumentError, "theMoney is nil"
+        end
+        if theKopeiki == nil
+            raise ArgumentError, "theKopeiki is nil"
+        end
+        money2str = StringBuilder.new();
+        triadNum = 0;
+        theTriad = nil;
+
+        intPart = theMoney;
+        if intPart == 0
+            money2str.append(messages["0"][0] + " ");
+        end
+        begin
+            theTriad = intPart % NUM1000;
+            money2str.insert(0, triad2Word(theTriad, triadNum, @rubSex));
+            if triadNum == 0
+                range10 = (theTriad % NUM100) / NUM10;
+                range = theTriad % NUM10;
+                if range10 == NUM1
+                    money2str.append(@rubFiveUnit);
+                else
+                    case range
+                    when NUM1
+                        money2str.append(@rubOneUnit)
+                    when NUM2, NUM3,  NUM4
+                        money2str.append(@rubTwoUnit)
+                    else
+                        money2str.append(@rubFiveUnit)
+                    end
+                end
+            end
+            intPart = intPart / NUM1000;
+            triadNum += 1;
+        end while intPart > 0
+
+        if @pennies == Pennies::TEXT.to_s
+            money2str.append(@language == Language::ENG.to_s ? " and " : " ").append(theKopeiki == 0 ? @messages["0"][0] + " " : triad2Word(theKopeiki, 0, @kopSex));
+        else
+            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki.to_s : theKopeiki.to_s) + " ");
+        end
+        if theKopeiki == NUM11 || theKopeiki == NUM12
+            money2str.append(@kopFiveUnit);
+        else
+            case theKopeiki % NUM10
+            when NUM1
+                money2str.append(@kopOneUnit);
+            when NUM2,  NUM3,  NUM4
+                money2str.append(@kopTwoUnit);
+            else
+                money2str.append(@kopFiveUnit);
+            end
+        end
+        return money2str.toString().strip;
+    end
+
+    def triad2Word(triad, triadNum, sex)
+        triadWord = StringBuilder.new();
+
+        if triad == 0
+            return "";
+        end
+
+        range = check1(triad, triadWord);
+        if @language == Language::ENG.to_s && triadWord.length() > 0 && triad % NUM10 == 0
+            triadWord.deleteCharAt(triadWord.length() - 1);
+            triadWord.append(" ");
+        end
+
+        range10 = range;
+        range = triad % NUM10;
+        check2(triadNum, sex, triadWord, triad, range10);
+        case (triadNum)
+        when NUM0
+        when NUM1, NUM2, NUM3, NUM4
+            if range10 == NUM1
+                triadWord.append(@messages["1000_10"][triadNum - 1] + " ");
+            else
+                case (range)
+                when NUM1
+                    triadWord.append(@messages["1000_1"][triadNum - 1] + " ");
+                when NUM2, NUM3, NUM4
+                    triadWord.append(@messages["1000_234"][triadNum - 1] + " ");
+                else
+                    triadWord.append(@messages["1000_5"][triadNum - 1] + " ");
+                end
+            end
+        else
+            triadWord.append("??? ");
+        end
+        return triadWord.toString();
+    end
+
+=begin
+    /**
+     * @param triadNum the triad num
+     * @param sex the sex
+     * @param triadWord the triad word
+     * @param triad the triad
+     * @param range10 the range 10
+     */
+=end
+    def check2(triadNum, sex, triadWord, triad, range10)
+        range = triad % NUM10;
+        if range10 == 1
+            triadWord.append(@messages["10_19"][range] + " ");
+        else
+            case range
+            when NUM1
+                if triadNum == NUM1
+                    triadWord.append(@messages["1"][INDEX_0] + " ");
+                elsif triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4
+                    triadWord.append(@messages["1"][INDEX_1] + " ");
+                elsif "M" == sex
+                    triadWord.append(@messages["1"][INDEX_2] + " ");
+                elsif "F" == sex
+                    triadWord.append(@messages["1"][INDEX_3] + " ");
+                end
+            when NUM2
+                if triadNum == NUM1
+                    triadWord.append(@messages["2"][INDEX_0] + " ");
+                elsif triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4
+                    triadWord.append(@messages["2"][INDEX_1] + " ");
+                elsif "M" == sex
+                    triadWord.append(@messages["2"][INDEX_2] + " ");
+                elsif "F" == sex
+                    triadWord.append(@messages["2"][INDEX_3] + " ");
+                end
+            when NUM3, NUM4, NUM5, NUM6, NUM7, NUM8, NUM9
+                triadWord.append((["", "", ""] + @messages["3_9"])[range] + " ");
+            end
+        end
+    end
+
+=begin
+    /**
+     * @param triad the triad
+     * @param triadWord the triad word
+     * @return the range
+     */
+=end
+    def check1(triad, triadWord)
+        range = triad / NUM100;
+        triadWord.append(([""] + @messages["100_900"])[range]);
+
+        range = (triad % NUM100) / NUM10;
+        triadWord.append((["", ""] + @messages["20_90"])[range]);
+        return range;
+    end
+end
