@@ -8,100 +8,6 @@ using System.Text;
 using System.Web.Script.Serialization;
 
 public class MoneyToStr {
-    public sealed class DynamicJsonConverter : JavaScriptConverter {
-        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer) {
-            if (dictionary == null) {
-                throw new ArgumentNullException("dictionary");
-            }
-            return type == typeof(object) ? new DynamicJsonObject(dictionary) : null;
-        }
-    
-        public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer) {
-            throw new NotImplementedException();
-        }
-    
-        public override IEnumerable<Type> SupportedTypes {
-            get { return new ReadOnlyCollection<Type>(new List<Type>(new[] { typeof(object) })); }
-        }
-    
-        #region Nested type: DynamicJsonObject
-        private sealed class DynamicJsonObject : DynamicObject {
-            private readonly IDictionary<string, object> _dictionary;
-    
-            public DynamicJsonObject(IDictionary<string, object> dictionary) {
-                if (dictionary == null) {
-                    throw new ArgumentNullException("dictionary");
-                }
-                _dictionary = dictionary;
-            }
-    
-            public override string ToString() {
-                var sb = new StringBuilder("{");
-                ToString(sb);
-                return sb.ToString();
-            }
-    
-            private void ToString(StringBuilder sb) {
-                var firstInDictionary = true;
-                foreach (var pair in _dictionary) {
-                    if (!firstInDictionary)
-                        sb.Append(",");
-                    firstInDictionary = false;
-                    var value = pair.Value;
-                    var name = pair.Key;
-                    if (value is string) {
-                        sb.AppendFormat("{0}:\"{1}\"", name, value);
-                    } else if (value is IDictionary<string, object>) {
-                        new DynamicJsonObject((IDictionary<string, object>)value).ToString(sb);
-                    } else if (value is ArrayList) {
-                        sb.Append(name + ":[");
-                        var firstInArray = true;
-                        foreach (var arrayValue in (ArrayList) value) {
-                            if (!firstInArray) {
-                                sb.Append(",");
-                            }
-                            firstInArray = false;
-                            if (arrayValue is IDictionary<string, object>) {
-                                new DynamicJsonObject((IDictionary<string, object>)arrayValue).ToString(sb);
-                            } else if (arrayValue is string) {
-                                sb.AppendFormat("\"{0}\"", arrayValue);
-                            } else {
-                                sb.AppendFormat("{0}", arrayValue);
-                            }
-                        }
-                        sb.Append("]");
-                    } else {
-                        sb.AppendFormat("{0}:{1}", name, value);
-                    }
-                }
-                sb.Append("}");
-            }
-    
-            public override bool TryGetMember(GetMemberBinder binder, out object result) {
-                if (!_dictionary.TryGetValue(binder.Name, out result)) {
-                    result = null;
-                    return true;
-                }
-    
-                var dictionary = result as IDictionary<string, object>;
-                if (dictionary != null) {
-                    result = new DynamicJsonObject(dictionary);
-                    return true;
-                }
-    
-                var arrayList = result as ArrayList;
-                if (arrayList != null && arrayList.Count > 0) {
-                    if (arrayList[0] is IDictionary<string, object>) {
-                        result = new List<object>(arrayList.Cast<IDictionary<string, object>>().Select(x => new DynamicJsonObject(x)));
-                    } else {
-                        result = new List<object>(arrayList.Cast<object>());
-                    }
-                }
-                return true;
-            }
-        }
-        #endregion
-    }
 
 const string json = @"{
   ""CurrencyList"" : {
@@ -461,41 +367,7 @@ const string json = @"{
     ]
   }
 }";
-    /** Currency. */
-public class Currency {
-        /**.*/
-        const string UAH = "UAH";
-        /**.*/
-        const string RUR = "RUR";
-        /**.*/
-        const string USD = "USD";
-        /**.*/
-        const string PER10 = "PER10";
-        /**.*/
-        const string PER100 = "PER100";
-        /**.*/
-        const string PER1000 = "PER1000";
-        /**.*/
-        const string PER10000 = "PER10000";
-}
 
-    /** Language. */
-public class Language {
-        /**.*/
-        const string RUS = "RUS";
-        /**.*/
-        const string UKR = "UKR";
-        /**.*/
-        const string ENG = "ENG";
-}
-
-    /** Pennies. */
-public class Pennies {
-        /**.*/
-        const string NUMBER = "NUMBER";
-        /**.*/
-        const string TEXT = "TEXT";
-}
     const int NUM0 = 0;
     const int NUM1 = 1;
     const int NUM2 = 2;
@@ -520,48 +392,53 @@ public class Pennies {
     private string currency;
     private string language;
     private string pennies;
+    private Dictionary<string, string[]> messages = new Dictionary<string, string[]>();
+    private string rubOneUnit;
+    private string rubTwoUnit;
+    private string rubFiveUnit;
+    private string kopOneUnit;
+    private string kopTwoUnit;
+    private string kopFiveUnit;
+    private string rubSex;
+    private string kopSex;
 
     public MoneyToStr(string currency, string language, string pennies) {
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
         string languageElement = language;
-        var serializer = new JavaScriptSerializer();
-        serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
-        dynamic currencyList = serializer.Deserialize(json, typeof(object));
+        JavaScriptSerializer serializer = new JavaScriptSerializer(); 
+        dynamic currencyList = serializer.Deserialize<object>(json);
 
-        var items = currencyList.CurrencyList.UKR.item[0];
-        System.Console.WriteLine(items);
-/*
-        @messages = {};
-        for languageItem in @items
-            if languageItem["-text"] != nil
-                @messages[languageItem["-value"]] = languageItem["-text"].split(",");
-            end
-        end
-        currencyItem = @@currencyList['CurrencyList'][@currency]
-        theISOElement = nil;
-        for item in currencyItem
-            if item["-language"] == @language
+        var items = currencyList["CurrencyList"][languageElement]["item"];
+        foreach (var languageItem in items) {
+            if (languageItem["-text"] != null) {
+                messages[languageItem["-value"]] = languageItem["-text"].Split(',');
+            }
+        }
+        var currencyItem = currencyList["CurrencyList"][this.currency];
+        var theISOElement = (dynamic) null;
+        foreach (var item in currencyItem) {
+            if (item["-language"] == this.language) {
                 theISOElement = item;
-                next;
-            end
-        end
-        if theISOElement == nil
-            raise ArgumentError, "Currency not found " + @currency
-        end
-        @rubOneUnit = theISOElement["-RubOneUnit"];
-        @rubTwoUnit = theISOElement["-RubTwoUnit"];
-        @rubFiveUnit = theISOElement["-RubFiveUnit"];
-        @kopOneUnit = theISOElement["-KopOneUnit"];
-        @kopTwoUnit = theISOElement["-KopTwoUnit"];
-        @kopFiveUnit = theISOElement["-KopFiveUnit"];
-        @rubSex = theISOElement["-RubSex"];
-        @kopSex = theISOElement["-KopSex"];
-*/
+                break;
+            }
+        }
+        if (theISOElement == null) {
+            throw new ArgumentNullException("Currency not found " + this.currency);
+        }
+        this.rubOneUnit = theISOElement["-RubOneUnit"];
+        this.rubTwoUnit = theISOElement["-RubTwoUnit"];
+        this.rubFiveUnit = theISOElement["-RubFiveUnit"];
+        this.kopOneUnit = theISOElement["-KopOneUnit"];
+        this.kopTwoUnit = theISOElement["-KopTwoUnit"];
+        this.kopFiveUnit = theISOElement["-KopFiveUnit"];
+        this.rubSex = theISOElement["-RubSex"];
+        this.kopSex = theISOElement["-KopSex"];
+        System.Console.WriteLine(this.rubSex);
     }
 
     static void Main(string[] args) {
-        System.Console.WriteLine(new MoneyToStr("UKR", "UAH", "TEXT"));
+        System.Console.WriteLine(new MoneyToStr("RUR", "RUS", "TEXT"));
     }
 }
