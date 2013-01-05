@@ -210,6 +210,6 @@ public class MoneyToStrTest {
         test.test_checkPER1000();
         test.test_percentToStr();
         test.test_checkPercentToStrRus();
-        System.Console.WriteLine("7 teste were run: test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()");
+        System.Console.WriteLine("7 tests were run: test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()");
     }
 }
