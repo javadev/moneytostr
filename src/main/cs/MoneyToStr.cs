@@ -25,7 +25,6 @@ public class MoneyToStr {
         }
     
         #region Nested type: DynamicJsonObject
-    
         private sealed class DynamicJsonObject : DynamicObject {
             private readonly IDictionary<string, object> _dictionary;
     
@@ -462,11 +461,106 @@ const string json = @"{
     ]
   }
 }";
-    static void Main(string[] args) {
-var serializer = new JavaScriptSerializer();
-serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+    /** Currency. */
+public class Currency {
+        /**.*/
+        const string UAH = "UAH";
+        /**.*/
+        const string RUR = "RUR";
+        /**.*/
+        const string USD = "USD";
+        /**.*/
+        const string PER10 = "PER10";
+        /**.*/
+        const string PER100 = "PER100";
+        /**.*/
+        const string PER1000 = "PER1000";
+        /**.*/
+        const string PER10000 = "PER10000";
+}
 
-dynamic data = serializer.Deserialize(json, typeof(object));
-System.Console.WriteLine(data.CurrencyList.language);
+    /** Language. */
+public class Language {
+        /**.*/
+        const string RUS = "RUS";
+        /**.*/
+        const string UKR = "UKR";
+        /**.*/
+        const string ENG = "ENG";
+}
+
+    /** Pennies. */
+public class Pennies {
+        /**.*/
+        const string NUMBER = "NUMBER";
+        /**.*/
+        const string TEXT = "TEXT";
+}
+    const int NUM0 = 0;
+    const int NUM1 = 1;
+    const int NUM2 = 2;
+    const int NUM3 = 3;
+    const int NUM4 = 4;
+    const int NUM5 = 5;
+    const int NUM6 = 6;
+    const int NUM7 = 7;
+    const int NUM8 = 8;
+    const int NUM9 = 9;
+    const int NUM10 = 10;
+    const int NUM11 = 11;
+    const int NUM12 = 12;
+    const int NUM100 = 100;
+    const int NUM1000 = 1000;
+    const int NUM10000 = 10000;
+    const int INDEX_0 = 0;
+    const int INDEX_1 = 1;
+    const int INDEX_2 = 2;
+    const int INDEX_3 = 3;
+
+    private string currency;
+    private string language;
+    private string pennies;
+
+    public MoneyToStr(string currency, string language, string pennies) {
+        this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
+        string languageElement = language;
+        var serializer = new JavaScriptSerializer();
+        serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
+        dynamic currencyList = serializer.Deserialize(json, typeof(object));
+
+        var items = currencyList.CurrencyList[languageElement]["item"];
+/*
+        @messages = {};
+        for languageItem in @items
+            if languageItem["-text"] != nil
+                @messages[languageItem["-value"]] = languageItem["-text"].split(",");
+            end
+        end
+        currencyItem = @@currencyList['CurrencyList'][@currency]
+        theISOElement = nil;
+        for item in currencyItem
+            if item["-language"] == @language
+                theISOElement = item;
+                next;
+            end
+        end
+        if theISOElement == nil
+            raise ArgumentError, "Currency not found " + @currency
+        end
+        @rubOneUnit = theISOElement["-RubOneUnit"];
+        @rubTwoUnit = theISOElement["-RubTwoUnit"];
+        @rubFiveUnit = theISOElement["-RubFiveUnit"];
+        @kopOneUnit = theISOElement["-KopOneUnit"];
+        @kopTwoUnit = theISOElement["-KopTwoUnit"];
+        @kopFiveUnit = theISOElement["-KopFiveUnit"];
+        @rubSex = theISOElement["-RubSex"];
+        @kopSex = theISOElement["-KopSex"];
+*/
+    }
+
+    static void Main(string[] args) {
+        System.Console.WriteLine(new MoneyToStr("UKR", "UAH", "TEXT"));
     }
 }
