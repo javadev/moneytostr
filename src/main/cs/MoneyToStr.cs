@@ -686,10 +686,4 @@ const string json = @"{
         second.CopyTo(result, first.Length);
         return result;
     }
-
-    static void Main(string[] args) {
-        MoneyToStr moneyToStr = new MoneyToStr("RUR", "UKR", "TEXT");
-        Console.OutputEncoding = Encoding.UTF8;
-        System.Console.WriteLine(moneyToStr.convert(234978637287197540L, 12L));
-    }
 }
