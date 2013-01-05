@@ -1,7 +1,7 @@
 ﻿/*
  * $Id$
  *
- * Copyright 2012 Valentyn Kolesnikov
+ * Copyright 2013 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,12 +88,8 @@ public class MoneyToStrTest {
     /** setUp. */
     private void setup() {
         moneyToStrUAH = new MoneyToStr("UAH", "UKR", "NUMBER");
-/*
-        moneyToStrRUR = new MoneyToStr(MoneyToStr::Currency::RUR, MoneyToStr::Language::RUS, MoneyToStr::Pennies::NUMBER);
-        moneyToStrUSDENG = new MoneyToStr(MoneyToStr::Currency::USD, MoneyToStr::Language::ENG, MoneyToStr::Pennies::TEXT);
-        moneyToStrPER100 = new MoneyToStr(MoneyToStr::Currency::PER100, MoneyToStr::Language::RUS, MoneyToStr::Pennies::TEXT);
-        moneyToStrPER1000 = new MoneyToStr(MoneyToStr::Currency::PER1000, MoneyToStr::Language::RUS, MoneyToStr::Pennies::TEXT);
-*/
+        moneyToStrRUR = new MoneyToStr("RUR", "RUS", "NUMBER");
+        moneyToStrUSDENG = new MoneyToStr("USD", "ENG", "TEXT");
     }
 
     public void assert_equal(string expected, string actual) {
@@ -102,6 +98,7 @@ public class MoneyToStrTest {
         }
     }
 
+    /** checkUAH. */
     public void test_checkUAH() {
         assert_equal("триста гривень 00 копійок", moneyToStrUAH.convertValue(V_300D));
         assert_equal("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів "
@@ -147,10 +144,37 @@ public class MoneyToStrTest {
         assert_equal("одна гривня 02 копійки", moneyToStrUAH.convertValue(V_1_02D));
     }
 
+    /** checkRUR. */
+    public void test_checkRUR() {
+        assert_equal("семьсот семьдесят семь рублей 77 копеек", moneyToStrRUR.convertValue(V_777_77D));
+    }
+
+    /** checkUSD_ENG. */
+    public void test_checkUSDENG() {
+        assert_equal("one dollar and zero cents", moneyToStrUSDENG.convertValue(1));
+        assert_equal("two dollars and zero cents", moneyToStrUSDENG.convertValue(2));
+        assert_equal("three dollars and zero cents", moneyToStrUSDENG.convertValue(3));
+        assert_equal("four dollars and zero cents", moneyToStrUSDENG.convertValue(4));
+        assert_equal("five dollars and zero cents", moneyToStrUSDENG.convertValue(5));
+        assert_equal("six dollars and zero cents", moneyToStrUSDENG.convertValue(6));
+        assert_equal("seven dollars and zero cents", moneyToStrUSDENG.convertValue(7));
+        assert_equal("eight dollars and zero cents", moneyToStrUSDENG.convertValue(8));
+        assert_equal("nine dollars and zero cents", moneyToStrUSDENG.convertValue(9));
+        assert_equal("ten dollars and zero cents", moneyToStrUSDENG.convertValue(10));
+        assert_equal("eleven dollars and zero cents", moneyToStrUSDENG.convertValue(11));
+        assert_equal("twelve dollars and zero cents", moneyToStrUSDENG.convertValue(12));
+        assert_equal("thirteen dollars and zero cents", moneyToStrUSDENG.convertValue(13));
+        assert_equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
+            + "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
+        moneyToStrUSDENG.convertValue(27451632459870.49));
+    }
+
     static void Main(string[] args) {
         MoneyToStrTest test = new MoneyToStrTest();
         test.setup();
         test.test_checkUAH();
+        test.test_checkRUR();
+        test.test_checkUSDENG();
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿/*
  * $Id$
  *
- * Copyright 2012 Valentyn Kolesnikov
+ * Copyright 2013 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -465,10 +465,11 @@ const string json = @"{
      * @return the string description of money value
      */
     public string convertValue(double theMoney) {
-        long intPart = Convert.ToInt64(theMoney);
-        long fractPart = Convert.ToInt64(Math.Round((theMoney - intPart) * NUM100));
+        long intPart = (long) theMoney;
+        long fractPart = (long) Math.Round((theMoney - intPart) * NUM100);
+        System.Console.WriteLine(intPart + " " + fractPart);
         if (currency == "PER1000") {
-            fractPart = Convert.ToInt64(Math.Round((theMoney - intPart) * NUM1000));
+            fractPart = (long) Math.Round((theMoney - intPart) * NUM1000);
         }
         return convert(intPart, fractPart);
     }
@@ -550,7 +551,7 @@ const string json = @"{
 
         long range = check1(triad, triadWord);
         if (language == "ENG" && triadWord.Length > 0 && triad % NUM10 == 0) {
-            triadWord.Clear().Append(triadWord.ToString(0, triadWord.Length - 1));
+            triadWord = new StringBuilder(triadWord.ToString(0, triadWord.Length - 1));
             triadWord.Append(" ");
         }
 
