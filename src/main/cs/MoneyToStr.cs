@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Dynamic;
-using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
 
@@ -483,14 +480,14 @@ const string json = @"{
         } while (intPart > 0);
 
         if (pennies == "TEXT") {
-            money2str.Append(language == "ENG" ? " and " : " ").Append(theKopeiki == 0 ? messages["0"][0] + " " : triad2Word(theKopeiki, 0, kopSex));
+            money2str.Append(language == "ENG" ? " and " : " ").Append(theKopeiki == 0 ? (messages["0"][0] + " ") : triad2Word(theKopeiki, 0, kopSex));
         } else {
             money2str.Append(" " + (theKopeiki < 10 ? "0" + Convert.ToString(theKopeiki) : Convert.ToString(theKopeiki)) + " ");
         }
         if (theKopeiki == NUM11 || theKopeiki == NUM12) {
             money2str.Append(kopFiveUnit);
-        }
-        switch (theKopeiki % NUM10) {
+        } else {
+            switch (theKopeiki % NUM10) {
             case NUM1:
                 money2str.Append(kopOneUnit);
                 break;
@@ -500,6 +497,7 @@ const string json = @"{
             default:
                 money2str.Append(kopFiveUnit);
                 break;
+            }
         }
         return money2str.ToString().Trim();
     }
@@ -611,6 +609,7 @@ const string json = @"{
     }
 
     static void Main(string[] args) {
-        System.Console.WriteLine(new MoneyToStr("RUR", "RUS", "TEXT").convert(123, 34));
+        MoneyToStr moneyToStr = new MoneyToStr("RUR", "RUS", "TEXT");
+        System.Console.WriteLine(moneyToStr.convert(234978637287197540L, 12L));
     }
 }
