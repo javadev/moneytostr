@@ -29,7 +29,7 @@ using System.Web.Script.Serialization;
  */
 public class MoneyToStr {
 
-const string json = @"{
+readonly string json = @"{
   ""CurrencyList"" : {
     ""language"" : { ""-value"" : ""UKR"" },
     ""UKR"" : {
