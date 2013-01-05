@@ -423,6 +423,15 @@ const string json = @"{
     private string kopSex;
 
     public MoneyToStr(string currency, string language, string pennies) {
+        if (currency == null) {
+            throw new ArgumentNullException("Currency code is null");
+        }
+        if (language == null) {
+            throw new ArgumentNullException("Language is null");
+        }
+        if (pennies == null) {
+            throw new ArgumentNullException("Pennies is null");
+        }
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
@@ -458,6 +467,37 @@ const string json = @"{
     }
 
     /**
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR)
+     * @return the string of percent
+     */
+    public static string percentToStr(double amount, string lang) {
+        if (lang == null) {
+            throw new ArgumentNullException("Language is null");
+        }
+        long intPart = (long) amount;
+        long fractPart = 0;
+        string result = "";
+        if (amount == (long) amount) {
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+        } else if (Math.Round(amount * NUM10, 4) == (long) (amount * NUM10)) {
+            fractPart = (long) Math.Round((amount - intPart) * NUM10);
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+        } else if (Math.Round(amount * NUM100, 4) == (long) (amount * NUM100)) {
+            fractPart = (long) Math.Round((amount - intPart) * NUM100);
+            result = new MoneyToStr("PER100", lang, "TEXT").convert(intPart, fractPart);
+        } else if (Math.Round(amount * NUM1000, 4) == (long) (amount * NUM1000)) {
+            fractPart = (long) Math.Round((amount - intPart) * NUM1000);
+            result = new MoneyToStr("PER1000", lang, "TEXT").convert(intPart, fractPart);
+        } else {
+            fractPart = (long) Math.Round((amount - intPart) * NUM10000);
+            result = new MoneyToStr("PER10000", lang, "TEXT").convert(intPart, fractPart);
+        }
+        return result;
+    }
+
+    /**
      * Converts double value to the text description.
      *
      * @param theMoney
@@ -467,7 +507,6 @@ const string json = @"{
     public string convertValue(double theMoney) {
         long intPart = (long) theMoney;
         long fractPart = (long) Math.Round((theMoney - intPart) * NUM100);
-        System.Console.WriteLine(intPart + " " + fractPart);
         if (currency == "PER1000") {
             fractPart = (long) Math.Round((theMoney - intPart) * NUM1000);
         }

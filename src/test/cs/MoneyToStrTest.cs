@@ -90,6 +90,8 @@ public class MoneyToStrTest {
         moneyToStrUAH = new MoneyToStr("UAH", "UKR", "NUMBER");
         moneyToStrRUR = new MoneyToStr("RUR", "RUS", "NUMBER");
         moneyToStrUSDENG = new MoneyToStr("USD", "ENG", "TEXT");
+        moneyToStrPER100 = new MoneyToStr("PER100", "RUS", "TEXT");
+        moneyToStrPER1000 = new MoneyToStr("PER1000", "RUS", "TEXT");
     }
 
     public void assert_equal(string expected, string actual) {
@@ -169,12 +171,45 @@ public class MoneyToStrTest {
         moneyToStrUSDENG.convertValue(27451632459870.49));
     }
 
+    /** checkPER100. */
+    public void test_checkPER100() {
+        assert_equal("одна целая, одна сотая процента", moneyToStrPER100.convertValue(V_1_01D));
+        assert_equal("одна целая, десять сотых процента", moneyToStrPER100.convertValue(V_1_1D));
+        assert_equal("одна целая, две сотых процента", moneyToStrPER100.convertValue(V_1_02D));
+        assert_equal("одна целая, одиннадцать сотых процента", moneyToStrPER100.convertValue(V_1_11D));
+        assert_equal("две целых, две сотых процента", moneyToStrPER100.convertValue(V_2_02D));
+        assert_equal("пять целых, пять сотых процента", moneyToStrPER100.convertValue(V_5_05D));
+    }
+
+    public void test_checkPER1000() {
+        assert_equal("двенадцать целых, триста сорок шесть тысячных процента", moneyToStrPER1000.convertValue(12.346));
+    }
+
+    public void test_percentToStr() {
+        assert_equal("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12, "RUS"));
+    }
+
+    /** check percentToStr. */
+    public void test_checkPercentToStrRus() {
+        assert_equal("одна целая, одна сотая процента", MoneyToStr.percentToStr(V_1_01D, "RUS"));
+        assert_equal("одна целая, одна десятая процента", MoneyToStr.percentToStr(V_1_1D, "RUS"));
+        assert_equal("одна целая, две сотых процента", MoneyToStr.percentToStr(V_1_02D, "RUS"));
+        assert_equal("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(V_1_11D, "RUS"));
+        assert_equal("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, "RUS"));
+        assert_equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, "RUS"));
+        assert_equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, "RUS"));
+    }
+
     static void Main(string[] args) {
         MoneyToStrTest test = new MoneyToStrTest();
         test.setup();
         test.test_checkUAH();
         test.test_checkRUR();
         test.test_checkUSDENG();
+        test.test_checkPER100();
+        test.test_checkPER1000();
+        test.test_percentToStr();
+        test.test_checkPercentToStrRus();
+        System.Console.WriteLine("7 teste were run: test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()");
     }
-
 }
