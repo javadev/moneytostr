@@ -530,7 +530,8 @@ public class Pennies {
         serializer.RegisterConverters(new[] { new DynamicJsonConverter() });
         dynamic currencyList = serializer.Deserialize(json, typeof(object));
 
-        var items = currencyList.CurrencyList[languageElement]["item"];
+        var items = currencyList.CurrencyList.UKR.item[0];
+        System.Console.WriteLine(items);
 /*
         @messages = {};
         for languageItem in @items
