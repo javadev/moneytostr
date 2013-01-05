@@ -173,11 +173,11 @@ const string json = @"{
         ""-language"" : ""UKR"",
         ""-RubOneUnit"" : ""рубль"",
         ""-RubTwoUnit"" : ""рубля"",
-        ""-RubFiveUnit"" : ""рублей"",
+        ""-RubFiveUnit"" : ""рублів"",
         ""-RubSex"" : ""M"",
-        ""-KopOneUnit"" : ""копейка"",
-        ""-KopTwoUnit"" : ""копейки"",
-        ""-KopFiveUnit"" : ""копеек"",
+        ""-KopOneUnit"" : ""копійка"",
+        ""-KopTwoUnit"" : ""копійки"",
+        ""-KopFiveUnit"" : ""копійок"",
         ""-KopSex"" : ""F""
       }
     ],
@@ -609,7 +609,8 @@ const string json = @"{
     }
 
     static void Main(string[] args) {
-        MoneyToStr moneyToStr = new MoneyToStr("RUR", "RUS", "TEXT");
+        MoneyToStr moneyToStr = new MoneyToStr("RUR", "UKR", "TEXT");
+        Console.OutputEncoding = Encoding.UTF8;
         System.Console.WriteLine(moneyToStr.convert(234978637287197540L, 12L));
     }
 }
