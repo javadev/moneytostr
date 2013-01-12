@@ -500,13 +500,13 @@ static String json = '''{
      * @param lang the language (RUS, UKR)
      * @return the string of percent
      */
-    static string percentToStr(double amount, String lang) {
+    static String percentToStr(double amount, String lang) {
         if (lang == null) {
             throw new ExpectException("Language is null");
         }
         int intPart = amount.toInt();
         int fractPart = 0;
-        string result = "";
+        String result = "";
         if (amount == amount.toInt()) {
             result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
         } else if ((amount * NUM10).toStringAsFixed(4) == (amount * NUM10).toInt().toStringAsFixed(4)) {
@@ -551,10 +551,10 @@ static String json = '''{
      *            the amount of money minor currency
      * @return the string description of money value
      */
-    String convert(long theMoney, long theKopeiki) {
+    String convert(int theMoney, int theKopeiki) {
         StringBuilder money2str = new StringBuilder();
-        long triadNum = 0;
-        long theTriad;
+        int triadNum = 0;
+        int theTriad;
 
         int intPart = theMoney.toInt();
         if (intPart == 0) {
@@ -564,8 +564,8 @@ static String json = '''{
             theTriad = intPart % NUM1000;
             money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
             if (triadNum == 0) {
-                long range10 = ((theTriad % NUM100) / NUM10).toInt();
-                long range = (theTriad % NUM10).toInt();
+                int range10 = ((theTriad % NUM100) / NUM10).toInt();
+                int range = (theTriad % NUM10).toInt();
                 if (range10 == NUM1) {
                     money2str.append(rubFiveUnit);
                 } else {
@@ -609,20 +609,20 @@ static String json = '''{
         return money2str.toString().trim();
     }
 
-    String triad2Word(long triad, long triadNum, string sex) {
+    String triad2Word(int triad, int triadNum, String sex) {
         StringBuilder triadWord = new StringBuilder();
 
         if (triad == 0) {
             return "";
         }
 
-        long range = check1(triad, triadWord);
+        int range = check1(triad, triadWord);
         if (language == "ENG" && triadWord.length() > 0 && triad % NUM10 == 0) {
             triadWord.deleteCharAt(triadWord.length() - 1);
             triadWord.append(" ");
         }
 
-        long range10 = range;
+        int range10 = range;
         range = triad % NUM10;
         check2(triadNum, sex, triadWord, triad, range10);
         switch (triadNum) {
@@ -659,8 +659,8 @@ static String json = '''{
      * @param triad the triad
      * @param range10 the range 10
      */
-    void check2(long triadNum, string sex, StringBuilder triadWord, long triad, long range10) {
-        long range = triad % NUM10;
+    void check2(int triadNum, String sex, StringBuilder triadWord, int triad, int range10) {
+        int range = triad % NUM10;
         if (range10 == 1) {
             triadWord.append(messages["10_19"][range].concat(" "));
         } else {
@@ -699,7 +699,7 @@ static String json = '''{
      * @param triadWord the triad word
      * @return the range
      */
-    long check1(long triad, StringBuilder triadWord) {
+    int check1(int triad, StringBuilder triadWord) {
         int range = (triad / NUM100).toInt();
         triadWord.append(concat([""], messages["100_900"])[range]);
 
