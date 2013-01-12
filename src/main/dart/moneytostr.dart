@@ -18,7 +18,6 @@
 
 library moneytostr;
 import "dart:json";
-import "dart:math";
 
 /**
  * Converts numbers to symbols.
@@ -716,9 +715,4 @@ static String json = '''{
         return result;
     }
 
-}
-
-void main() {
-    MoneyToStr moneyToStr = new MoneyToStr("UAH", "UKR", "TEXT");
-    print(moneyToStr.convert(27451632459870, 49));
 }
