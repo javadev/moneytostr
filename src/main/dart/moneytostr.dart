@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-#import("dart:json");
+library moneytostr;
+import "dart:json";
+import "dart:math";
 
 /**
  * Converts numbers to symbols.
@@ -417,26 +419,26 @@ static String json = '''{
   }
 }''';
 
-    const int NUM0 = 0;
-    const int NUM1 = 1;
-    const int NUM2 = 2;
-    const int NUM3 = 3;
-    const int NUM4 = 4;
-    const int NUM5 = 5;
-    const int NUM6 = 6;
-    const int NUM7 = 7;
-    const int NUM8 = 8;
-    const int NUM9 = 9;
-    const int NUM10 = 10;
-    const int NUM11 = 11;
-    const int NUM12 = 12;
-    const int NUM100 = 100;
-    const int NUM1000 = 1000;
-    const int NUM10000 = 10000;
-    const int INDEX_0 = 0;
-    const int INDEX_1 = 1;
-    const int INDEX_2 = 2;
-    const int INDEX_3 = 3;
+    static const int NUM0 = 0;
+    static const int NUM1 = 1;
+    static const int NUM2 = 2;
+    static const int NUM3 = 3;
+    static const int NUM4 = 4;
+    static const int NUM5 = 5;
+    static const int NUM6 = 6;
+    static const int NUM7 = 7;
+    static const int NUM8 = 8;
+    static const int NUM9 = 9;
+    static const int NUM10 = 10;
+    static const int NUM11 = 11;
+    static const int NUM12 = 12;
+    static const int NUM100 = 100;
+    static const int NUM1000 = 1000;
+    static const int NUM10000 = 10000;
+    static const int INDEX_0 = 0;
+    static const int INDEX_1 = 1;
+    static const int INDEX_2 = 2;
+    static const int INDEX_3 = 3;
 
     String currency;
     String language;
@@ -453,13 +455,13 @@ static String json = '''{
 
     MoneyToStr(String currency, String language, String pennies) {
         if (currency == null) {
-            throw new Exception("Currency code is null");
+            throw new ExpectException("Currency code is null");
         }
         if (language == null) {
-            throw new Exception("Language is null");
+            throw new ExpectException("Language is null");
         }
         if (pennies == null) {
-            throw new Exception("Pennies is null");
+            throw new ExpectException("Pennies is null");
         }
         this.currency = currency;
         this.language = language;
@@ -481,7 +483,7 @@ static String json = '''{
             }
         }
         if (theISOElement == null) {
-            throw new Exception("Currency not found ".concat(this.currency));
+            throw new ExpectException("Currency not found ".concat(this.currency));
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
@@ -494,8 +496,55 @@ static String json = '''{
     }
 
     /**
-     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
-     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR)
+     * @return the string of percent
+     */
+    static string percentToStr(double amount, String lang) {
+        if (lang == null) {
+            throw new ExpectException("Language is null");
+        }
+        int intPart = amount.toInt();
+        int fractPart = 0;
+        string result = "";
+        if (amount == amount.toInt()) {
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+        } else if ((amount * NUM10).toStringAsFixed(4) == (amount * NUM10).toInt().toStringAsFixed(4)) {
+            fractPart = ((amount - intPart) * NUM10).round().toInt();
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+        } else if ((amount * NUM100).toStringAsFixed(4) == (amount * NUM100).toInt().toStringAsFixed(4)) {
+            fractPart = ((amount - intPart) * NUM100).round().toInt();
+            result = new MoneyToStr("PER100", lang, "TEXT").convert(intPart, fractPart);
+        } else if ((amount * NUM1000).toStringAsFixed(4) == (amount * NUM1000).toInt().toStringAsFixed(4)) {
+            fractPart = ((amount - intPart) * NUM1000).round().toInt();
+            result = new MoneyToStr("PER1000", lang, "TEXT").convert(intPart, fractPart);
+        } else {
+            fractPart = ((amount - intPart) * NUM10000).round().toInt();
+            result = new MoneyToStr("PER10000", lang, "TEXT").convert(intPart, fractPart);
+        }
+        return result;
+    }
+
+    /**
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+     */
+    String convertValue(double theMoney) {
+        int intPart = theMoney.toInt();
+        int fractPart = ((theMoney - intPart) * NUM100).round().toInt();
+        if (currency == "PER1000") {
+            fractPart = ((theMoney - intPart) * NUM1000).round().toInt();
+        }
+        return convert(intPart, fractPart);
+    }
+
+    /**
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH", "UKR", "NUMBER"); String result =
+     * moneyToStr.convertValue(123D); Expected: result = сто двадцять три гривні 00 копійок
      *
      * @param theMoney
      *            the amount of money major currency
@@ -516,8 +565,8 @@ static String json = '''{
             theTriad = intPart % NUM1000;
             money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
             if (triadNum == 0) {
-                long range10 = (theTriad % NUM100) / NUM10;
-                long range = theTriad % NUM10;
+                long range10 = ((theTriad % NUM100) / NUM10).toInt();
+                long range = (theTriad % NUM10).toInt();
                 if (range10 == NUM1) {
                     money2str.append(rubFiveUnit);
                 } else {
@@ -541,7 +590,7 @@ static String json = '''{
         if (pennies == "TEXT") {
             money2str.append(language == "ENG" ? " and " : " ").append(theKopeiki == 0 ? (messages["0"][0].concat(" ")) : triad2Word(theKopeiki, 0, kopSex));
         } else {
-            money2str.append(" ".concat(theKopeiki < 10 ? "0" + Convert.toString(theKopeiki) : Convert.toString(theKopeiki)).concat(" "));
+            money2str.append(" ".concat(theKopeiki < 10 ? "0".concat(theKopeiki.toString()) : theKopeiki.toString()).concat(" "));
         }
         if (theKopeiki == NUM11 || theKopeiki == NUM12) {
             money2str.append(kopFiveUnit);
