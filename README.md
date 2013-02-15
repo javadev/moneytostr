@@ -2,3 +2,5 @@ moneytostr [![Build Status](https://secure.travis-ci.org/javadev/moneytostr-russ
 ==========
 
 The tool to convert Currency to string in Russian/Ukrainian/English languages
+
+[![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr.png)](http://javadev.github.com/moneytostr-russian/)
