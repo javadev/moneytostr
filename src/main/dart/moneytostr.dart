@@ -717,7 +717,3 @@ static String json = '''{
 
 
 }
-void main() {
-    MoneyToStr test = new MoneyToStr("UAH", "UKR", "TEXT");
-    test.convert(123, 23);
-}
