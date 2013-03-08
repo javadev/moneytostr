@@ -54,7 +54,7 @@ class StringBuilder {
     }
 
     String toString() {
-        return Strings.join(this._buffer, "");
+        return this._buffer.join("");
     }
 }
 
@@ -466,7 +466,7 @@ static String json = '''{
         this.language = language;
         this.pennies = pennies;
         String languageElement = language;
-        var currencyList = JSON.parse(json);
+        var currencyList = parse(json);
         var items = currencyList["CurrencyList"][languageElement]["item"];
         for (var languageItem in items) {
             if (languageItem["-text"] != null) {
