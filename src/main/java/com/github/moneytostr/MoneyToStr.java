@@ -23,7 +23,7 @@ import java.io.InputStream;
 /**
  * Converts numbers to symbols.
  *
- * @author Valentyn V Kolesnikov
+ * @author Valentyn Kolesnikov
  * @version $Revision$ $Date$
  */
 public class MoneyToStr {
@@ -127,19 +127,19 @@ public class MoneyToStr {
      *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
      * Definition for currency is placed into currlist.xml
      *
-     * @param currency the currency (UAH, RUR)
-     * @param language the language (UKR, RUS)
+     * @param currency the currency (UAH, RUR, USD)
+     * @param language the language (UKR, RUS, ENG)
      * @param pennies the pennies (NUMBER, TEXT)
      */
     public MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
-            throw new IllegalArgumentException("Currency code is null");
+            throw new IllegalArgumentException("currency is null");
         }
         if (language == null) {
-            throw new IllegalArgumentException("Language is null");
+            throw new IllegalArgumentException("language is null");
         }
         if (pennies == null) {
-            throw new IllegalArgumentException("Pennies is null");
+            throw new IllegalArgumentException("pennies is null");
         }
         this.currency = currency;
         this.language = language;
@@ -185,7 +185,7 @@ public class MoneyToStr {
             throw new IllegalArgumentException("amount is null");
         }
         if (lang == null) {
-            throw new IllegalArgumentException("Language is null");
+            throw new IllegalArgumentException("language is null");
         }
         Long intPart = amount.longValue();
         Long fractPart = 0L;
