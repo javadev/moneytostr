@@ -10,6 +10,7 @@
   <description>The utility class to converts money and percent to the Russian/Ukrainian languages</description>
 
   <build>
+        <finalName>${artifactId}</finalName>
         <resources>
             <resource>
                 <filtering>false</filtering>
@@ -29,6 +30,50 @@
           <target>1.5</target>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+              <archive>
+                  <manifest>
+                      <mainClass>com.github.moneytostr.MoneyToStrApp</mainClass>
+                  </manifest>
+              </archive>
+          </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/maven/**</exclude>
+                    <exclude>META-INF/services/**</exclude>
+                    <exclude>META-INF/COPYRIGHT.html</exclude>
+                    <exclude>META-INF/LICENSE*</exclude>
+                    <exclude>META-INF/NOTICE*</exclude>
+                    <exclude>META-INF/README.txt</exclude>
+                    <exclude>META-INF/DEPENDENCIES*</exclude>
+                    <exclude>LICENSE.txt</exclude>
+                    <exclude>rhinoDiff.txt</exclude>
+                    <exclude>license/**</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -90,6 +135,11 @@
     </plugins>
   </build>
   <dependencies>
+    <dependency>
+        <groupId>net.java.dev.swing-layout</groupId>
+        <artifactId>swing-layout</artifactId>
+        <version>1.0</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
