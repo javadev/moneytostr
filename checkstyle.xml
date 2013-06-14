@@ -149,7 +149,7 @@
         <module name="RightCurly"/>
         <module name="AvoidNestedBlocks"/>
         <module name="CovariantEquals"/>
-        <module name="DoubleCheckedLocking"/>
+        <!-- <module name="DoubleCheckedLocking"/> -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="HiddenField">

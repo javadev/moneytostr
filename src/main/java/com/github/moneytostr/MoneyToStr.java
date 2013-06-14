@@ -89,9 +89,9 @@ public class MoneyToStr {
     /** Currency. */
     public enum Currency {
         /**.*/
-        UAH,
-        /**.*/
         RUR,
+        /**.*/
+        UAH,
         /**.*/
         USD,
         /**.*/
@@ -421,5 +421,29 @@ public class MoneyToStr {
         T[] result = java.util.Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
+    }
+
+    public static void main(String[] args) {
+        String amount = "123.25";
+        String language = "ENG";
+        String currency = "USD";
+        String pennies = "TEXT";
+        if (args.length == 0) {
+            System.out.println("Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number");
+        } else {
+            for (String arg : args) {
+                if (arg.startsWith("--amount=")) {
+                    amount = arg.substring(9).trim().replace(",", ".");
+                } else if (arg.startsWith("--language=")) {
+                    language = arg.substring(11).trim().toUpperCase();
+                } else if (arg.startsWith("--currency=")) {
+                    currency = arg.substring(11).trim().toUpperCase();
+                } else if (arg.startsWith("--pennies=")) {
+                    pennies = arg.substring(10).trim().toUpperCase();
+                }
+            }
+            String result = new MoneyToStr(Currency.valueOf(currency), Language.valueOf(language), Pennies.valueOf(pennies)).convert(Double.valueOf(amount));
+            System.out.println(result);
+        }
     }
 }
