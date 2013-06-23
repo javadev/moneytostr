@@ -38,7 +38,7 @@ class StringBuilder {
     }
         
     StringBuilder insert(index, text) { 
-        this._buffer.insertRange(index, 1, text);
+        this._buffer.insert(index, text);
         return this;
     }
 
