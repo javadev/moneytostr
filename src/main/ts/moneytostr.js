@@ -1,50 +1,48 @@
 var currencyList = {
     "CurrencyList": {
-        "language": {
-            "-value": "UKR"
-        },
+        "language": { "-value": "UKR" },
         "UKR": {
             "item": [
                 {
                     "-value": "0",
                     "-text": "нуль"
-                }, 
+                },
                 {
                     "-value": "1000_10",
                     "-text": "тисяч,мільйонів,мільярдів,трильйонів"
-                }, 
+                },
                 {
                     "-value": "1000_1",
                     "-text": "тисяча,мільйон,мільярд,трильйон"
-                }, 
+                },
                 {
                     "-value": "1000_234",
                     "-text": "тисячі,мільйона,мільярда,трильйона"
-                }, 
+                },
                 {
                     "-value": "1000_5",
                     "-text": "тисяч,мільйонів,мільярдів,трильйонів"
-                }, 
+                },
                 {
                     "-value": "10_19",
                     "-text": "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"
-                }, 
+                },
                 {
                     "-value": "1",
                     "-text": "одна,один,один,одна"
-                }, 
+                },
                 {
                     "-value": "2",
                     "-text": "дві,два,два,дві"
-                }, 
+                },
                 {
                     "-value": "3_9",
                     "-text": "три,чотири,п’ять,шість,сім,вісім,дев’ять"
-                }, 
+                },
                 {
                     "-value": "100_900",
                     "-text": "сто ,двісті ,триста ,чотириста ,п’ятсот ,шістсот ,сімсот ,вісімсот ,дев’ятсот "
-                }, 
+                },
                 {
                     "-value": "20_90",
                     "-text": "двадцять ,тридцять ,сорок ,п’ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев’яносто "
@@ -56,43 +54,43 @@ var currencyList = {
                 {
                     "-value": "0",
                     "-text": "ноль"
-                }, 
+                },
                 {
                     "-value": "1000_10",
                     "-text": "тысяч,миллионов,миллиардов,триллионов"
-                }, 
+                },
                 {
                     "-value": "1000_1",
                     "-text": "тысяча,миллион,миллиард,триллион"
-                }, 
+                },
                 {
                     "-value": "1000_234",
                     "-text": "тысячи,миллиона,миллиарда,триллиона"
-                }, 
+                },
                 {
                     "-value": "1000_5",
                     "-text": "тысяч,миллионов,миллиардов,триллионов"
-                }, 
+                },
                 {
                     "-value": "10_19",
                     "-text": "десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"
-                }, 
+                },
                 {
                     "-value": "1",
                     "-text": "одна,один,один,одна"
-                }, 
+                },
                 {
                     "-value": "2",
                     "-text": "две,два,два,две"
-                }, 
+                },
                 {
                     "-value": "3_9",
                     "-text": "три,четыре,пять,шесть,семь,восемь,девять"
-                }, 
+                },
                 {
                     "-value": "100_900",
                     "-text": "сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "
-                }, 
+                },
                 {
                     "-value": "20_90",
                     "-text": "двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "
@@ -104,43 +102,43 @@ var currencyList = {
                 {
                     "-value": "0",
                     "-text": "zero"
-                }, 
+                },
                 {
                     "-value": "1000_10",
                     "-text": "thousand,million,billion,trillion"
-                }, 
+                },
                 {
                     "-value": "1000_1",
                     "-text": "thousand,million,billion,trillion"
-                }, 
+                },
                 {
                     "-value": "1000_234",
                     "-text": "thousand,million,billion,trillion"
-                }, 
+                },
                 {
                     "-value": "1000_5",
                     "-text": "thousand,million,billion,trillion"
-                }, 
+                },
                 {
                     "-value": "10_19",
                     "-text": "ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"
-                }, 
+                },
                 {
                     "-value": "1",
                     "-text": "one,one,one,one"
-                }, 
+                },
                 {
                     "-value": "2",
                     "-text": "two,two,two,two"
-                }, 
+                },
                 {
                     "-value": "3_9",
                     "-text": "three,four,five,six,seven,eight,nine"
-                }, 
+                },
                 {
                     "-value": "100_900",
                     "-text": "one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "
-                }, 
+                },
                 {
                     "-value": "20_90",
                     "-text": "twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"
@@ -160,7 +158,7 @@ var currencyList = {
                 "-KopTwoUnit": "копейки",
                 "-KopFiveUnit": "копеек",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "810",
                 "-CurrName": "Российские рубли",
@@ -188,7 +186,7 @@ var currencyList = {
                 "-KopTwoUnit": "копейки",
                 "-KopFiveUnit": "копеек",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "980",
                 "-CurrName": "Украинскі гривні",
@@ -216,7 +214,7 @@ var currencyList = {
                 "-KopTwoUnit": "цена",
                 "-KopFiveUnit": "центов",
                 "-KopSex": "M"
-            }, 
+            },
             {
                 "-CurrID": "840",
                 "-CurrName": "Долари США",
@@ -229,7 +227,7 @@ var currencyList = {
                 "-KopTwoUnit": "цена",
                 "-KopFiveUnit": "центів",
                 "-KopSex": "M"
-            }, 
+            },
             {
                 "-CurrID": "840",
                 "-CurrName": "Долари США",
@@ -257,7 +255,7 @@ var currencyList = {
                 "-KopTwoUnit": "десятых процента",
                 "-KopFiveUnit": "десятых процента",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "556",
                 "-CurrName": "Вiдсотки з десятими частинами",
@@ -285,7 +283,7 @@ var currencyList = {
                 "-KopTwoUnit": "сотых процента",
                 "-KopFiveUnit": "сотых процента",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "557",
                 "-CurrName": "Вiдсотки з сотими частинами",
@@ -313,7 +311,7 @@ var currencyList = {
                 "-KopTwoUnit": "тысячных процента",
                 "-KopFiveUnit": "тысячных процента",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "558",
                 "-CurrName": "Вiдсотки з тисячними частинами",
@@ -341,7 +339,7 @@ var currencyList = {
                 "-KopTwoUnit": "десятитысячные процента",
                 "-KopFiveUnit": "десятитысячных процента",
                 "-KopSex": "F"
-            }, 
+            },
             {
                 "-CurrID": "559",
                 "-CurrName": "Вiдсотки з десяти тисячними частинами",
@@ -358,33 +356,49 @@ var currencyList = {
         ]
     }
 };
+
 var Currency = (function () {
-    function Currency() { }
+    function Currency() {
+    }
     Currency.UAH = 'UAH';
+
     Currency.RUR = 'RUR';
+
     Currency.USD = 'USD';
+
     Currency.PER10 = 'PER10';
+
     Currency.PER100 = 'PER100';
+
     Currency.PER1000 = 'PER1000';
+
     Currency.PER10000 = 'PER10000';
     return Currency;
 })();
 ;
+
 var Language = (function () {
-    function Language() { }
+    function Language() {
+    }
     Language.RUS = 'RUS';
+
     Language.UKR = 'UKR';
+
     Language.ENG = 'ENG';
     return Language;
 })();
 ;
+
 var Pennies = (function () {
-    function Pennies() { }
+    function Pennies() {
+    }
     Pennies.NUMBER = 'NUMBER';
+
     Pennies.TEXT = 'TEXT';
     return Pennies;
 })();
 ;
+
 var StringBuilder = (function () {
     function StringBuilder() {
         this._buffer = [];
@@ -393,25 +407,30 @@ var StringBuilder = (function () {
         this._buffer[this._buffer.length] = text;
         return this;
     };
+
     StringBuilder.prototype.insert = function (index, text) {
         this._buffer.splice(index, 0, text);
         return this;
     };
+
     StringBuilder.prototype.length = function () {
         return this.toString().length;
     };
+
     StringBuilder.prototype.deleteCharAt = function (index) {
         var str = this.toString();
         this._buffer = [];
         this.append(str.substring(0, index));
         return this;
     };
+
     StringBuilder.prototype.toString = function () {
         return this._buffer.join("");
     };
     return StringBuilder;
 })();
 ;
+
 var MoneyToStr = (function () {
     function MoneyToStr(currency, language, pennies) {
         this.currency = currency;
@@ -419,23 +438,22 @@ var MoneyToStr = (function () {
         this.pennies = pennies;
         var languageElement = language;
         var items = currencyList['CurrencyList'][languageElement]['item'];
-        this.messages = {
-        };
-        for(var index in items) {
+        this.messages = {};
+        for (var index in items) {
             var languageItem = items[index];
-            if(languageItem["-text"]) {
+            if (languageItem["-text"]) {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
         var currencyItem = currencyList['CurrencyList'][currency];
         var theISOElement = null;
-        for(var index in currencyItem) {
-            if(currencyItem[index]["-language"] == language) {
+        for (var index in currencyItem) {
+            if (currencyItem[index]["-language"] == language) {
                 theISOElement = currencyItem[index];
                 break;
             }
         }
-        if(theISOElement == null) {
+        if (theISOElement == null) {
             throw new Error("Currency not found " + currency);
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
@@ -447,45 +465,25 @@ var MoneyToStr = (function () {
         this.rubSex = theISOElement["-RubSex"];
         this.kopSex = theISOElement["-KopSex"];
     }
-    MoneyToStr.NUM0 = 0;
-    MoneyToStr.NUM1 = 1;
-    MoneyToStr.NUM2 = 2;
-    MoneyToStr.NUM3 = 3;
-    MoneyToStr.NUM4 = 4;
-    MoneyToStr.NUM5 = 5;
-    MoneyToStr.NUM6 = 6;
-    MoneyToStr.NUM7 = 7;
-    MoneyToStr.NUM8 = 8;
-    MoneyToStr.NUM9 = 9;
-    MoneyToStr.NUM10 = 10;
-    MoneyToStr.NUM11 = 11;
-    MoneyToStr.NUM12 = 12;
-    MoneyToStr.NUM100 = 100;
-    MoneyToStr.NUM1000 = 1000;
-    MoneyToStr.NUM10000 = 10000;
-    MoneyToStr.INDEX_0 = 0;
-    MoneyToStr.INDEX_1 = 1;
-    MoneyToStr.INDEX_2 = 2;
-    MoneyToStr.INDEX_3 = 3;
-    MoneyToStr.percentToStr = function percentToStr(amount, lang) {
-        if(amount == null) {
+    MoneyToStr.percentToStr = function (amount, lang) {
+        if (amount == null) {
             throw new Error("amount is null");
         }
-        if(lang == null) {
+        if (lang == null) {
             throw new Error("Language is null");
         }
         var intPart = parseInt(amount);
         var fractPart = 0;
         var result;
-        if(amount == amount.toInt()) {
+        if (amount == amount.toInt()) {
             result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0);
-        } else if((amount * MoneyToStr.NUM10).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM10).toFixed(4)) {
+        } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM10).toFixed(4)) {
             fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
             result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
-        } else if((amount * MoneyToStr.NUM100).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM100).toFixed(4)) {
+        } else if ((amount * MoneyToStr.NUM100).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM100).toFixed(4)) {
             fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100);
             result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
-        } else if((amount * MoneyToStr.NUM1000).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM1000).toFixed(4)) {
+        } else if ((amount * MoneyToStr.NUM1000).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM1000).toFixed(4)) {
             fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000);
             result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else {
@@ -494,41 +492,43 @@ var MoneyToStr = (function () {
         }
         return result;
     };
+
     MoneyToStr.prototype.convertValue = function (theMoney) {
-        if(typeof theMoney === undefined || theMoney == null) {
+        if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
         var intPart = parseInt(theMoney);
         var fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM100);
-        if(this.currency == Currency.PER1000) {
+        if (this.currency == Currency.PER1000) {
             fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM1000);
         }
         return this.convert(intPart, fractPart);
     };
+
     MoneyToStr.prototype.convert = function (theMoney, theKopeiki) {
-        if(typeof theMoney === undefined || theMoney == null) {
+        if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
-        if(typeof theKopeiki === undefined || theKopeiki == null) {
+        if (typeof theKopeiki === undefined || theKopeiki == null) {
             throw new Error("theKopeiki is null");
         }
         var money2str = new StringBuilder();
         var triadNum = 0;
         var theTriad = 0;
         var intPart = theMoney;
-        if(intPart == 0) {
+        if (intPart == 0) {
             money2str.append(this.messages["0"][0] + " ");
         }
         do {
             theTriad = parseInt("" + intPart % MoneyToStr.NUM1000);
             money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
-            if(triadNum == 0) {
+            if (triadNum == 0) {
                 var range10 = parseInt("" + (theTriad % MoneyToStr.NUM100) / MoneyToStr.NUM10);
                 var range = parseInt("" + theTriad % MoneyToStr.NUM10);
-                if(range10 == MoneyToStr.NUM1) {
+                if (range10 == MoneyToStr.NUM1) {
                     money2str.append(this.rubFiveUnit);
                 } else {
-                    switch(range) {
+                    switch (range) {
                         case MoneyToStr.NUM1:
                             money2str.append(this.rubOneUnit);
                             break;
@@ -545,16 +545,17 @@ var MoneyToStr = (function () {
             }
             intPart = parseInt("" + intPart / MoneyToStr.NUM1000);
             triadNum++;
-        }while(intPart > 0);
-        if(this.pennies == Pennies.TEXT) {
+        } while(intPart > 0);
+
+        if (this.pennies == Pennies.TEXT) {
             money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if(theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
             money2str.append(this.kopFiveUnit);
         } else {
-            switch(parseInt("" + theKopeiki % MoneyToStr.NUM10)) {
+            switch (parseInt("" + theKopeiki % MoneyToStr.NUM10)) {
                 case MoneyToStr.NUM1:
                     money2str.append(this.kopOneUnit);
                     break;
@@ -572,28 +573,31 @@ var MoneyToStr = (function () {
     };
     MoneyToStr.prototype.triad2Word = function (triad, triadNum, sex) {
         var triadWord = new StringBuilder();
-        if(triad == 0) {
+
+        if (triad == 0) {
             return "";
         }
+
         var range = this.check1(triad, triadWord);
-        if(this.language == Language.ENG && triadWord.length() > 0 && triad % MoneyToStr.NUM10 == 0) {
+        if (this.language == Language.ENG && triadWord.length() > 0 && triad % MoneyToStr.NUM10 == 0) {
             triadWord.deleteCharAt(triadWord.length() - 1);
             triadWord.append(" ");
         }
+
         var range10 = range;
         range = parseInt("" + triad % MoneyToStr.NUM10);
         this.check2(triadNum, sex, triadWord, triad, range10);
-        switch(triadNum) {
+        switch (triadNum) {
             case MoneyToStr.NUM0:
                 break;
             case MoneyToStr.NUM1:
             case MoneyToStr.NUM2:
             case MoneyToStr.NUM3:
             case MoneyToStr.NUM4:
-                if(range10 == MoneyToStr.NUM1) {
+                if (range10 == MoneyToStr.NUM1) {
                     triadWord.append(this.messages["1000_10"][triadNum - 1] + " ");
                 } else {
-                    switch(range) {
+                    switch (range) {
                         case MoneyToStr.NUM1:
                             triadWord.append(this.messages["1000_1"][triadNum - 1] + " ");
                             break;
@@ -614,31 +618,32 @@ var MoneyToStr = (function () {
         }
         return triadWord.toString();
     };
+
     MoneyToStr.prototype.check2 = function (triadNum, sex, triadWord, triad, range10) {
         var range = parseInt("" + triad % MoneyToStr.NUM10);
-        if(range10 == 1) {
+        if (range10 == 1) {
             triadWord.append(this.messages["10_19"][range] + " ");
         } else {
-            switch(range) {
+            switch (range) {
                 case MoneyToStr.NUM1:
-                    if(triadNum == MoneyToStr.NUM1) {
+                    if (triadNum == MoneyToStr.NUM1) {
                         triadWord.append(this.messages["1"][MoneyToStr.INDEX_0] + " ");
-                    } else if(triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
                         triadWord.append(this.messages["1"][MoneyToStr.INDEX_1] + " ");
-                    } else if("M" == sex) {
+                    } else if ("M" == sex) {
                         triadWord.append(this.messages["1"][MoneyToStr.INDEX_2] + " ");
-                    } else if("F" == sex) {
+                    } else if ("F" == sex) {
                         triadWord.append(this.messages["1"][MoneyToStr.INDEX_3] + " ");
                     }
                     break;
                 case MoneyToStr.NUM2:
-                    if(triadNum == MoneyToStr.NUM1) {
+                    if (triadNum == MoneyToStr.NUM1) {
                         triadWord.append(this.messages["2"][MoneyToStr.INDEX_0] + " ");
-                    } else if(triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
                         triadWord.append(this.messages["2"][MoneyToStr.INDEX_1] + " ");
-                    } else if("M" == sex) {
+                    } else if ("M" == sex) {
                         triadWord.append(this.messages["2"][MoneyToStr.INDEX_2] + " ");
-                    } else if("F" == sex) {
+                    } else if ("F" == sex) {
                         triadWord.append(this.messages["2"][MoneyToStr.INDEX_3] + " ");
                     }
                     break;
@@ -649,28 +654,41 @@ var MoneyToStr = (function () {
                 case MoneyToStr.NUM7:
                 case MoneyToStr.NUM8:
                 case MoneyToStr.NUM9:
-                    triadWord.append([
-                        "", 
-                        "", 
-                        ""
-                    ].concat(this.messages["3_9"])[range] + " ");
+                    triadWord.append(["", "", ""].concat(this.messages["3_9"])[range] + " ");
                     break;
                 default:
                     break;
             }
         }
     };
+
     MoneyToStr.prototype.check1 = function (triad, triadWord) {
         var range = parseInt("" + triad / MoneyToStr.NUM100);
-        triadWord.append([
-            ""
-        ].concat(this.messages["100_900"])[range]);
+        triadWord.append([""].concat(this.messages["100_900"])[range]);
+
         range = parseInt("" + (triad % MoneyToStr.NUM100) / MoneyToStr.NUM10);
-        triadWord.append([
-            "", 
-            ""
-        ].concat(this.messages["20_90"])[range]);
+        triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
         return range;
     };
+    MoneyToStr.NUM0 = 0;
+    MoneyToStr.NUM1 = 1;
+    MoneyToStr.NUM2 = 2;
+    MoneyToStr.NUM3 = 3;
+    MoneyToStr.NUM4 = 4;
+    MoneyToStr.NUM5 = 5;
+    MoneyToStr.NUM6 = 6;
+    MoneyToStr.NUM7 = 7;
+    MoneyToStr.NUM8 = 8;
+    MoneyToStr.NUM9 = 9;
+    MoneyToStr.NUM10 = 10;
+    MoneyToStr.NUM11 = 11;
+    MoneyToStr.NUM12 = 12;
+    MoneyToStr.NUM100 = 100;
+    MoneyToStr.NUM1000 = 1000;
+    MoneyToStr.NUM10000 = 10000;
+    MoneyToStr.INDEX_0 = 0;
+    MoneyToStr.INDEX_1 = 1;
+    MoneyToStr.INDEX_2 = 2;
+    MoneyToStr.INDEX_3 = 3;
     return MoneyToStr;
 })();

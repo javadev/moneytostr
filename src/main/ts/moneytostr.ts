@@ -496,7 +496,7 @@ class MoneyToStr {
         var result;
         if (amount == amount.toInt()) {
             result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0);
-        } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt("" + amount * NUM10).toFixed(4)) {
+        } else if ((amount * MoneyToStr.NUM10).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM10).toFixed(4)) {
             fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
             result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if ((amount * MoneyToStr.NUM100).toFixed(4) == parseInt("" + amount * MoneyToStr.NUM100).toFixed(4)) {
