@@ -58,6 +58,39 @@ class StringBuilder {
     }
 }
 
+class Currency {
+   final _value;
+   const Currency._internal(this._value);
+   toString() => '$_value';
+
+   static const RUR = const Currency._internal('RUR');
+   static const UAH = const Currency._internal('UAH');
+   static const USD = const Currency._internal('USD');
+   static const PER10 = const Currency._internal('PER10');
+   static const PER100 = const Currency._internal('PER100');
+   static const PER1000 = const Currency._internal('PER1000');
+   static const PER10000 = const Currency._internal('PER10000');
+}
+
+class Language {
+   final _value;
+   const Language._internal(this._value);
+   toString() => '$_value';
+
+   static const RUS = const Language._internal('RUS');
+   static const UKR = const Language._internal('UKR');
+   static const ENG = const Language._internal('ENG');
+}
+
+class Pennies {
+   final _value;
+   const Pennies._internal(this._value);
+   toString() => '$_value';
+
+   static const NUMBER = const Pennies._internal('NUMBER');
+   static const TEXT = const Pennies._internal('TEXT');
+}
+
 class MoneyToStr {
 static String json = '''{
   "CurrencyList" : {
@@ -439,9 +472,9 @@ static String json = '''{
     static const int INDEX_2 = 2;
     static const int INDEX_3 = 3;
 
-    String currency;
-    String language;
-    String pennies;
+    Currency currency;
+    Language language;
+    Pennies pennies;
     Map messages = new Map();
     String rubOneUnit;
     String rubTwoUnit;
@@ -452,7 +485,7 @@ static String json = '''{
     String rubSex;
     String kopSex;
 
-    MoneyToStr(String currency, String language, String pennies) {
+    MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
             throw new ExpectException("Currency code is null");
         }
@@ -467,22 +500,22 @@ static String json = '''{
         this.pennies = pennies;
         String languageElement = language;
         var currencyList = parse(json);
-        var items = currencyList["CurrencyList"][languageElement]["item"];
+        var items = currencyList["CurrencyList"][languageElement.toString()]["item"];
         for (var languageItem in items) {
             if (languageItem["-text"] != null) {
                 messages[languageItem["-value"]] = languageItem["-text"].split(',');
             }
         }
-        var currencyItem = currencyList["CurrencyList"][this.currency];
+        var currencyItem = currencyList["CurrencyList"][this.currency.toString()];
         var theISOElement = null;
         for (var item in currencyItem) {
-            if (item["-language"] == this.language) {
+            if (item["-language"] == this.language.toString()) {
                 theISOElement = item;
                 break;
             }
         }
         if (theISOElement == null) {
-            throw new ExpectException("Currency not found ".concat(this.currency));
+            throw new ExpectException("Currency not found ".concat(this.currency.toString()));
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
@@ -500,7 +533,7 @@ static String json = '''{
      * @param lang the language (RUS, UKR)
      * @return the string of percent
      */
-    static String percentToStr(double amount, String lang) {
+    static String percentToStr(double amount, Language lang) {
         if (lang == null) {
             throw new ExpectException("Language is null");
         }
@@ -508,19 +541,19 @@ static String json = '''{
         int fractPart = 0;
         String result = "";
         if (amount == amount.toInt()) {
-            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if ((amount * NUM10).toStringAsFixed(4) == (amount * NUM10).toInt().toStringAsFixed(4)) {
             fractPart = ((amount - intPart) * NUM10).round().toInt();
-            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if ((amount * NUM100).toStringAsFixed(4) == (amount * NUM100).toInt().toStringAsFixed(4)) {
             fractPart = ((amount - intPart) * NUM100).round().toInt();
-            result = new MoneyToStr("PER100", lang, "TEXT").convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else if ((amount * NUM1000).toStringAsFixed(4) == (amount * NUM1000).toInt().toStringAsFixed(4)) {
             fractPart = ((amount - intPart) * NUM1000).round().toInt();
-            result = new MoneyToStr("PER1000", lang, "TEXT").convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
         } else {
             fractPart = ((amount - intPart) * NUM10000).round().toInt();
-            result = new MoneyToStr("PER10000", lang, "TEXT").convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
         }
         return result;
     }
@@ -535,7 +568,7 @@ static String json = '''{
     String convertValue(double theMoney) {
         int intPart = theMoney.toInt();
         int fractPart = ((theMoney - intPart) * NUM100).round().toInt();
-        if (currency == "PER1000") {
+        if (currency == Currency.PER1000) {
             fractPart = ((theMoney - intPart) * NUM1000).round().toInt();
         }
         return convert(intPart, fractPart);
@@ -586,8 +619,8 @@ static String json = '''{
             triadNum += 1;
         } while (intPart > 0);
 
-        if (pennies == "TEXT") {
-            money2str.append(language == "ENG" ? " and " : " ").append(theKopeiki == 0 ? (messages["0"][0].concat(" ")) : triad2Word(theKopeiki, 0, kopSex));
+        if (pennies == Pennies.TEXT) {
+            money2str.append(language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? (messages["0"][0].concat(" ")) : triad2Word(theKopeiki, 0, kopSex));
         } else {
             money2str.append(" ".concat(theKopeiki < 10 ? "0".concat(theKopeiki.toString()) : theKopeiki.toString()).concat(" "));
         }
@@ -617,7 +650,7 @@ static String json = '''{
         }
 
         int range = check1(triad, triadWord);
-        if (language == "ENG" && triadWord.length() > 0 && triad % NUM10 == 0) {
+        if (language == Language.ENG && triadWord.length() > 0 && triad % NUM10 == 0) {
             triadWord.deleteCharAt(triadWord.length() - 1);
             triadWord.append(" ");
         }

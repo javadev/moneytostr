@@ -86,16 +86,16 @@ class MoneyToStrTest {
 
     /** setUp. */
     void setup() {
-        moneyToStrUAH = new MoneyToStr("UAH", "UKR", "NUMBER");
-        moneyToStrRUR = new MoneyToStr("RUR", "RUS", "NUMBER");
-        moneyToStrUSDENG = new MoneyToStr("USD", "ENG", "TEXT");
-        moneyToStrPER100 = new MoneyToStr("PER100", "RUS", "TEXT");
-        moneyToStrPER1000 = new MoneyToStr("PER1000", "RUS", "TEXT");
+        moneyToStrUAH = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+        moneyToStrRUR = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
+        moneyToStrUSDENG = new MoneyToStr(Currency.USD, Language.ENG, Pennies.TEXT);
+        moneyToStrPER100 = new MoneyToStr(Currency.PER100, Language.RUS, Pennies.TEXT);
+        moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
     }
 
     void assert_equal(string expected, string actual) {
         if (expected != actual) {
-            throw new ExpectException("expected: (".concat(expected).concat(") actual: (").concat(actual).concat(")"));
+            throw new Exception("expected: (".concat(expected).concat(") actual: (").concat(actual).concat(")"));
         }
     }
 
