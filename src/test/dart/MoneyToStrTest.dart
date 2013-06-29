@@ -24,8 +24,8 @@ import '../../main/dart/moneytostr.dart';
  * @version $Revision$ $Date$
  */
 class MoneyToStrTest {
-    const long V_12L = 12;
-    const long V_123L = 123;
+    const int V_12L = 12;
+    const int V_123L = 123;
     const double V_11D = 11;
     const double V_12D = 12;
     const double V_11_12D = 11.12;
@@ -44,8 +44,8 @@ class MoneyToStrTest {
     const double V_18D = 18;
     const double V_19D = 19;
     const double V_31D = 31;
-    const long V_978637287197540L = 978637287197540;
-    const long V_234978637287197540L = 234978637287197540;
+    const int V_978637287197540L = 978637287197540;
+    const int V_234978637287197540L = 234978637287197540;
     const double V_32D = 32;
     const double V_1000D = 1000;
     const double V_2000D = 2000;
@@ -93,9 +93,9 @@ class MoneyToStrTest {
         moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
     }
 
-    void assert_equal(string expected, string actual) {
+    void assert_equal(String expected, String actual) {
         if (expected != actual) {
-            throw new Exception("expected: (".concat(expected).concat(") actual: (").concat(actual).concat(")"));
+            throw new Exception("expected: (" + expected + ") actual: (" + actual + ")");
         }
     }
 
@@ -103,11 +103,11 @@ class MoneyToStrTest {
     void test_checkUAH() {
         assert_equal("триста гривень 00 копійок", moneyToStrUAH.convertValue(V_300D));
         assert_equal("дев’ятсот сімдесят вісім трильйонів шістсот тридцять сім мільярдів "
-                .concat("двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч ")
-                .concat("п’ятсот сорок гривень 12 копійок"), moneyToStrUAH.convert(V_978637287197540L, V_12L));
+                + "двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "
+                + "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(V_978637287197540L, V_12L));
         assert_equal("двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот "
-                .concat("тридцять сім мільярдів двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч ")
-                .concat("п’ятсот сорок гривень 12 копійок"), moneyToStrUAH.convert(V_234978637287197540L, V_12L));
+                + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "
+                + "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(V_234978637287197540L, V_12L));
         assert_equal("одинадцять гривень 00 копійок", moneyToStrUAH.convertValue(V_11D));
         assert_equal("дванадцять гривень 00 копійок", moneyToStrUAH.convertValue(V_12D));
         assert_equal("одинадцять гривень 12 копійок", moneyToStrUAH.convertValue(V_11_12D));
@@ -166,7 +166,7 @@ class MoneyToStrTest {
         assert_equal("twelve dollars and zero cents", moneyToStrUSDENG.convertValue(12));
         assert_equal("thirteen dollars and zero cents", moneyToStrUSDENG.convertValue(13));
         assert_equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
-            .concat("million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents"),
+            + "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
         moneyToStrUSDENG.convertValue(27451632459870.49));
     }
 
@@ -185,18 +185,18 @@ class MoneyToStrTest {
     }
 
     void test_percentToStr() {
-        assert_equal("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12, "RUS"));
+        assert_equal("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12, Language.RUS));
     }
 
     /** check percentToStr. */
     void test_checkPercentToStrRus() {
-        assert_equal("одна целая, одна сотая процента", MoneyToStr.percentToStr(V_1_01D, "RUS"));
-        assert_equal("одна целая, одна десятая процента", MoneyToStr.percentToStr(V_1_1D, "RUS"));
-        assert_equal("одна целая, две сотых процента", MoneyToStr.percentToStr(V_1_02D, "RUS"));
-        assert_equal("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(V_1_11D, "RUS"));
-        assert_equal("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, "RUS"));
-        assert_equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, "RUS"));
-        assert_equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, "RUS"));
+        assert_equal("одна целая, одна сотая процента", MoneyToStr.percentToStr(V_1_01D, Language.RUS));
+        assert_equal("одна целая, одна десятая процента", MoneyToStr.percentToStr(V_1_1D, Language.RUS));
+        assert_equal("одна целая, две сотых процента", MoneyToStr.percentToStr(V_1_02D, Language.RUS));
+        assert_equal("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(V_1_11D, Language.RUS));
+        assert_equal("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, Language.RUS));
+        assert_equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, Language.RUS));
+        assert_equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, Language.RUS));
     }
 
 }

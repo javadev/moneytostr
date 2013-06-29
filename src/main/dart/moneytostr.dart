@@ -487,18 +487,18 @@ static String json = '''{
 
     MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
-            throw new ExpectException("Currency code is null");
+            throw new Exception("Currency code is null");
         }
         if (language == null) {
-            throw new ExpectException("Language is null");
+            throw new Exception("Language is null");
         }
         if (pennies == null) {
-            throw new ExpectException("Pennies is null");
+            throw new Exception("Pennies is null");
         }
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
-        String languageElement = language;
+        Language languageElement = language;
         var currencyList = parse(json);
         var items = currencyList["CurrencyList"][languageElement.toString()]["item"];
         for (var languageItem in items) {
@@ -515,7 +515,7 @@ static String json = '''{
             }
         }
         if (theISOElement == null) {
-            throw new ExpectException("Currency not found ".concat(this.currency.toString()));
+            throw new Exception("Currency not found " + this.currency.toString());
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
@@ -535,7 +535,7 @@ static String json = '''{
      */
     static String percentToStr(double amount, Language lang) {
         if (lang == null) {
-            throw new ExpectException("Language is null");
+            throw new Exception("Language is null");
         }
         int intPart = amount.toInt();
         int fractPart = 0;
@@ -591,7 +591,7 @@ static String json = '''{
 
         int intPart = theMoney.toInt();
         if (intPart == 0) {
-            money2str.append(messages["0"][0].concat(" "));
+            money2str.append(messages["0"][0] + " ");
         }
         do {
             theTriad = intPart % NUM1000;
@@ -620,9 +620,9 @@ static String json = '''{
         } while (intPart > 0);
 
         if (pennies == Pennies.TEXT) {
-            money2str.append(language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? (messages["0"][0].concat(" ")) : triad2Word(theKopeiki, 0, kopSex));
+            money2str.append(language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? (messages["0"][0] + " ") : triad2Word(theKopeiki, 0, kopSex));
         } else {
-            money2str.append(" ".concat(theKopeiki < 10 ? "0".concat(theKopeiki.toString()) : theKopeiki.toString()).concat(" "));
+            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki.toString() : theKopeiki.toString()) + " ");
         }
         if (theKopeiki == NUM11 || theKopeiki == NUM12) {
             money2str.append(kopFiveUnit);
@@ -663,17 +663,17 @@ static String json = '''{
             break;
         case NUM1: case NUM2: case NUM3: case NUM4:
             if (range10 == NUM1) {
-                triadWord.append(messages["1000_10"][triadNum - 1].concat(" "));
+                triadWord.append(messages["1000_10"][triadNum - 1] + " ");
             } else {
                 switch (range) {
                 case NUM1:
-                    triadWord.append(messages["1000_1"][triadNum - 1].concat(" "));
+                    triadWord.append(messages["1000_1"][triadNum - 1] + " ");
                     break;
                 case NUM2: case NUM3: case NUM4:
-                    triadWord.append(messages["1000_234"][triadNum - 1].concat(" "));
+                    triadWord.append(messages["1000_234"][triadNum - 1] + " ");
                     break;
                 default:
-                    triadWord.append(messages["1000_5"][triadNum - 1].concat(" "));
+                    triadWord.append(messages["1000_5"][triadNum - 1] + " ");
                     break;
                 }
             }
@@ -695,33 +695,33 @@ static String json = '''{
     void check2(int triadNum, String sex, StringBuilder triadWord, int triad, int range10) {
         int range = triad % NUM10;
         if (range10 == 1) {
-            triadWord.append(messages["10_19"][range].concat(" "));
+            triadWord.append(messages["10_19"][range] + " ");
         } else {
             switch (range) {
             case NUM1:
                 if (triadNum == NUM1) {
-                    triadWord.append(messages["1"][INDEX_0] .concat(" "));
+                    triadWord.append(messages["1"][INDEX_0] + " ");
                 } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
-                    triadWord.append(messages["1"][INDEX_1].concat(" "));
+                    triadWord.append(messages["1"][INDEX_1] + " ");
                 } else if ("M" == sex) {
-                    triadWord.append(messages["1"][INDEX_2].concat(" "));
+                    triadWord.append(messages["1"][INDEX_2] + " ");
                 } else if ("F" == sex) {
-                    triadWord.append(messages["1"][INDEX_3].concat(" "));
+                    triadWord.append(messages["1"][INDEX_3] + " ");
                 }
                 break;
             case NUM2:
                 if (triadNum == NUM1) {
-                    triadWord.append(messages["2"][INDEX_0].concat(" "));
+                    triadWord.append(messages["2"][INDEX_0] + " ");
                 } else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4) {
-                    triadWord.append(messages["2"][INDEX_1].concat(" "));
+                    triadWord.append(messages["2"][INDEX_1] + " ");
                 } else if ("M" == sex) {
-                    triadWord.append(messages["2"][INDEX_2].concat(" "));
+                    triadWord.append(messages["2"][INDEX_2] + " ");
                 } else if ("F" == sex) {
-                    triadWord.append(messages["2"][INDEX_3].concat(" "));
+                    triadWord.append(messages["2"][INDEX_3] + " ");
                 }
                 break;
             case NUM3: case NUM4: case NUM5: case NUM6: case NUM7: case NUM8: case NUM9:
-                triadWord.append(concat(["", "", ""], messages["3_9"])[range].concat(" "));
+                triadWord.append(concat(["", "", ""], messages["3_9"])[range] + " ");
                 break;
             }
         }
@@ -747,6 +747,5 @@ static String json = '''{
         result.addAll(second);
         return result;
     }
-
 
 }
