@@ -384,38 +384,53 @@ var currencyList =
 
     /** Currency. */
 class Currency {
-        /**.*/
-        static UAH = 'UAH';
-        /**.*/
-        static RUR = 'RUR';
-        /**.*/
-        static USD = 'USD';
-        /**.*/
-        static PER10 = 'PER10';
-        /**.*/
-        static PER100 = 'PER100';
-        /**.*/
-        static PER1000 = 'PER1000';
-        /**.*/
-        static PER10000 = 'PER10000';
+    constructor(public value:string){
+    }
+    toString(){
+        return this.value;
+    }
+    /**.*/
+    static UAH = new Currency('UAH');
+    /**.*/
+    static RUR = new Currency('RUR');
+    /**.*/
+    static USD = new Currency('USD');
+    /**.*/
+    static PER10 = new Currency('PER10');
+    /**.*/
+    static PER100 = new Currency('PER100');
+    /**.*/
+    static PER1000 = new Currency('PER1000');
+    /**.*/
+    static PER10000 = new Currency('PER10000');
 };
 
     /** Language. */
 class Language {
-        /**.*/
-        static RUS = 'RUS';
-        /**.*/
-        static UKR = 'UKR';
-        /**.*/
-        static ENG = 'ENG';
+    constructor(public value:string){
+    }
+    toString(){
+        return this.value;
+    }
+    /**.*/
+    static RUS = new Language('RUS');
+    /**.*/
+    static UKR = new Language('UKR');
+    /**.*/
+    static ENG = new Language('ENG');
 };
 
     /** Pennies. */
 class Pennies {
-        /**.*/
-        static NUMBER = 'NUMBER';
-        /**.*/
-        static TEXT = 'TEXT';
+    constructor(public value:string){
+    }
+    toString(){
+        return this.value;
+    }
+    /**.*/
+    static NUMBER = new Pennies('NUMBER');
+    /**.*/
+    static TEXT = new Pennies('TEXT');
 };
 
 class StringBuilder {
@@ -479,12 +494,12 @@ class MoneyToStr {
     private kopFiveUnit;
     private rubSex;
     private kopSex;
-    private currency;
-    private language;
-    private pennies;
+    private currency : Currency;
+    private language : Language;
+    private pennies : Pennies;
     private messages;
 
-    static percentToStr(amount, lang) {
+    static percentToStr(amount, lang : Language) {
         if (amount == null) {
             throw new Error("amount is null");
         }
@@ -511,12 +526,12 @@ class MoneyToStr {
         }
         return result;
     }
-    constructor(currency, language, pennies) {
+    constructor(currency : Currency, language : Language, pennies : Pennies) {
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
         var languageElement = language;
-        var items = currencyList['CurrencyList'][languageElement]['item'];
+        var items = currencyList['CurrencyList'][languageElement.toString()]['item'];
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
@@ -524,16 +539,16 @@ class MoneyToStr {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
-        var currencyItem = currencyList['CurrencyList'][currency]
+        var currencyItem = currencyList['CurrencyList'][currency.toString()]
         var theISOElement = null;
         for (var index in currencyItem) {
-            if (currencyItem[index]["-language"] == language) {
+            if (currencyItem[index]["-language"] == language.toString()) {
                 theISOElement = currencyItem[index];
                 break;
             }
         }
         if (theISOElement == null) {
-            throw new Error("Currency not found " + currency);
+            throw new Error("Currency not found " + currency.toString());
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];

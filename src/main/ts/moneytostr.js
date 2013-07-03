@@ -358,43 +358,58 @@ var currencyList = {
 };
 
 var Currency = (function () {
-    function Currency() {
+    function Currency(value) {
+        this.value = value;
     }
-    Currency.UAH = 'UAH';
+    Currency.prototype.toString = function () {
+        return this.value;
+    };
 
-    Currency.RUR = 'RUR';
+    Currency.UAH = new Currency('UAH');
 
-    Currency.USD = 'USD';
+    Currency.RUR = new Currency('RUR');
 
-    Currency.PER10 = 'PER10';
+    Currency.USD = new Currency('USD');
 
-    Currency.PER100 = 'PER100';
+    Currency.PER10 = new Currency('PER10');
 
-    Currency.PER1000 = 'PER1000';
+    Currency.PER100 = new Currency('PER100');
 
-    Currency.PER10000 = 'PER10000';
+    Currency.PER1000 = new Currency('PER1000');
+
+    Currency.PER10000 = new Currency('PER10000');
     return Currency;
 })();
 ;
 
 var Language = (function () {
-    function Language() {
+    function Language(value) {
+        this.value = value;
     }
-    Language.RUS = 'RUS';
+    Language.prototype.toString = function () {
+        return this.value;
+    };
 
-    Language.UKR = 'UKR';
+    Language.RUS = new Language('RUS');
 
-    Language.ENG = 'ENG';
+    Language.UKR = new Language('UKR');
+
+    Language.ENG = new Language('ENG');
     return Language;
 })();
 ;
 
 var Pennies = (function () {
-    function Pennies() {
+    function Pennies(value) {
+        this.value = value;
     }
-    Pennies.NUMBER = 'NUMBER';
+    Pennies.prototype.toString = function () {
+        return this.value;
+    };
 
-    Pennies.TEXT = 'TEXT';
+    Pennies.NUMBER = new Pennies('NUMBER');
+
+    Pennies.TEXT = new Pennies('TEXT');
     return Pennies;
 })();
 ;
@@ -437,7 +452,7 @@ var MoneyToStr = (function () {
         this.language = language;
         this.pennies = pennies;
         var languageElement = language;
-        var items = currencyList['CurrencyList'][languageElement]['item'];
+        var items = currencyList['CurrencyList'][languageElement.toString()]['item'];
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
@@ -445,16 +460,16 @@ var MoneyToStr = (function () {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
-        var currencyItem = currencyList['CurrencyList'][currency];
+        var currencyItem = currencyList['CurrencyList'][currency.toString()];
         var theISOElement = null;
         for (var index in currencyItem) {
-            if (currencyItem[index]["-language"] == language) {
+            if (currencyItem[index]["-language"] == language.toString()) {
                 theISOElement = currencyItem[index];
                 break;
             }
         }
         if (theISOElement == null) {
-            throw new Error("Currency not found " + currency);
+            throw new Error("Currency not found " + currency.toString());
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
