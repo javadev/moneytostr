@@ -57,6 +57,7 @@ public class MoneyToStr {
     private String kopTwoUnit;
     private String kopFiveUnit;
     private String kopSex;
+    private String rubShortUnit;
     private final Currency currency;
     private final Language language;
     private final Pennies pennies;
@@ -172,6 +173,7 @@ public class MoneyToStr {
         kopFiveUnit = theISOElement.getAttribute("KopFiveUnit");
         rubSex = theISOElement.getAttribute("RubSex");
         kopSex = theISOElement.getAttribute("KopSex");
+        rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
     }
 
     /**
@@ -445,5 +447,13 @@ public class MoneyToStr {
             String result = new MoneyToStr(Currency.valueOf(currency), Language.valueOf(language), Pennies.valueOf(pennies)).convert(Double.valueOf(amount));
             System.out.println(result);
         }
+    }
+    
+    public java.util.Map<String, String[]> getMessages() {
+        return messages;
+    }
+    
+    public String getRubShortUnit() {
+        return rubShortUnit;
     }
 }
