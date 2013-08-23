@@ -45,9 +45,13 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         Double summ = Double.valueOf(jTextField1.getEditor().getItem().toString().replace(",", ".").trim());
         String result = moneyToStrTxt.convert(summ);
         Double nds = Math.round((summ - (summ / (1 + Double.valueOf(moneyToStrTxt.getMessages().get("pdv_value")[0]) / 100))) * 100) / 100D;
+        java.text.NumberFormat nf = java.text.NumberFormat.getNumberInstance(java.util.Locale.FRANCE);
+        java.text.DecimalFormat df = (java.text.DecimalFormat) nf;
+        df.applyPattern(",##0.00");
+        String ndsFormatted = nf.format(nds);
         jTextArea1.setText(result);
         jTextArea7.setText(result.substring(0, 1).toUpperCase() + result.substring(1));
-        jTextArea5.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + nds + " " + moneyToStrTxt.getRubShortUnit());
+        jTextArea5.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + ndsFormatted + " " + moneyToStrTxt.getRubShortUnit());
         jTextArea6.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + moneyToStrTxt.convert(nds));
         jTextArea4.setText(moneyToStrNum.convert(summ));
         String bufferData = null;
