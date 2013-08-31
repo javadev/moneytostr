@@ -25,7 +25,8 @@ EXE_dependencies =  \
 #       *Explicit Rules*
 moneytostr.exe: moneytostr.cfg $(EXE_dependencies)
   $(TLINK) /t/x/c/P-/L$(LIBPATH) @&&|
-c0x32.obj
+c0x32.obj+
+moneytostr.obj
 moneytostr
         # no map file
 cw32.lib+
