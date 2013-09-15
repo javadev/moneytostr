@@ -42,7 +42,7 @@ class StringBuilder {
         return this;
     }
 
-    StringBuilder length() {
+    int length() {
         return this.toString().length;
     }
 
