@@ -456,4 +456,8 @@ public class MoneyToStr {
     public String getRubShortUnit() {
         return rubShortUnit;
     }
+
+    public Language getLanguage() {
+        return language;
+    }
 }

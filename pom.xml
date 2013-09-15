@@ -7,10 +7,10 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Money to str converter</name>
-  <description>The utility class to converts money and percent to the Russian/Ukrainian languages</description>
+  <description>The tool to convert currency to string in English/Russian/Ukrainian languages</description>
 
   <build>
-        <finalName>${artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <filtering>false</filtering>
