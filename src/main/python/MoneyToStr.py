@@ -39,12 +39,12 @@ class MoneyToStr:
             return self
     
         def length(self):
-            return self.toString().length
+            return self.toString().__len__()
     
         def deleteCharAt(self, index):
             str = self.toString()
             self._buffer = []
-            self.append(str.substring(0, index))
+            self.append(str[:index])
             return self
     
         def toString(self):
@@ -424,6 +424,36 @@ class MoneyToStr:
     NUM12 = 12
     NUM100 = 100
     NUM1000 = 1000
+    NUM10000 = 10000
+    INDEX_0 = 0
+    INDEX_1 = 1
+    INDEX_2 = 2
+    INDEX_3 = 3
+
+    @staticmethod
+    def percentToStr(amount, lang):
+        if amount is None:
+            raise Exception("amount is null")
+        if lang is None:
+            raise Exception("Language is null")
+        intPart = int(amount);
+        fractPart = 0
+        result = ""
+        if amount == int(amount):
+            result = MoneyToStr("PER10", lang, "TEXT").convert(amount, 0);
+        elif (round(amount * MoneyToStr.NUM10, 4) == int(amount * MoneyToStr.NUM10)):
+            fractPart = round((amount - intPart) * MoneyToStr.NUM10)
+            result = MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart)
+        elif (round(amount * MoneyToStr.NUM100, 4) == int(amount * MoneyToStr.NUM100)):
+            fractPart = round((amount - intPart) * MoneyToStr.NUM100)
+            result = MoneyToStr("PER100", lang, "TEXT").convert(intPart, fractPart)
+        elif (round(amount * MoneyToStr.NUM1000, 4) == int(amount * MoneyToStr.NUM1000)):
+            fractPart = ((amount - intPart) * MoneyToStr.NUM1000).round
+            result = MoneyToStr("PER1000", lang, "TEXT").convert(intPart, fractPart)
+        else:
+            fractPart = round((amount - intPart) * MoneyToStr.NUM10000)
+            result = MoneyToStr("PER10000", lang, "TEXT").convert(intPart, fractPart)
+        return result
 
     def __init__(self, currency, language, pennies):
         if currency is None:
@@ -496,10 +526,10 @@ class MoneyToStr:
                 range10 = int((theTriad % self.NUM100) / self.NUM10)
                 range = int(theTriad % self.NUM10)
                 if range10 == self.NUM1:
-                    money2str.append(rubFiveUnit);
+                    money2str.append(self.rubFiveUnit);
                 else:
                     if range == self.NUM1:
-                        money2str.append(rubOneUnit)
+                        money2str.append(self.rubOneUnit)
                     elif range == self.NUM2 or range == self.NUM3 or range == self.NUM4:
                         money2str.append(self.rubTwoUnit)
                     else:
@@ -511,11 +541,11 @@ class MoneyToStr:
 
         if self.pennies == "TEXT":
             param1 = " "
-            if language == "ENG":
-                param1 = "and"
-            param2 = messages["0"][0] + " "
-            if theKopeiki == 0:
-                param2 = triad2Word(theKopeiki, 0, kopSex)
+            if self.language == "ENG":
+                param1 = " and "
+            param2 = self.triad2Word(theKopeiki, 0, self.kopSex)
+            if int(theKopeiki) == 0:
+                param2 = self.messages["0"][0] + " "
             money2str.append(param1).append(param2)
         else:
             param = str(theKopeiki)
@@ -540,14 +570,14 @@ class MoneyToStr:
             return ""
 
         range = self.check1(triad, triadWord);
-        if self.language == "ENG" and length(triadWord) > 0 and triad % self.NUM10 == 0:
+        if self.language == "ENG" and triadWord.length() > 0 and triad % self.NUM10 == 0:
             triadWord.deleteCharAt(triadWord.length() - 1)
             triadWord.append(" ")
 
         range10 = range
         range = triad % self.NUM10
         self.check2(triadNum, sex, triadWord, triad, range10);
-        if triadNum == self.NUM0:
+        if int(triadNum) == self.NUM0:
             triadWord.append("")
         elif triadNum == self.NUM1 or triadNum == self.NUM2 or triadNum == self.NUM3 or triadNum == self.NUM4:
             if range10 == self.NUM1:
@@ -571,28 +601,28 @@ class MoneyToStr:
      * @param range10 the range 10
     '''
     def check2(self, triadNum, sex, triadWord, triad, range10):
-        range = triad % self.NUM10
+        range = int(triad % self.NUM10)
         if range10 == 1:
-            self.triadWord.append(self.messages["10_19"][range] + " ");
+            triadWord.append(self.messages["10_19"][range] + " ");
         else:
             if range == self.NUM1:
                 if triadNum == self.NUM1:
-                    triadWord.append(self.messages["1"][INDEX_0] + " ")
-                elif triadNum == NUM2 or triadNum == NUM3 or triadNum == NUM4:
-                    triadWord.append(self.messages["1"][INDEX_1] + " ")
+                    triadWord.append(self.messages["1"][self.INDEX_0] + " ")
+                elif triadNum == self.NUM2 or triadNum == self.NUM3 or triadNum == self.NUM4:
+                    triadWord.append(self.messages["1"][self.INDEX_1] + " ")
                 elif "M" == sex:
-                    triadWord.append(self.messages["1"][INDEX_2] + " ")
+                    triadWord.append(self.messages["1"][self.INDEX_2] + " ")
                 elif "F" == sex:
-                    triadWord.append(self.messages["1"][INDEX_3] + " ")
+                    triadWord.append(self.messages["1"][self.INDEX_3] + " ")
             elif range == self.NUM2:
                 if triadNum == self.NUM1:
-                    triadWord.append(self.messages["2"][INDEX_0] + " ")
+                    triadWord.append(self.messages["2"][self.INDEX_0] + " ")
                 elif triadNum == self.NUM2 or triadNum == self.NUM3 or triadNum == self.NUM4:
-                    triadWord.append(self.messages["2"][INDEX_1] + " ")
+                    triadWord.append(self.messages["2"][self.INDEX_1] + " ")
                 elif "M" == sex:
-                    triadWord.append(self.messages["2"][INDEX_2] + " ")
+                    triadWord.append(self.messages["2"][self.INDEX_2] + " ")
                 elif "F" == sex:
-                    triadWord.append(self.messages["2"][INDEX_3] + " ")
+                    triadWord.append(self.messages["2"][self.INDEX_3] + " ")
             elif range == self.NUM3 or range == self.NUM4 or range == self.NUM5 or range == self.NUM6 or range == self.NUM7 or range == self.NUM8 or range == self.NUM9:
                 triadWord.append(self.concat(["", "", ""], self.messages["3_9"])[range] + " ");
 
