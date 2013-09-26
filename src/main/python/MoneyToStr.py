@@ -1,5 +1,4 @@
 ﻿'''
-/*
  * $Id$
  *
  * Copyright 2013 Valentyn Kolesnikov
@@ -15,17 +14,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
 '''
 
 import math
 '''
-/**
  * Converts numbers to words.
  *
  * @author Valentyn Kolesnikov
  * @version $Revision$ $Date$
- */
 '''
 currencyList = {
   "CurrencyList" : {
@@ -413,6 +409,19 @@ class StringBuilder:
         return "".join(self._buffer)
 
 class MoneyToStr:
+    NUM0 = 0
+    NUM1 = 1
+    NUM2 = 2
+    NUM3 = 3
+    NUM4 = 4
+    NUM5 = 5
+    NUM6 = 6
+    NUM7 = 7
+    NUM8 = 8
+    NUM9 = 9
+    NUM10 = 10
+    NUM11 = 11
+    NUM12 = 12
     NUM100 = 100
     NUM1000 = 1000
 
@@ -449,14 +458,175 @@ class MoneyToStr:
         self.rubSex = theISOElement["-RubSex"]
         self.kopSex = theISOElement["-KopSex"]
 
+    '''
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+    '''
     def convertValue(self, theMoney):
         intPart = int(theMoney)
         fractPart = int(round(((theMoney - intPart) * self.NUM100)))
         if self.currency == "PER1000":
             fractPart = int(round(((theMoney - intPart) * self.NUM1000)))
-        return "test"
+        return self.convert(intPart, fractPart)
 
-print MoneyToStr("UAH","UKR","NUMBER").convertValue(123.45)
-sb = StringBuilder()
-sb.append("Hello").append(" world");
-print sb.toString();
+    '''
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH", "UKR", "NUMBER"); String result =
+     * moneyToStr.convertValue(123D); Expected: result = сто двадцять три гривні 00 копійок
+     *
+     * @param theMoney
+     *            the amount of money major currency
+     * @param theKopeiki
+     *            the amount of money minor currency
+     * @return the string description of money value
+    '''
+    def convert(self, theMoney, theKopeiki):
+        money2str = StringBuilder()
+        triadNum = 0
+
+        intPart = int(theMoney)
+        if intPart == 0:
+            money2str.append(messages["0"][0] + " ")
+        while True:
+            theTriad = intPart % self.NUM1000
+            money2str.insert(0, self.triad2Word(theTriad, triadNum, self.rubSex))
+            if triadNum == 0:
+                range10 = int((theTriad % self.NUM100) / self.NUM10)
+                range = int(theTriad % self.NUM10)
+                if range10 == self.NUM1:
+                    money2str.append(rubFiveUnit);
+                else:
+                    if range == self.NUM1:
+                        money2str.append(rubOneUnit)
+                    elif range == self.NUM2 or range == self.NUM3 or range == self.NUM4:
+                        money2str.append(self.rubTwoUnit)
+                    else:
+                        money2str.append(self.rubFiveUnit)
+            intPart = int(intPart / self.NUM1000);
+            triadNum += 1;
+            if intPart <= 0:
+                break
+
+        if self.pennies == "TEXT":
+            param1 = " "
+            if language == "ENG":
+                param1 = "and"
+            param2 = messages["0"][0] + " "
+            if theKopeiki == 0:
+                param2 = triad2Word(theKopeiki, 0, kopSex)
+            money2str.append(param1).append(param2)
+        else:
+            param = str(theKopeiki)
+            if theKopeiki < 10:
+                param = "0" + str(theKopeiki)
+            money2str.append(" " + param + " ");
+        if theKopeiki == self.NUM11 or theKopeiki == self.NUM12:
+            money2str.append(self.kopFiveUnit);
+        else:
+            if theKopeiki % self.NUM10 == self.NUM1:
+                money2str.append(self.kopOneUnit);
+            elif theKopeiki % self.NUM10 == self.NUM2 or theKopeiki % self.NUM10 == self.NUM3 or theKopeiki % self.NUM10 == self.NUM4:
+                money2str.append(self.kopTwoUnit)
+            else:
+                money2str.append(self.kopFiveUnit)
+        return money2str.toString().strip();
+
+    def triad2Word(self, triad, triadNum, sex):
+        triadWord = StringBuilder();
+
+        if triad == 0:
+            return ""
+
+        range = self.check1(triad, triadWord);
+        if self.language == "ENG" and length(triadWord) > 0 and triad % self.NUM10 == 0:
+            triadWord.deleteCharAt(triadWord.length() - 1)
+            triadWord.append(" ")
+
+        range10 = range
+        range = triad % self.NUM10
+        self.check2(triadNum, sex, triadWord, triad, range10);
+        if triadNum == self.NUM0:
+            triadWord.append("")
+        elif triadNum == self.NUM1 or triadNum == self.NUM2 or triadNum == self.NUM3 or triadNum == self.NUM4:
+            if range10 == self.NUM1:
+                triadWord.append(self.messages["1000_10"][triadNum - 1] + " ");
+            else:
+                if range ==self. NUM1:
+                    triadWord.append(self.messages["1000_1"][triadNum - 1] + " ")
+                elif range == self.NUM2 or range == self.NUM3 or range == self.NUM4:
+                    triadWord.append(self.messages["1000_234"][triadNum - 1] + " ")
+                else:
+                    triadWord.append(self.messages["1000_5"][triadNum - 1] + " ")
+        else:
+            triadWord.append("??? ")
+        return triadWord.toString()
+
+    '''
+     * @param triadNum the triad num
+     * @param sex the sex
+     * @param triadWord the triad word
+     * @param triad the triad
+     * @param range10 the range 10
+    '''
+    def check2(self, triadNum, sex, triadWord, triad, range10):
+        range = triad % self.NUM10
+        if range10 == 1:
+            self.triadWord.append(self.messages["10_19"][range] + " ");
+        else:
+            if range == self.NUM1:
+                if triadNum == self.NUM1:
+                    triadWord.append(self.messages["1"][INDEX_0] + " ")
+                elif triadNum == NUM2 or triadNum == NUM3 or triadNum == NUM4:
+                    triadWord.append(self.messages["1"][INDEX_1] + " ")
+                elif "M" == sex:
+                    triadWord.append(self.messages["1"][INDEX_2] + " ")
+                elif "F" == sex:
+                    triadWord.append(self.messages["1"][INDEX_3] + " ")
+            elif range == self.NUM2:
+                if triadNum == self.NUM1:
+                    triadWord.append(self.messages["2"][INDEX_0] + " ")
+                elif triadNum == self.NUM2 or triadNum == self.NUM3 or triadNum == self.NUM4:
+                    triadWord.append(self.messages["2"][INDEX_1] + " ")
+                elif "M" == sex:
+                    triadWord.append(self.messages["2"][INDEX_2] + " ")
+                elif "F" == sex:
+                    triadWord.append(self.messages["2"][INDEX_3] + " ")
+            elif range == self.NUM3 or range == self.NUM4 or range == self.NUM5 or range == self.NUM6 or range == self.NUM7 or range == self.NUM8 or range == self.NUM9:
+                triadWord.append(self.concat(["", "", ""], self.messages["3_9"])[range] + " ");
+
+    '''
+     * @param triad the triad
+     * @param triadWord the triad word
+     * @return the range
+    '''
+    def check1(self, triad, triadWord):
+        range = int(triad / self.NUM100)
+        triadWord.append(self.concat([""], self.messages["100_900"])[range])
+
+        range = int((triad % self.NUM100) / self.NUM10);
+        triadWord.append(self.concat(["", ""], self.messages["20_90"])[range]);
+        return range;
+
+    def concat(self, first, second):
+        result = []
+        result.extend(first)
+        result.extend(second)
+        return result
+
+moneyToStrUAH = MoneyToStr("UAH","UKR","NUMBER");
+value = moneyToStrUAH.convert(978637287197540, 12);
+if value == "дев’ятсот сімдесят вісім трильйонів шістсот тридцять сім мільярдів "\
+        "двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "\
+        "п’ятсот сорок гривень 12 копійок":
+    print "Test1 OK"
+else:
+    print "Test1 unexpected value " + value
+value = moneyToStrUAH.convert(234978637287197540, 12);
+if value == "двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот "\
+                + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "\
+                + "п’ятсот сорок гривень 12 копійок":
+    print "Test2 OK"
+else:
+    print "Test2 unexpected value " + value
