@@ -18,40 +18,15 @@
  */
 '''
 
+import math
 '''
 /**
- * Converts numbers to symbols.
+ * Converts numbers to words.
  *
- * @author Valentyn V Kolesnikov
+ * @author Valentyn Kolesnikov
  * @version $Revision$ $Date$
  */
 '''
-class StringBuilder:
-    _buffer = []
-
-    def __init__(self):
-        self._buffer = []
-
-    def append(self, text):
-        self._buffer.append(text)
-        return self
-
-    def insert(self, index, text):
-        self._buffer.insert(index, text)
-        return self
-
-    def length(self):
-        return self.toString().length
-
-    def deleteCharAt(self, index):
-        str = self.toString()
-        self._buffer = []
-        self.append(str.substring(0, index))
-        return self
-
-    def toString(self):
-        return "".join(self._buffer)
-
 currencyList = {
   "CurrencyList" : {
     "language" : { "-value" : "UKR" },
@@ -411,7 +386,35 @@ currencyList = {
   }
 }
 
+class StringBuilder:
+    _buffer = []
+
+    def __init__(self):
+        self._buffer = []
+
+    def append(self, text):
+        self._buffer.append(text)
+        return self
+
+    def insert(self, index, text):
+        self._buffer.insert(index, text)
+        return self
+
+    def length(self):
+        return self.toString().length
+
+    def deleteCharAt(self, index):
+        str = self.toString()
+        self._buffer = []
+        self.append(str.substring(0, index))
+        return self
+
+    def toString(self):
+        return "".join(self._buffer)
+
 class MoneyToStr:
+    NUM100 = 100
+    NUM1000 = 1000
 
     def __init__(self, currency, language, pennies):
         if currency is None:
@@ -436,18 +439,24 @@ class MoneyToStr:
                 theISOElement = item
                 break
         if theISOElement is None:
-            raise Exception("Currency not found " + self.currency);
-        self.rubOneUnit = theISOElement["-RubOneUnit"];
-        self.rubTwoUnit = theISOElement["-RubTwoUnit"];
-        self.rubFiveUnit = theISOElement["-RubFiveUnit"];
-        self.kopOneUnit = theISOElement["-KopOneUnit"];
-        self.kopTwoUnit = theISOElement["-KopTwoUnit"];
-        self.kopFiveUnit = theISOElement["-KopFiveUnit"];
-        self.rubSex = theISOElement["-RubSex"];
-        self.kopSex = theISOElement["-KopSex"];
+            raise Exception("Currency not found " + self.currency)
+        self.rubOneUnit = theISOElement["-RubOneUnit"]
+        self.rubTwoUnit = theISOElement["-RubTwoUnit"]
+        self.rubFiveUnit = theISOElement["-RubFiveUnit"]
+        self.kopOneUnit = theISOElement["-KopOneUnit"]
+        self.kopTwoUnit = theISOElement["-KopTwoUnit"]
+        self.kopFiveUnit = theISOElement["-KopFiveUnit"]
+        self.rubSex = theISOElement["-RubSex"]
+        self.kopSex = theISOElement["-KopSex"]
 
-print MoneyToStr("UAH","UKR","NUMBER")
+    def convertValue(self, theMoney):
+        intPart = int(theMoney)
+        fractPart = int(round(((theMoney - intPart) * self.NUM100)))
+        if self.currency == "PER1000":
+            fractPart = int(round(((theMoney - intPart) * self.NUM1000)))
+        return "test"
+
+print MoneyToStr("UAH","UKR","NUMBER").convertValue(123.45)
 sb = StringBuilder()
 sb.append("Hello").append(" world");
 print sb.toString();
-
