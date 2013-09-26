@@ -26,8 +26,33 @@
  * @version $Revision$ $Date$
  */
 '''
-class MoneyToStr:
- currencyList = {
+class StringBuilder:
+    _buffer = []
+
+    def __init__(self):
+        self._buffer = []
+
+    def append(self, text):
+        self._buffer.append(text)
+        return self
+
+    def insert(self, index, text):
+        self._buffer.insert(index, text)
+        return self
+
+    def length(self):
+        return self.toString().length
+
+    def deleteCharAt(self, index):
+        str = self.toString()
+        self._buffer = []
+        self.append(str.substring(0, index))
+        return self
+
+    def toString(self):
+        return "".join(self._buffer)
+
+currencyList = {
   "CurrencyList" : {
     "language" : { "-value" : "UKR" },
     "UKR" : {
@@ -385,5 +410,44 @@ class MoneyToStr:
     ]
   }
 }
-print MoneyToStr.currencyList["CurrencyList"]["language"]
+
+class MoneyToStr:
+
+    def __init__(self, currency, language, pennies):
+        if currency is None:
+            raise Exception("Currency is null")
+        if language is None:
+            raise Exception("Language is null")
+        if pennies is None:
+            raise Exception("Pennies is null")
+        self.currency = currency
+        self.language = language
+        self.pennies = pennies
+        languageElement = language;
+        items = currencyList["CurrencyList"][languageElement]["item"];
+        self.messages = {}
+        for languageItem in items:
+            if languageItem["-text"] is not None:
+                self.messages[languageItem["-value"]] = languageItem["-text"].split(',')
+        currencyItem = currencyList["CurrencyList"][self.currency]
+        theISOElement = None
+        for item in currencyItem:
+            if item["-language"] == self.language:
+                theISOElement = item
+                break
+        if theISOElement is None:
+            raise Exception("Currency not found " + self.currency);
+        self.rubOneUnit = theISOElement["-RubOneUnit"];
+        self.rubTwoUnit = theISOElement["-RubTwoUnit"];
+        self.rubFiveUnit = theISOElement["-RubFiveUnit"];
+        self.kopOneUnit = theISOElement["-KopOneUnit"];
+        self.kopTwoUnit = theISOElement["-KopTwoUnit"];
+        self.kopFiveUnit = theISOElement["-KopFiveUnit"];
+        self.rubSex = theISOElement["-RubSex"];
+        self.kopSex = theISOElement["-KopSex"];
+
+print MoneyToStr("UAH","UKR","NUMBER")
+sb = StringBuilder()
+sb.append("Hello").append(" world");
+print sb.toString();
 
