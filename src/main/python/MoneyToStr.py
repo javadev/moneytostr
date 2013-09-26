@@ -614,19 +614,3 @@ class MoneyToStr:
         result.extend(first)
         result.extend(second)
         return result
-
-moneyToStrUAH = MoneyToStr("UAH","UKR","NUMBER");
-value = moneyToStrUAH.convert(978637287197540, 12);
-if value == "дев’ятсот сімдесят вісім трильйонів шістсот тридцять сім мільярдів "\
-        "двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "\
-        "п’ятсот сорок гривень 12 копійок":
-    print "Test1 OK"
-else:
-    print "Test1 unexpected value " + value
-value = moneyToStrUAH.convert(234978637287197540, 12);
-if value == "двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот "\
-                + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто дев’яносто сім тисяч "\
-                + "п’ятсот сорок гривень 12 копійок":
-    print "Test2 OK"
-else:
-    print "Test2 unexpected value " + value
