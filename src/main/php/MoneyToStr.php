@@ -390,13 +390,14 @@ class MoneyToStr {
     )
   ));
 
-    public function get() {
-        return $this->$currencyList;
+    public function data() {
+        return $currencyList;
     }
 }
 
-    $data = new MoneyToStr().get();    
-    echo "Starting Iteration" . "\n\r";
+    $data = new MoneyToStr();
+    $array = $data->data();    
+    echo "Starting Iteration[" . $array["CurrencyList"]["language"]["-value"] . "]\n\r";
     for ($i=0;$i<10000;$i++) {
         echo "\r" . $i;
     }
