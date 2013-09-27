@@ -391,7 +391,7 @@ class MoneyToStr {
   ));
 
     public function data() {
-        return $currencyList;
+        return $this->currencyList;
     }
 }
 
