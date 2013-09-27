@@ -391,11 +391,11 @@ class MoneyToStr {
   ));
 
     public function get() {
-        return $currencyList;
+        return $this->$currencyList;
     }
 }
 
-    $data = new MoneyToStr();    
+    $data = new MoneyToStr().get();    
     echo "Starting Iteration" . "\n\r";
     for ($i=0;$i<10000;$i++) {
         echo "\r" . $i;
