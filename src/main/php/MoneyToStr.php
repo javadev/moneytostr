@@ -408,12 +408,68 @@ class MoneyToStr {
     )
   ));
 
+    const NUM0 = 0;
+    const NUM1 = 1;
+    const NUM2 = 2;
+    const NUM3 = 3;
+    const NUM4 = 4;
+    const NUM5 = 5;
+    const NUM6 = 6;
+    const NUM7 = 7;
+    const NUM8 = 8;
+    const NUM9 = 9;
+    const NUM10 = 10;
+    const NUM11 = 11;
+    const NUM12 = 12;
+    const NUM100 = 100;
+    const NUM1000 = 1000;
+    const NUM10000 = 10000;
+    const INDEX_0 = 0;
+    const INDEX_1 = 1;
+    const INDEX_2 = 2;
+    const INDEX_3 = 3;
+    private $currency, $language, $pennies, $messages;
+    private $rubOneUnit, $rubTwoUnit, $rubFiveUnit, $kopOneUnit, $kopTwoUnit, $kopFiveUnit, $rubSex, $kopSex;
+
+    public function __construct($currency, $language, $pennies) {
+        $this->currency = $currency;
+        $this->language = $language;
+        $this->pennies = $pennies;
+        $languageElement = $language;
+        $items = $this->currencyList['CurrencyList'][$languageElement]['item'];
+        $this->messages = array();
+        foreach ($items as $languageItem) {
+            if ($languageItem["-text"] != null) {
+                $this->messages[$languageItem["-value"]] = explode(",", $languageItem["-text"]);
+            }
+        }
+        $currencyItem = $this->currencyList['CurrencyList'][$currency];
+        $theISOElement = null;
+        foreach ($currencyItem as $item) {
+            if ($item["-language"] == $language) {
+                $theISOElement = $item;
+                next;
+            }
+        }
+        if (theISOElement == null) {
+            throw new Exception("Currency not found " . $currency);
+        }
+        $this->rubOneUnit = $theISOElement["-RubOneUnit"];
+        $this->rubTwoUnit = $theISOElement["-RubTwoUnit"];
+        $this->rubFiveUnit = $theISOElement["-RubFiveUnit"];
+        $this->kopOneUnit = $theISOElement["-KopOneUnit"];
+        $this->kopTwoUnit = $theISOElement["-KopTwoUnit"];
+        $this->kopFiveUnit = $theISOElement["-KopFiveUnit"];
+        $this->rubSex = $theISOElement["-RubSex"];
+        $this->kopSex = $theISOElement["-KopSex"];
+    }
+
     public function data() {
         return $this->currencyList;
     }
 }
 
-    echo "Starting Iteration[" . (new MoneyToStr())->data()["CurrencyList"]["language"]["-value"] . "]\n\r";
+    echo "Starting Iteration[" . (new MoneyToStr("UAH", "UKR", "TEXT"))->data()["CurrencyList"]["language"]["-value"] . "]\n\r";
     for ($i=0;$i<10000;$i++) {
         echo "\r" . $i;
     }
