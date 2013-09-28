@@ -531,7 +531,7 @@ class MoneyToStr {
         } while ($intPart > 0);
 
         if ($this->pennies == "TEXT") {
-            $money2str->append($this->language == "ENG" ? " and " : " ")->append($theKopeiki == 0 ? ($this->messages["0"][0] . " ") : $this->triad2Word($theKopeiki, 0, $kopSex));
+            $money2str->append($this->language == "ENG" ? " and " : " ")->append($theKopeiki == 0 ? ($this->messages["0"][0] . " ") : $this->triad2Word($theKopeiki, 0, $this->kopSex));
         } else {
             $money2str->append(" " . ($theKopeiki < 10 ? "0" . strval($theKopeiki) : strval($theKopeiki)) . " ");
         }
@@ -554,6 +554,7 @@ class MoneyToStr {
     }
 
     public function triad2Word($triad, $triadNum, $sex) {
+echo "triad2Word [" . $triad . "] [" . $triadNum . "] [" . $sex . "]\n";
         $triadWord = new StringBuilder();
 
         if ($triad == 0) {
