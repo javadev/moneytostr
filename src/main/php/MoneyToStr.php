@@ -481,7 +481,7 @@ class MoneyToStr {
         $intPart = intval($theMoney);
         $fractPart = intval(round((($theMoney - $intPart) * MoneyToStr::NUM100)));
         if ($this->currency == "PER1000") {
-            $fractPart = int(round((($theMoney - $intPart) * MoneyToStr::NUM1000)));
+            $fractPart = intval(round((($theMoney - $intPart) * MoneyToStr::NUM1000)));
         }
         return $this->convert($intPart, $fractPart);
     }
@@ -515,7 +515,7 @@ class MoneyToStr {
                 } else {
                     switch ($range) {
                     case MoneyToStr::NUM1:
-                        $money2str.append($this->rubOneUnit);
+                        $money2str->append($this->rubOneUnit);
                         break;
                     case MoneyToStr::NUM2: case MoneyToStr::NUM3: case MoneyToStr::NUM4:
                         $money2str->append($this->rubTwoUnit);
@@ -535,7 +535,7 @@ class MoneyToStr {
         } else {
             $money2str->append(" " . ($theKopeiki < 10 ? "0" . strval($theKopeiki) : strval($theKopeiki)) . " ");
         }
-        if ($theKopeiki == NUM11 || $theKopeiki == NUM12) {
+        if ($theKopeiki == MoneyToStr::NUM11 || $theKopeiki == MoneyToStr::NUM12) {
             $money2str->append($this->kopFiveUnit);
         } else {
             switch ($theKopeiki % MoneyToStr::NUM10) {
@@ -554,7 +554,6 @@ class MoneyToStr {
     }
 
     public function triad2Word($triad, $triadNum, $sex) {
-echo "triad2Word [" . $triad . "] [" . $triadNum . "] [" . $sex . "]\n";
         $triadWord = new StringBuilder();
 
         if ($triad == 0) {
@@ -562,7 +561,7 @@ echo "triad2Word [" . $triad . "] [" . $triadNum . "] [" . $sex . "]\n";
         }
 
         $range = $this->check1($triad, $triadWord);
-        if ($language == "ENG" && $triadWord->length() > 0 && $triad % NUM10 == 0) {
+        if ($language == "ENG" && $triadWord->length() > 0 && $triad % MoneyToStr::NUM10 == 0) {
             $triadWord->deleteCharAt($triadWord.length() - 1);
             $triadWord->append(" ");
         }
@@ -613,23 +612,23 @@ echo "triad2Word [" . $triad . "] [" . $triadNum . "] [" . $sex . "]\n";
             case MoneyToStr::NUM1:
                 if ($triadNum == MoneyToStr::NUM1) {
                     $triadWord->append($this->messages["1"][MoneyToStr::INDEX_0] . " ");
-                } else if (triadNum == MoneyToStr::NUM2 || triadNum == MoneyToStr::NUM3 || triadNum == MoneyToStr::NUM4) {
-                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_1] . " ");
-                } else if ("M" == sex) {
-                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_2] . " ");
-                } else if ("F" == sex) {
-                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_3] . " ");
+                } else if ($triadNum == MoneyToStr::NUM2 || $triadNum == MoneyToStr::NUM3 || $triadNum == MoneyToStr::NUM4) {
+                    $triadWord->append($this->messages["1"][MoneyToStr::INDEX_1] . " ");
+                } else if ("M" == $sex) {
+                    $triadWord->append($this->messages["1"][MoneyToStr::INDEX_2] . " ");
+                } else if ("F" == $sex) {
+                    $triadWord->append($this->messages["1"][MoneyToStr::INDEX_3] . " ");
                 }
                 break;
-            case NUM2:
+            case MoneyToStr::NUM2:
                 if ($triadNum == MoneyToStr::NUM1) {
-                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_0] . " ");
+                    $triadWord->append($this->messages["2"][MoneyToStr::INDEX_0] . " ");
                 } else if ($triadNum == MoneyToStr::NUM2 || $triadNum == MoneyToStr::NUM3 || $triadNum == MoneyToStr::NUM4) {
-                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_1] . " ");
-                } else if ("M" == sex) {
-                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_2] . " ");
-                } else if ("F" == sex) {
-                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_3] . " ");
+                    $triadWord->append($this->messages["2"][MoneyToStr::INDEX_1] . " ");
+                } else if ("M" == $sex) {
+                    $triadWord->append($this->messages["2"][MoneyToStr::INDEX_2] . " ");
+                } else if ("F" == $sex) {
+                    $triadWord->append($this->messages["2"][MoneyToStr::INDEX_3] . " ");
                 }
                 break;
             case MoneyToStr::NUM3: case MoneyToStr::NUM4: case MoneyToStr::NUM5: case MoneyToStr::NUM6: case MoneyToStr::NUM7: case MoneyToStr::NUM8: case MoneyToStr::NUM9:
@@ -659,5 +658,4 @@ echo "triad2Word [" . $triad . "] [" . $triadNum . "] [" . $sex . "]\n";
     }
 }
 
-    echo '[' . (new MoneyToStr("UAH", "UKR", "TEXT"))->convertValue(123.45) . "]\n\r";
 ?>
