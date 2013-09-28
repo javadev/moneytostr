@@ -17,38 +17,44 @@
  * limitations under the License.
  */
 class StringBuilder {
-    var $_buffer;
+    var $_buffer = array();
 
     public function __construct() {
-        $_buffer = array();
+        $this->_buffer = array();
     }
 
     public function append($text) {
-        $_buffer.append($text);
-        return this;
+        array_push($this->_buffer, $text);
+        return $this;
     }
 
-    public function insert($index, $text) {
-        $_buffer.insert($index, $text);
-        return this;
+    public function insert($text) {
+        array_unshift($this->_buffer, $text);
+        return $this;
     }
 
     public function length() {
-        return toString().length();
+        return $this->toString().length();
     }
 
     public function deleteCharAt($index) {
         $str = toString();
-        $_buffer = array();
+        $this->_buffer = array();
         append($str.substring(0, $index));
-        return this;
+        return $this;
     }
 
     public function toString() {
-        return join("", $_buffer);
+        return join("", $this->_buffer);
     }
 }
 
+/**
+ * Converts numbers to symbols.
+ *
+ * @author Valentyn Kolesnikov
+ * @version $Revision$ $Date$
+ */
 class MoneyToStr {
     var $currencyList = array(
   "CurrencyList" => array(
@@ -57,47 +63,47 @@ class MoneyToStr {
       "item" => array(
         array(
           "-value" => "0",
-          "-text" => "íóëü"
+          "-text" => "Ð½ÑƒÐ»ÑŒ"
         ),
         array(
           "-value" => "1000_10",
-          "-text" => "òèñÿ÷,ì³ëüéîí³â,ì³ëüÿðä³â,òðèëüéîí³â"
+          "-text" => "Ñ‚Ð¸ÑÑÑ‡,Ð¼Ñ–Ð»ÑŒÐ¹Ð¾Ð½Ñ–Ð²,Ð¼Ñ–Ð»ÑŒÑÑ€Ð´Ñ–Ð²,Ñ‚Ñ€Ð¸Ð»ÑŒÐ¹Ð¾Ð½Ñ–Ð²"
         ),
         array(
           "-value" => "1000_1",
-          "-text" => "òèñÿ÷à,ì³ëüéîí,ì³ëüÿðä,òðèëüéîí"
+          "-text" => "Ñ‚Ð¸ÑÑÑ‡Ð°,Ð¼Ñ–Ð»ÑŒÐ¹Ð¾Ð½,Ð¼Ñ–Ð»ÑŒÑÑ€Ð´,Ñ‚Ñ€Ð¸Ð»ÑŒÐ¹Ð¾Ð½"
         ),
         array(
           "-value" => "1000_234",
-          "-text" => "òèñÿ÷³,ì³ëüéîíà,ì³ëüÿðäà,òðèëüéîíà"
+          "-text" => "Ñ‚Ð¸ÑÑÑ‡Ñ–,Ð¼Ñ–Ð»ÑŒÐ¹Ð¾Ð½Ð°,Ð¼Ñ–Ð»ÑŒÑÑ€Ð´Ð°,Ñ‚Ñ€Ð¸Ð»ÑŒÐ¹Ð¾Ð½Ð°"
         ),
         array(
           "-value" => "1000_5",
-          "-text" => "òèñÿ÷,ì³ëüéîí³â,ì³ëüÿðä³â,òðèëüéîí³â"
+          "-text" => "Ñ‚Ð¸ÑÑÑ‡,Ð¼Ñ–Ð»ÑŒÐ¹Ð¾Ð½Ñ–Ð²,Ð¼Ñ–Ð»ÑŒÑÑ€Ð´Ñ–Ð²,Ñ‚Ñ€Ð¸Ð»ÑŒÐ¹Ð¾Ð½Ñ–Ð²"
         ),
         array(
           "-value" => "10_19",
-          "-text" => "äåñÿòü,îäèíàäöÿòü,äâàíàäöÿòü,òðèíàäöÿòü,÷îòèðíàäöÿòü,ï’ÿòíàäöÿòü,øiñòíàäöÿòü,ñiìíàäöÿòü,âiñiìíàäöÿòü,äåâ'ÿòíàäöÿòü"
+          "-text" => "Ð´ÐµÑÑÑ‚ÑŒ,Ð¾Ð´Ð¸Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ð´Ð²Ð°Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ñ‚Ñ€Ð¸Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ñ‡Ð¾Ñ‚Ð¸Ñ€Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ð¿â€™ÑÑ‚Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,ÑˆiÑÑ‚Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,ÑiÐ¼Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ð²iÑiÐ¼Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ,Ð´ÐµÐ²'ÑÑ‚Ð½Ð°Ð´Ñ†ÑÑ‚ÑŒ"
         ),
         array(
           "-value" => "1",
-          "-text" => "îäíà,îäèí,îäèí,îäíà"
+          "-text" => "Ð¾Ð´Ð½Ð°,Ð¾Ð´Ð¸Ð½,Ð¾Ð´Ð¸Ð½,Ð¾Ð´Ð½Ð°"
         ),
         array(
           "-value" => "2",
-          "-text" => "äâ³,äâà,äâà,äâ³"
+          "-text" => "Ð´Ð²Ñ–,Ð´Ð²Ð°,Ð´Ð²Ð°,Ð´Ð²Ñ–"
         ),
         array(
           "-value" => "3_9",
-          "-text" => "òðè,÷îòèðè,ï’ÿòü,ø³ñòü,ñ³ì,â³ñ³ì,äåâ’ÿòü"
+          "-text" => "Ñ‚Ñ€Ð¸,Ñ‡Ð¾Ñ‚Ð¸Ñ€Ð¸,Ð¿â€™ÑÑ‚ÑŒ,ÑˆÑ–ÑÑ‚ÑŒ,ÑÑ–Ð¼,Ð²Ñ–ÑÑ–Ð¼,Ð´ÐµÐ²â€™ÑÑ‚ÑŒ"
         ),
         array(
           "-value" => "100_900",
-          "-text" => "ñòî ,äâ³ñò³ ,òðèñòà ,÷îòèðèñòà ,ï’ÿòñîò ,ø³ñòñîò ,ñ³ìñîò ,â³ñ³ìñîò ,äåâ’ÿòñîò "
+          "-text" => "ÑÑ‚Ð¾ ,Ð´Ð²Ñ–ÑÑ‚Ñ– ,Ñ‚Ñ€Ð¸ÑÑ‚Ð° ,Ñ‡Ð¾Ñ‚Ð¸Ñ€Ð¸ÑÑ‚Ð° ,Ð¿â€™ÑÑ‚ÑÐ¾Ñ‚ ,ÑˆÑ–ÑÑ‚ÑÐ¾Ñ‚ ,ÑÑ–Ð¼ÑÐ¾Ñ‚ ,Ð²Ñ–ÑÑ–Ð¼ÑÐ¾Ñ‚ ,Ð´ÐµÐ²â€™ÑÑ‚ÑÐ¾Ñ‚ "
         ),
         array(
           "-value" => "20_90",
-          "-text" => "äâàäöÿòü ,òðèäöÿòü ,ñîðîê ,ï’ÿòäåñÿò ,ø³ñòäåñÿò ,ñ³ìäåñÿò ,â³ñ³ìäåñÿò ,äåâ’ÿíîñòî "
+          "-text" => "Ð´Ð²Ð°Ð´Ñ†ÑÑ‚ÑŒ ,Ñ‚Ñ€Ð¸Ð´Ñ†ÑÑ‚ÑŒ ,ÑÐ¾Ñ€Ð¾Ðº ,Ð¿â€™ÑÑ‚Ð´ÐµÑÑÑ‚ ,ÑˆÑ–ÑÑ‚Ð´ÐµÑÑÑ‚ ,ÑÑ–Ð¼Ð´ÐµÑÑÑ‚ ,Ð²Ñ–ÑÑ–Ð¼Ð´ÐµÑÑÑ‚ ,Ð´ÐµÐ²â€™ÑÐ½Ð¾ÑÑ‚Ð¾ "
         )
       )
     ),
@@ -105,47 +111,47 @@ class MoneyToStr {
       "item" => array(
         array(
           "-value" => "0",
-          "-text" => "íîëü"
+          "-text" => "Ð½Ð¾Ð»ÑŒ"
         ),
         array(
           "-value" => "1000_10",
-          "-text" => "òûñÿ÷,ìèëëèîíîâ,ìèëëèàðäîâ,òðèëëèîíîâ"
+          "-text" => "Ñ‚Ñ‹ÑÑÑ‡,Ð¼Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð¾Ð²,Ð¼Ð¸Ð»Ð»Ð¸Ð°Ñ€Ð´Ð¾Ð²,Ñ‚Ñ€Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð¾Ð²"
         ),
         array(
           "-value" => "1000_1",
-          "-text" => "òûñÿ÷à,ìèëëèîí,ìèëëèàðä,òðèëëèîí"
+          "-text" => "Ñ‚Ñ‹ÑÑÑ‡Ð°,Ð¼Ð¸Ð»Ð»Ð¸Ð¾Ð½,Ð¼Ð¸Ð»Ð»Ð¸Ð°Ñ€Ð´,Ñ‚Ñ€Ð¸Ð»Ð»Ð¸Ð¾Ð½"
         ),
         array(
           "-value" => "1000_234",
-          "-text" => "òûñÿ÷è,ìèëëèîíà,ìèëëèàðäà,òðèëëèîíà"
+          "-text" => "Ñ‚Ñ‹ÑÑÑ‡Ð¸,Ð¼Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð°,Ð¼Ð¸Ð»Ð»Ð¸Ð°Ñ€Ð´Ð°,Ñ‚Ñ€Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð°"
         ),
         array(
           "-value" => "1000_5",
-          "-text" => "òûñÿ÷,ìèëëèîíîâ,ìèëëèàðäîâ,òðèëëèîíîâ"
+          "-text" => "Ñ‚Ñ‹ÑÑÑ‡,Ð¼Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð¾Ð²,Ð¼Ð¸Ð»Ð»Ð¸Ð°Ñ€Ð´Ð¾Ð²,Ñ‚Ñ€Ð¸Ð»Ð»Ð¸Ð¾Ð½Ð¾Ð²"
         ),
         array(
           "-value" => "10_19",
-          "-text" => "äåñÿòü,îäèííàäöàòü,äâåíàäöàòü,òðèíàäöàòü,÷åòûðíàäöàòü,ïÿòíàäöàòü,øåñòíàäöàòü,ñåìíàäöàòü,âîñåìíàäöàòü,äåâÿòíàäöàòü"
+          "-text" => "Ð´ÐµÑÑÑ‚ÑŒ,Ð¾Ð´Ð¸Ð½Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ð´Ð²ÐµÐ½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ñ‚Ñ€Ð¸Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ñ‡ÐµÑ‚Ñ‹Ñ€Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ð¿ÑÑ‚Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,ÑˆÐµÑÑ‚Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,ÑÐµÐ¼Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ð²Ð¾ÑÐµÐ¼Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ,Ð´ÐµÐ²ÑÑ‚Ð½Ð°Ð´Ñ†Ð°Ñ‚ÑŒ"
         ),
         array(
           "-value" => "1",
-          "-text" => "îäíà,îäèí,îäèí,îäíà"
+          "-text" => "Ð¾Ð´Ð½Ð°,Ð¾Ð´Ð¸Ð½,Ð¾Ð´Ð¸Ð½,Ð¾Ð´Ð½Ð°"
         ),
         array(
           "-value" => "2",
-          "-text" => "äâå,äâà,äâà,äâå"
+          "-text" => "Ð´Ð²Ðµ,Ð´Ð²Ð°,Ð´Ð²Ð°,Ð´Ð²Ðµ"
         ),
         array(
           "-value" => "3_9",
-          "-text" => "òðè,÷åòûðå,ïÿòü,øåñòü,ñåìü,âîñåìü,äåâÿòü"
+          "-text" => "Ñ‚Ñ€Ð¸,Ñ‡ÐµÑ‚Ñ‹Ñ€Ðµ,Ð¿ÑÑ‚ÑŒ,ÑˆÐµÑÑ‚ÑŒ,ÑÐµÐ¼ÑŒ,Ð²Ð¾ÑÐµÐ¼ÑŒ,Ð´ÐµÐ²ÑÑ‚ÑŒ"
         ),
         array(
           "-value" => "100_900",
-          "-text" => "ñòî ,äâåñòè ,òðèñòà ,÷åòûðåñòà ,ïÿòüñîò ,øåñòüñîò ,ñåìüñîò ,âîñåìüñîò ,äåâÿòüñîò "
+          "-text" => "ÑÑ‚Ð¾ ,Ð´Ð²ÐµÑÑ‚Ð¸ ,Ñ‚Ñ€Ð¸ÑÑ‚Ð° ,Ñ‡ÐµÑ‚Ñ‹Ñ€ÐµÑÑ‚Ð° ,Ð¿ÑÑ‚ÑŒÑÐ¾Ñ‚ ,ÑˆÐµÑÑ‚ÑŒÑÐ¾Ñ‚ ,ÑÐµÐ¼ÑŒÑÐ¾Ñ‚ ,Ð²Ð¾ÑÐµÐ¼ÑŒÑÐ¾Ñ‚ ,Ð´ÐµÐ²ÑÑ‚ÑŒÑÐ¾Ñ‚ "
         ),
         array(
           "-value" => "20_90",
-          "-text" => "äâàäöàòü ,òðèäöàòü ,ñîðîê ,ïÿòüäåñÿò ,øåñòüäåñÿò ,ñåìüäåñÿò ,âîñåìüäåñÿò ,äåâÿíîñòî "
+          "-text" => "Ð´Ð²Ð°Ð´Ñ†Ð°Ñ‚ÑŒ ,Ñ‚Ñ€Ð¸Ð´Ñ†Ð°Ñ‚ÑŒ ,ÑÐ¾Ñ€Ð¾Ðº ,Ð¿ÑÑ‚ÑŒÐ´ÐµÑÑÑ‚ ,ÑˆÐµÑÑ‚ÑŒÐ´ÐµÑÑÑ‚ ,ÑÐµÐ¼ÑŒÐ´ÐµÑÑÑ‚ ,Ð²Ð¾ÑÐµÐ¼ÑŒÐ´ÐµÑÑÑ‚ ,Ð´ÐµÐ²ÑÐ½Ð¾ÑÑ‚Ð¾ "
         )
       )
     ),
@@ -200,89 +206,89 @@ class MoneyToStr {
     "RUR" => array(
       array(
         "-CurrID" => "810",
-        "-CurrName" => "Ðîññèéñêèå ðóáëè",
+        "-CurrName" => "Ð Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¸Ðµ Ñ€ÑƒÐ±Ð»Ð¸",
         "-language" => "RUS",
-        "-RubOneUnit" => "ðóáëü",
-        "-RubTwoUnit" => "ðóáëÿ",
-        "-RubFiveUnit" => "ðóáëåé",
+        "-RubOneUnit" => "Ñ€ÑƒÐ±Ð»ÑŒ",
+        "-RubTwoUnit" => "Ñ€ÑƒÐ±Ð»Ñ",
+        "-RubFiveUnit" => "Ñ€ÑƒÐ±Ð»ÐµÐ¹",
         "-RubSex" => "M",
-        "-KopOneUnit" => "êîïåéêà",
-        "-KopTwoUnit" => "êîïåéêè",
-        "-KopFiveUnit" => "êîïååê",
+        "-KopOneUnit" => "ÐºÐ¾Ð¿ÐµÐ¹ÐºÐ°",
+        "-KopTwoUnit" => "ÐºÐ¾Ð¿ÐµÐ¹ÐºÐ¸",
+        "-KopFiveUnit" => "ÐºÐ¾Ð¿ÐµÐµÐº",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "810",
-        "-CurrName" => "Ðîññèéñêèå ðóáëè",
+        "-CurrName" => "Ð Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¸Ðµ Ñ€ÑƒÐ±Ð»Ð¸",
         "-language" => "UKR",
-        "-RubOneUnit" => "ðóáëü",
-        "-RubTwoUnit" => "ðóáëÿ",
-        "-RubFiveUnit" => "ðóáë³â",
+        "-RubOneUnit" => "Ñ€ÑƒÐ±Ð»ÑŒ",
+        "-RubTwoUnit" => "Ñ€ÑƒÐ±Ð»Ñ",
+        "-RubFiveUnit" => "Ñ€ÑƒÐ±Ð»Ñ–Ð²",
         "-RubSex" => "M",
-        "-KopOneUnit" => "êîï³éêà",
-        "-KopTwoUnit" => "êîï³éêè",
-        "-KopFiveUnit" => "êîï³éîê",
+        "-KopOneUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹ÐºÐ°",
+        "-KopTwoUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹ÐºÐ¸",
+        "-KopFiveUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹Ð¾Ðº",
         "-KopSex" => "F"
       )
     ),
     "UAH" => array(
       array(
         "-CurrID" => "980",
-        "-CurrName" => "Óêðàèíñê³ ãðèâí³",
+        "-CurrName" => "Ð£ÐºÑ€Ð°Ð¸Ð½ÑÐºÑ– Ð³Ñ€Ð¸Ð²Ð½Ñ–",
         "-language" => "RUS",
-        "-RubOneUnit" => "ãðèâíÿ",
-        "-RubTwoUnit" => "ãðèâíè",
-        "-RubFiveUnit" => "ãðèâåíü",
+        "-RubOneUnit" => "Ð³Ñ€Ð¸Ð²Ð½Ñ",
+        "-RubTwoUnit" => "Ð³Ñ€Ð¸Ð²Ð½Ð¸",
+        "-RubFiveUnit" => "Ð³Ñ€Ð¸Ð²ÐµÐ½ÑŒ",
         "-RubSex" => "F",
-        "-KopOneUnit" => "êîïåéêà",
-        "-KopTwoUnit" => "êîïåéêè",
-        "-KopFiveUnit" => "êîïååê",
+        "-KopOneUnit" => "ÐºÐ¾Ð¿ÐµÐ¹ÐºÐ°",
+        "-KopTwoUnit" => "ÐºÐ¾Ð¿ÐµÐ¹ÐºÐ¸",
+        "-KopFiveUnit" => "ÐºÐ¾Ð¿ÐµÐµÐº",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "980",
-        "-CurrName" => "Óêðàèíñê³ ãðèâí³",
+        "-CurrName" => "Ð£ÐºÑ€Ð°Ð¸Ð½ÑÐºÑ– Ð³Ñ€Ð¸Ð²Ð½Ñ–",
         "-language" => "UKR",
-        "-RubOneUnit" => "ãðèâíÿ",
-        "-RubTwoUnit" => "ãðèâí³",
-        "-RubFiveUnit" => "ãðèâåíü",
+        "-RubOneUnit" => "Ð³Ñ€Ð¸Ð²Ð½Ñ",
+        "-RubTwoUnit" => "Ð³Ñ€Ð¸Ð²Ð½Ñ–",
+        "-RubFiveUnit" => "Ð³Ñ€Ð¸Ð²ÐµÐ½ÑŒ",
         "-RubSex" => "F",
-        "-KopOneUnit" => "êîï³éêà",
-        "-KopTwoUnit" => "êîï³éêè",
-        "-KopFiveUnit" => "êîï³éîê",
+        "-KopOneUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹ÐºÐ°",
+        "-KopTwoUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹ÐºÐ¸",
+        "-KopFiveUnit" => "ÐºÐ¾Ð¿Ñ–Ð¹Ð¾Ðº",
         "-KopSex" => "F"
       )
     ),
     "USD" => array(
       array(
         "-CurrID" => "840",
-        "-CurrName" => "Äîëàðè ÑØÀ",
+        "-CurrName" => "Ð”Ð¾Ð»Ð°Ñ€Ð¸ Ð¡Ð¨Ð",
         "-language" => "RUS",
-        "-RubOneUnit" => "äîëàð",
-        "-RubTwoUnit" => "äîëàðà",
-        "-RubFiveUnit" => "äîëàð³â",
+        "-RubOneUnit" => "Ð´Ð¾Ð»Ð°Ñ€",
+        "-RubTwoUnit" => "Ð´Ð¾Ð»Ð°Ñ€Ð°",
+        "-RubFiveUnit" => "Ð´Ð¾Ð»Ð°Ñ€Ñ–Ð²",
         "-RubSex" => "M",
-        "-KopOneUnit" => "öåíò",
-        "-KopTwoUnit" => "öåíà",
-        "-KopFiveUnit" => "öåíòîâ",
+        "-KopOneUnit" => "Ñ†ÐµÐ½Ñ‚",
+        "-KopTwoUnit" => "Ñ†ÐµÐ½Ð°",
+        "-KopFiveUnit" => "Ñ†ÐµÐ½Ñ‚Ð¾Ð²",
         "-KopSex" => "M"
       ),
       array(
         "-CurrID" => "840",
-        "-CurrName" => "Äîëàðè ÑØÀ",
+        "-CurrName" => "Ð”Ð¾Ð»Ð°Ñ€Ð¸ Ð¡Ð¨Ð",
         "-language" => "UKR",
-        "-RubOneUnit" => "äîëàð",
-        "-RubTwoUnit" => "äîëàðà",
-        "-RubFiveUnit" => "äîëàð³â",
+        "-RubOneUnit" => "Ð´Ð¾Ð»Ð°Ñ€",
+        "-RubTwoUnit" => "Ð´Ð¾Ð»Ð°Ñ€Ð°",
+        "-RubFiveUnit" => "Ð´Ð¾Ð»Ð°Ñ€Ñ–Ð²",
         "-RubSex" => "M",
-        "-KopOneUnit" => "öåíò",
-        "-KopTwoUnit" => "öåíà",
-        "-KopFiveUnit" => "öåíò³â",
+        "-KopOneUnit" => "Ñ†ÐµÐ½Ñ‚",
+        "-KopTwoUnit" => "Ñ†ÐµÐ½Ð°",
+        "-KopFiveUnit" => "Ñ†ÐµÐ½Ñ‚Ñ–Ð²",
         "-KopSex" => "M"
       ),
       array(
         "-CurrID" => "840",
-        "-CurrName" => "Äîëàðè ÑØÀ",
+        "-CurrName" => "Ð”Ð¾Ð»Ð°Ñ€Ð¸ Ð¡Ð¨Ð",
         "-language" => "ENG",
         "-RubOneUnit" => "dollar",
         "-RubTwoUnit" => "dollars",
@@ -297,112 +303,112 @@ class MoneyToStr {
     "PER10" => array(
       array(
         "-CurrID" => "556",
-        "-CurrName" => "Âiäñîòêè ç äåñÿòèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ð´ÐµÑÑÑ‚Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "RUS",
-        "-RubOneUnit" => "öåëàÿ,",
-        "-RubTwoUnit" => "öåëûõ,",
-        "-RubFiveUnit" => "öåëûõ,",
+        "-RubOneUnit" => "Ñ†ÐµÐ»Ð°Ñ,",
+        "-RubTwoUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
+        "-RubFiveUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "äåñÿòàÿ ïðîöåíòà",
-        "-KopTwoUnit" => "äåñÿòûõ ïðîöåíòà",
-        "-KopFiveUnit" => "äåñÿòûõ ïðîöåíòà",
+        "-KopOneUnit" => "Ð´ÐµÑÑÑ‚Ð°Ñ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopTwoUnit" => "Ð´ÐµÑÑÑ‚Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopFiveUnit" => "Ð´ÐµÑÑÑ‚Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "556",
-        "-CurrName" => "Âiäñîòêè ç äåñÿòèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ð´ÐµÑÑÑ‚Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "UKR",
-        "-RubOneUnit" => "ö³ëà,",
-        "-RubTwoUnit" => "ö³ëèõ,",
-        "-RubFiveUnit" => "ö³ëèõ,",
+        "-RubOneUnit" => "Ñ†Ñ–Ð»Ð°,",
+        "-RubTwoUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
+        "-RubFiveUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "äåñÿòà â³äñîòêà",
-        "-KopTwoUnit" => "äåñÿòèõ â³äñîòêà",
-        "-KopFiveUnit" => "äåñÿòèõ â³äñîòêà",
+        "-KopOneUnit" => "Ð´ÐµÑÑÑ‚Ð° Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopTwoUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopFiveUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
         "-KopSex" => "F"
       )
     ),
     "PER100" => array(
       array(
         "-CurrID" => "557",
-        "-CurrName" => "Âiäñîòêè ç ñîòèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· ÑÐ¾Ñ‚Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "RUS",
-        "-RubOneUnit" => "öåëàÿ,",
-        "-RubTwoUnit" => "öåëûõ,",
-        "-RubFiveUnit" => "öåëûõ,",
+        "-RubOneUnit" => "Ñ†ÐµÐ»Ð°Ñ,",
+        "-RubTwoUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
+        "-RubFiveUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "ñîòàÿ ïðîöåíòà",
-        "-KopTwoUnit" => "ñîòûõ ïðîöåíòà",
-        "-KopFiveUnit" => "ñîòûõ ïðîöåíòà",
+        "-KopOneUnit" => "ÑÐ¾Ñ‚Ð°Ñ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopTwoUnit" => "ÑÐ¾Ñ‚Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopFiveUnit" => "ÑÐ¾Ñ‚Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "557",
-        "-CurrName" => "Âiäñîòêè ç ñîòèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· ÑÐ¾Ñ‚Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "UKR",
-        "-RubOneUnit" => "ö³ëà,",
-        "-RubTwoUnit" => "ö³ëèõ,",
-        "-RubFiveUnit" => "ö³ëèõ,",
+        "-RubOneUnit" => "Ñ†Ñ–Ð»Ð°,",
+        "-RubTwoUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
+        "-RubFiveUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "ñîòà â³äñîòêà",
-        "-KopTwoUnit" => "ñîòèõ â³äñîòêà",
-        "-KopFiveUnit" => "ñîòèõ â³äñîòêà",
+        "-KopOneUnit" => "ÑÐ¾Ñ‚Ð° Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopTwoUnit" => "ÑÐ¾Ñ‚Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopFiveUnit" => "ÑÐ¾Ñ‚Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
         "-KopSex" => "F"
       )
     ),
     "PER1000" => array(
       array(
         "-CurrID" => "558",
-        "-CurrName" => "Âiäñîòêè ç òèñÿ÷íèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "RUS",
-        "-RubOneUnit" => "öåëàÿ,",
-        "-RubTwoUnit" => "öåëûõ,",
-        "-RubFiveUnit" => "öåëûõ,",
+        "-RubOneUnit" => "Ñ†ÐµÐ»Ð°Ñ,",
+        "-RubTwoUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
+        "-RubFiveUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "òûñÿ÷íàÿ ïðîöåíòà",
-        "-KopTwoUnit" => "òûñÿ÷íûõ ïðîöåíòà",
-        "-KopFiveUnit" => "òûñÿ÷íûõ ïðîöåíòà",
+        "-KopOneUnit" => "Ñ‚Ñ‹ÑÑÑ‡Ð½Ð°Ñ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopTwoUnit" => "Ñ‚Ñ‹ÑÑÑ‡Ð½Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopFiveUnit" => "Ñ‚Ñ‹ÑÑÑ‡Ð½Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "558",
-        "-CurrName" => "Âiäñîòêè ç òèñÿ÷íèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "UKR",
-        "-RubOneUnit" => "ö³ëà,",
-        "-RubTwoUnit" => "ö³ëèõ,",
-        "-RubFiveUnit" => "ö³ëèõ,",
+        "-RubOneUnit" => "Ñ†Ñ–Ð»Ð°,",
+        "-RubTwoUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
+        "-RubFiveUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "òèñÿ÷íà â³äñîòêà",
-        "-KopTwoUnit" => "òèñÿ÷íèõ â³äñîòêà",
-        "-KopFiveUnit" => "òèñÿ÷íèõ â³äñîòêà",
+        "-KopOneUnit" => "Ñ‚Ð¸ÑÑÑ‡Ð½Ð° Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopTwoUnit" => "Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopFiveUnit" => "Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
         "-KopSex" => "F"
       )
     ),
     "PER10000" => array(
       array(
         "-CurrID" => "559",
-        "-CurrName" => "Âiäñîòêè ç äåñÿòè òèñÿ÷íèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ð´ÐµÑÑÑ‚Ð¸ Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "RUS",
-        "-RubOneUnit" => "öåëàÿ,",
-        "-RubTwoUnit" => "öåëûõ,",
-        "-RubFiveUnit" => "öåëûõ,",
+        "-RubOneUnit" => "Ñ†ÐµÐ»Ð°Ñ,",
+        "-RubTwoUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
+        "-RubFiveUnit" => "Ñ†ÐµÐ»Ñ‹Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "äåñÿòèòûñÿ÷íàÿ ïðîöåíòà",
-        "-KopTwoUnit" => "äåñÿòèòûñÿ÷íûå ïðîöåíòà",
-        "-KopFiveUnit" => "äåñÿòèòûñÿ÷íûõ ïðîöåíòà",
+        "-KopOneUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ñ‹ÑÑÑ‡Ð½Ð°Ñ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopTwoUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ñ‹ÑÑÑ‡Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
+        "-KopFiveUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ñ‹ÑÑÑ‡Ð½Ñ‹Ñ… Ð¿Ñ€Ð¾Ñ†ÐµÐ½Ñ‚Ð°",
         "-KopSex" => "F"
       ),
       array(
         "-CurrID" => "559",
-        "-CurrName" => "Âiäñîòêè ç äåñÿòè òèñÿ÷íèìè ÷àñòèíàìè",
+        "-CurrName" => "Ð’iÐ´ÑÐ¾Ñ‚ÐºÐ¸ Ð· Ð´ÐµÑÑÑ‚Ð¸ Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ð¼Ð¸ Ñ‡Ð°ÑÑ‚Ð¸Ð½Ð°Ð¼Ð¸",
         "-language" => "UKR",
-        "-RubOneUnit" => "ö³ëà,",
-        "-RubTwoUnit" => "ö³ëèõ,",
-        "-RubFiveUnit" => "ö³ëèõ,",
+        "-RubOneUnit" => "Ñ†Ñ–Ð»Ð°,",
+        "-RubTwoUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
+        "-RubFiveUnit" => "Ñ†Ñ–Ð»Ð¸Ñ…,",
         "-RubSex" => "F",
-        "-KopOneUnit" => "äåñÿòèòèñÿ÷íà â³äñîòêà",
-        "-KopTwoUnit" => "äåñÿòèòèñÿ÷íèõ â³äñîòêà",
-        "-KopFiveUnit" => "äåñÿòèòèñÿ÷íèõ â³äñîòêà",
+        "-KopOneUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ð¸ÑÑÑ‡Ð½Ð° Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopTwoUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
+        "-KopFiveUnit" => "Ð´ÐµÑÑÑ‚Ð¸Ñ‚Ð¸ÑÑÑ‡Ð½Ð¸Ñ… Ð²Ñ–Ð´ÑÐ¾Ñ‚ÐºÐ°",
         "-KopSex" => "M"
       )
     )
@@ -464,14 +470,193 @@ class MoneyToStr {
         $this->kopSex = $theISOElement["-KopSex"];
     }
 
-    public function data() {
-        return $this->currencyList;
+    /**
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+     */
+    public function convertValue($theMoney) {
+        $intPart = intval($theMoney);
+        $fractPart = intval(round((($theMoney - $intPart) * MoneyToStr::NUM100)));
+        if ($this->currency == "PER1000") {
+            $fractPart = int(round((($theMoney - $intPart) * MoneyToStr::NUM1000)));
+        }
+        return $this->convert($intPart, $fractPart);
+    }
+
+    /**
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH", "UKR", "NUMBER"); String result =
+     * moneyToStr.convertValue(123D); Expected: result = ÑÑ‚Ð¾ Ð´Ð²Ð°Ð´Ñ†ÑÑ‚ÑŒ Ñ‚Ñ€Ð¸ Ð³Ñ€Ð¸Ð²Ð½Ñ– 00 ÐºÐ¾Ð¿Ñ–Ð¹Ð¾Ðº
+     *
+     * @param theMoney
+     *            the amount of money major currency
+     * @param theKopeiki
+     *            the amount of money minor currency
+     * @return the string description of money value
+     */
+    public function convert($theMoney, $theKopeiki) {
+        $money2str = new StringBuilder();
+        $triadNum = 0;
+
+        $intPart = intval($theMoney);
+        if ($intPart == 0) {
+            $money2str->append($this->messages["0"][0] . " ");
+        }
+        do {
+            $theTriad = $intPart % MoneyToStr::NUM1000;
+            $money2str->insert($this->triad2Word($theTriad, $triadNum, $this->rubSex));
+            if ($triadNum == 0) {
+                $range10 = intval(($theTriad % MoneyToStr::NUM100) / MoneyToStr::NUM10);
+                $range = intval($theTriad % MoneyToStr::NUM10);
+                if ($range10 == MoneyToStr::NUM1) {
+                    $money2str->append($this->rubFiveUnit);
+                } else {
+                    switch ($range) {
+                    case MoneyToStr::NUM1:
+                        $money2str.append($this->rubOneUnit);
+                        break;
+                    case MoneyToStr::NUM2: case MoneyToStr::NUM3: case MoneyToStr::NUM4:
+                        $money2str->append($this->rubTwoUnit);
+                        break;
+                    default:
+                        $money2str->append($this->rubFiveUnit);
+                        break;
+                    }
+                }
+            }
+            $intPart = intval($intPart / MoneyToStr::NUM1000);
+            $triadNum += 1;
+        } while ($intPart > 0);
+
+        if ($this->pennies == "TEXT") {
+            $money2str->append($this->language == "ENG" ? " and " : " ")->append($theKopeiki == 0 ? ($this->messages["0"][0] . " ") : $this->triad2Word($theKopeiki, 0, $kopSex));
+        } else {
+            $money2str->append(" " . ($theKopeiki < 10 ? "0" . strval($theKopeiki) : strval($theKopeiki)) . " ");
+        }
+        if ($theKopeiki == NUM11 || $theKopeiki == NUM12) {
+            $money2str->append($this->kopFiveUnit);
+        } else {
+            switch ($theKopeiki % MoneyToStr::NUM10) {
+            case MoneyToStr::NUM1:
+                $money2str->append($this->kopOneUnit);
+                break;
+            case MoneyToStr::NUM2: case MoneyToStr::NUM3: case MoneyToStr::NUM4:
+                $money2str->append($this->kopTwoUnit);
+                break;
+            default:
+                $money2str->append($this->kopFiveUnit);
+                break;
+            }
+        }
+        return trim($money2str->toString());
+    }
+
+    public function triad2Word($triad, $triadNum, $sex) {
+        $triadWord = new StringBuilder();
+
+        if ($triad == 0) {
+            return "";
+        }
+
+        $range = $this->check1($triad, $triadWord);
+        if ($language == "ENG" && $triadWord->length() > 0 && $triad % NUM10 == 0) {
+            $triadWord->deleteCharAt($triadWord.length() - 1);
+            $triadWord->append(" ");
+        }
+
+        $range10 = $range;
+        $range = $triad % MoneyToStr::NUM10;
+        $this->check2($triadNum, $sex, $triadWord, $triad, $range10);
+        switch ($triadNum) {
+        case MoneyToStr::NUM0:
+            break;
+        case MoneyToStr::NUM1: case MoneyToStr::NUM2: case MoneyToStr::NUM3: case MoneyToStr::NUM4:
+            if ($range10 == MoneyToStr::NUM1) {
+                $triadWord->append($this->messages["1000_10"][$triadNum - 1] . " ");
+            } else {
+                switch ($range) {
+                case MoneyToStr::NUM1:
+                    $triadWord->append($this->messages["1000_1"][$triadNum - 1] . " ");
+                    break;
+                case MoneyToStr::NUM2: case MoneyToStr::NUM3: case MoneyToStr::NUM4:
+                    $triadWord->append($this->messages["1000_234"][$triadNum - 1] . " ");
+                    break;
+                default:
+                    $triadWord->append($this->messages["1000_5"][$triadNum - 1] . " ");
+                    break;
+                }
+            }
+            break;
+        default:
+            $triadWord->append("??? ");
+            break;
+        }
+        return $triadWord->toString();
+    }
+
+    /**
+     * @param triadNum the triad num
+     * @param sex the sex
+     * @param triadWord the triad word
+     * @param triad the triad
+     * @param range10 the range 10
+     */
+    public function check2($triadNum, $sex, $triadWord, $triad, $range10) {
+        $range = $triad % MoneyToStr::NUM10;
+        if ($range10 == 1) {
+            $triadWord->append($this->messages["10_19"][$range] . " ");
+        } else {
+            switch ($range) {
+            case MoneyToStr::NUM1:
+                if ($triadNum == MoneyToStr::NUM1) {
+                    $triadWord->append($this->messages["1"][MoneyToStr::INDEX_0] . " ");
+                } else if (triadNum == MoneyToStr::NUM2 || triadNum == MoneyToStr::NUM3 || triadNum == MoneyToStr::NUM4) {
+                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_1] . " ");
+                } else if ("M" == sex) {
+                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_2] . " ");
+                } else if ("F" == sex) {
+                    $triadWord.append($this->messages["1"][MoneyToStr::INDEX_3] . " ");
+                }
+                break;
+            case NUM2:
+                if ($triadNum == MoneyToStr::NUM1) {
+                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_0] . " ");
+                } else if ($triadNum == MoneyToStr::NUM2 || $triadNum == MoneyToStr::NUM3 || $triadNum == MoneyToStr::NUM4) {
+                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_1] . " ");
+                } else if ("M" == sex) {
+                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_2] . " ");
+                } else if ("F" == sex) {
+                    $triadWord.append($this->messages["2"][MoneyToStr::INDEX_3] . " ");
+                }
+                break;
+            case MoneyToStr::NUM3: case MoneyToStr::NUM4: case MoneyToStr::NUM5: case MoneyToStr::NUM6: case MoneyToStr::NUM7: case MoneyToStr::NUM8: case MoneyToStr::NUM9:
+                $triadWord->append($this->concat(["", "", ""], $this->messages["3_9"])[$range] . " ");
+                break;
+            }
+        }
+    }
+
+    /**
+     * @param triad the triad
+     * @param triadWord the triad word
+     * @return the range
+     */
+    private function check1($triad, $triadWord) {
+        $range = intval($triad / MoneyToStr::NUM100);
+        $triadWord->append($this->concat([""], $this->messages["100_900"])[$range]);
+
+        $range = intval(($triad % MoneyToStr::NUM100) / MoneyToStr::NUM10);
+        $triadWord->append($this->concat(["", ""], $this->messages["20_90"])[$range]);
+        return $range;
+    }
+
+    private function concat($first, $second) {
+        $result = array_merge($first, $second);
+        return $result;
     }
 }
 
-    echo "Starting Iteration[" . (new MoneyToStr("UAH", "UKR", "TEXT"))->data()["CurrencyList"]["language"]["-value"] . "]\n\r";
-    for ($i=0;$i<10000;$i++) {
-        echo "\r" . $i;
-    }
-    echo "Ending Iteration" . "\n\r";
+    echo '[' . (new MoneyToStr("UAH", "UKR", "TEXT"))->convertValue(123.45) . "]\n\r";
 ?>
