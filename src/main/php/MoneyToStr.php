@@ -437,6 +437,40 @@ class MoneyToStr {
     private $currency, $language, $pennies, $messages;
     private $rubOneUnit, $rubTwoUnit, $rubFiveUnit, $kopOneUnit, $kopTwoUnit, $kopFiveUnit, $rubSex, $kopSex;
 
+    /**
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR)
+     * @return the string of percent
+     */
+    public static function percentToStr($amount, $lang) {
+        if ($amount == null) {
+            throw new Exception("amount is null");
+        }
+        if ($lang == null) {
+            throw new Exception("Language is null");
+        }
+        $intPart = intval($amount);
+        $fractPart = 0;
+        $result = "";
+        if ($amount == intval($amount)) {
+            $result = (new MoneyToStr("PER10", $lang, "TEXT"))->convert($amount, 0);
+        } else if (round($amount * MoneyToStr::NUM10, 4) == intval($amount * MoneyToStr::NUM10)) {
+            $fractPart = round(($amount - $intPart) * MoneyToStr::NUM10);
+            $result = (new MoneyToStr("PER10", $lang, "TEXT"))->convert($intPart, $fractPart);
+        } else if (round($amount * MoneyToStr::NUM100, 4) == intval($amount * MoneyToStr::NUM100)) {
+            $fractPart = round(($amount - $intPart) * MoneyToStr::NUM100);
+            $result = (new MoneyToStr("PER100", $lang, "TEXT"))->convert($intPart, $fractPart);
+        } else if (round($amount * MoneyToStr::NUM1000, 4) == intval($amount * MoneyToStr::NUM1000)) {
+            $fractPart = round(($amount - $intPart) * MoneyToStr::NUM1000);
+            $result = (new MoneyToStr("PER1000", $lang, "TEXT"))->convert($intPart, $fractPart);
+        } else {
+            $fractPart = round(($amount - $intPart) * MoneyToStr::NUM10000);
+            $result = (new MoneyToStr("PER10000", $lang, "TEXT"))->convert($intPart, $fractPart);
+        }
+        return $result;
+    }
+
     public function __construct($currency, $language, $pennies) {
         $this->currency = $currency;
         $this->language = $language;

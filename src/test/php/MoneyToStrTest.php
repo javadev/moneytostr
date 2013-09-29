@@ -180,20 +180,19 @@ class MoneyToStrTest {
         $this->assertEqual("двенадцать целых, триста сорок шесть тысячных процента", $this->moneyToStrPER1000->convertValue(12.346));
     }
 
-/*
     public function test_percentToStr() {
-        $this->assertEqual("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12, "RUS"));
+        $this->assertEqual("двенадцать целых, ноль десятых процента", MoneyToStr::percentToStr(12, "RUS"));
     }
 
-    def test_checkPercentToStrRus(self):
-        $this->assertEqual("одна целая, одна сотая процента", MoneyToStr.percentToStr(MoneyToStrTest::V_1_01D, "RUS"));
-        $this->assertEqual("одна целая, одна десятая процента", MoneyToStr.percentToStr(MoneyToStrTest::V_1_1D, "RUS"));
-        $this->assertEqual("одна целая, две сотых процента", MoneyToStr.percentToStr(MoneyToStrTest::V_1_02D, "RUS"));
-        $this->assertEqual("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(MoneyToStrTest::V_1_11D, "RUS"));
-        $this->assertEqual("две целых, две сотых процента", MoneyToStr.percentToStr(MoneyToStrTest::V_2_02D, "RUS"));
-        $this->assertEqual("пять целых, пять сотых процента", MoneyToStr.percentToStr(MoneyToStrTest::V_5_05D, "RUS"));
-        $this->assertEqual("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(MoneyToStrTest::V_5_0005D, "RUS"));
-*/
+    public function test_checkPercentToStrRus() {
+        $this->assertEqual("одна целая, одна сотая процента", MoneyToStr::percentToStr(MoneyToStrTest::V_1_01D, "RUS"));
+        $this->assertEqual("одна целая, одна десятая процента", MoneyToStr::percentToStr(MoneyToStrTest::V_1_1D, "RUS"));
+        $this->assertEqual("одна целая, две сотых процента", MoneyToStr::percentToStr(MoneyToStrTest::V_1_02D, "RUS"));
+        $this->assertEqual("одна целая, одиннадцать сотых процента", MoneyToStr::percentToStr(MoneyToStrTest::V_1_11D, "RUS"));
+        $this->assertEqual("две целых, две сотых процента", MoneyToStr::percentToStr(MoneyToStrTest::V_2_02D, "RUS"));
+        $this->assertEqual("пять целых, пять сотых процента", MoneyToStr::percentToStr(MoneyToStrTest::V_5_05D, "RUS"));
+        $this->assertEqual("пять целых, пять десятитысячных процента", MoneyToStr::percentToStr(MoneyToStrTest::V_5_0005D, "RUS"));
+    }
 }
 
     $test = new MoneyToStrTest();
@@ -202,5 +201,7 @@ class MoneyToStrTest {
     $test->test_checkUSDENG();
     $test->test_checkPER100();
     $test->test_checkPER1000();
-    echo "5 tests were passed, test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000()\n";
+    $test->test_percentToStr();
+    $test->test_checkPercentToStrRus();
+    echo "7 tests were passed, test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()\n";
 ?>
