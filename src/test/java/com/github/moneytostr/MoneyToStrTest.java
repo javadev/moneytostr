@@ -169,6 +169,29 @@ public class MoneyToStrTest {
         assertEquals("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
             + "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
         moneyToStrUSDENG.convert(27451632459870.49D));
+        assertEquals("zero dollars and zero cents", moneyToStrUSDENG.convert(0D));
+        assertEquals("four dollars and zero cents", moneyToStrUSDENG.convert(4D));
+        assertEquals("ten dollars and zero cents", moneyToStrUSDENG.convert(10D));
+        assertEquals("twelve dollars and zero cents", moneyToStrUSDENG.convert(12D));
+        assertEquals("one hundred dollars and zero cents", moneyToStrUSDENG.convert(100D));
+        assertEquals("one hundred eight dollars and zero cents", moneyToStrUSDENG.convert(108D));
+        assertEquals("two hundred ninety-nine dollars and zero cents", moneyToStrUSDENG.convert(299D));
+        assertEquals("one thousand dollars and zero cents", moneyToStrUSDENG.convert(1000D));
+        assertEquals("one thousand three dollars and zero cents", moneyToStrUSDENG.convert(1003D));
+        assertEquals("two thousand forty dollars and zero cents", moneyToStrUSDENG.convert(2040D));
+        assertEquals("forty-five thousand two hundred thirteen dollars and zero cents", moneyToStrUSDENG.convert(45213D));
+        assertEquals("one hundred thousand dollars and zero cents", moneyToStrUSDENG.convert(100000D));
+        assertEquals("one hundred thousand five dollars and zero cents", moneyToStrUSDENG.convert(100005D));
+        assertEquals("one hundred thousand ten dollars and zero cents", moneyToStrUSDENG.convert(100010D));
+        assertEquals("two hundred two thousand twenty dollars and zero cents", moneyToStrUSDENG.convert(202020D));
+        assertEquals("two hundred two thousand twenty-two dollars and zero cents", moneyToStrUSDENG.convert(202022D));
+        assertEquals("nine hundred ninety-nine thousand nine hundred ninety-nine dollars and zero cents", moneyToStrUSDENG.convert(999999D));
+        assertEquals("one million dollars and zero cents", moneyToStrUSDENG.convert(1000000D));
+        assertEquals("one million one dollar and zero cents", moneyToStrUSDENG.convert(1000001D));
+        assertEquals("ten million dollars and zero cents", moneyToStrUSDENG.convert(10000000D));
+        assertEquals("ten million seven dollars and zero cents", moneyToStrUSDENG.convert(10000007D));
+        assertEquals("ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine dollars and zero cents", moneyToStrUSDENG.convert(99999999D));
+
     }
 
     /** checkPER100. */
