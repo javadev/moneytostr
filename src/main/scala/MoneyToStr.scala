@@ -28,5 +28,364 @@ val currencyList = Map((
     "language", Map(("-value", "UKR" ))
   ))
 ));
+    val currencyList2 = Map((
+  "CurrencyList" , Map((
+    "language" , Map(( "-value" , "UKR" )),
+    "UKR" , Map((
+      "item" , List(
+        Map(
+          ("-value" , "0"),
+          ("-text" , "нуль")
+        ),
+        Map(
+          ("-value" , "1000_10"),
+          ("-text" , "тисяч,мільйонів,мільярдів,трильйонів")
+        ),
+        Map(
+          ("-value" , "1000_1"),
+          ("-text" , "тисяча,мільйон,мільярд,трильйон")
+        ),
+        Map(
+          ("-value" , "1000_234",
+          ("-text" , "тисячі,мільйона,мільярда,трильйона"
+        ),
+        Map((
+          ("-value" , "1000_5",
+          ("-text" , "тисяч,мільйонів,мільярдів,трильйонів"
+        )),
+        Map((
+          ("-value" , "10_19",
+          ("-text" , "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"
+        )),
+        Map((
+          ("-value" , "1",
+          ("-text" , "одна,один,один,одна"
+        )),
+        Map((
+          ("-value" , "2",
+          ("-text" , "дві,два,два,дві"
+        )),
+        Map((
+          ("-value" , "3_9",
+          ("-text" , "три,чотири,п’ять,шість,сім,вісім,дев’ять"
+        )),
+        Map((
+          ("-value" , "100_900",
+          ("-text" , "сто ,двісті ,триста ,чотириста ,п’ятсот ,шістсот ,сімсот ,вісімсот ,дев’ятсот "
+        )),
+        Map((
+          ("-value" , "20_90",
+          ("-text" , "двадцять ,тридцять ,сорок ,п’ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев’яносто "
+        ))
+      )
+    )),
+    "RUS" , Map((
+      "item" , List(
+        Map((
+          ("-value" , "0",
+          ("-text" , "ноль"
+        )),
+        Map((
+          ("-value" , "1000_10",
+          ("-text" , "тысяч,миллионов,миллиардов,триллионов"
+        )),
+        Map((
+          ("-value" , "1000_1",
+          ("-text" , "тысяча,миллион,миллиард,триллион"
+        )),
+        Map((
+          ("-value" , "1000_234",
+          ("-text" , "тысячи,миллиона,миллиарда,триллиона"
+        )),
+        Map((
+          ("-value" , "1000_5",
+          ("-text" , "тысяч,миллионов,миллиардов,триллионов"
+        )),
+        Map((
+          ("-value" , "10_19",
+          ("-text" , "десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"
+        )),
+        Map((
+          ("-value" , "1",
+          ("-text" , "одна,один,один,одна"
+        )),
+        Map((
+          ("-value" , "2",
+          ("-text" , "две,два,два,две"
+        )),
+        Map((
+          ("-value" , "3_9",
+          ("-text" , "три,четыре,пять,шесть,семь,восемь,девять"
+        )),
+        Map((
+          ("-value" , "100_900",
+          ("-text" , "сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "
+        )),
+        Map((
+          ("-value" , "20_90",
+          ("-text" , "двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "
+        ))
+      )
+    )),
+    "ENG" , Map((
+      "item" , List(
+        Map((
+          ("-value" , "0",
+          ("-text" , "zero"
+        )),
+        Map((
+          ("-value" , "1000_10",
+          ("-text" , "thousand,million,billion,trillion"
+        )),
+        Map((
+          ("-value" , "1000_1",
+          ("-text" , "thousand,million,billion,trillion"
+        )),
+        Map((
+          ("-value" , "1000_234",
+          ("-text" , "thousand,million,billion,trillion"
+        )),
+        Map((
+          ("-value" , "1000_5",
+          ("-text" , "thousand,million,billion,trillion"
+        )),
+        Map((
+          ("-value" , "10_19",
+          ("-text" , "ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"
+        )),
+        Map((
+          ("-value" , "1",
+          ("-text" , "one,one,one,one"
+        )),
+        Map((
+          ("-value" , "2",
+          ("-text" , "two,two,two,two"
+        )),
+        Map((
+          ("-value" , "3_9",
+          ("-text" , "three,four,five,six,seven,eight,nine"
+        )),
+        Map((
+          ("-value" , "100_900",
+          ("-text" , "one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "
+        )),
+        Map((
+          ("-value" , "20_90",
+          ("-text" , "twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"
+        ))
+      )
+    )),
+    "RUR" , List(
+      Map((
+        ("-CurrID" , "810",
+        ("-CurrName" , "Российские рубли",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "рубль",
+        ("-RubTwoUnit" , "рубля",
+        ("-RubFiveUnit" , "рублей",
+        ("-RubSex" , "M",
+        ("-KopOneUnit" , "копейка",
+        ("-KopTwoUnit" , "копейки",
+        ("-KopFiveUnit" , "копеек",
+        ("-KopSex" , "F"
+      )),
+      Map((
+        ("-CurrID" , "810",
+        ("-CurrName" , "Российские рубли",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "рубль",
+        ("-RubTwoUnit" , "рубля",
+        ("-RubFiveUnit" , "рублів",
+        ("-RubSex" , "M",
+        ("-KopOneUnit" , "копійка",
+        ("-KopTwoUnit" , "копійки",
+        ("-KopFiveUnit" , "копійок",
+        ("-KopSex" , "F"
+      ))
+    ),
+    "UAH" , List(
+      Map((
+        ("-CurrID" , "980",
+        ("-CurrName" , "Украинскі гривні",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "гривня",
+        ("-RubTwoUnit" , "гривни",
+        ("-RubFiveUnit" , "гривень",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "копейка",
+        ("-KopTwoUnit" , "копейки",
+        ("-KopFiveUnit" , "копеек",
+        ("-KopSex" , "F"
+      )),
+      Map((
+        ("-CurrID" , "980",
+        ("-CurrName" , "Украинскі гривні",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "гривня",
+        ("-RubTwoUnit" , "гривні",
+        ("-RubFiveUnit" , "гривень",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "копійка",
+        ("-KopTwoUnit" , "копійки",
+        ("-KopFiveUnit" , "копійок",
+        ("-KopSex" , "F"
+      ))
+    ),
+    "USD" , List(
+      Map((
+        ("-CurrID" , "840",
+        ("-CurrName" , "Долари США",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "долар",
+        ("-RubTwoUnit" , "долара",
+        ("-RubFiveUnit" , "доларів",
+        ("-RubSex" , "M",
+        ("-KopOneUnit" , "цент",
+        ("-KopTwoUnit" , "цена",
+        ("-KopFiveUnit" , "центов",
+        ("-KopSex" , "M"
+      )),
+      Map((
+        ("-CurrID" , "840",
+        ("-CurrName" , "Долари США",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "долар",
+        ("-RubTwoUnit" , "долара",
+        ("-RubFiveUnit" , "доларів",
+        ("-RubSex" , "M",
+        ("-KopOneUnit" , "цент",
+        ("-KopTwoUnit" , "цена",
+        ("-KopFiveUnit" , "центів",
+        ("-KopSex" , "M"
+      )),
+      Map((
+        ("-CurrID" , "840",
+        ("-CurrName" , "Долари США",
+        ("-language" , "ENG",
+        ("-RubOneUnit" , "dollar",
+        ("-RubTwoUnit" , "dollars",
+        ("-RubFiveUnit" , "dollars",
+        ("-RubSex" , "M",
+        ("-KopOneUnit" , "cent",
+        ("-KopTwoUnit" , "cents",
+        ("-KopFiveUnit" , "cents",
+        ("-KopSex" , "M"
+      ))
+     ),
+    "PER10" , List(
+      Map((
+        ("-CurrID" , "556",
+        ("-CurrName" , "Вiдсотки з десятими частинами",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "целая,",
+        ("-RubTwoUnit" , "целых,",
+        ("-RubFiveUnit" , "целых,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "десятая процента",
+        ("-KopTwoUnit" , "десятых процента",
+        ("-KopFiveUnit" , "десятых процента",
+        ("-KopSex" , "F"
+      )),
+      Map((
+        ("-CurrID" , "556",
+        ("-CurrName" , "Вiдсотки з десятими частинами",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "ціла,",
+        ("-RubTwoUnit" , "цілих,",
+        ("-RubFiveUnit" , "цілих,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "десята відсотка",
+        ("-KopTwoUnit" , "десятих відсотка",
+        ("-KopFiveUnit" , "десятих відсотка",
+        ("-KopSex" , "F"
+      ))
+    ),
+    "PER100" , List(
+      Map((
+        ("-CurrID" , "557",
+        ("-CurrName" , "Вiдсотки з сотими частинами",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "целая,",
+        ("-RubTwoUnit" , "целых,",
+        ("-RubFiveUnit" , "целых,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "сотая процента",
+        ("-KopTwoUnit" , "сотых процента",
+        ("-KopFiveUnit" , "сотых процента",
+        ("-KopSex" , "F"
+      )),
+      Map((
+        ("-CurrID" , "557",
+        ("-CurrName" , "Вiдсотки з сотими частинами",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "ціла,",
+        ("-RubTwoUnit" , "цілих,",
+        ("-RubFiveUnit" , "цілих,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "сота відсотка",
+        ("-KopTwoUnit" , "сотих відсотка",
+        ("-KopFiveUnit" , "сотих відсотка",
+        ("-KopSex" , "F"
+      ))
+    ),
+    "PER1000" , List(
+      Map((
+        ("-CurrID" , "558",
+        ("-CurrName" , "Вiдсотки з тисячними частинами",
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "целая,",
+        ("-RubTwoUnit" , "целых,",
+        ("-RubFiveUnit" , "целых,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "тысячная процента",
+        ("-KopTwoUnit" , "тысячных процента",
+        ("-KopFiveUnit" , "тысячных процента",
+        ("-KopSex" , "F"
+      )),
+      Map((
+        ("-CurrID" , "558",
+        ("-CurrName" , "Вiдсотки з тисячними частинами",
+        ("-language" , "UKR",
+        ("-RubOneUnit" , "ціла,",
+        ("-RubTwoUnit" , "цілих,",
+        ("-RubFiveUnit" , "цілих,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "тисячна відсотка",
+        ("-KopTwoUnit" , "тисячних відсотка",
+        ("-KopFiveUnit" , "тисячних відсотка",
+        ("-KopSex" , "F"
+      ))
+    ),
+    "PER10000" , List(
+      Map(
+        ("-CurrID" , "559"),
+        ("-CurrName" , "Вiдсотки з десяти тисячними частинами"),
+        ("-language" , "RUS",
+        ("-RubOneUnit" , "целая,",
+        ("-RubTwoUnit" , "целых,",
+        ("-RubFiveUnit" , "целых,",
+        ("-RubSex" , "F",
+        ("-KopOneUnit" , "десятитысячная процента",
+        ("-KopTwoUnit" , "десятитысячные процента",
+        ("-KopFiveUnit" , "десятитысячных процента",
+        ("-KopSex" , "F"
+      ),
+      Map(
+        ("-CurrID" , "559"),
+        ("-CurrName" , "Вiдсотки з десяти тисячними частинами"),
+        ("-language" , "UKR"),
+        ("-RubOneUnit" , "ціла,"),
+        ("-RubTwoUnit" , "цілих,"),
+        ("-RubFiveUnit" , "цілих,"),
+        ("-RubSex" , "F"),
+        ("-KopOneUnit" , "десятитисячна відсотка"),
+        ("-KopTwoUnit" , "десятитисячних відсотка"),
+        ("-KopFiveUnit" , "десятитисячних відсотка"),
+        ("-KopSex" , "M")
+      )
+    )
+  ))
+    ))
+
 }
 print("Hello, scala " + new MoneyToStr().currencyList("CurrencyList")("language")("-value"));
