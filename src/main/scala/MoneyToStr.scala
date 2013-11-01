@@ -201,40 +201,232 @@ class MoneyToStr {
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
-/*
-        String theISOstr = currency.name();
-        org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
-            (xmlDoc.getElementsByTagName(language.name())).item(0);
-        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
-        for (int index = 0; index < items.getLength(); index += 1) {
-            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
-            messages.put(languageItem.getAttribute("value"), languageItem.getAttribute("text").split(","));
+        var languageElement = (currencyList \\ "CurrencyList")(0) \ language
+        var items = languageElement \ "item"
+        for (index <- 0 to items.length - 1) {
+            messages += (items(index) \ "@value").toString -> (items(index) \ "@text").toString.split(",")
         }
-        org.w3c.dom.NodeList theISOElements = (org.w3c.dom.NodeList) (xmlDoc.getElementsByTagName(theISOstr));
-        org.w3c.dom.Element theISOElement = null;
-        for (int index = 0; index < theISOElements.getLength(); index += 1) {
-            if (((org.w3c.dom.Element) theISOElements.item(index)).getAttribute("language").equals(language.name())) {
-                theISOElement = (org.w3c.dom.Element) theISOElements.item(index);
-                break;
+        var theISOElements = (currencyList \\ "CurrencyList")(0) \ currency
+        var theISOElement : scala.xml.Node = null
+        for (index <- 0 to theISOElements.length - 1) {
+            if ((theISOElements(index) \ "@language").toString == language) {
+                theISOElement = theISOElements(index)
             }
         }
-
         if (theISOElement == null) {
-            throw new IllegalArgumentException("Currency not found " + theISOstr);
+            throw new IllegalArgumentException("Currency not found " + currency);
         }
-        rubOneUnit = theISOElement.getAttribute("RubOneUnit");
-        rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");
-        rubFiveUnit = theISOElement.getAttribute("RubFiveUnit");
-        kopOneUnit = theISOElement.getAttribute("KopOneUnit");
-        kopTwoUnit = theISOElement.getAttribute("KopTwoUnit");
-        kopFiveUnit = theISOElement.getAttribute("KopFiveUnit");
-        rubSex = theISOElement.getAttribute("RubSex");
-        kopSex = theISOElement.getAttribute("KopSex");
-        rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
-*/
+        rubOneUnit = (theISOElement \ "@RubOneUnit").toString
+        rubTwoUnit = (theISOElement \ "@RubTwoUnit").toString
+        rubFiveUnit = (theISOElement \ "@RubFiveUnit").toString
+        kopOneUnit = (theISOElement \ "@KopOneUnit").toString
+        kopTwoUnit = (theISOElement \ "@KopTwoUnit").toString
+        kopFiveUnit = (theISOElement \ "@KopFiveUnit").toString
+        rubSex = (theISOElement \ "@RubSex").toString
+        kopSex = (theISOElement \ "@KopSex").toString
     }
 
+    /**
+     * Converts double value to the text description.
+     *
+     * @param theMoney
+     *            the amount of money in format major.minor
+     * @return the string description of money value
+     */
+    def convert(theMoney : Double) : String = {
+        var intPart : Long = theMoney.longValue();
+        var fractPart : Long = Math.round((theMoney - intPart) * MoneyToStr.NUM100);
+        if (currency == "PER1000") {
+            fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM1000);
+        }
+        return ""; // convert(intPart, fractPart);
+    }
+
+    /**
+     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
+     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     *
+     * @param theMoney
+     *            the amount of money major currency
+     * @param theKopeiki
+     *            the amount of money minor currency
+     * @return the string description of money value
+     */
+    def convert(theMoney : Long, theKopeiki : Long) : String = {
+        var money2str : StringBuilder = new StringBuilder()
+        var triadNum : Long = 0L
+        var theTriad: Long = 0L
+
+        var intPart : Long = theMoney
+        if (intPart == 0) {
+            money2str.append(messages("0")(0) + " ");
+        }
+        do {
+            theTriad = intPart % MoneyToStr.NUM1000;
+            money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
+            if (triadNum == 0) {
+                var range10 : Long = (theTriad % MoneyToStr.NUM100) / MoneyToStr.NUM10;
+                var range : Long = theTriad % MoneyToStr.NUM10;
+                if (range10 == MoneyToStr.NUM1) {
+                    money2str.append(rubFiveUnit);
+                } else {
+                    range.byteValue() match {
+                    case MoneyToStr.NUM1 =>
+                        money2str.append(rubOneUnit);
+                    case MoneyToStr.NUM2 =>
+                    case MoneyToStr.NUM3 =>
+                    case MoneyToStr.NUM4 =>
+                        money2str.append(rubTwoUnit);
+                    case _ =>
+                        money2str.append(rubFiveUnit);
+                    }
+                }
+            }
+            intPart = intPart / MoneyToStr.NUM1000
+            triadNum += 1
+        } while (intPart > 0)
+
+        if (pennies == "TEXT") {
+            if (language == "ENG") {
+                money2str.append(" and ")
+            } else {
+                money2str.append(" ")
+            }
+            if (theKopeiki == 0) {
+                money2str.append(messages("0")(0) + " ")
+            } else {
+                money2str.append(triad2Word(theKopeiki, 0L, kopSex))
+            }
+        } else {
+            var value : String = theKopeiki.toString
+            if (theKopeiki < 10) {
+                value = "0" + theKopeiki
+            }
+            money2str.append(" " + value + " ");
+        }
+        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+            money2str.append(kopFiveUnit);
+        } else {
+            theKopeiki % MoneyToStr.NUM10 match {
+            case MoneyToStr.NUM1 =>
+                money2str.append(kopOneUnit);
+            case MoneyToStr.NUM2 =>
+            case MoneyToStr.NUM3 =>
+            case MoneyToStr.NUM4 =>
+                money2str.append(kopTwoUnit);
+            case _ =>
+                money2str.append(kopFiveUnit);
+            }
+        }
+        return money2str.toString().trim();
+    }
+
+    def triad2Word(triad : Long, triadNum : Long, sex : String) : String = {
+        var triadWord : StringBuilder = new StringBuilder()
+
+        if (triad == 0) {
+            return "";
+        }
+
+        var range : Long = check1(triad, triadWord)
+        if (language == "ENG" && triadWord.length > 0 && triad % MoneyToStr.NUM10 == 0) {
+            triadWord.deleteCharAt(triadWord.length - 1)
+            triadWord.append(" ")
+        }
+
+        var range10 : Long = range
+        range = triad % MoneyToStr.NUM10
+        check2(triadNum, sex, triadWord, triad, range10)
+        triadNum.byteValue() match {
+        case MoneyToStr.NUM0 => ;
+        case MoneyToStr.NUM1 =>
+        case MoneyToStr.NUM2 =>
+        case MoneyToStr.NUM3 =>
+        case MoneyToStr.NUM4 =>
+            if (range10 == MoneyToStr.NUM1) {
+                triadWord.append(messages("1000_10")(triadNum.byteValue() - 1) + " ")
+            } else {
+                range.byteValue() match {
+                case MoneyToStr.NUM1 =>
+                    triadWord.append(messages("1000_1")(triadNum.byteValue() - 1) + " ")
+                case MoneyToStr.NUM2 =>
+                case MoneyToStr.NUM3 =>
+                case MoneyToStr.NUM4 =>
+                    triadWord.append(messages("1000_234")(triadNum.byteValue() - 1) + " ")
+                case _ =>
+                    triadWord.append(messages("1000_5")(triadNum.byteValue() - 1) + " ")
+                }
+            }
+        case _ =>
+            triadWord.append("??? ")
+        }
+        return triadWord.toString();
+    }
+
+    /**
+     * @param triadNum the triad num
+     * @param sex the sex
+     * @param triadWord the triad word
+     * @param triad the triad
+     * @param range10 the range 10
+     */
+    def check2(triadNum : Long, sex : String, triadWord : StringBuilder, triad : Long, range10 : Long) = {
+        var range : Long = triad % MoneyToStr.NUM10
+        if (range10 == 1) {
+            triadWord.append(messages("10_19")(range.byteValue()) + " ");
+        } else {
+            range.byteValue() match {
+            case MoneyToStr.NUM1 =>
+                if (triadNum == MoneyToStr.NUM1) {
+                    triadWord.append(messages("1")(MoneyToStr.INDEX_0) + " ")
+                } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    triadWord.append(messages("1")(MoneyToStr.INDEX_1) + " ")
+                } else if ("M".equals(sex)) {
+                    triadWord.append(messages("1")(MoneyToStr.INDEX_2) + " ")
+                } else if ("F".equals(sex)) {
+                    triadWord.append(messages("1")(MoneyToStr.INDEX_3) + " ")
+                }
+            case MoneyToStr.NUM2 =>
+                if (triadNum == MoneyToStr.NUM1) {
+                    triadWord.append(messages("2")(MoneyToStr.INDEX_0) + " ");
+                } else if (triadNum == MoneyToStr.NUM2 || triadNum == MoneyToStr.NUM3 || triadNum == MoneyToStr.NUM4) {
+                    triadWord.append(messages("2")(MoneyToStr.INDEX_1) + " ")
+                } else if ("M".equals(sex)) {
+                    triadWord.append(messages("2")(MoneyToStr.INDEX_2) + " ")
+                } else if ("F".equals(sex)) {
+                    triadWord.append(messages("2")(MoneyToStr.INDEX_3) + " ")
+                }
+            case MoneyToStr.NUM3 =>
+            case MoneyToStr.NUM4 =>
+            case MoneyToStr.NUM5 =>
+            case MoneyToStr.NUM6 =>
+            case MoneyToStr.NUM7 =>
+            case MoneyToStr.NUM8 =>
+            case MoneyToStr.NUM9 =>
+                var array = Array[String]("", "", "") ++ messages("3_9")
+                triadWord.append(array(range.toInt) + " ");
+            case _ => ;
+            }
+        }
+    }
+
+    /**
+     * @param triad the triad
+     * @param triadWord the triad word
+     * @return the range
+     */
+    def check1(triad : Long, triadWord : StringBuilder) : Long = {
+        var range : Long = triad / MoneyToStr.NUM100
+        var array = Array[String]("") ++ messages("100_900")
+        triadWord.append(array(range.byteValue()))
+
+        range = (triad % MoneyToStr.NUM100) / MoneyToStr.NUM10
+        array = Array[String]("", "") ++ messages("20_90")
+        triadWord.append(array(range.byteValue()))
+        return range
+    }
 }
+
 object MoneyToStr {
     val INDEX_3 = 3
     val INDEX_2 = 2
@@ -258,5 +450,5 @@ object MoneyToStr {
     val NUM10000 = 10000;
 }
 
-val xml = new MoneyToStr("UAH", "UKR", "TEXT").currencyList;
-print("Hello, scala " + (xml \\ "CurrencyList")(0) \ "language" \ "@value");
+val text = new MoneyToStr("UAH", "UKR", "TEXT").convert(123, 45)
+print("Hello, scala " + text);
