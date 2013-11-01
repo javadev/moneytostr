@@ -145,11 +145,44 @@ object MoneyToStrTest {
         moneyToStrUSDENG.convert(27451632459870.49));
     }
 
+    /** checkPER100. */
+    def test_checkPER100() = {
+        assert_equal("одна целая, одна сотая процента", moneyToStrPER100.convert(V_1_01D));
+        assert_equal("одна целая, десять сотых процента", moneyToStrPER100.convert(V_1_1D));
+        assert_equal("одна целая, две сотых процента", moneyToStrPER100.convert(V_1_02D));
+        assert_equal("одна целая, одиннадцать сотых процента", moneyToStrPER100.convert(V_1_11D));
+        assert_equal("две целых, две сотых процента", moneyToStrPER100.convert(V_2_02D));
+        assert_equal("пять целых, пять сотых процента", moneyToStrPER100.convert(V_5_05D));
+    }
+
+    def test_checkPER1000() = {
+        assert_equal("двенадцать целых, триста сорок шесть тысячных процента", moneyToStrPER1000.convert(12.346));
+    }
+
+    def test_percentToStr() = {
+        assert_equal("двенадцать целых, ноль десятых процента", MoneyToStr.percentToStr(12, "RUS"));
+    }
+
+    /** check percentToStr. */
+    def test_checkPercentToStrRus() = {
+        assert_equal("одна целая, одна сотая процента", MoneyToStr.percentToStr(V_1_01D, "RUS"));
+        assert_equal("одна целая, одна десятая процента", MoneyToStr.percentToStr(V_1_1D, "RUS"));
+        assert_equal("одна целая, две сотых процента", MoneyToStr.percentToStr(V_1_02D, "RUS"));
+        assert_equal("одна целая, одиннадцать сотых процента", MoneyToStr.percentToStr(V_1_11D, "RUS"));
+        assert_equal("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, "RUS"));
+        assert_equal("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, "RUS"));
+        assert_equal("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, "RUS"));
+    }
+
     def main(args: Array[String]) {
         setup()
         test_checkUAH()
         test_checkRUR()
         test_checkUSDENG()
-        println("3 tests were run: test_checkUAH(), test_checkRUR(), test_checkUSDENG()")
+        test_checkPER100()
+        test_checkPER1000()
+        test_percentToStr()
+        test_checkPercentToStrRus()
+        println("7 tests were run: test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()")
     }
 }

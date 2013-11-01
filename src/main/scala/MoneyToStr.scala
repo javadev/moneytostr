@@ -448,6 +448,38 @@ object MoneyToStr {
     val NUM100 = 100;
     val NUM1000 = 1000;
     val NUM10000 = 10000;
+
+    /**
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR)
+     * @return the string of percent
+     */
+    def percentToStr(amount : Double, lang : String) : String = {
+        if (lang == null) {
+            throw new IllegalArgumentException("language is null");
+        }
+        var intPart : Long = amount.longValue();
+        var fractPart : Long = 0L;
+        var result : String = "";
+        if (amount.floatValue() == amount.intValue()) {
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(amount.longValue(), 0L);
+        } else if ((amount * MoneyToStr.NUM10).toFloat == (amount * MoneyToStr.NUM10).toInt) {
+            fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10);
+            result = new MoneyToStr("PER10", lang, "TEXT").convert(intPart, fractPart);
+        } else if ((amount * MoneyToStr.NUM100).toFloat == (amount * MoneyToStr.NUM100).toInt) {
+            fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100);
+            result = new MoneyToStr("PER100", lang, "TEXT").convert(intPart, fractPart);
+        } else if ((amount * MoneyToStr.NUM1000).toFloat == (amount * MoneyToStr.NUM1000).toInt) {
+            fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000);
+            result = new MoneyToStr("PER1000", lang, "TEXT").convert(intPart, fractPart);
+        } else {
+            fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10000);
+            result = new MoneyToStr("PER10000", lang, "TEXT").convert(intPart, fractPart);
+        }
+        return result;
+    }
+
 }
 
 //val text = new MoneyToStr("UAH", "UKR", "TEXT").convert(123, 45)
