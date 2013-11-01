@@ -173,8 +173,90 @@ class MoneyToStr {
     />
 
 </CurrencyList>
+    private var rubOneUnit : String = ""
+    private var rubTwoUnit : String = ""
+    private var rubFiveUnit : String = ""
+    private var rubSex : String = ""
+    private var kopOneUnit : String = ""
+    private var kopTwoUnit : String = ""
+    private var kopFiveUnit : String = ""
+    private var kopSex : String = ""
+    private var rubShortUnit : String = ""
+    private var currency : String = null
+    private var language : String = null
+    private var pennies : String = null
+    private var messages : Map[String, Array[String]] = Map[String, Array[String]]()
 
+    def this(currency : String, language : String, pennies : String) = {
+        this()
+        if (currency == null) {
+            throw new IllegalArgumentException("currency is null");
+        }
+        if (language == null) {
+            throw new IllegalArgumentException("language is null");
+        }
+        if (pennies == null) {
+            throw new IllegalArgumentException("pennies is null");
+        }
+        this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
+/*
+        String theISOstr = currency.name();
+        org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
+            (xmlDoc.getElementsByTagName(language.name())).item(0);
+        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
+        for (int index = 0; index < items.getLength(); index += 1) {
+            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
+            messages.put(languageItem.getAttribute("value"), languageItem.getAttribute("text").split(","));
+        }
+        org.w3c.dom.NodeList theISOElements = (org.w3c.dom.NodeList) (xmlDoc.getElementsByTagName(theISOstr));
+        org.w3c.dom.Element theISOElement = null;
+        for (int index = 0; index < theISOElements.getLength(); index += 1) {
+            if (((org.w3c.dom.Element) theISOElements.item(index)).getAttribute("language").equals(language.name())) {
+                theISOElement = (org.w3c.dom.Element) theISOElements.item(index);
+                break;
+            }
+        }
+
+        if (theISOElement == null) {
+            throw new IllegalArgumentException("Currency not found " + theISOstr);
+        }
+        rubOneUnit = theISOElement.getAttribute("RubOneUnit");
+        rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");
+        rubFiveUnit = theISOElement.getAttribute("RubFiveUnit");
+        kopOneUnit = theISOElement.getAttribute("KopOneUnit");
+        kopTwoUnit = theISOElement.getAttribute("KopTwoUnit");
+        kopFiveUnit = theISOElement.getAttribute("KopFiveUnit");
+        rubSex = theISOElement.getAttribute("RubSex");
+        kopSex = theISOElement.getAttribute("KopSex");
+        rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
+*/
+    }
 
 }
-val xml = new MoneyToStr().currencyList;
+object MoneyToStr {
+    val INDEX_3 = 3
+    val INDEX_2 = 2
+    val INDEX_1 = 1
+    val INDEX_0 = 0
+    val NUM0 = 0;
+    val NUM1 = 1;
+    val NUM2 = 2;
+    val NUM3 = 3;
+    val NUM4 = 4;
+    val NUM5 = 5;
+    val NUM6 = 6;
+    val NUM7 = 7;
+    val NUM8 = 8;
+    val NUM9 = 9;
+    val NUM10 = 10;
+    val NUM11 = 11;
+    val NUM12 = 12;
+    val NUM100 = 100;
+    val NUM1000 = 1000;
+    val NUM10000 = 10000;
+}
+
+val xml = new MoneyToStr("UAH", "UKR", "TEXT").currencyList;
 print("Hello, scala " + (xml \\ "CurrencyList")(0) \ "language" \ "@value");
