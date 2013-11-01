@@ -239,7 +239,7 @@ class MoneyToStr {
         if (currency == "PER1000") {
             fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM1000);
         }
-        return ""; // convert(intPart, fractPart);
+        return convert(intPart, fractPart);
     }
 
     /**
@@ -273,9 +273,9 @@ class MoneyToStr {
                     range.byteValue() match {
                     case MoneyToStr.NUM1 =>
                         money2str.append(rubOneUnit);
-                    case MoneyToStr.NUM2 =>
-                    case MoneyToStr.NUM3 =>
-                    case MoneyToStr.NUM4 =>
+                    case MoneyToStr.NUM2 |
+                        MoneyToStr.NUM3 |
+                        MoneyToStr.NUM4 =>
                         money2str.append(rubTwoUnit);
                     case _ =>
                         money2str.append(rubFiveUnit);
@@ -310,9 +310,9 @@ class MoneyToStr {
             theKopeiki % MoneyToStr.NUM10 match {
             case MoneyToStr.NUM1 =>
                 money2str.append(kopOneUnit);
-            case MoneyToStr.NUM2 =>
-            case MoneyToStr.NUM3 =>
-            case MoneyToStr.NUM4 =>
+            case MoneyToStr.NUM2 |
+                MoneyToStr.NUM3 |
+                MoneyToStr.NUM4 =>
                 money2str.append(kopTwoUnit);
             case _ =>
                 money2str.append(kopFiveUnit);
@@ -339,19 +339,19 @@ class MoneyToStr {
         check2(triadNum, sex, triadWord, triad, range10)
         triadNum.byteValue() match {
         case MoneyToStr.NUM0 => ;
-        case MoneyToStr.NUM1 =>
-        case MoneyToStr.NUM2 =>
-        case MoneyToStr.NUM3 =>
-        case MoneyToStr.NUM4 =>
+        case MoneyToStr.NUM1 |
+            MoneyToStr.NUM2 |
+            MoneyToStr.NUM3 |
+            MoneyToStr.NUM4 =>
             if (range10 == MoneyToStr.NUM1) {
                 triadWord.append(messages("1000_10")(triadNum.byteValue() - 1) + " ")
             } else {
                 range.byteValue() match {
                 case MoneyToStr.NUM1 =>
                     triadWord.append(messages("1000_1")(triadNum.byteValue() - 1) + " ")
-                case MoneyToStr.NUM2 =>
-                case MoneyToStr.NUM3 =>
-                case MoneyToStr.NUM4 =>
+                case MoneyToStr.NUM2 |
+                    MoneyToStr.NUM3 |
+                    MoneyToStr.NUM4 =>
                     triadWord.append(messages("1000_234")(triadNum.byteValue() - 1) + " ")
                 case _ =>
                     triadWord.append(messages("1000_5")(triadNum.byteValue() - 1) + " ")
@@ -396,13 +396,13 @@ class MoneyToStr {
                 } else if ("F".equals(sex)) {
                     triadWord.append(messages("2")(MoneyToStr.INDEX_3) + " ")
                 }
-            case MoneyToStr.NUM3 =>
-            case MoneyToStr.NUM4 =>
-            case MoneyToStr.NUM5 =>
-            case MoneyToStr.NUM6 =>
-            case MoneyToStr.NUM7 =>
-            case MoneyToStr.NUM8 =>
-            case MoneyToStr.NUM9 =>
+            case MoneyToStr.NUM3 |
+                MoneyToStr.NUM4 |
+                MoneyToStr.NUM5 |
+                MoneyToStr.NUM6 |
+                MoneyToStr.NUM7 |
+                MoneyToStr.NUM8 |
+                MoneyToStr.NUM9 =>
                 var array = Array[String]("", "", "") ++ messages("3_9")
                 triadWord.append(array(range.toInt) + " ");
             case _ => ;
@@ -450,5 +450,5 @@ object MoneyToStr {
     val NUM10000 = 10000;
 }
 
-val text = new MoneyToStr("UAH", "UKR", "TEXT").convert(123, 45)
-print("Hello, scala " + text);
+//val text = new MoneyToStr("UAH", "UKR", "TEXT").convert(123, 45)
+//print("Hello, scala " + text);
