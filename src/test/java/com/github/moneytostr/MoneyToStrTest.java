@@ -75,7 +75,11 @@ public class MoneyToStrTest {
     private static final double V_1_1D = 1.1D;
     private static final double V_1_01D = 1.01D;
     private static final double V_1_02D = 1.02D;
+    private static final double V_1_10D = 1.10D;
     private static final double V_1_11D = 1.11D;
+    private static final double V_1_12D = 1.12D;
+    private static final double V_1_13D = 1.13D;
+    private static final double V_1_14D = 1.14D;
     private static final double V_2_02D = 2.02D;
     private static final double V_5_05D = 5.05D;
     private static final double V_5_0005D = 5.0005D;
@@ -142,6 +146,11 @@ public class MoneyToStrTest {
         assertEquals("п’ять трильйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000000D));
         assertEquals("одна гривня 01 копійка", moneyToStrUAH.convert(V_1_01D));
         assertEquals("одна гривня 02 копійки", moneyToStrUAH.convert(V_1_02D));
+        assertEquals("одна гривня 10 копійок", moneyToStrUAH.convert(V_1_10D));
+        assertEquals("одна гривня 11 копійок", moneyToStrUAH.convert(V_1_11D));
+        assertEquals("одна гривня 12 копійок", moneyToStrUAH.convert(V_1_12D));
+        assertEquals("одна гривня 13 копійок", moneyToStrUAH.convert(V_1_13D));
+        assertEquals("одна гривня 14 копійок", moneyToStrUAH.convert(V_1_14D));
     }
 
     /** checkRUR. */
