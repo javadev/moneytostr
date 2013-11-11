@@ -44,7 +44,7 @@ public class MoneyToStr {
     private static final int NUM9 = 9;
     private static final int NUM10 = 10;
     private static final int NUM11 = 11;
-    private static final int NUM12 = 12;
+    private static final int NUM14 = 14;
     private static final int NUM100 = 100;
     private static final int NUM1000 = 1000;
     private static final int NUM10000 = 10000;
@@ -287,7 +287,7 @@ public class MoneyToStr {
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+        if (theKopeiki >= NUM11 && theKopeiki <= NUM14) {
             money2str.append(kopFiveUnit);
         } else {
             switch ((byte) (theKopeiki % NUM10)) {
