@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2012 Valentyn Kolesnikov
+ * Copyright 2013 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,13 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -44,7 +49,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         try {
             String value = jTextField1.getEditor().getItem().toString().replace(",", ".").trim();
             Double summ;
-            String result;
+            String result = "";
             if (value.endsWith("%")) {
                 summ = Double.valueOf(value.replace("%", ""));
                 result = moneyToStrTxt.percentToStr(summ, moneyToStrTxt.getLanguage());
@@ -52,20 +57,24 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 jTextArea6.setText("");
                 jTextArea4.setText("");
             } else {
-                summ = Double.valueOf(value);
-                result = moneyToStrTxt.convert(summ);
-                double[] pdvValue = new double[] { 10, 18, 20, 22 };
-                Double nds = Math.round((summ - (summ / (1 + pdvValue[jComboBox5.getSelectedIndex()] / 100))) * 100) / 100D;
-                java.text.NumberFormat nf = java.text.NumberFormat.getNumberInstance(java.util.Locale.FRANCE);
-                java.text.DecimalFormat df = (java.text.DecimalFormat) nf;
-                df.applyPattern(",##0.00");
-                String ndsFormatted = nf.format(nds);
-                jTextArea5.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + ndsFormatted + " " + moneyToStrTxt.getRubShortUnit());
-                jTextArea6.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + moneyToStrTxt.convert(nds));
-                jTextArea4.setText(moneyToStrNum.convert(summ));
+                if (!value.isEmpty()) {
+                    summ = Double.valueOf(value);
+                    result = moneyToStrTxt.convert(summ);
+                    double[] pdvValue = new double[] { 10, 18, 20, 22 };
+                    Double nds = Math.round((summ - (summ / (1 + pdvValue[jComboBox5.getSelectedIndex()] / 100))) * 100) / 100D;
+                    java.text.NumberFormat nf = java.text.NumberFormat.getNumberInstance(java.util.Locale.FRANCE);
+                    java.text.DecimalFormat df = (java.text.DecimalFormat) nf;
+                    df.applyPattern(",##0.00");
+                    String ndsFormatted = nf.format(nds);
+                    jTextArea5.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + ndsFormatted + " " + moneyToStrTxt.getRubShortUnit());
+                    jTextArea6.setText(result + ", " + moneyToStrTxt.getMessages().get("pdv")[0] + moneyToStrTxt.convert(nds));
+                    jTextArea4.setText(moneyToStrNum.convert(summ));
+                }
             }
         jTextArea1.setText(result);
-        jTextArea7.setText(result.substring(0, 1).toUpperCase() + result.substring(1));
+        if (!result.isEmpty()) {
+            jTextArea7.setText(result.substring(0, 1).toUpperCase() + result.substring(1));
+        }
         String bufferData = null;
         switch (jComboBox4.getSelectedIndex()) {
             case 0:
@@ -246,6 +255,33 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         generateResult();
         setLocation(Integer.valueOf(x), Integer.valueOf(y));
         setSize(new java.awt.Dimension(Integer.valueOf(width), Integer.valueOf(height)));
+        convertStreamToString(jTextPane1, "MoneyToStr.cs");
+        convertStreamToString(jTextPane2, "moneytostr.dart");
+        convertStreamToString(jTextPane3, "MoneyToStr.java");
+        convertStreamToString(jTextPane4, "moneytostr.js");
+        convertStreamToString(jTextPane5, "MoneyToStr.php");
+        convertStreamToString(jTextPane6, "MoneyToStr.py");
+        convertStreamToString(jTextPane7, "MoneyToStr.rb");
+        convertStreamToString(jTextPane8, "MoneyToStr.scala");
+        convertStreamToString(jTextPane9, "moneytostr.ts");
+    }
+    
+    private void convertStreamToString(JTextPane jTextPane, String fileName) {
+        InputStreamReader is;
+        try {
+            InputStream ins = MoneyToStrApp.class.getResourceAsStream(fileName);
+            if (ins != null) {
+                is = new InputStreamReader(ins, "utf8");
+                java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+                jTextPane.setText(s.hasNext() ? s.next() : "");
+                jTextPane.setCaretPosition(0);
+                is.close();
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MoneyToStrApp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MoneyToStrApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
@@ -293,6 +329,26 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jTabbedPane7 = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextPane3 = new javax.swing.JTextPane();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTextPane4 = new javax.swing.JTextPane();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTextPane5 = new javax.swing.JTextPane();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTextPane6 = new javax.swing.JTextPane();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jTextPane7 = new javax.swing.JTextPane();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jTextPane8 = new javax.swing.JTextPane();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTextPane9 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MoneyToStr");
@@ -586,6 +642,102 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTabbedPane6.addTab("Настройки", jPanel1);
 
+        jTabbedPane7.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        jScrollPane1.setBorder(null);
+
+        jTextPane1.setEditable(false);
+        jTextPane1.setBorder(null);
+        jTextPane1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(jTextPane1);
+
+        jTabbedPane7.addTab("c#", jScrollPane1);
+
+        jScrollPane2.setBorder(null);
+
+        jTextPane2.setEditable(false);
+        jTextPane2.setBorder(null);
+        jTextPane2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane2.setViewportView(jTextPane2);
+
+        jTabbedPane7.addTab("dart", jScrollPane2);
+
+        jScrollPane8.setBorder(null);
+
+        jTextPane3.setEditable(false);
+        jTextPane3.setBorder(null);
+        jTextPane3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane8.setViewportView(jTextPane3);
+
+        jTabbedPane7.addTab("java", jScrollPane8);
+
+        jScrollPane9.setBorder(null);
+
+        jTextPane4.setEditable(false);
+        jTextPane4.setBorder(null);
+        jTextPane4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane9.setViewportView(jTextPane4);
+
+        jTabbedPane7.addTab("js", jScrollPane9);
+
+        jScrollPane10.setBorder(null);
+
+        jTextPane5.setEditable(false);
+        jTextPane5.setBorder(null);
+        jTextPane5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane10.setViewportView(jTextPane5);
+
+        jTabbedPane7.addTab("php", jScrollPane10);
+
+        jScrollPane11.setBorder(null);
+
+        jTextPane6.setEditable(false);
+        jTextPane6.setBorder(null);
+        jTextPane6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane11.setViewportView(jTextPane6);
+
+        jTabbedPane7.addTab("python", jScrollPane11);
+
+        jScrollPane12.setBorder(null);
+
+        jTextPane7.setEditable(false);
+        jTextPane7.setBorder(null);
+        jTextPane7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane12.setViewportView(jTextPane7);
+
+        jTabbedPane7.addTab("ruby", jScrollPane12);
+
+        jScrollPane13.setBorder(null);
+
+        jTextPane8.setEditable(false);
+        jTextPane8.setBorder(null);
+        jTextPane8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane13.setViewportView(jTextPane8);
+
+        jTabbedPane7.addTab("scala", jScrollPane13);
+
+        jScrollPane14.setBorder(null);
+
+        jTextPane9.setEditable(false);
+        jTextPane9.setBorder(null);
+        jTextPane9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane14.setViewportView(jTextPane9);
+
+        jTabbedPane7.addTab("typescript", jScrollPane14);
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+        );
+
+        jTabbedPane6.addTab("Исходный текст", jPanel3);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -725,23 +877,43 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
+    private javax.swing.JTabbedPane jTabbedPane7;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextArea jTextArea6;
     private javax.swing.JTextArea jTextArea7;
     private javax.swing.JComboBox jTextField1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
+    private javax.swing.JTextPane jTextPane3;
+    private javax.swing.JTextPane jTextPane4;
+    private javax.swing.JTextPane jTextPane5;
+    private javax.swing.JTextPane jTextPane6;
+    private javax.swing.JTextPane jTextPane7;
+    private javax.swing.JTextPane jTextPane8;
+    private javax.swing.JTextPane jTextPane9;
     // End of variables declaration//GEN-END:variables
     
 }
