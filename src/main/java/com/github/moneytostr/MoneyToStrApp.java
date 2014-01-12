@@ -104,7 +104,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         }
     }
 
-    public static class HistoryComboBox extends javax.swing.JComboBox<String> {
+    public static class HistoryComboBox extends javax.swing.JComboBox {
         public HistoryComboBox() {
             setEditable(true);
             addActionListener(new java.awt.event.ActionListener() {
