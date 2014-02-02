@@ -114,23 +114,29 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.0.1</version>
             <configuration>
                 <targetJdk>1.5</targetJdk> 
                 <rulesets>
-                  <ruleset>rulesets/basic.xml</ruleset> 
-                  <ruleset>rulesets/design.xml</ruleset>
-                  <ruleset>rulesets/junit.xml</ruleset> 
-                  <ruleset>rulesets/finalizers.xml</ruleset>
-                  <ruleset>rulesets/clone.xml</ruleset> 
-                  <ruleset>rulesets/unusedcode.xml</ruleset>
-                  <ruleset>rulesets/imports.xml</ruleset>
-                  <ruleset>rulesets/strings.xml</ruleset>
-                  <ruleset>rulesets/braces.xml</ruleset>
-                  <ruleset>rulesets/codesize.xml</ruleset>
-                  <ruleset>rulesets/coupling.xml</ruleset>
-                  <ruleset>rulesets/strictexception.xml</ruleset>
+                  <ruleset>rulesets/java/basic.xml</ruleset>
+                  <ruleset>rulesets/java/design.xml</ruleset>
+                  <ruleset>rulesets/java/junit.xml</ruleset> 
+                  <ruleset>rulesets/java/finalizers.xml</ruleset>
+                  <ruleset>rulesets/java/clone.xml</ruleset> 
+                  <ruleset>rulesets/java/unusedcode.xml</ruleset>
+                  <ruleset>rulesets/java/imports.xml</ruleset>
+                  <ruleset>rulesets/java/strings.xml</ruleset>
+                  <ruleset>rulesets/java/braces.xml</ruleset>
+                  <ruleset>rulesets/java/codesize.xml</ruleset>
+                  <ruleset>rulesets/java/coupling.xml</ruleset>
+                  <ruleset>rulesets/java/strictexception.xml</ruleset>
                 </rulesets>
             </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>2.5.2</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
