@@ -84,6 +84,7 @@ public class MoneyToStrTest {
     private static final double V_5_05D = 5.05D;
     private static final double V_5_0005D = 5.0005D;
     private static final double V_777_77D = 777.77D;
+    private static final double V_1234567_89D = 1234567.89D;
 
     private MoneyToStr moneyToStrUAH;
     private MoneyToStr moneyToStrRUR;
@@ -200,6 +201,7 @@ public class MoneyToStrTest {
         assertEquals("ten million dollars and zero cents", moneyToStrUSDENG.convert(10000000D));
         assertEquals("ten million seven dollars and zero cents", moneyToStrUSDENG.convert(10000007D));
         assertEquals("ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine dollars and zero cents", moneyToStrUSDENG.convert(99999999D));
+        assertEquals("one million two hundred thirty-four thousand five hundred sixty-seven dollars and eighty-nine cents", moneyToStrUSDENG.convert(V_1234567_89D));
 
     }
 
