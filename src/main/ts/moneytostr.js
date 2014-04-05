@@ -1,3 +1,20 @@
+/*
+* $Id$
+*
+* Copyright 2012 Valentyn Kolesnikov
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 var currencyList = {
     "CurrencyList": {
         "language": { "-value": "UKR" },
@@ -357,44 +374,68 @@ var currencyList = {
     }
 };
 
+/**
+* Converts numbers to symbols.
+*
+* @author Valentyn V Kolesnikov
+* @version $Revision$ $Date$
+*/
+/** Currency. */
 var Currency = (function () {
-    function Currency() {
+    function Currency(value) {
+        this.value = value;
     }
-    Currency.UAH = 'UAH';
+    Currency.prototype.toString = function () {
+        return this.value;
+    };
 
-    Currency.RUR = 'RUR';
+    Currency.UAH = new Currency('UAH');
 
-    Currency.USD = 'USD';
+    Currency.RUR = new Currency('RUR');
 
-    Currency.PER10 = 'PER10';
+    Currency.USD = new Currency('USD');
 
-    Currency.PER100 = 'PER100';
+    Currency.PER10 = new Currency('PER10');
 
-    Currency.PER1000 = 'PER1000';
+    Currency.PER100 = new Currency('PER100');
 
-    Currency.PER10000 = 'PER10000';
+    Currency.PER1000 = new Currency('PER1000');
+
+    Currency.PER10000 = new Currency('PER10000');
     return Currency;
 })();
 ;
 
+/** Language. */
 var Language = (function () {
-    function Language() {
+    function Language(value) {
+        this.value = value;
     }
-    Language.RUS = 'RUS';
+    Language.prototype.toString = function () {
+        return this.value;
+    };
 
-    Language.UKR = 'UKR';
+    Language.RUS = new Language('RUS');
 
-    Language.ENG = 'ENG';
+    Language.UKR = new Language('UKR');
+
+    Language.ENG = new Language('ENG');
     return Language;
 })();
 ;
 
+/** Pennies. */
 var Pennies = (function () {
-    function Pennies() {
+    function Pennies(value) {
+        this.value = value;
     }
-    Pennies.NUMBER = 'NUMBER';
+    Pennies.prototype.toString = function () {
+        return this.value;
+    };
 
-    Pennies.TEXT = 'TEXT';
+    Pennies.NUMBER = new Pennies('NUMBER');
+
+    Pennies.TEXT = new Pennies('TEXT');
     return Pennies;
 })();
 ;
@@ -437,7 +478,7 @@ var MoneyToStr = (function () {
         this.language = language;
         this.pennies = pennies;
         var languageElement = language;
-        var items = currencyList['CurrencyList'][languageElement]['item'];
+        var items = currencyList['CurrencyList'][languageElement.toString()]['item'];
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
@@ -445,16 +486,16 @@ var MoneyToStr = (function () {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
-        var currencyItem = currencyList['CurrencyList'][currency];
+        var currencyItem = currencyList['CurrencyList'][currency.toString()];
         var theISOElement = null;
         for (var index in currencyItem) {
-            if (currencyItem[index]["-language"] == language) {
+            if (currencyItem[index]["-language"] == language.toString()) {
                 theISOElement = currencyItem[index];
                 break;
             }
         }
         if (theISOElement == null) {
-            throw new Error("Currency not found " + currency);
+            throw new Error("Currency not found " + currency.toString());
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
@@ -493,6 +534,13 @@ var MoneyToStr = (function () {
         return result;
     };
 
+    /**
+    * Converts double value to the text description.
+    *
+    * @param theMoney
+    *            the amount of money in format major.minor
+    * @return the string description of money value
+    */
     MoneyToStr.prototype.convertValue = function (theMoney) {
         if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
@@ -505,6 +553,16 @@ var MoneyToStr = (function () {
         return this.convert(intPart, fractPart);
     };
 
+    /**
+    * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
+    * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+    *
+    * @param theMoney
+    *            the amount of money major currency
+    * @param theKopeiki
+    *            the amount of money minor currency
+    * @return the string description of money value
+    */
     MoneyToStr.prototype.convert = function (theMoney, theKopeiki) {
         if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
@@ -619,6 +677,13 @@ var MoneyToStr = (function () {
         return triadWord.toString();
     };
 
+    /**
+    * @param triadNum the triad num
+    * @param sex the sex
+    * @param triadWord the triad word
+    * @param triad the triad
+    * @param range10 the range 10
+    */
     MoneyToStr.prototype.check2 = function (triadNum, sex, triadWord, triad, range10) {
         var range = parseInt("" + triad % MoneyToStr.NUM10);
         if (range10 == 1) {
@@ -662,6 +727,11 @@ var MoneyToStr = (function () {
         }
     };
 
+    /**
+    * @param triad the triad
+    * @param triadWord the triad word
+    * @return the range
+    */
     MoneyToStr.prototype.check1 = function (triad, triadWord) {
         var range = parseInt("" + triad / MoneyToStr.NUM100);
         triadWord.append([""].concat(this.messages["100_900"])[range]);
