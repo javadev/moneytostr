@@ -1,16 +1,14 @@
-language: ruby
+language: 
+  - ruby
+  - java
 rvm:
   - 1.9.3
   - jruby-18mode # JRuby in 1.8 mode
   - jruby-19mode # JRuby in 1.9 mode
   - rbx-2.1.1
   - 1.8.7
-
-language: java
 jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
   - oraclejdk8
-
-script: mvn clean package
