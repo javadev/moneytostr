@@ -1,4 +1,4 @@
-language: ruby
+language: java
 
 jdk:
   - openjdk6
