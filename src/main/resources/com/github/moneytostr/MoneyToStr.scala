@@ -304,7 +304,7 @@ class MoneyToStr {
             }
             money2str.append(" " + value + " ");
         }
-        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+        if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(kopFiveUnit);
         } else {
             theKopeiki % MoneyToStr.NUM10 match {
@@ -444,7 +444,7 @@ object MoneyToStr {
     val NUM9 = 9;
     val NUM10 = 10;
     val NUM11 = 11;
-    val NUM12 = 12;
+    val NUM14 = 14;
     val NUM100 = 100;
     val NUM1000 = 1000;
     val NUM10000 = 10000;
