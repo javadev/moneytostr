@@ -9,6 +9,10 @@
   <name>moneytostr</name>
   <description>The utility class to convert amount to words in Russian/Ukrainian/English languages</description>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <build>
         <finalName>${project.name}</finalName>
         <resources>
@@ -80,6 +84,32 @@
                 </filter>
               </filters>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.eluder.coveralls</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+        <version>2.2.0</version>
+        <configuration>
+          <repoToken>u4dzxw91BHbOvw0hvd6yPAzFSbOQl0Pu0</repoToken>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.0.201403182114</version>
+        <configuration>
+          <excludes>
+            <exclude>**/MoneyToStrApp.class</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
