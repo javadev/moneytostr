@@ -183,29 +183,43 @@ public class MoneyToStr {
      * @return the string of percent
      */
     public static String percentToStr(Double amount, Language lang) {
+        return percentToStr(amount, lang, Pennies.TEXT);
+    }
+
+    /**
+     * Converts percent to string.
+     * @param amount the amount of percent
+     * @param lang the language (RUS, UKR, ENG)
+     * @param pennies the pennies (NUMBER, TEXT)
+     * @return the string of percent
+     */
+    public static String percentToStr(Double amount, Language lang, Pennies pennies) {
         if (amount == null) {
             throw new IllegalArgumentException("amount is null");
         }
         if (lang == null) {
             throw new IllegalArgumentException("language is null");
         }
+        if (pennies == null) {
+            throw new IllegalArgumentException("pennies is null");
+        }
         Long intPart = amount.longValue();
         Long fractPart = 0L;
         String result;
         if (amount.floatValue() == amount.intValue()) {
-            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount.longValue(), 0L);
+            result = new MoneyToStr(Currency.PER10, lang, pennies).convert(amount.longValue(), 0L);
         } else if (Double.valueOf(amount * NUM10).floatValue() == Double.valueOf(amount * NUM10).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM10);
-            result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER10, lang, pennies).convert(intPart, fractPart);
         } else if (Double.valueOf(amount * NUM100).floatValue() == Double.valueOf(amount * NUM100).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM100);
-            result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER100, lang, pennies).convert(intPart, fractPart);
         } else if (Double.valueOf(amount * NUM1000).floatValue() == Double.valueOf(amount * NUM1000).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM1000);
-            result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER1000, lang, pennies).convert(intPart, fractPart);
         } else {
             fractPart = Math.round((amount - intPart) * NUM10000);
-            result = new MoneyToStr(Currency.PER10000, lang, Pennies.TEXT).convert(intPart, fractPart);
+            result = new MoneyToStr(Currency.PER10000, lang, pennies).convert(intPart, fractPart);
         }
         return result;
     }

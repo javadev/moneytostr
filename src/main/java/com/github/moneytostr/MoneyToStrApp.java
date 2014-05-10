@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -52,15 +53,15 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             String result = "";
             if (value.endsWith("%")) {
                 summ = Double.valueOf(value.replace("%", ""));
-                result = moneyToStrTxt.percentToStr(summ, moneyToStrTxt.getLanguage());
+                result = MoneyToStr.percentToStr(summ, moneyToStrTxt.getLanguage());
                 jTextArea5.setText("");
                 jTextArea6.setText("");
-                jTextArea4.setText("");
+                jTextArea4.setText(MoneyToStr.percentToStr(summ, moneyToStrTxt.getLanguage(), MoneyToStr.Pennies.NUMBER));
             } else {
                 if (!value.isEmpty()) {
                     summ = Double.valueOf(value);
                     result = moneyToStrTxt.convert(summ);
-                    double[] pdvValue = new double[] { 10, 18, 20, 22 };
+                    double[] pdvValue = new double[] { 10, 12, 18, 20, 22, 25 };
                     Double nds = Math.round((summ - (summ / (1 + pdvValue[jComboBox5.getSelectedIndex()] / 100))) * 100) / 100D;
                     java.text.NumberFormat nf = java.text.NumberFormat.getNumberInstance(java.util.Locale.FRANCE);
                     java.text.DecimalFormat df = (java.text.DecimalFormat) nf;
@@ -104,7 +105,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         }
     }
 
-    public static class HistoryComboBox extends javax.swing.JComboBox {
+    public class HistoryComboBox extends javax.swing.JComboBox {
         public HistoryComboBox() {
             setEditable(true);
             addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +115,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     if (obj != null && actionevent.getActionCommand().equals("comboBoxEdited")) {
                         addToList(obj.toString());
                     }
+                    MoneyToStrApp.this.generateResult();
                 }
             });
         }
@@ -168,6 +170,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         String index3 = null;
         String index4 = null;
         String index5 = null;
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        String index6 = null;
         try {
            d = new XMLDecoder(new BufferedInputStream(new FileInputStream("MoneyToStr.xml")));
            jTextField1.getEditor().setItem((String) d.readObject());
@@ -185,6 +189,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
            index3 = (String) d.readObject();
            index4 = (String) d.readObject();
            index5 = (String) d.readObject();
+           model = (DefaultComboBoxModel) d.readObject();
+           index6 = (String) d.readObject();
            d.close();
         } catch (Exception ex) {
             ex.getMessage();
@@ -211,6 +217,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     e.writeObject("" + jComboBox3.getSelectedIndex());
                     e.writeObject("" + jComboBox4.getSelectedIndex());
                     e.writeObject("" + jComboBox5.getSelectedIndex());
+                    e.writeObject(jTextField1.getModel());
+                    e.writeObject("" + jComboBox6.getSelectedIndex());
                     e.close();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MoneyToStrApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -246,11 +254,17 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         if (index5 == null) {
             index5 = "1";
         }
+        if (index6 == null) {
+            index6 = "0";
+        }
         jComboBox1.setSelectedIndex(Integer.valueOf(index1));
         jComboBox2.setSelectedIndex(Integer.valueOf(index2));
         jComboBox3.setSelectedIndex(Integer.valueOf(index3));
         jComboBox4.setSelectedIndex(Integer.valueOf(index4));
         jComboBox5.setSelectedIndex(Integer.valueOf(index5));
+        jTextField1.setModel(model);
+        setupLanguage(Integer.valueOf(index6));
+        jComboBox6.setSelectedIndex(Integer.valueOf(index6));
         setupMoneyToStrVariables();
         generateResult();
         setLocation(Integer.valueOf(x), Integer.valueOf(y));
@@ -329,6 +343,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -351,7 +367,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextPane9 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MoneyToStr");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/github/moneytostr/messages_ru"); // NOI18N
+        setTitle(bundle.getString("MONEYTOSTR")); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setMaximumSize(new java.awt.Dimension(610, 444));
@@ -363,7 +380,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextArea7.setRows(5);
         jScrollPane7.setViewportView(jTextArea7);
 
-        jTabbedPane3.addTab("С заглавной буквы:", jScrollPane7);
+        jTabbedPane3.addTab(bundle.getString("fromCapitalLetter"), jScrollPane7); // NOI18N
 
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -371,9 +388,9 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
-        jTabbedPane1.addTab("Результат:", jScrollPane3);
+        jTabbedPane1.addTab(bundle.getString("result"), jScrollPane3); // NOI18N
 
-        jLabel2.setText("Введите сумму цифрами:");
+        jLabel2.setText(bundle.getString("enterTheDigitalAmount")); // NOI18N
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -381,7 +398,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextArea4.setRows(5);
         jScrollPane4.setViewportView(jTextArea4);
 
-        jTabbedPane2.addTab("Копейки цифрами:", jScrollPane4);
+        jTabbedPane2.addTab(bundle.getString("penniesByDigits"), jScrollPane4); // NOI18N
 
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -389,7 +406,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextArea5.setRows(5);
         jScrollPane5.setViewportView(jTextArea5);
 
-        jTabbedPane4.addTab("С НДС:", jScrollPane5);
+        jTabbedPane4.addTab(bundle.getString("withVat"), jScrollPane5); // NOI18N
 
         jScrollPane6.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -397,7 +414,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextArea6.setRows(5);
         jScrollPane6.setViewportView(jTextArea6);
 
-        jTabbedPane5.addTab("С НДС прописью:", jScrollPane6);
+        jTabbedPane5.addTab(bundle.getString("withVatByString"), jScrollPane6); // NOI18N
 
         jButton2.setText("*");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -415,7 +432,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/moneytostr/copy.png"))); // NOI18N
-        jButton4.setToolTipText("Скопировать в буфер");
+        jButton4.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
         jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton4.setFocusable(false);
         jButton4.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -428,7 +445,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         });
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/moneytostr/copy.png"))); // NOI18N
-        jButton5.setToolTipText("Скопировать в буфер");
+        jButton5.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
         jButton5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.setFocusable(false);
         jButton5.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -441,7 +458,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         });
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/moneytostr/copy.png"))); // NOI18N
-        jButton6.setToolTipText("Скопировать в буфер");
+        jButton6.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
         jButton6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton6.setFocusable(false);
         jButton6.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -454,7 +471,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         });
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/moneytostr/copy.png"))); // NOI18N
-        jButton8.setToolTipText("Скопировать в буфер");
+        jButton8.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
         jButton8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton8.setFocusable(false);
         jButton8.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -467,7 +484,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         });
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/github/moneytostr/copy.png"))); // NOI18N
-        jButton9.setToolTipText("Скопировать в буфер");
+        jButton9.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
         jButton9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton9.setFocusable(false);
         jButton9.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -493,7 +510,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, 0, 382, Short.MAX_VALUE))
+                        .add(jTextField1, 0, 473, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -545,9 +562,9 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jTabbedPane6.addTab("Конвертор", jPanel2);
+        jTabbedPane6.addTab(bundle.getString("converter"), jPanel2); // NOI18N
 
-        jLabel1.setText("Язык");
+        jLabel1.setText(bundle.getString("language")); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Русский", "Украинский", "Английсикй" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -556,9 +573,9 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Валюта");
+        jLabel3.setText(bundle.getString("currency")); // NOI18N
 
-        jLabel4.setText("Копейки");
+        jLabel4.setText(bundle.getString("pennies")); // NOI18N
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
@@ -574,7 +591,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Копировать в буфер");
+        jLabel5.setText(bundle.getString("toCopyToTheBuffer")); // NOI18N
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "не копировать", "Результат", "С заглавной буквы", "С НДС", "С НДС прописью", "Копейки цифрами" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -583,13 +600,21 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("НДС");
+        jLabel6.setText(bundle.getString("vat")); // NOI18N
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10%", "18%", "20%", "22%" }));
-        jComboBox5.setSelectedIndex(1);
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10%", "12%", "18%", "20%", "22%", "25%" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText(bundle.getString("interfaceLanguage")); // NOI18N
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Русский", "Украинский" }));
+        jComboBox6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox6ActionPerformed(evt);
             }
         });
 
@@ -604,14 +629,16 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     .add(jLabel3)
                     .add(jLabel4)
                     .add(jLabel5)
-                    .add(jLabel6))
+                    .add(jLabel6)
+                    .add(jLabel7))
                 .add(29, 29, 29)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jComboBox5, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jComboBox2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 404, Short.MAX_VALUE)
-                    .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 495, Short.MAX_VALUE)
+                    .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jComboBox6, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -637,10 +664,14 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(jComboBox5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(478, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel7)
+                    .add(jComboBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(447, Short.MAX_VALUE))
         );
 
-        jTabbedPane6.addTab("Настройки", jPanel1);
+        jTabbedPane6.addTab(bundle.getString("settings"), jPanel1); // NOI18N
 
         jTabbedPane7.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -729,14 +760,14 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
         );
 
-        jTabbedPane6.addTab("Исходный текст", jPanel3);
+        jTabbedPane6.addTab(bundle.getString("sourceCodes"), jPanel3); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -813,6 +844,43 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         generateResult();
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
+    private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
+        int selected = ((javax.swing.JComboBox) evt.getSource()).getSelectedIndex();
+        setupLanguage(selected);
+    }
+
+    private void setupLanguage(int selected) {
+        if (selected == 1) {
+            java.util.Locale.setDefault(new java.util.Locale("ua"));
+        } else {
+            java.util.Locale.setDefault(new java.util.Locale("ru"));
+        }
+        int selectedIndex = jTabbedPane6.getSelectedIndex();
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/github/moneytostr/messages"); // NOI18N
+        setTitle(bundle.getString("MONEYTOSTR")); // NOI18N
+        jTabbedPane3.addTab(bundle.getString("fromCapitalLetter"), jScrollPane7); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("result"), jScrollPane3); // NOI18N
+        jLabel2.setText(bundle.getString("enterTheDigitalAmount")); // NOI18N
+        jTabbedPane2.addTab(bundle.getString("penniesByDigits"), jScrollPane4); // NOI18N
+        jTabbedPane4.addTab(bundle.getString("withVat"), jScrollPane5); // NOI18N
+        jTabbedPane5.addTab(bundle.getString("withVatByString"), jScrollPane6); // NOI18N
+        jButton4.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
+        jButton5.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
+        jButton6.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
+        jButton8.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
+        jButton9.setToolTipText(bundle.getString("copyToTheBuffer")); // NOI18N
+        jTabbedPane6.addTab(bundle.getString("converter"), jPanel2); // NOI18N
+        jLabel1.setText(bundle.getString("language")); // NOI18N
+        jLabel3.setText(bundle.getString("currency")); // NOI18N
+        jLabel4.setText(bundle.getString("pennies")); // NOI18N
+        jLabel5.setText(bundle.getString("toCopyToTheBuffer")); // NOI18N
+        jLabel6.setText(bundle.getString("vat")); // NOI18N
+        jTabbedPane6.addTab(bundle.getString("settings"), jPanel1); // NOI18N
+        jTabbedPane6.addTab(bundle.getString("sourceCodes"), jPanel3); // NOI18N
+        jLabel7.setText(bundle.getString("interfaceLanguage")); // NOI18N
+        jTabbedPane6.setSelectedIndex(selectedIndex);
+    }//GEN-LAST:event_jComboBox6ActionPerformed
+
     private void setupMoneyToStrVariables() {
         moneyToStrTxt = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],
                 MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
@@ -869,12 +937,14 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
