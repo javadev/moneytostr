@@ -236,6 +236,17 @@ public class MoneyToStrTest {
         assertEquals("две целых, две сотых процента", MoneyToStr.percentToStr(V_2_02D, MoneyToStr.Language.RUS));
         assertEquals("пять целых, пять сотых процента", MoneyToStr.percentToStr(V_5_05D, MoneyToStr.Language.RUS));
         assertEquals("пять целых, пять десятитысячных процента", MoneyToStr.percentToStr(V_5_0005D, MoneyToStr.Language.RUS));
+        assertEquals("двенадцать целых, триста сорок шесть тысячных процента", MoneyToStr.percentToStr(12.346, MoneyToStr.Language.RUS));
+    }
+
+    /** check main. */
+    @Test
+    public void main() {
+        MoneyToStr.main(new String[] {});
+        MoneyToStr.main(new String[] {"--amount=123.25", "--language=rus", "--currency=rur", "--pennies=text"});
+        moneyToStrUAH.getMessages();
+        moneyToStrUAH.getRubShortUnit();
+        moneyToStrUAH.getLanguage();
     }
 
     /** checkException. */
@@ -253,24 +264,49 @@ public class MoneyToStrTest {
     /** checkException3. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException3() {
-        moneyToStrUAH.convert(null);
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null);
     }
 
     /** checkException4. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException4() {
-        moneyToStrUAH.convert(1L, null);
+        moneyToStrUAH.convert(null);
     }
 
     /** checkException5. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException5() {
-        moneyToStrUAH.convert(null, 1L);
+        moneyToStrUAH.convert(1L, null);
     }
 
     /** checkException6. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException6() {
+        moneyToStrUAH.convert(null, 1L);
+    }
+
+    /** checkException7. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException7() {
         moneyToStrUAH.convert(null, null);
     }
+
+    /** checkException8. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException8() {
+        moneyToStrUAH.percentToStr(null, null);
+    }
+
+    /** checkException9. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException9() {
+        moneyToStrUAH.percentToStr(123D, null);
+    }
+
+    /** checkException10. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException10() {
+        moneyToStrUAH.percentToStr(null, MoneyToStr.Language.UKR);
+    }
+
 }
