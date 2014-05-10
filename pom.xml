@@ -101,7 +101,7 @@
         <version>0.7.0.201403182114</version>
         <configuration>
           <excludes>
-            <exclude>**/MoneyToStrApp.class</exclude>
+            <exclude>**/MoneyToStrApp*.class</exclude>
           </excludes>
         </configuration>
         <executions>

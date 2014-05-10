@@ -123,6 +123,8 @@ object MoneyToStrTest {
     /** checkRUR. */
     def test_checkRUR() = {
         assert_equal("семьсот семьдесят семь рублей 77 копеек", moneyToStrRUR.convert(V_777_77D));
+        assert_equal("пятьдесят семь тысяч девятьсот два рубля 14 копеек",
+            moneyToStrRUR.convert(57902.14));
     }
 
     /** checkUSD_ENG. */
