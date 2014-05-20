@@ -303,10 +303,15 @@ public class MoneyToStrTest {
         moneyToStrUAH.percentToStr(123D, null);
     }
 
-    /** checkException10. */
+    /** checkException9. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException10() {
-        moneyToStrUAH.percentToStr(null, MoneyToStr.Language.UKR);
+        moneyToStrUAH.percentToStr(123D, MoneyToStr.Language.UKR, null);
     }
 
+    /** checkException10. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException11() {
+        moneyToStrUAH.percentToStr(null, MoneyToStr.Language.UKR);
+    }
 }

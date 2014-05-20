@@ -216,21 +216,11 @@ public class MoneyToStr {
 
     static {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
-        InputStream inputStream = null;
-
         try {
             javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
             xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(CURRENCY_LIST.getBytes("UTF8")));
         } catch (Exception ex) {
             throw new UnsupportedOperationException(ex);
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.getMessage();
-                }
-            }
         }
     }
 
@@ -271,9 +261,9 @@ public class MoneyToStr {
     }
 
     /**
-     * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
+     * Initializes class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
      *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
-     * Definition for currency is placed into currlist.xml
+     * Definition for currency is placed into constant CURRENCY_LIST
      *
      * @param currency the currency (UAH, RUR, USD)
      * @param language the language (UKR, RUS, ENG)
