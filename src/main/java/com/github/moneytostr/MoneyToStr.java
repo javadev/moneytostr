@@ -216,21 +216,11 @@ public class MoneyToStr {
 
     static {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
-        InputStream inputStream = null;
-
         try {
             javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
             xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(CURRENCY_LIST.getBytes("UTF8")));
         } catch (Exception ex) {
             throw new UnsupportedOperationException(ex);
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.getMessage();
-                }
-            }
         }
     }
 
@@ -307,10 +297,6 @@ public class MoneyToStr {
                 theISOElement = (org.w3c.dom.Element) theISOElements.item(index);
                 break;
             }
-        }
-
-        if (theISOElement == null) {
-            throw new IllegalArgumentException("Currency not found " + theISOstr);
         }
         rubOneUnit = theISOElement.getAttribute("RubOneUnit");
         rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");

@@ -261,9 +261,9 @@ public class MoneyToStr {
     }
 
     /**
-     * Initializes class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
+     * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
      *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
-     * Definition for currency is placed into constant CURRENCY_LIST
+     * Definition for currency is placed into currlist.xml
      *
      * @param currency the currency (UAH, RUR, USD)
      * @param language the language (UKR, RUS, ENG)
@@ -297,10 +297,6 @@ public class MoneyToStr {
                 theISOElement = (org.w3c.dom.Element) theISOElements.item(index);
                 break;
             }
-        }
-
-        if (theISOElement == null) {
-            throw new IllegalArgumentException("Currency not found " + theISOstr);
         }
         rubOneUnit = theISOElement.getAttribute("RubOneUnit");
         rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");
