@@ -215,10 +215,14 @@ public class MoneyToStr {
     private final Pennies pennies;
 
     static {
+        initXmlDoc(CURRENCY_LIST);
+    }
+
+    public static void initXmlDoc(final String xmlData) {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
         try {
             javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
-            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(CURRENCY_LIST.getBytes("UTF8")));
+            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(xmlData.getBytes("UTF8")));
         } catch (Exception ex) {
             throw new UnsupportedOperationException(ex);
         }

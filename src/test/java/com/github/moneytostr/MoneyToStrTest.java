@@ -249,6 +249,11 @@ public class MoneyToStrTest {
         moneyToStrUAH.getLanguage();
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void initXmlDoc() {
+        MoneyToStr.initXmlDoc("<1<2<3");
+    }
+
     /** checkException. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException() {
