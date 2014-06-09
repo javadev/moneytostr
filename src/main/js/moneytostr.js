@@ -579,7 +579,7 @@ var MoneyToStr = (function () {
     MoneyToStr.NUM9 = 9;
     MoneyToStr.NUM10 = 10;
     MoneyToStr.NUM11 = 11;
-    MoneyToStr.NUM12 = 12;
+    MoneyToStr.NUM14 = 14;
     MoneyToStr.NUM100 = 100;
     MoneyToStr.NUM1000 = 1000;
     MoneyToStr.NUM10000 = 10000;
@@ -726,7 +726,7 @@ var MoneyToStr = (function () {
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+        if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(this.kopFiveUnit);
         } else {
             switch (parseInt(theKopeiki % MoneyToStr.NUM10)) {
