@@ -222,7 +222,7 @@ public class MoneyToStr {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
         try {
             javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
-            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(xmlData.getBytes("UTF8")));
+            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(xmlData.getBytes("UTF-8")));
         } catch (Exception ex) {
             throw new UnsupportedOperationException(ex);
         }
@@ -292,7 +292,7 @@ public class MoneyToStr {
         org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
         for (int index = 0; index < items.getLength(); index += 1) {
             org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
-            messages.put(languageItem.getAttribute("value"), languageItem.getAttribute("text").split(","));
+            messages.put(toUtf8(languageItem.getAttribute("value")), toUtf8(languageItem.getAttribute("text")).split(","));
         }
         org.w3c.dom.NodeList theISOElements = (org.w3c.dom.NodeList) (xmlDoc.getElementsByTagName(theISOstr));
         org.w3c.dom.Element theISOElement = null;
@@ -302,15 +302,18 @@ public class MoneyToStr {
                 break;
             }
         }
-        rubOneUnit = theISOElement.getAttribute("RubOneUnit");
-        rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");
-        rubFiveUnit = theISOElement.getAttribute("RubFiveUnit");
-        kopOneUnit = theISOElement.getAttribute("KopOneUnit");
-        kopTwoUnit = theISOElement.getAttribute("KopTwoUnit");
-        kopFiveUnit = theISOElement.getAttribute("KopFiveUnit");
-        rubSex = theISOElement.getAttribute("RubSex");
-        kopSex = theISOElement.getAttribute("KopSex");
-        rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
+        rubOneUnit = toUtf8(theISOElement.getAttribute("RubOneUnit"));
+        rubTwoUnit = toUtf8(theISOElement.getAttribute("RubTwoUnit"));
+        rubFiveUnit = toUtf8(theISOElement.getAttribute("RubFiveUnit"));
+        kopOneUnit = toUtf8(theISOElement.getAttribute("KopOneUnit"));
+        kopTwoUnit = toUtf8(theISOElement.getAttribute("KopTwoUnit"));
+        kopFiveUnit = toUtf8(theISOElement.getAttribute("KopFiveUnit"));
+        rubSex = toUtf8(theISOElement.getAttribute("RubSex"));
+        kopSex = toUtf8(theISOElement.getAttribute("KopSex"));
+    }
+
+    private String toUtf8(String value) {
+        return new String(value.getBytes("UTF-8"), "windows-1251");
     }
 
     /**
@@ -579,7 +582,7 @@ public class MoneyToStr {
         String currency = "USD";
         String pennies = "TEXT";
         if (args.length == 0) {
-            System.out.println("Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number");
+            System.out.println("Usage: groovy MoneyToStr.groovy --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number");
         } else {
             for (String arg : args) {
                 if (arg.startsWith("--amount=")) {
