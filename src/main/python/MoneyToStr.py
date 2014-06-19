@@ -421,7 +421,7 @@ class MoneyToStr:
     NUM9 = 9
     NUM10 = 10
     NUM11 = 11
-    NUM12 = 12
+    NUM14 = 14
     NUM100 = 100
     NUM1000 = 1000
     NUM10000 = 10000
@@ -552,7 +552,7 @@ class MoneyToStr:
             if theKopeiki < 10:
                 param = "0" + str(theKopeiki)
             money2str.append(" " + param + " ");
-        if theKopeiki == self.NUM11 or theKopeiki == self.NUM12:
+        if theKopeiki >= self.NUM11 and theKopeiki <= self.NUM14:
             money2str.append(self.kopFiveUnit);
         else:
             if theKopeiki % self.NUM10 == self.NUM1:

@@ -17,7 +17,6 @@
  */
 
 library moneytostr;
-import "dart:json";
 
 /**
  * Converts numbers to symbols.
@@ -92,364 +91,452 @@ class Pennies {
 }
 
 class MoneyToStr {
-static String json = '''{
-  "CurrencyList" : {
-    "language" : { "-value" : "UKR" },
-    "UKR" : {
-      "item" : [
+static Map json =
+{
+  "CurrencyList": {
+    "language": { "-value": "UKR" },
+    "UKR": {
+      "item": [
         {
-          "-value" : "0",
-          "-text" : "нуль"
+          "-value": "0",
+          "-text": "нуль"
         },
         {
-          "-value" : "1000_10",
-          "-text" : "тисяч,мільйонів,мільярдів,трильйонів"
+          "-value": "1000_10",
+          "-text": "тисяч,мільйонів,мільярдів,трильйонів"
         },
         {
-          "-value" : "1000_1",
-          "-text" : "тисяча,мільйон,мільярд,трильйон"
+          "-value": "1000_1",
+          "-text": "тисяча,мільйон,мільярд,трильйон"
         },
         {
-          "-value" : "1000_234",
-          "-text" : "тисячі,мільйона,мільярда,трильйона"
+          "-value": "1000_234",
+          "-text": "тисячі,мільйона,мільярда,трильйона"
         },
         {
-          "-value" : "1000_5",
-          "-text" : "тисяч,мільйонів,мільярдів,трильйонів"
+          "-value": "1000_5",
+          "-text": "тисяч,мільйонів,мільярдів,трильйонів"
         },
         {
-          "-value" : "10_19",
-          "-text" : "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"
+          "-value": "10_19",
+          "-text": "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"
         },
         {
-          "-value" : "1",
-          "-text" : "одна,один,один,одна"
+          "-value": "1",
+          "-text": "одна,один,один,одна"
         },
         {
-          "-value" : "2",
-          "-text" : "дві,два,два,дві"
+          "-value": "2",
+          "-text": "дві,два,два,дві"
         },
         {
-          "-value" : "3_9",
-          "-text" : "три,чотири,п’ять,шість,сім,вісім,дев’ять"
+          "-value": "3_9",
+          "-text": "три,чотири,п’ять,шість,сім,вісім,дев’ять"
         },
         {
-          "-value" : "100_900",
-          "-text" : "сто ,двісті ,триста ,чотириста ,п’ятсот ,шістсот ,сімсот ,вісімсот ,дев’ятсот "
+          "-value": "100_900",
+          "-text": "сто ,двісті ,триста ,чотириста ,п’ятсот ,шістсот ,сімсот ,вісімсот ,дев’ятсот "
         },
         {
-          "-value" : "20_90",
-          "-text" : "двадцять ,тридцять ,сорок ,п’ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев’яносто "
+          "-value": "20_90",
+          "-text": "двадцять ,тридцять ,сорок ,п’ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев’яносто "
         }
       ]
     },
-    "RUS" : {
-      "item" : [
+    "RUS": {
+      "item": [
         {
-          "-value" : "0",
-          "-text" : "ноль"
+          "-value": "0",
+          "-text": "ноль"
         },
         {
-          "-value" : "1000_10",
-          "-text" : "тысяч,миллионов,миллиардов,триллионов"
+          "-value": "1000_10",
+          "-text": "тысяч,миллионов,миллиардов,триллионов"
         },
         {
-          "-value" : "1000_1",
-          "-text" : "тысяча,миллион,миллиард,триллион"
+          "-value": "1000_1",
+          "-text": "тысяча,миллион,миллиард,триллион"
         },
         {
-          "-value" : "1000_234",
-          "-text" : "тысячи,миллиона,миллиарда,триллиона"
+          "-value": "1000_234",
+          "-text": "тысячи,миллиона,миллиарда,триллиона"
         },
         {
-          "-value" : "1000_5",
-          "-text" : "тысяч,миллионов,миллиардов,триллионов"
+          "-value": "1000_5",
+          "-text": "тысяч,миллионов,миллиардов,триллионов"
         },
         {
-          "-value" : "10_19",
-          "-text" : "десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"
+          "-value": "10_19",
+          "-text": "десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"
         },
         {
-          "-value" : "1",
-          "-text" : "одна,один,один,одна"
+          "-value": "1",
+          "-text": "одна,один,один,одна"
         },
         {
-          "-value" : "2",
-          "-text" : "две,два,два,две"
+          "-value": "2",
+          "-text": "две,два,два,две"
         },
         {
-          "-value" : "3_9",
-          "-text" : "три,четыре,пять,шесть,семь,восемь,девять"
+          "-value": "3_9",
+          "-text": "три,четыре,пять,шесть,семь,восемь,девять"
         },
         {
-          "-value" : "100_900",
-          "-text" : "сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "
+          "-value": "100_900",
+          "-text": "сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "
         },
         {
-          "-value" : "20_90",
-          "-text" : "двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "
+          "-value": "20_90",
+          "-text": "двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "
         }
       ]
     },
-    "ENG" : {
-      "item" : [
+    "ENG": {
+      "item": [
         {
-          "-value" : "0",
-          "-text" : "zero"
+          "-value": "0",
+          "-text": "zero"
         },
         {
-          "-value" : "1000_10",
-          "-text" : "thousand,million,billion,trillion"
+          "-value": "1000_10",
+          "-text": "thousand,million,billion,trillion"
         },
         {
-          "-value" : "1000_1",
-          "-text" : "thousand,million,billion,trillion"
+          "-value": "1000_1",
+          "-text": "thousand,million,billion,trillion"
         },
         {
-          "-value" : "1000_234",
-          "-text" : "thousand,million,billion,trillion"
+          "-value": "1000_234",
+          "-text": "thousand,million,billion,trillion"
         },
         {
-          "-value" : "1000_5",
-          "-text" : "thousand,million,billion,trillion"
+          "-value": "1000_5",
+          "-text": "thousand,million,billion,trillion"
         },
         {
-          "-value" : "10_19",
-          "-text" : "ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"
+          "-value": "10_19",
+          "-text": "ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"
         },
         {
-          "-value" : "1",
-          "-text" : "one,one,one,one"
+          "-value": "1",
+          "-text": "one,one,one,one"
         },
         {
-          "-value" : "2",
-          "-text" : "two,two,two,two"
+          "-value": "2",
+          "-text": "two,two,two,two"
         },
         {
-          "-value" : "3_9",
-          "-text" : "three,four,five,six,seven,eight,nine"
+          "-value": "3_9",
+          "-text": "three,four,five,six,seven,eight,nine"
         },
         {
-          "-value" : "100_900",
-          "-text" : "one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "
+          "-value": "100_900",
+          "-text": "one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "
         },
         {
-          "-value" : "20_90",
-          "-text" : "twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"
+          "-value": "20_90",
+          "-text": "twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"
         }
       ]
     },
-    "RUR" : [
+    "RUR": [
       {
-        "-CurrID" : "810",
-        "-CurrName" : "Российские рубли",
-        "-language" : "RUS",
-        "-RubOneUnit" : "рубль",
-        "-RubTwoUnit" : "рубля",
-        "-RubFiveUnit" : "рублей",
-        "-RubSex" : "M",
-        "-KopOneUnit" : "копейка",
-        "-KopTwoUnit" : "копейки",
-        "-KopFiveUnit" : "копеек",
-        "-KopSex" : "F"
+        "-CurrID": "810",
+        "-CurrName": "Российские рубли",
+        "-language": "RUS",
+        "-RubOneUnit": "рубль",
+        "-RubTwoUnit": "рубля",
+        "-RubFiveUnit": "рублей",
+        "-RubSex": "M",
+        "-RubShortUnit": "руб.",
+        "-KopOneUnit": "копейка",
+        "-KopTwoUnit": "копейки",
+        "-KopFiveUnit": "копеек",
+        "-KopSex": "F"
       },
       {
-        "-CurrID" : "810",
-        "-CurrName" : "Российские рубли",
-        "-language" : "UKR",
-        "-RubOneUnit" : "рубль",
-        "-RubTwoUnit" : "рубля",
-        "-RubFiveUnit" : "рублів",
-        "-RubSex" : "M",
-        "-KopOneUnit" : "копійка",
-        "-KopTwoUnit" : "копійки",
-        "-KopFiveUnit" : "копійок",
-        "-KopSex" : "F"
+        "-CurrID": "810",
+        "-CurrName": "Российские рубли",
+        "-language": "UKR",
+        "-RubOneUnit": "рубль",
+        "-RubTwoUnit": "рублі",
+        "-RubFiveUnit": "рублів",
+        "-RubSex": "M",
+        "-RubShortUnit": "руб.",
+        "-KopOneUnit": "копійка",
+        "-KopTwoUnit": "копійки",
+        "-KopFiveUnit": "копійок",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "810",
+        "-CurrName": "Российские рубли",
+        "-language": "ENG",
+        "-RubOneUnit": "ruble",
+        "-RubTwoUnit": "rubles",
+        "-RubFiveUnit": "rubles",
+        "-RubSex": "M",
+        "-RubShortUnit": "RUR.",
+        "-KopOneUnit": "kopeck",
+        "-KopTwoUnit": "kopecks",
+        "-KopFiveUnit": "kopecks",
+        "-KopSex": "M"
       }
     ],
-    "UAH" : [
+    "UAH": [
       {
-        "-CurrID" : "980",
-        "-CurrName" : "Украинскі гривні",
-        "-language" : "RUS",
-        "-RubOneUnit" : "гривня",
-        "-RubTwoUnit" : "гривни",
-        "-RubFiveUnit" : "гривень",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "копейка",
-        "-KopTwoUnit" : "копейки",
-        "-KopFiveUnit" : "копеек",
-        "-KopSex" : "F"
+        "-CurrID": "980",
+        "-CurrName": "Украинскі гривні",
+        "-language": "RUS",
+        "-RubOneUnit": "гривня",
+        "-RubTwoUnit": "гривни",
+        "-RubFiveUnit": "гривень",
+        "-RubSex": "F",
+        "-RubShortUnit": "грн.",
+        "-KopOneUnit": "копейка",
+        "-KopTwoUnit": "копейки",
+        "-KopFiveUnit": "копеек",
+        "-KopSex": "F"
       },
       {
-        "-CurrID" : "980",
-        "-CurrName" : "Украинскі гривні",
-        "-language" : "UKR",
-        "-RubOneUnit" : "гривня",
-        "-RubTwoUnit" : "гривні",
-        "-RubFiveUnit" : "гривень",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "копійка",
-        "-KopTwoUnit" : "копійки",
-        "-KopFiveUnit" : "копійок",
-        "-KopSex" : "F"
+        "-CurrID": "980",
+        "-CurrName": "Украинскі гривні",
+        "-language": "UKR",
+        "-RubOneUnit": "гривня",
+        "-RubTwoUnit": "гривні",
+        "-RubFiveUnit": "гривень",
+        "-RubSex": "F",
+        "-RubShortUnit": "грн.",
+        "-KopOneUnit": "копійка",
+        "-KopTwoUnit": "копійки",
+        "-KopFiveUnit": "копійок",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "980",
+        "-CurrName": "Украинскі гривні",
+        "-language": "ENG",
+        "-RubOneUnit": "hryvnia",
+        "-RubTwoUnit": "hryvnias",
+        "-RubFiveUnit": "hryvnias",
+        "-RubSex": "M",
+        "-RubShortUnit": "UAH.",
+        "-KopOneUnit": "kopeck",
+        "-KopTwoUnit": "kopecks",
+        "-KopFiveUnit": "kopecks",
+        "-KopSex": "M"
       }
     ],
-    "USD" : [
+    "USD": [
       {
-        "-CurrID" : "840",
-        "-CurrName" : "Долари США",
-        "-language" : "RUS",
-        "-RubOneUnit" : "долар",
-        "-RubTwoUnit" : "долара",
-        "-RubFiveUnit" : "доларів",
-        "-RubSex" : "M",
-        "-KopOneUnit" : "цент",
-        "-KopTwoUnit" : "цена",
-        "-KopFiveUnit" : "центов",
-        "-KopSex" : "M"
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "RUS",
+        "-RubOneUnit": "доллар",
+        "-RubTwoUnit": "доллара",
+        "-RubFiveUnit": "долларов",
+        "-RubSex": "M",
+        "-RubShortUnit": "дол.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цена",
+        "-KopFiveUnit": "центов",
+        "-KopSex": "M"
       },
       {
-        "-CurrID" : "840",
-        "-CurrName" : "Долари США",
-        "-language" : "UKR",
-        "-RubOneUnit" : "долар",
-        "-RubTwoUnit" : "долара",
-        "-RubFiveUnit" : "доларів",
-        "-RubSex" : "M",
-        "-KopOneUnit" : "цент",
-        "-KopTwoUnit" : "цена",
-        "-KopFiveUnit" : "центів",
-        "-KopSex" : "M"
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "UKR",
+        "-RubOneUnit": "долар",
+        "-RubTwoUnit": "долара",
+        "-RubFiveUnit": "доларів",
+        "-RubSex": "M",
+        "-RubShortUnit": "дол.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цена",
+        "-KopFiveUnit": "центів",
+        "-KopSex": "M"
       },
       {
-        "-CurrID" : "840",
-        "-CurrName" : "Долари США",
-        "-language" : "ENG",
-        "-RubOneUnit" : "dollar",
-        "-RubTwoUnit" : "dollars",
-        "-RubFiveUnit" : "dollars",
-        "-RubSex" : "M",
-        "-KopOneUnit" : "cent",
-        "-KopTwoUnit" : "cents",
-        "-KopFiveUnit" : "cents",
-        "-KopSex" : "M"
-      }
-     ],
-    "PER10" : [
-      {
-        "-CurrID" : "556",
-        "-CurrName" : "Вiдсотки з десятими частинами",
-        "-language" : "RUS",
-        "-RubOneUnit" : "целая,",
-        "-RubTwoUnit" : "целых,",
-        "-RubFiveUnit" : "целых,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "десятая процента",
-        "-KopTwoUnit" : "десятых процента",
-        "-KopFiveUnit" : "десятых процента",
-        "-KopSex" : "F"
-      },
-      {
-        "-CurrID" : "556",
-        "-CurrName" : "Вiдсотки з десятими частинами",
-        "-language" : "UKR",
-        "-RubOneUnit" : "ціла,",
-        "-RubTwoUnit" : "цілих,",
-        "-RubFiveUnit" : "цілих,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "десята відсотка",
-        "-KopTwoUnit" : "десятих відсотка",
-        "-KopFiveUnit" : "десятих відсотка",
-        "-KopSex" : "F"
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "ENG",
+        "-RubOneUnit": "dollar",
+        "-RubTwoUnit": "dollars",
+        "-RubFiveUnit": "dollars",
+        "-RubSex": "M",
+        "-RubShortUnit": "USD.",
+        "-KopOneUnit": "cent",
+        "-KopTwoUnit": "cents",
+        "-KopFiveUnit": "cents",
+        "-KopSex": "M"
       }
     ],
-    "PER100" : [
+    "PER10": [
       {
-        "-CurrID" : "557",
-        "-CurrName" : "Вiдсотки з сотими частинами",
-        "-language" : "RUS",
-        "-RubOneUnit" : "целая,",
-        "-RubTwoUnit" : "целых,",
-        "-RubFiveUnit" : "целых,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "сотая процента",
-        "-KopTwoUnit" : "сотых процента",
-        "-KopFiveUnit" : "сотых процента",
-        "-KopSex" : "F"
+        "-CurrID": "556",
+        "-CurrName": "Вiдсотки з десятими частинами",
+        "-language": "RUS",
+        "-RubOneUnit": "целая,",
+        "-RubTwoUnit": "целых,",
+        "-RubFiveUnit": "целых,",
+        "-RubSex": "F",
+        "-KopOneUnit": "десятая процента",
+        "-KopTwoUnit": "десятых процента",
+        "-KopFiveUnit": "десятых процента",
+        "-KopSex": "F"
       },
       {
-        "-CurrID" : "557",
-        "-CurrName" : "Вiдсотки з сотими частинами",
-        "-language" : "UKR",
-        "-RubOneUnit" : "ціла,",
-        "-RubTwoUnit" : "цілих,",
-        "-RubFiveUnit" : "цілих,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "сота відсотка",
-        "-KopTwoUnit" : "сотих відсотка",
-        "-KopFiveUnit" : "сотих відсотка",
-        "-KopSex" : "F"
+        "-CurrID": "556",
+        "-CurrName": "Вiдсотки з десятими частинами",
+        "-language": "UKR",
+        "-RubOneUnit": "ціла,",
+        "-RubTwoUnit": "цілих,",
+        "-RubFiveUnit": "цілих,",
+        "-RubSex": "F",
+        "-KopOneUnit": "десята відсотка",
+        "-KopTwoUnit": "десятих відсотка",
+        "-KopFiveUnit": "десятих відсотка",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "560",
+        "-CurrName": "Вiдсотки з десятими частинами",
+        "-language": "ENG",
+        "-RubOneUnit": ",",
+        "-RubTwoUnit": "integers,",
+        "-RubFiveUnit": "integers,",
+        "-RubSex": "F",
+        "-KopOneUnit": "tenth of one percent",
+        "-KopTwoUnit": "tenth of one percent",
+        "-KopFiveUnit": "tenth of one percent",
+        "-KopSex": "F"
       }
     ],
-    "PER1000" : [
+    "PER100": [
       {
-        "-CurrID" : "558",
-        "-CurrName" : "Вiдсотки з тисячними частинами",
-        "-language" : "RUS",
-        "-RubOneUnit" : "целая,",
-        "-RubTwoUnit" : "целых,",
-        "-RubFiveUnit" : "целых,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "тысячная процента",
-        "-KopTwoUnit" : "тысячных процента",
-        "-KopFiveUnit" : "тысячных процента",
-        "-KopSex" : "F"
+        "-CurrID": "557",
+        "-CurrName": "Вiдсотки з сотими частинами",
+        "-language": "RUS",
+        "-RubOneUnit": "целая,",
+        "-RubTwoUnit": "целых,",
+        "-RubFiveUnit": "целых,",
+        "-RubSex": "F",
+        "-KopOneUnit": "сотая процента",
+        "-KopTwoUnit": "сотых процента",
+        "-KopFiveUnit": "сотых процента",
+        "-KopSex": "F"
       },
       {
-        "-CurrID" : "558",
-        "-CurrName" : "Вiдсотки з тисячними частинами",
-        "-language" : "UKR",
-        "-RubOneUnit" : "ціла,",
-        "-RubTwoUnit" : "цілих,",
-        "-RubFiveUnit" : "цілих,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "тисячна відсотка",
-        "-KopTwoUnit" : "тисячних відсотка",
-        "-KopFiveUnit" : "тисячних відсотка",
-        "-KopSex" : "F"
+        "-CurrID": "557",
+        "-CurrName": "Вiдсотки з сотими частинами",
+        "-language": "UKR",
+        "-RubOneUnit": "ціла,",
+        "-RubTwoUnit": "цілих,",
+        "-RubFiveUnit": "цілих,",
+        "-RubSex": "F",
+        "-KopOneUnit": "сота відсотка",
+        "-KopTwoUnit": "сотих відсотка",
+        "-KopFiveUnit": "сотих відсотка",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "561",
+        "-CurrName": "Вiдсотки з сотими частинами",
+        "-language": "ENG",
+        "-RubOneUnit": ",",
+        "-RubTwoUnit": "integers,",
+        "-RubFiveUnit": "integers,",
+        "-RubSex": "F",
+        "-KopOneUnit": "hundred percent",
+        "-KopTwoUnit": "hundredth of percent",
+        "-KopFiveUnit": "hundredth of percent",
+        "-KopSex": "F"
       }
     ],
-    "PER10000" : [
+    "PER1000": [
       {
-        "-CurrID" : "559",
-        "-CurrName" : "Вiдсотки з десяти тисячними частинами",
-        "-language" : "RUS",
-        "-RubOneUnit" : "целая,",
-        "-RubTwoUnit" : "целых,",
-        "-RubFiveUnit" : "целых,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "десятитысячная процента",
-        "-KopTwoUnit" : "десятитысячные процента",
-        "-KopFiveUnit" : "десятитысячных процента",
-        "-KopSex" : "F"
+        "-CurrID": "558",
+        "-CurrName": "Вiдсотки з тисячними частинами",
+        "-language": "RUS",
+        "-RubOneUnit": "целая,",
+        "-RubTwoUnit": "целых,",
+        "-RubFiveUnit": "целых,",
+        "-RubSex": "F",
+        "-KopOneUnit": "тысячная процента",
+        "-KopTwoUnit": "тысячных процента",
+        "-KopFiveUnit": "тысячных процента",
+        "-KopSex": "F"
       },
       {
-        "-CurrID" : "559",
-        "-CurrName" : "Вiдсотки з десяти тисячними частинами",
-        "-language" : "UKR",
-        "-RubOneUnit" : "ціла,",
-        "-RubTwoUnit" : "цілих,",
-        "-RubFiveUnit" : "цілих,",
-        "-RubSex" : "F",
-        "-KopOneUnit" : "десятитисячна відсотка",
-        "-KopTwoUnit" : "десятитисячних відсотка",
-        "-KopFiveUnit" : "десятитисячних відсотка",
-        "-KopSex" : "M"
+        "-CurrID": "558",
+        "-CurrName": "Вiдсотки з тисячними частинами",
+        "-language": "UKR",
+        "-RubOneUnit": "ціла,",
+        "-RubTwoUnit": "цілих,",
+        "-RubFiveUnit": "цілих,",
+        "-RubSex": "F",
+        "-KopOneUnit": "тисячна відсотка",
+        "-KopTwoUnit": "тисячних відсотка",
+        "-KopFiveUnit": "тисячних відсотка",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "562",
+        "-CurrName": "Вiдсотки з тисячними частинами",
+        "-language": "ENG",
+        "-RubOneUnit": ",",
+        "-RubTwoUnit": "integers,",
+        "-RubFiveUnit": "integers,",
+        "-RubSex": "F",
+        "-KopOneUnit": "thousandth of percent",
+        "-KopTwoUnit": "thousandths of percent",
+        "-KopFiveUnit": "thousandths of percent",
+        "-KopSex": "F"
+      }
+    ],
+    "PER10000": [
+      {
+        "-CurrID": "559",
+        "-CurrName": "Вiдсотки з десяти тисячними частинами",
+        "-language": "RUS",
+        "-RubOneUnit": "целая,",
+        "-RubTwoUnit": "целых,",
+        "-RubFiveUnit": "целых,",
+        "-RubSex": "F",
+        "-KopOneUnit": "десятитысячная процента",
+        "-KopTwoUnit": "десятитысячные процента",
+        "-KopFiveUnit": "десятитысячных процента",
+        "-KopSex": "F"
+      },
+      {
+        "-CurrID": "559",
+        "-CurrName": "Вiдсотки з десяти тисячними частинами",
+        "-language": "UKR",
+        "-RubOneUnit": "ціла,",
+        "-RubTwoUnit": "цілих,",
+        "-RubFiveUnit": "цілих,",
+        "-RubSex": "F",
+        "-KopOneUnit": "десятитисячна відсотка",
+        "-KopTwoUnit": "десятитисячних відсотка",
+        "-KopFiveUnit": "десятитисячних відсотка",
+        "-KopSex": "M"
+      },
+      {
+        "-CurrID": "563",
+        "-CurrName": "Вiдсотки з десяти тисячними частинами",
+        "-language": "ENG",
+        "-RubOneUnit": ",",
+        "-RubTwoUnit": "integers,",
+        "-RubFiveUnit": "integers,",
+        "-RubSex": "F",
+        "-KopOneUnit": "ten percent",
+        "-KopTwoUnit": "ten-percent",
+        "-KopFiveUnit": "ten-percent",
+        "-KopSex": "F"
       }
     ]
   }
-}''';
+};
 
     static const int NUM0 = 0;
     static const int NUM1 = 1;
@@ -463,7 +550,7 @@ static String json = '''{
     static const int NUM9 = 9;
     static const int NUM10 = 10;
     static const int NUM11 = 11;
-    static const int NUM12 = 12;
+    static const int NUM14 = 14;
     static const int NUM100 = 100;
     static const int NUM1000 = 1000;
     static const int NUM10000 = 10000;
@@ -499,7 +586,7 @@ static String json = '''{
         this.language = language;
         this.pennies = pennies;
         Language languageElement = language;
-        var currencyList = parse(json);
+        var currencyList = json;
         var items = currencyList["CurrencyList"][languageElement.toString()]["item"];
         for (var languageItem in items) {
             if (languageItem["-text"] != null) {
@@ -624,7 +711,7 @@ static String json = '''{
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki.toString() : theKopeiki.toString()) + " ");
         }
-        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+        if (theKopeiki >= NUM11 && theKopeiki <= NUM14) {
             money2str.append(kopFiveUnit);
         } else {
             switch (theKopeiki % NUM10) {

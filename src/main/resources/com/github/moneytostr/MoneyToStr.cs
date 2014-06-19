@@ -1,4 +1,4 @@
-/*
+﻿/*
  * $Id$
  *
  * Copyright 2013 Valentyn Kolesnikov
@@ -400,7 +400,7 @@ readonly string json = @"{
     const int NUM9 = 9;
     const int NUM10 = 10;
     const int NUM11 = 11;
-    const int NUM12 = 12;
+    const int NUM14 = 14;
     const int NUM100 = 100;
     const int NUM1000 = 1000;
     const int NUM10000 = 10000;
@@ -424,13 +424,13 @@ readonly string json = @"{
 
     public MoneyToStr(string currency, string language, string pennies) {
         if (currency == null) {
-            throw new ArgumentNullException("Currency code is null");
+            throw new ArgumentNullException("currency is null");
         }
         if (language == null) {
-            throw new ArgumentNullException("Language is null");
+            throw new ArgumentNullException("language is null");
         }
         if (pennies == null) {
-            throw new ArgumentNullException("Pennies is null");
+            throw new ArgumentNullException("pennies is null");
         }
         this.currency = currency;
         this.language = language;
@@ -563,7 +563,7 @@ readonly string json = @"{
         } else {
             money2str.Append(" " + (theKopeiki < 10 ? "0" + Convert.ToString(theKopeiki) : Convert.ToString(theKopeiki)) + " ");
         }
-        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+        if (theKopeiki >= NUM11 && theKopeiki <= NUM14) {
             money2str.Append(kopFiveUnit);
         } else {
             switch (theKopeiki % NUM10) {

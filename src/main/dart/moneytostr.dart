@@ -550,7 +550,7 @@ static Map json =
     static const int NUM9 = 9;
     static const int NUM10 = 10;
     static const int NUM11 = 11;
-    static const int NUM12 = 12;
+    static const int NUM14 = 14;
     static const int NUM100 = 100;
     static const int NUM1000 = 1000;
     static const int NUM10000 = 10000;
@@ -711,7 +711,7 @@ static Map json =
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki.toString() : theKopeiki.toString()) + " ");
         }
-        if (theKopeiki == NUM11 || theKopeiki == NUM12) {
+        if (theKopeiki >= NUM11 && theKopeiki <= NUM14) {
             money2str.append(kopFiveUnit);
         } else {
             switch (theKopeiki % NUM10) {

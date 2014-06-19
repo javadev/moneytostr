@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2013 Valentyn Kolesnikov
+ * Copyright 2012 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -478,7 +478,7 @@ class MoneyToStr {
     static NUM9 = 9;
     static NUM10 = 10;
     static NUM11 = 11;
-    static NUM12 = 12;
+    static NUM14 = 14;
     static NUM100 = 100;
     static NUM1000 = 1000;
     static NUM10000 = 10000;
@@ -636,7 +636,7 @@ class MoneyToStr {
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+        if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(this.kopFiveUnit);
         } else {
             switch (parseInt("" + theKopeiki % MoneyToStr.NUM10)) {

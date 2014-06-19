@@ -426,7 +426,7 @@ class MoneyToStr {
     const NUM9 = 9;
     const NUM10 = 10;
     const NUM11 = 11;
-    const NUM12 = 12;
+    const NUM14 = 14;
     const NUM100 = 100;
     const NUM1000 = 1000;
     const NUM10000 = 10000;
@@ -569,7 +569,7 @@ class MoneyToStr {
         } else {
             $money2str->append(" " . ($theKopeiki < 10 ? "0" . strval($theKopeiki) : strval($theKopeiki)) . " ");
         }
-        if ($theKopeiki == MoneyToStr::NUM11 || $theKopeiki == MoneyToStr::NUM12) {
+        if ($theKopeiki >= MoneyToStr::NUM11 && $theKopeiki <= MoneyToStr::NUM14) {
             $money2str->append($this->kopFiveUnit);
         } else {
             switch ($theKopeiki % MoneyToStr::NUM10) {

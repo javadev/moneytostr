@@ -465,7 +465,7 @@ end
     NUM9 = 9
     NUM10 = 10
     NUM11 = 11
-    NUM12 = 12
+    NUM14 = 14
     NUM100 = 100
     NUM1000 = 1000
     NUM10000 = 10000
@@ -611,7 +611,7 @@ end
         else
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki.to_s : theKopeiki.to_s) + " ");
         end
-        if theKopeiki == NUM11 || theKopeiki == NUM12
+        if theKopeiki >= NUM11 && theKopeiki <= NUM14
             money2str.append(@kopFiveUnit);
         else
             case theKopeiki % NUM10
