@@ -252,7 +252,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             index4 = "0";
         }
         if (index5 == null) {
-            index5 = "1";
+            index5 = "2";
         }
         if (index6 == null) {
             index6 = "0";
@@ -606,6 +606,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jLabel6.setText(bundle.getString("vat")); // NOI18N
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10%", "12%", "18%", "20%", "22%", "25%" }));
+        jComboBox5.setSelectedIndex(2);
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
