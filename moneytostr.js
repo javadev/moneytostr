@@ -579,7 +579,7 @@ var MoneyToStr = (function () {
     MoneyToStr.NUM9 = 9;
     MoneyToStr.NUM10 = 10;
     MoneyToStr.NUM11 = 11;
-    MoneyToStr.NUM12 = 12;
+    MoneyToStr.NUM14 = 14;
     MoneyToStr.NUM100 = 100;
     MoneyToStr.NUM1000 = 1000;
     MoneyToStr.NUM10000 = 10000;
@@ -593,7 +593,7 @@ var MoneyToStr = (function () {
             throw new Error("amount is null");
         }
         if (lang == null) {
-            throw new Error("Language is null");
+            throw new Error("lang is null");
         }
         var intPart = parseInt(amount);
         var fractPart = 0;
@@ -648,6 +648,7 @@ var MoneyToStr = (function () {
         this.kopFiveUnit = theISOElement["-KopFiveUnit"];
         this.rubSex = theISOElement["-RubSex"];
         this.kopSex = theISOElement["-KopSex"];
+        this.rubShortUnit = theISOElement["-RubShortUnit"];
     }
 
     /**
@@ -726,7 +727,7 @@ var MoneyToStr = (function () {
         } else {
             money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
         }
-        if (theKopeiki == MoneyToStr.NUM11 || theKopeiki == MoneyToStr.NUM12) {
+        if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(this.kopFiveUnit);
         } else {
             switch (parseInt(theKopeiki % MoneyToStr.NUM10)) {
@@ -857,5 +858,14 @@ var MoneyToStr = (function () {
         triadWord.append(["", ""].concat(this.messages["20_90"])[range]);
         return range;
     }
+
+    MoneyToStr.prototype.getMessages = function() {
+        return this.messages;
+    }
+
+    MoneyToStr.prototype.getRubShortUnit = function() {
+        return this.rubShortUnit;
+    }
+
     return MoneyToStr;
 })();
