@@ -593,7 +593,7 @@ var MoneyToStr = (function () {
             throw new Error("amount is null");
         }
         if (lang == null) {
-            throw new Error("Language is null");
+            throw new Error("lang is null");
         }
         var intPart = parseInt(amount);
         var fractPart = 0;

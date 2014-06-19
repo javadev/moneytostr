@@ -176,14 +176,17 @@ $("input#inputSum").keypress(function(e) {
 });
 $("select#inputLang").on("change", function() {
   moneyToStrTxt = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), $("select#inputText").val());
+  moneyToStrNum = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), Pennies.NUMBER);
   generateResult();
 });
 $("select#inputCur").on("change", function() {
   moneyToStrTxt = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), $("select#inputText").val());
+  moneyToStrNum = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), Pennies.NUMBER);
   generateResult();
 });
 $("select#inputText").on("change", function() {
   moneyToStrTxt = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), $("select#inputText").val());
+  moneyToStrNum = new MoneyToStr($("select#inputCur").val(), $("select#inputLang").val(), Pennies.NUMBER);
   generateResult();
 });
         </script>
