@@ -172,6 +172,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         String index5 = null;
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         String index6 = null;
+        String index7 = null;
+        String index8 = null;
         try {
            d = new XMLDecoder(new BufferedInputStream(new FileInputStream("MoneyToStr.xml")));
            jTextField1.getEditor().setItem((String) d.readObject());
@@ -191,6 +193,14 @@ public class MoneyToStrApp extends javax.swing.JFrame {
            index5 = (String) d.readObject();
            model = (DefaultComboBoxModel) d.readObject();
            index6 = (String) d.readObject();
+           jTextField2.setText((String) d.readObject());
+           jTextField3.setText((String) d.readObject());
+           jTextField4.setText((String) d.readObject());
+           index7 = (String) d.readObject();
+           jTextField5.setText((String) d.readObject());
+           jTextField6.setText((String) d.readObject());
+           jTextField7.setText((String) d.readObject());
+           index8 = (String) d.readObject();
            d.close();
         } catch (Exception ex) {
             ex.getMessage();
@@ -219,6 +229,14 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     e.writeObject("" + jComboBox5.getSelectedIndex());
                     e.writeObject(jTextField1.getModel());
                     e.writeObject("" + jComboBox6.getSelectedIndex());
+                    e.writeObject(jTextField2.getText());
+                    e.writeObject(jTextField3.getText());
+                    e.writeObject(jTextField4.getText());
+                    e.writeObject("" + jComboBox7.getSelectedIndex());
+                    e.writeObject(jTextField5.getText());
+                    e.writeObject(jTextField6.getText());
+                    e.writeObject(jTextField7.getText());                    
+                    e.writeObject("" + jComboBox8.getSelectedIndex());
                     e.close();
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(MoneyToStrApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -239,23 +257,29 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         if (width == null) {
             width = "" + getPreferredSize().width;
         }
-        if (index1 == null) {
+        if (index1 == null || !index1.matches("\\d")) {
             index1 = "0";
         }
-        if (index2 == null) {
+        if (index2 == null || !index2.matches("\\d")) {
             index2 = "0";
         }
-        if (index3 == null) {
+        if (index3 == null || !index3.matches("\\d")) {
             index3 = "0";
         }
-        if (index4 == null) {
+        if (index4 == null || !index4.matches("\\d")) {
             index4 = "0";
         }
-        if (index5 == null) {
+        if (index5 == null || !index5.matches("\\d")) {
             index5 = "2";
         }
-        if (index6 == null) {
+        if (index6 == null || !index6.matches("\\d")) {
             index6 = "0";
+        }
+        if (index7 == null || !index7.matches("\\d")) {
+            index7 = "0";
+        }
+        if (index8 == null || !index8.matches("\\d")) {
+            index8 = "0";
         }
         jComboBox1.setSelectedIndex(Integer.valueOf(index1));
         jComboBox2.setSelectedIndex(Integer.valueOf(index2));
@@ -265,13 +289,15 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTextField1.setModel(model);
         setupLanguage(Integer.valueOf(index6));
         jComboBox6.setSelectedIndex(Integer.valueOf(index6));
+        jComboBox7.setSelectedIndex(Integer.valueOf(index7));
+        jComboBox8.setSelectedIndex(Integer.valueOf(index8));
         setupMoneyToStrVariables();
         generateResult();
         setLocation(Integer.valueOf(x), Integer.valueOf(y));
         setSize(new java.awt.Dimension(Integer.valueOf(width), Integer.valueOf(height)));
         convertStreamToString(jTextPane1, "MoneyToStr.cs");
         convertStreamToString(jTextPane2, "moneytostr.dart");
-        convertStreamToString(jTextPane10, "moneytostr.groovy");
+        convertStreamToString(jTextPane10, "MoneyToStr.groovy");
         convertStreamToString(jTextPane3, "MoneyToStr.java");
         convertStreamToString(jTextPane4, "moneytostr.js");
         convertStreamToString(jTextPane5, "MoneyToStr.php");
@@ -638,37 +664,77 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Дробная часть, два");
+        jLabel12.setText(bundle.getString("kopTwoUnit")); // NOI18N
 
         jTextField5.setText("евроцент");
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
 
-        jLabel10.setText("Целая часть, пять");
+        jLabel10.setText(bundle.getString("rubFiveUnit")); // NOI18N
 
-        jLabel9.setText("Целая часть, два");
+        jLabel9.setText(bundle.getString("rubTwoUnit")); // NOI18N
 
         jTextField3.setText("евро");
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
 
         jTextField2.setText("евро");
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
-        jLabel11.setText("Дробная часть, один");
+        jLabel11.setText(bundle.getString("kopOneUnit")); // NOI18N
 
-        jLabel8.setText("Целая часть, один");
+        jLabel8.setText(bundle.getString("rubOneUnit")); // NOI18N
 
         jTextField4.setText("евро");
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
 
-        jLabel13.setText("Дробная часть, пять");
+        jLabel13.setText(bundle.getString("kopFiveUnit")); // NOI18N
 
         jTextField7.setText("евроцентов");
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField7KeyTyped(evt);
+            }
+        });
 
         jTextField6.setText("евроцента");
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
 
-        jLabel14.setText("Целая часть, пол");
+        jLabel14.setText(bundle.getString("rubSex")); // NOI18N
 
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        jComboBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox7ActionPerformed(evt);
+            }
+        });
 
-        jLabel15.setText("Дробная часть, пол");
+        jLabel15.setText(bundle.getString("kopSex")); // NOI18N
 
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+        jComboBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox8ActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -996,8 +1062,55 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         jTabbedPane6.addTab(bundle.getString("settings"), jPanel1); // NOI18N
         jTabbedPane6.addTab(bundle.getString("sourceCodes"), jPanel3); // NOI18N
         jLabel7.setText(bundle.getString("interfaceLanguage")); // NOI18N
+        jLabel8.setText(bundle.getString("rubOneUnit")); // NOI18N
+        jLabel9.setText(bundle.getString("rubTwoUnit")); // NOI18N
+        jLabel14.setText(bundle.getString("rubSex")); // NOI18N
+        jLabel11.setText(bundle.getString("kopOneUnit")); // NOI18N
+        jLabel12.setText(bundle.getString("kopTwoUnit")); // NOI18N
+        jLabel13.setText(bundle.getString("kopFiveUnit")); // NOI18N
+        jLabel15.setText(bundle.getString("kopSex")); // NOI18N
         jTabbedPane6.setSelectedIndex(selectedIndex);
     }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jComboBox8ActionPerformed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField6KeyTyped
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+        setupMoneyToStrVariables();
+        generateResult();
+    }//GEN-LAST:event_jTextField7KeyTyped
 
     private void setupMoneyToStrVariables() {
         moneyToStrTxt = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],

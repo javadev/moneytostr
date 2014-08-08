@@ -197,16 +197,16 @@ public class MoneyToStr {
 "\n"+
 "</CurrencyList>\n"+
 "";
-    private java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
-    private String rubOneUnit;
-    private String rubTwoUnit;
-    private String rubFiveUnit;
-    private String rubSex;
-    private String kopOneUnit;
-    private String kopTwoUnit;
-    private String kopFiveUnit;
-    private String kopSex;
-    private String rubShortUnit;
+    private final java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
+    private final String rubOneUnit;
+    private final String rubTwoUnit;
+    private final String rubFiveUnit;
+    private final String rubSex;
+    private final String kopOneUnit;
+    private final String kopTwoUnit;
+    private final String kopFiveUnit;
+    private final String kopSex;
+    private final String rubShortUnit;
     private final Currency currency;
     private final Language language;
     private final Pennies pennies;
