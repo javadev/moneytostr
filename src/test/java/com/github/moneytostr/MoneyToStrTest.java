@@ -91,6 +91,7 @@ public class MoneyToStrTest {
     private MoneyToStr moneyToStrUSDENG;
     private MoneyToStr moneyToStrPER100;
     private MoneyToStr moneyToStrPER1000;
+    private MoneyToStr moneyToStrCustom;
 
     /** setUp. */
     @Before
@@ -100,6 +101,7 @@ public class MoneyToStrTest {
         moneyToStrUSDENG = new MoneyToStr(MoneyToStr.Currency.USD, MoneyToStr.Language.ENG, MoneyToStr.Pennies.TEXT);
         moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
         moneyToStrPER1000 = new MoneyToStr(MoneyToStr.Currency.PER1000, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
+        moneyToStrCustom = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER, new String[] {"", "", "", "", "", "", "", ""});
     }
 
     /** checkUAH. */
@@ -308,15 +310,39 @@ public class MoneyToStrTest {
         moneyToStrUAH.percentToStr(123D, null);
     }
 
-    /** checkException9. */
+    /** checkException10. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException10() {
         moneyToStrUAH.percentToStr(123D, MoneyToStr.Language.UKR, null);
     }
 
-    /** checkException10. */
+    /** checkException11. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException11() {
         moneyToStrUAH.percentToStr(null, MoneyToStr.Language.UKR);
+    }
+
+    /** checkException12. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException12() {
+        moneyToStrUAH = new MoneyToStr(null, null, null, null);
+    }
+
+    /** checkException13. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException13() {
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, null, null, null);
+    }
+
+    /** checkException14. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException14() {
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null, null);
+    }
+
+    /** checkException15. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException15() {
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.TEXT, null);
     }
 }

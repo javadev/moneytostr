@@ -17,9 +17,6 @@
  */
 package com.github.moneytostr;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 /**
  * Converts numbers to symbols.
  *
@@ -243,7 +240,9 @@ public class MoneyToStr {
         /**.*/
         PER1000,
         /**.*/
-        PER10000
+        PER10000,
+        /**.*/
+        Custom
     }
 
     /** Language. */
@@ -311,6 +310,50 @@ public class MoneyToStr {
         rubSex = theISOElement.getAttribute("RubSex");
         kopSex = theISOElement.getAttribute("KopSex");
         rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
+    }
+
+        /**
+     * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
+     *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
+     * Definition for currency is placed into currlist.xml
+     *
+     * @param currency the currency (UAH, RUR, USD)
+     * @param language the language (UKR, RUS, ENG)
+     * @param pennies the pennies (NUMBER, TEXT)
+     * @param names the custom names
+     */
+    public MoneyToStr(Currency currency, Language language, Pennies pennies, String[] names) {
+        if (currency == null) {
+            throw new IllegalArgumentException("currency is null");
+        }
+        if (language == null) {
+            throw new IllegalArgumentException("language is null");
+        }
+        if (pennies == null) {
+            throw new IllegalArgumentException("pennies is null");
+        }
+        if (names == null || names.length != 8) {
+            throw new IllegalArgumentException("names is null");
+        }
+        this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
+        org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
+            (xmlDoc.getElementsByTagName(language.name())).item(0);
+        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
+        for (int index = 0; index < items.getLength(); index += 1) {
+            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
+            messages.put(languageItem.getAttribute("value"), languageItem.getAttribute("text").split(","));
+        }
+        rubOneUnit = names[0];
+        rubTwoUnit = names[1];
+        rubFiveUnit = names[2];
+        rubSex = names[3];
+        kopOneUnit = names[4];
+        kopTwoUnit = names[5];
+        kopFiveUnit = names[6];
+        kopSex = names[7];
+        rubShortUnit = names[0];;
     }
 
     /**

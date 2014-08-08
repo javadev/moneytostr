@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2013 Valentyn Kolesnikov
+ * Copyright 2014 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -346,6 +346,22 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jComboBox6 = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBox7 = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        jComboBox8 = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -580,7 +596,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jLabel4.setText(bundle.getString("pennies")); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD", "Custom" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -622,6 +638,38 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Дробная часть, два");
+
+        jTextField5.setText("евроцент");
+
+        jLabel10.setText("Целая часть, пять");
+
+        jLabel9.setText("Целая часть, два");
+
+        jTextField3.setText("евро");
+
+        jTextField2.setText("евро");
+
+        jLabel11.setText("Дробная часть, один");
+
+        jLabel8.setText("Целая часть, один");
+
+        jTextField4.setText("евро");
+
+        jLabel13.setText("Дробная часть, пять");
+
+        jTextField7.setText("евроцентов");
+
+        jTextField6.setText("евроцента");
+
+        jLabel14.setText("Целая часть, пол");
+
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+
+        jLabel15.setText("Дробная часть, пол");
+
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -629,20 +677,45 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(23, 23, 23)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(jLabel3)
-                    .add(jLabel4)
-                    .add(jLabel5)
-                    .add(jLabel6)
-                    .add(jLabel7))
-                .add(29, 29, 29)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jComboBox5, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jComboBox2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 436, Short.MAX_VALUE)
-                    .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jComboBox6, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel1)
+                            .add(jLabel3)
+                            .add(jLabel4)
+                            .add(jLabel5)
+                            .add(jLabel6)
+                            .add(jLabel7))
+                        .add(29, 29, 29)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jComboBox5, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jComboBox2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 436, Short.MAX_VALUE)
+                            .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jComboBox6, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel9)
+                            .add(jLabel8)
+                            .add(jLabel10)
+                            .add(jLabel11)
+                            .add(jLabel12)
+                            .add(jLabel13)
+                            .add(jLabel14)
+                            .add(jLabel15))
+                        .add(25, 25, 25)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jTextField7)
+                            .add(jTextField6)
+                            .add(jTextField5)
+                            .add(jTextField4)
+                            .add(jTextField2)
+                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jComboBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jComboBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -656,7 +729,39 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
                     .add(jComboBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8)
+                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel9)
+                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel10)
+                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jComboBox7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel14))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel11)
+                    .add(jTextField5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel12)
+                    .add(jTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel13)
+                    .add(jTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel15)
+                    .add(jComboBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(8, 8, 8)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
                     .add(jComboBox3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -672,7 +777,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(jComboBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab(bundle.getString("settings"), jPanel1); // NOI18N
@@ -901,6 +1006,32 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         moneyToStrNum = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],
                 MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
                 MoneyToStr.Pennies.NUMBER);
+        if (jComboBox2.getSelectedIndex() == 3) {
+            String[] names = new String[8];
+            names[0] = jTextField2.getText();
+            names[1] = jTextField3.getText();
+            names[2] = jTextField4.getText();
+            names[3] = jComboBox7.getModel().getSelectedItem().toString();
+            names[4] = jTextField5.getText();
+            names[5] = jTextField6.getText();
+            names[6] = jTextField7.getText();
+            names[7] = jComboBox8.getModel().getSelectedItem().toString();
+            moneyToStrTxt = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],
+                MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
+                MoneyToStr.Pennies.values()[jComboBox3.getSelectedIndex()], names);
+            moneyToStrNum = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],
+                MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
+                MoneyToStr.Pennies.NUMBER, names);
+        }
+        boolean isCustomCurrency = jComboBox2.getSelectedIndex() == 3;
+        jTextField2.setEnabled(isCustomCurrency);
+        jTextField3.setEnabled(isCustomCurrency);
+        jTextField4.setEnabled(isCustomCurrency);
+        jComboBox7.setEnabled(isCustomCurrency);
+        jTextField5.setEnabled(isCustomCurrency);
+        jTextField6.setEnabled(isCustomCurrency);
+        jTextField7.setEnabled(isCustomCurrency);
+        jComboBox8.setEnabled(isCustomCurrency);
     }
 
     private static void setLookAndFeel()
@@ -951,13 +1082,23 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
     private javax.swing.JComboBox jComboBox6;
+    private javax.swing.JComboBox jComboBox7;
+    private javax.swing.JComboBox jComboBox8;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -989,6 +1130,12 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextArea jTextArea6;
     private javax.swing.JTextArea jTextArea7;
     private javax.swing.JComboBox jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane10;
     private javax.swing.JTextPane jTextPane2;
