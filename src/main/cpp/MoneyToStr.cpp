@@ -6,18 +6,17 @@ using namespace std;
 class StringBuilder {
     vector<string> _buffer;
 
+    public:
     StringBuilder() {
-//        this._buffer = new List();
     }
 
-    public:
     StringBuilder append(string text) {
         _buffer.push_back(text);
         return *this;
     }
-/*
-    StringBuilder insert(index, text) {
-        _buffer.insert(index, text);
+
+    StringBuilder insert(int index, string text) {
+        _buffer.insert(_buffer.begin() + index, text);
         return *this;
     }
 
@@ -25,30 +24,44 @@ class StringBuilder {
         return toString().length();
     }
 
-    StringBuilder deleteCharAt(index) {
-        var str = this.toString();
-        this._buffer = new List();
-        append(str.substring(0, index));
-        return this;
+    StringBuilder deleteCharAt(int index) {
+        string str = toString();
+        _buffer.clear();
+        append(str.substr(0, index));
+        return *this;
     }
 
-    String toString() {
-        return _buffer.join("");
+    string toString() {
+        string result("");
+        for (vector<string>::const_iterator strIter = _buffer.begin(); strIter != _buffer.end(); strIter++) {
+            result = result + *strIter;
+        }
+        return result;
     }
-*/
 };
 
-int main(){
-    vector<string> strings;
-    strings.push_back("string 1");
-    strings.push_back("string 2");
-    vector<string>::const_iterator strIter;
-    string result("");
-    for (strIter=strings.begin(); strIter!=strings.end(); strIter++) {
-        cout << *strIter << endl;
-        result = result + *strIter;
+class MoneyToStr {
+    public:
+    MoneyToStr(string currency, string language, string pennies) {
+        if (currency == "") {
+            throw std::invalid_argument("currency is null");
+        }
+        if (language == "") {
+            throw std::invalid_argument("language is null");
+        }
+        if (pennies == "") {
+            throw std::invalid_argument("pennies is null");
+        }
     }
-    cout << "Basic list programm!" << endl;
-    cout << "Together: " << result << endl;
+};
+
+int main(int argc, char *argv[]) {
+    string amount = "123.25";
+    string language = "ENG";
+    string currency = "USD";
+    string pennies = "TEXT";
+    if (argc == 1) {
+        cout << "Usage: MoneyToStr --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number" << endl;
+    }
     return 0;
 }
