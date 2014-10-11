@@ -269,7 +269,7 @@ class MoneyToStr {
         "-RubFiveUnit" => "доларів",
         "-RubSex" => "M",
         "-KopOneUnit" => "цент",
-        "-KopTwoUnit" => "цена",
+        "-KopTwoUnit" => "цента",
         "-KopFiveUnit" => "центов",
         "-KopSex" => "M"
       ),
@@ -282,7 +282,7 @@ class MoneyToStr {
         "-RubFiveUnit" => "доларів",
         "-RubSex" => "M",
         "-KopOneUnit" => "цент",
-        "-KopTwoUnit" => "цена",
+        "-KopTwoUnit" => "цента",
         "-KopFiveUnit" => "центів",
         "-KopSex" => "M"
       ),

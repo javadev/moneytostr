@@ -46,7 +46,6 @@ public class MoneyToStr {
     private static final int NUM1000 = 1000;
     private static final int NUM10000 = 10000;
     private static final String CURRENCY_LIST =
-"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"+
 "<CurrencyList>\n"+
 " \n"+
 " <language value=\"UKR\"/>\n"+
@@ -106,7 +105,7 @@ public class MoneyToStr {
 " />\n"+
 " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"RUS\"\n"+
 " RubOneUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"+
-" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"+
+" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"+
 " />\n"+
 "\n"+
 " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"UKR\"\n"+
@@ -119,7 +118,7 @@ public class MoneyToStr {
 " />\n"+
 " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"UKR\"\n"+
 " RubOneUnit=\"\u0434\u043e\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u0430\u0440\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"+
-" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"+
+" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"+
 " />\n"+
 "\n"+
 " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"ENG\"\n"+

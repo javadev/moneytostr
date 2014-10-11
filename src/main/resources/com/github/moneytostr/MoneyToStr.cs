@@ -242,7 +242,7 @@ readonly string json = @"{
         ""-RubFiveUnit"" : ""доларів"",
         ""-RubSex"" : ""M"",
         ""-KopOneUnit"" : ""цент"",
-        ""-KopTwoUnit"" : ""цена"",
+        ""-KopTwoUnit"" : ""цента"",
         ""-KopFiveUnit"" : ""центов"",
         ""-KopSex"" : ""M""
       },
@@ -255,7 +255,7 @@ readonly string json = @"{
         ""-RubFiveUnit"" : ""доларів"",
         ""-RubSex"" : ""M"",
         ""-KopOneUnit"" : ""цент"",
-        ""-KopTwoUnit"" : ""цена"",
+        ""-KopTwoUnit"" : ""цента"",
         ""-KopFiveUnit"" : ""центів"",
         ""-KopSex"" : ""M""
       },

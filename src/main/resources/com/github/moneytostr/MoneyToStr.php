@@ -269,7 +269,7 @@ class MoneyToStr {
         "-RubFiveUnit" => "доларів",
         "-RubSex" => "M",
         "-KopOneUnit" => "цент",
-        "-KopTwoUnit" => "цена",
+        "-KopTwoUnit" => "цента",
         "-KopFiveUnit" => "центов",
         "-KopSex" => "M"
       ),
@@ -282,7 +282,7 @@ class MoneyToStr {
         "-RubFiveUnit" => "доларів",
         "-RubSex" => "M",
         "-KopOneUnit" => "цент",
-        "-KopTwoUnit" => "цена",
+        "-KopTwoUnit" => "цента",
         "-KopFiveUnit" => "центів",
         "-KopSex" => "M"
       ),
@@ -488,10 +488,10 @@ class MoneyToStr {
         foreach ($currencyItem as $item) {
             if ($item["-language"] == $language) {
                 $theISOElement = $item;
-                next;
+                break;
             }
         }
-        if (theISOElement == null) {
+        if ($theISOElement == null) {
             throw new Exception("Currency not found " . $currency);
         }
         $this->rubOneUnit = $theISOElement["-RubOneUnit"];
@@ -595,7 +595,7 @@ class MoneyToStr {
         }
 
         $range = $this->check1($triad, $triadWord);
-        if ($language == "ENG" && $triadWord->length() > 0 && $triad % MoneyToStr::NUM10 == 0) {
+        if ($this->language == "ENG" && $triadWord->length() > 0 && $triad % MoneyToStr::NUM10 == 0) {
             $triadWord->deleteCharAt($triadWord.length() - 1);
             $triadWord->append(" ");
         }

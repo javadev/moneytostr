@@ -338,7 +338,7 @@ static Map json =
         "-RubSex": "M",
         "-RubShortUnit": "дол.",
         "-KopOneUnit": "цент",
-        "-KopTwoUnit": "цена",
+        "-KopTwoUnit": "цента",
         "-KopFiveUnit": "центов",
         "-KopSex": "M"
       },
@@ -352,7 +352,7 @@ static Map json =
         "-RubSex": "M",
         "-RubShortUnit": "дол.",
         "-KopOneUnit": "цент",
-        "-KopTwoUnit": "цена",
+        "-KopTwoUnit": "цента",
         "-KopFiveUnit": "центів",
         "-KopSex": "M"
       },

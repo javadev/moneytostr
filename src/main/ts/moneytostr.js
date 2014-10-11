@@ -228,7 +228,7 @@ var currencyList = {
                 "-RubFiveUnit": "доларів",
                 "-RubSex": "M",
                 "-KopOneUnit": "цент",
-                "-KopTwoUnit": "цена",
+                "-KopTwoUnit": "цента",
                 "-KopFiveUnit": "центов",
                 "-KopSex": "M"
             },
@@ -241,7 +241,7 @@ var currencyList = {
                 "-RubFiveUnit": "доларів",
                 "-RubSex": "M",
                 "-KopOneUnit": "цент",
-                "-KopTwoUnit": "цена",
+                "-KopTwoUnit": "цента",
                 "-KopFiveUnit": "центів",
                 "-KopSex": "M"
             },

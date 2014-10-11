@@ -108,7 +108,7 @@ public class MoneyToStr {
     />
     <USD CurrID="840" CurrName="Долари США" language="RUS"
          RubOneUnit="доллар" RubTwoUnit="доллара" RubFiveUnit="долларов" RubSex="M" RubShortUnit="дол."
-         KopOneUnit="цент" KopTwoUnit="цена" KopFiveUnit="центов" KopSex="M"
+         KopOneUnit="цент" KopTwoUnit="цента" KopFiveUnit="центов" KopSex="M"
     />
 
     <RUR CurrID="810" CurrName="Российские рубли" language="UKR"
@@ -121,7 +121,7 @@ public class MoneyToStr {
     />
     <USD CurrID="840" CurrName="Долари США" language="UKR"
          RubOneUnit="долар" RubTwoUnit="долара" RubFiveUnit="доларів" RubSex="M" RubShortUnit="дол."
-         KopOneUnit="цент" KopTwoUnit="цена" KopFiveUnit="центів" KopSex="M"
+         KopOneUnit="цент" KopTwoUnit="цента" KopFiveUnit="центів" KopSex="M"
     />
 
     <RUR CurrID="810" CurrName="Российские рубли" language="ENG"

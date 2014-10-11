@@ -17,9 +17,6 @@
  */
 package com.github.moneytostr;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 /**
  * Converts numbers to symbols.
  *
@@ -49,7 +46,6 @@ public class MoneyToStr {
     private static final int NUM1000 = 1000;
     private static final int NUM10000 = 10000;
     private static final String CURRENCY_LIST =
-"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"+
 "<CurrencyList>\n"+
 " \n"+
 " <language value=\"UKR\"/>\n"+
@@ -109,7 +105,7 @@ public class MoneyToStr {
 " />\n"+
 " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"RUS\"\n"+
 " RubOneUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"+
-" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"+
+" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"+
 " />\n"+
 "\n"+
 " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"UKR\"\n"+
@@ -122,7 +118,7 @@ public class MoneyToStr {
 " />\n"+
 " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"UKR\"\n"+
 " RubOneUnit=\"\u0434\u043e\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u0430\u0440\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"+
-" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"+
+" KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"+
 " />\n"+
 "\n"+
 " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"ENG\"\n"+
@@ -200,25 +196,29 @@ public class MoneyToStr {
 "\n"+
 "</CurrencyList>\n"+
 "";
-    private java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
-    private String rubOneUnit;
-    private String rubTwoUnit;
-    private String rubFiveUnit;
-    private String rubSex;
-    private String kopOneUnit;
-    private String kopTwoUnit;
-    private String kopFiveUnit;
-    private String kopSex;
-    private String rubShortUnit;
+    private final java.util.Map<String, String[]> messages = new java.util.LinkedHashMap<String, String[]>();
+    private final String rubOneUnit;
+    private final String rubTwoUnit;
+    private final String rubFiveUnit;
+    private final String rubSex;
+    private final String kopOneUnit;
+    private final String kopTwoUnit;
+    private final String kopFiveUnit;
+    private final String kopSex;
+    private final String rubShortUnit;
     private final Currency currency;
     private final Language language;
     private final Pennies pennies;
 
     static {
+        initXmlDoc(CURRENCY_LIST);
+    }
+
+    public static void initXmlDoc(final String xmlData) {
         javax.xml.parsers.DocumentBuilderFactory docFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
         try {
             javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
-            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(CURRENCY_LIST.getBytes("UTF8")));
+            xmlDoc = xmlDocBuilder.parse(new java.io.ByteArrayInputStream(xmlData.getBytes("UTF8")));
         } catch (Exception ex) {
             throw new UnsupportedOperationException(ex);
         }
@@ -239,7 +239,9 @@ public class MoneyToStr {
         /**.*/
         PER1000,
         /**.*/
-        PER10000
+        PER10000,
+        /**.*/
+        Custom
     }
 
     /** Language. */
@@ -307,6 +309,50 @@ public class MoneyToStr {
         rubSex = theISOElement.getAttribute("RubSex");
         kopSex = theISOElement.getAttribute("KopSex");
         rubShortUnit = theISOElement.hasAttribute("RubShortUnit") ? theISOElement.getAttribute("RubShortUnit") : "";
+    }
+
+        /**
+     * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
+     *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
+     * Definition for currency is placed into currlist.xml
+     *
+     * @param currency the currency (UAH, RUR, USD)
+     * @param language the language (UKR, RUS, ENG)
+     * @param pennies the pennies (NUMBER, TEXT)
+     * @param names the custom names
+     */
+    public MoneyToStr(Currency currency, Language language, Pennies pennies, String[] names) {
+        if (currency == null) {
+            throw new IllegalArgumentException("currency is null");
+        }
+        if (language == null) {
+            throw new IllegalArgumentException("language is null");
+        }
+        if (pennies == null) {
+            throw new IllegalArgumentException("pennies is null");
+        }
+        if (names == null || names.length != 8) {
+            throw new IllegalArgumentException("names is null");
+        }
+        this.currency = currency;
+        this.language = language;
+        this.pennies = pennies;
+        org.w3c.dom.Element languageElement = (org.w3c.dom.Element)
+            (xmlDoc.getElementsByTagName(language.name())).item(0);
+        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
+        for (int index = 0; index < items.getLength(); index += 1) {
+            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
+            messages.put(languageItem.getAttribute("value"), languageItem.getAttribute("text").split(","));
+        }
+        rubOneUnit = names[0];
+        rubTwoUnit = names[1];
+        rubFiveUnit = names[2];
+        rubSex = names[3];
+        kopOneUnit = names[4];
+        kopTwoUnit = names[5];
+        kopFiveUnit = names[6];
+        kopSex = names[7];
+        rubShortUnit = names[0];;
     }
 
     /**
