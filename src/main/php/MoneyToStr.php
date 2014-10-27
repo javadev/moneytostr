@@ -2,7 +2,7 @@
 /*
  * $Id$
  *
- * Copyright 2013 Valentyn Kolesnikov
+ * Copyright 2014 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class StringBuilder {
     }
 
     public function length() {
-        return $this->toString().length();
+        return strlen($this->toString());
     }
 
     public function deleteCharAt($index) {
@@ -448,7 +448,7 @@ class MoneyToStr {
             throw new Exception("amount is null");
         }
         if ($lang == null) {
-            throw new Exception("Language is null");
+            throw new Exception("lang is null");
         }
         $intPart = intval($amount);
         $fractPart = 0;
@@ -521,8 +521,8 @@ class MoneyToStr {
     }
 
     /**
-     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH", "UKR", "NUMBER"); String result =
-     * moneyToStr.convertValue(123D); Expected: result = сто двадцять три гривні 00 копійок
+     * Converts number to currency. Usage: $moneyToStr = new MoneyToStr("UAH", "UKR", "NUMBER");
+     * $result = $moneyToStr->convert(123, 0); Expected: result = сто двадцять три гривні 00 копійок
      *
      * @param theMoney
      *            the amount of money major currency
@@ -596,7 +596,7 @@ class MoneyToStr {
 
         $range = $this->check1($triad, $triadWord);
         if ($this->language == "ENG" && $triadWord->length() > 0 && $triad % MoneyToStr::NUM10 == 0) {
-            $triadWord->deleteCharAt($triadWord.length() - 1);
+            $triadWord->deleteCharAt($triadWord->length() - 1);
             $triadWord->append(" ");
         }
 
