@@ -451,12 +451,10 @@ public class MoneyToStr {
             theTriad = intPart % NUM1000;
             money2str.insert(0, triad2Word(theTriad, triadNum, rubSex));
             if (triadNum == 0) {
-                Long range10 = (theTriad % NUM100) / NUM10;
-                Long range = theTriad % NUM10;
-                if (range10 == NUM1) {
+                if ((theTriad % NUM100) / NUM10 == NUM1) {
                     money2str.append(rubFiveUnit);
                 } else {
-                    switch (range.byteValue()) {
+                    switch (Long.valueOf(theTriad % NUM10).byteValue()) {
                     case NUM1:
                         money2str.append(rubOneUnit);
                         break;
@@ -471,7 +469,7 @@ public class MoneyToStr {
                     }
                 }
             }
-            intPart = intPart / NUM1000;
+            intPart /= NUM1000;
             triadNum++;
         } while (intPart > 0);
 
@@ -501,20 +499,20 @@ public class MoneyToStr {
     }
 
     private String triad2Word(Long triad, Long triadNum, String sex) {
-        StringBuilder triadWord = new StringBuilder(NUM100);
+        final StringBuilder triadWord = new StringBuilder(NUM100);
 
         if (triad == 0) {
             return "";
         }
 
-        Long range = check1(triad, triadWord);
+        triadWord.append(concat(new String[] {""}, messages.get("100_900"))[Long.valueOf(triad / NUM100).byteValue()]);
+        final Long range10 = (triad % NUM100) / NUM10;
+        triadWord.append(concat(new String[] {"", ""}, messages.get("20_90"))[range10.byteValue()]);
         if (language == Language.ENG && triadWord.length() > 0 && triad % NUM10 == 0) {
             triadWord.deleteCharAt(triadWord.length() - 1);
             triadWord.append(" ");
         }
 
-        Long range10 = range;
-        range = triad % NUM10;
         check2(triadNum, sex, triadWord, triad, range10);
         switch (triadNum.byteValue()) {
         case NUM0:
@@ -526,6 +524,7 @@ public class MoneyToStr {
             if (range10 == NUM1) {
                 triadWord.append(messages.get("1000_10")[triadNum.byteValue() - 1] + " ");
             } else {
+                final Long range = triad % NUM10;
                 switch (range.byteValue()) {
                 case NUM1:
                     triadWord.append(messages.get("1000_1")[triadNum.byteValue() - 1] + " ");
@@ -556,7 +555,7 @@ public class MoneyToStr {
      * @param range10 the range 10
      */
     private void check2(Long triadNum, String sex, StringBuilder triadWord, Long triad, Long range10) {
-        Long range = triad % NUM10;
+        final Long range = triad % NUM10;
         if (range10 == 1) {
             triadWord.append(messages.get("10_19")[range.byteValue()] + " ");
         } else {
@@ -598,22 +597,8 @@ public class MoneyToStr {
         }
     }
 
-    /**
-     * @param triad the triad
-     * @param triadWord the triad word
-     * @return the range
-     */
-    private Long check1(Long triad, StringBuilder triadWord) {
-        Long range = triad / NUM100;
-        triadWord.append(concat(new String[] {""}, messages.get("100_900"))[range.byteValue()]);
-
-        range = (triad % NUM100) / NUM10;
-        triadWord.append(concat(new String[] {"", ""}, messages.get("20_90"))[range.byteValue()]);
-        return range;
-    }
-
     private <T> T[] concat(T[] first, T[] second) {
-        T[] result = java.util.Arrays.copyOf(first, first.length + second.length);
+        final T[] result = java.util.Arrays.copyOf(first, first.length + second.length);
         System.arraycopy(second, 0, result, first.length, second.length);
         return result;
     }
