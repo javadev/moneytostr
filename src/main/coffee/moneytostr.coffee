@@ -1,7 +1,7 @@
 #
 # * $Id$
 # *
-# * Copyright 2013 Valentyn Kolesnikov
+# * Copyright 2014 Valentyn Kolesnikov
 # *
 # * Licensed under the Apache License, Version 2.0 (the "License");
 # * you may not use this file except in compliance with the License.
@@ -710,8 +710,10 @@ MoneyToStr = (->
           switch range
             when MoneyToStr.NUM1
               triadWord.append @messages["1000_1"][triadNum - 1] + " "
+              break
             when MoneyToStr.NUM2, MoneyToStr.NUM3, MoneyToStr.NUM4
               triadWord.append @messages["1000_234"][triadNum - 1] + " "
+              break
             else
               triadWord.append @messages["1000_5"][triadNum - 1] + " "
       else
@@ -782,6 +784,8 @@ MoneyToStr = (->
   MoneyToStr
 )()
 
-moneyToStr = new MoneyToStr Currency.UAH, Language.UKR, Pennies.NUMBER
-console.log(moneyToStr.convertValue(123));
-module.exports = MoneyToStr
+module.exports = 
+  MoneyToStr: MoneyToStr
+  Currency: Currency
+  Language: Language
+  Pennies: Pennies
