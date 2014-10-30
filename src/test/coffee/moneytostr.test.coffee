@@ -72,12 +72,12 @@ equal = (expected, actual) ->
 test_checkUAH = ()->
     equal("нуль гривень 00 копійок", moneyToStrUAH.convertValue(0))
     equal("триста гривень 00 копійок", moneyToStrUAH.convertValue(Const.V_300D))
-    equal("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів "
-            + "двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
-            + "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(Const.V_978637287197540L, Const.V_12L));
-    equal("двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот "
-            + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч "
-            + "п’ятсот тридцять шість гривень 12 копійок", moneyToStrUAH.convert(Const.V_234978637287197540L, Const.V_12L));
+    equal("дев’ятсот сімдесят вісім трильйонів шістсот " + "тридцять сім мільярдів " +
+            "двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч " +
+            "п’ятсот сорок гривень 12 копійок", moneyToStrUAH.convert(Const.V_978637287197540L, Const.V_12L));
+    equal("двісті тридцять чотири ??? дев’ятсот сімдесят вісім трильйонів шістсот " +
+            "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто " + "дев’яносто сім тисяч " +
+            "п’ятсот тридцять шість гривень 12 копійок", moneyToStrUAH.convert(Const.V_234978637287197540L, Const.V_12L));
     equal("одинадцять гривень 00 копійок", moneyToStrUAH.convertValue(Const.V_11D));
     equal("дванадцять гривень 00 копійок", moneyToStrUAH.convertValue(Const.V_12D));
     equal("одинадцять гривень 12 копійок", moneyToStrUAH.convertValue(Const.V_11_12D));
@@ -112,7 +112,53 @@ test_checkUAH = ()->
     equal("два трильйона гривень 00 копійок", moneyToStrUAH.convertValue(Const.V_2000000000000D));
     equal("п’ять трильйонів гривень 00 копійок", moneyToStrUAH.convertValue(Const.V_5000000000000D));
     equal("одна гривня 01 копійка", moneyToStrUAH.convertValue(Const.V_1_01D));
-    equal("одна гривня 02 копійкии", moneyToStrUAH.convertValue(Const.V_1_02D));
+    equal("одна гривня 02 копійки", moneyToStrUAH.convertValue(Const.V_1_02D));
+
+test_checkRUR = ()->
+    equal("семьсот семьдесят семь рублей 77 копеек", moneyToStrRUR.convertValue(Const.V_777_77D));
+
+test_checkPER100 = ()->
+    equal("одна целая, одна сотая процента", moneyToStrPER100.convertValue(Const.V_1_01D));
+    equal("одна целая, десять сотых процента", moneyToStrPER100.convertValue(Const.V_1_1D));
+    equal("одна целая, две сотых процента", moneyToStrPER100.convertValue(Const.V_1_02D));
+    equal("одна целая, одиннадцать сотых процента", moneyToStrPER100.convertValue(Const.V_1_11D));
+    equal("две целых, две сотых процента", moneyToStrPER100.convertValue(Const.V_2_02D));
+    equal("пять целых, пять сотых процента", moneyToStrPER100.convertValue(Const.V_5_05D));
+
+test_checkPER1000 = ()->
+    equal("двенадцать целых, триста сорок шесть тысячных процента", moneyToStrPER1000.convertValue(12.346));
+
+test_checkPercentToStrRus = ()->
+    equal("одна целая, одна сотая процента", conv.MoneyToStr.percentToStr(Const.V_1_01D, conv.Language.RUS));
+    equal("одна целая, одна десятая процента", conv.MoneyToStr.percentToStr(Const.V_1_1D, conv.Language.RUS));
+    equal("одна целая, две сотых процента", conv.MoneyToStr.percentToStr(Const.V_1_02D, conv.Language.RUS));
+    equal("одна целая, одиннадцать сотых процента", conv.MoneyToStr.percentToStr(Const.V_1_11D, conv.Language.RUS));
+    equal("две целых, две сотых процента", conv.MoneyToStr.percentToStr(Const.V_2_02D, conv.Language.RUS));
+    equal("пять целых, пять сотых процента", conv.MoneyToStr.percentToStr(Const.V_5_05D, conv.Language.RUS));
+    equal("пять целых, пять десятитысячных процента", conv.MoneyToStr.percentToStr(Const.V_5_0005D, conv.Language.RUS));
+
+test_checkUSD_ENG = ()->
+    equal("one dollar and zero cents", moneyToStrUSDENG.convertValue(1));
+    equal("two dollars and zero cents", moneyToStrUSDENG.convertValue(2));
+    equal("three dollars and zero cents", moneyToStrUSDENG.convertValue(3));
+    equal("four dollars and zero cents", moneyToStrUSDENG.convertValue(4));
+    equal("five dollars and zero cents", moneyToStrUSDENG.convertValue(5));
+    equal("six dollars and zero cents", moneyToStrUSDENG.convertValue(6));
+    equal("seven dollars and zero cents", moneyToStrUSDENG.convertValue(7));
+    equal("eight dollars and zero cents", moneyToStrUSDENG.convertValue(8));
+    equal("nine dollars and zero cents", moneyToStrUSDENG.convertValue(9));
+    equal("ten dollars and zero cents", moneyToStrUSDENG.convertValue(10));
+    equal("eleven dollars and zero cents", moneyToStrUSDENG.convertValue(11));
+    equal("twelve dollars and zero cents", moneyToStrUSDENG.convertValue(12));
+    equal("thirteen dollars and zero cents", moneyToStrUSDENG.convertValue(13));
+    equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two " +
+        "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
+    moneyToStrUSDENG.convertValue(27451632459870.49));
 
 test_checkUAH()
-console.log moneyToStrUAH.convertValue(0)
+test_checkRUR()
+test_checkPER100()
+test_checkPER1000()
+test_checkPercentToStrRus()
+test_checkUSD_ENG()
+console.log "Tests were run test_checkUAH() test_checkRUR() test_checkPER100() test_checkPER1000() test_checkPercentToStrRus() test_checkUSD_ENG()"

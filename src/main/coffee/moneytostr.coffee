@@ -609,13 +609,13 @@ MoneyToStr = (->
     result = undefined
     if amount is parseInt(amount)
       result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(amount, 0)
-    else if (amount * MoneyToStr.NUM10).toFixed(4) is parseInt(amount * MoneyToStr.NUM10)
+    else if (amount * MoneyToStr.NUM10).toFixed(4) is parseInt(amount * MoneyToStr.NUM10).toFixed(4)
       fractPart = Math.round((amount - intPart) * MoneyToStr.NUM10)
       result = new MoneyToStr(Currency.PER10, lang, Pennies.TEXT).convert(intPart, fractPart)
-    else if (amount * MoneyToStr.NUM100).toFixed(4) is parseInt(amount * MoneyToStr.NUM100)
+    else if (amount * MoneyToStr.NUM100).toFixed(4) is parseInt(amount * MoneyToStr.NUM100).toFixed(4)
       fractPart = Math.round((amount - intPart) * MoneyToStr.NUM100)
       result = new MoneyToStr(Currency.PER100, lang, Pennies.TEXT).convert(intPart, fractPart)
-    else if (amount * MoneyToStr.NUM1000).toFixed(4) is parseInt(amount * MoneyToStr.NUM1000)
+    else if (amount * MoneyToStr.NUM1000).toFixed(4) is parseInt(amount * MoneyToStr.NUM1000).toFixed(4)
       fractPart = Math.round((amount - intPart) * MoneyToStr.NUM1000)
       result = new MoneyToStr(Currency.PER1000, lang, Pennies.TEXT).convert(intPart, fractPart)
     else
@@ -703,7 +703,9 @@ MoneyToStr = (->
     range = parseInt(triad % MoneyToStr.NUM10)
     @check2 triadNum, sex, triadWord, triad, range10
     switch triadNum
-      when MoneyToStr.NUM0, MoneyToStr.NUM1, MoneyToStr.NUM2, MoneyToStr.NUM3, MoneyToStr.NUM4
+      when MoneyToStr.NUM0
+        break
+      when MoneyToStr.NUM1, MoneyToStr.NUM2, MoneyToStr.NUM3, MoneyToStr.NUM4
         if range10 is MoneyToStr.NUM1
           triadWord.append @messages["1000_10"][triadNum - 1] + " "
         else
