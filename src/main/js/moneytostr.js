@@ -671,8 +671,8 @@ var MoneyToStr = (function () {
     }
 
     /**
-     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
-     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     * Converts number to currency. Usage: var moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+     * var result = moneyToStr.convertValue(123); Expected: result = сто двадцять три гривні 00 копійок
      *
      * @param theMoney
      *            the amount of money major currency
