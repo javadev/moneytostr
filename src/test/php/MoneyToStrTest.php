@@ -159,11 +159,9 @@ class MoneyToStrTest {
         $this->assertEqual("eleven dollars and zero cents", $this->moneyToStrUSDENG->convertValue(11));
         $this->assertEqual("twelve dollars and zero cents", $this->moneyToStrUSDENG->convertValue(12));
         $this->assertEqual("thirteen dollars and zero cents", $this->moneyToStrUSDENG->convertValue(13));
-/*
-        $this->assertEqual("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
+        $this->assertEqual("thirty-two "
             . "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
-        $this->moneyToStrUSDENG->convertValue(27451632459870.49));
-*/
+        $this->moneyToStrUSDENG->convertValue(32459870.49));
     }
 
     /** checkPER100. */

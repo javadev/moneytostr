@@ -38,9 +38,9 @@ class StringBuilder {
     }
 
     public function deleteCharAt($index) {
-        $str = toString();
+        $str = $this->toString();
         $this->_buffer = array();
-        append($str.substring(0, $index));
+        $this->append(substr($str, 0, $index));
         return $this;
     }
 
