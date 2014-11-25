@@ -10,12 +10,12 @@ class StringBuilder {
     StringBuilder() {
     }
 
-    StringBuilder append(string text) {
+    StringBuilder & append(string text) {
         _buffer.push_back(text);
         return *this;
     }
 
-    StringBuilder insert(int index, string text) {
+    StringBuilder & insert(int index, string text) {
         _buffer.insert(_buffer.begin() + index, text);
         return *this;
     }
@@ -24,7 +24,7 @@ class StringBuilder {
         return toString().length();
     }
 
-    StringBuilder deleteCharAt(int index) {
+    StringBuilder & deleteCharAt(int index) {
         string str = toString();
         _buffer.clear();
         append(str.substr(0, index));
