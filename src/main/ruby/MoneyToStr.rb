@@ -1,4 +1,5 @@
-﻿=begin
+# -*- encoding: utf-8 -*-
+=begin
 /*
  * $Id$
  *

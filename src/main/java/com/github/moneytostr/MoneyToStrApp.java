@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2014 Valentyn Kolesnikov
+ * Copyright 2015 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -306,6 +306,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         convertStreamToString(jTextPane7, "MoneyToStr.rb");
         convertStreamToString(jTextPane8, "MoneyToStr.scala");
         convertStreamToString(jTextPane9, "moneytostr.ts");
+        convertStreamToString(jTextPane12, "MoneyToStr.cpp");
     }
     
     private void convertStreamToString(JTextPane jTextPane, String fileName) {
@@ -393,6 +394,8 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jTabbedPane7 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTextPane12 = new javax.swing.JTextPane();
         jScrollPane16 = new javax.swing.JScrollPane();
         jTextPane11 = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -558,7 +561,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, 0, 570, Short.MAX_VALUE))
+                        .add(jTextField1, 0, 636, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -759,7 +762,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                             .add(jComboBox5, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jComboBox2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 592, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 658, Short.MAX_VALUE)
                             .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jComboBox6, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
@@ -779,7 +782,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                             .add(jTextField5)
                             .add(jTextField4)
                             .add(jTextField2)
-                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jComboBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -861,6 +864,15 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextPane1);
 
         jTabbedPane7.addTab("c#", jScrollPane1);
+
+        jScrollPane17.setBorder(null);
+
+        jTextPane12.setEditable(false);
+        jTextPane12.setBorder(null);
+        jTextPane12.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane17.setViewportView(jTextPane12);
+
+        jTabbedPane7.addTab("c++", jScrollPane17);
 
         jScrollPane16.setBorder(null);
 
@@ -956,7 +968,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1235,6 +1247,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1265,6 +1278,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane10;
     private javax.swing.JTextPane jTextPane11;
+    private javax.swing.JTextPane jTextPane12;
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextPane jTextPane3;
     private javax.swing.JTextPane jTextPane4;

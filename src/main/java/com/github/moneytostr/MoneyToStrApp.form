@@ -77,7 +77,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" pref="570" max="32767" attributes="0"/>
+                              <Component id="jTextField1" pref="636" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jTabbedPane1" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -507,7 +507,7 @@
                                   <Component id="jComboBox5" max="32767" attributes="0"/>
                                   <Component id="jComboBox2" max="32767" attributes="1"/>
                                   <Component id="jComboBox3" alignment="1" max="32767" attributes="1"/>
-                                  <Component id="jComboBox4" alignment="1" pref="592" max="32767" attributes="0"/>
+                                  <Component id="jComboBox4" alignment="1" pref="658" max="32767" attributes="0"/>
                                   <Component id="jComboBox1" max="32767" attributes="1"/>
                                   <Component id="jComboBox6" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -530,7 +530,7 @@
                                   <Component id="jTextField5" max="32767" attributes="0"/>
                                   <Component id="jTextField4" max="32767" attributes="0"/>
                                   <Component id="jTextField2" max="32767" attributes="0"/>
-                                  <Component id="jTextField3" pref="593" max="32767" attributes="0"/>
+                                  <Component id="jTextField3" pref="659" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jComboBox8" min="-2" max="-2" attributes="0"/>
@@ -902,7 +902,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane7" alignment="0" pref="759" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane7" alignment="0" pref="825" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -936,6 +936,35 @@
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
                     <Component class="javax.swing.JTextPane" name="jTextPane1">
+                      <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
+                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                          <Border info="null"/>
+                        </Property>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="SansSerif" size="14" style="0"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane17">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="null"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="c++">
+                        <Property name="tabTitle" type="java.lang.String" value="c++"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextPane" name="jTextPane12">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
