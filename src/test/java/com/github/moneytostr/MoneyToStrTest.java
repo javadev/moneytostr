@@ -63,6 +63,7 @@ public class MoneyToStrTest {
     private static final double V_1000000000000D = 1000000000000D;
     private static final double V_2000000000000D = 2000000000000D;
     private static final double V_5000000000000D = 5000000000000D;
+    private static final double V_1D = 1D;
     private static final double V_2D = 2D;
     private static final double V_3D = 3D;
     private static final double V_4D = 4D;
@@ -343,6 +344,7 @@ public class MoneyToStrTest {
     public void main() {
         MoneyToStr.main(new String[] {});
         MoneyToStr.main(new String[] {"--amount=123.25", "--language=rus", "--currency=rur", "--pennies=text"});
+        MoneyToStr.main(new String[] {"--amount=123.25", "--language=rus", "--currency=rur", ""});
         moneyToStrUAH.getMessages();
         moneyToStrUAH.getRubShortUnit();
         moneyToStrUAH.getLanguage();
@@ -356,19 +358,19 @@ public class MoneyToStrTest {
     /** checkException. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException() {
-        moneyToStrUAH = new MoneyToStr(null, null, null);
+        new MoneyToStr(null, null, null);
     }
 
     /** checkException2. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException2() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, null, null);
+        new MoneyToStr(MoneyToStr.Currency.UAH, null, null);
     }
 
     /** checkException3. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException3() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null);
+        new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null);
     }
 
     /** checkException4. */
@@ -422,24 +424,39 @@ public class MoneyToStrTest {
     /** checkException12. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException12() {
-        moneyToStrUAH = new MoneyToStr(null, null, null, null);
+        new MoneyToStr(null, null, null, null);
     }
 
     /** checkException13. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException13() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, null, null, null);
+        new MoneyToStr(MoneyToStr.Currency.UAH, null, null, null);
     }
 
     /** checkException14. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException14() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null, null);
+        new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, null, null);
     }
 
     /** checkException15. */
     @Test(expected = IllegalArgumentException.class)
     public void checkException15() {
-        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.TEXT, null);
+        new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.TEXT, null);
+    }
+
+    /** checkException16. */
+    @Test(expected = IllegalArgumentException.class)
+    public void checkException16() {
+        new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.TEXT, new String[] {""});
+    }
+
+    /** custom. */
+    @Test
+    public void custom() {
+        moneyToStrUAH = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.TEXT, new String[] {"", "", "", "", "", "", "", ""});
+        assertEquals("нуль", moneyToStrUAH.convert(V_1D));
+        assertEquals("нуль", moneyToStrUAH.convert(V_2D));
+
     }
 }

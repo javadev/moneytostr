@@ -38,6 +38,7 @@
     <module name="RegexpSingleline">
       <property name="format" value="System\.(out|err)"/>
       <property name="message" value="Do not print directly to System.out or System.err use Log4J instead"/>
+      <property name="severity" value="warning"/>
     </module>
     <module name="RegexpSingleline">
       <property name="format" value="\.printStackTrace\("/>
