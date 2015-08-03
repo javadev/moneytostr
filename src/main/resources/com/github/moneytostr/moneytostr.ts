@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2012 Valentyn Kolesnikov
+ * Copyright 2012-2015 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -378,59 +378,32 @@ var currencyList =
 /**
  * Converts numbers to symbols.
  *
- * @author Valentyn V Kolesnikov
+ * @author Valentyn Kolesnikov
  * @version $Revision$ $Date$
 */
 
     /** Currency. */
-class Currency {
-    constructor(public value:string){
-    }
-    toString(){
-        return this.value;
-    }
-    /**.*/
-    static UAH = new Currency('UAH');
-    /**.*/
-    static RUR = new Currency('RUR');
-    /**.*/
-    static USD = new Currency('USD');
-    /**.*/
-    static PER10 = new Currency('PER10');
-    /**.*/
-    static PER100 = new Currency('PER100');
-    /**.*/
-    static PER1000 = new Currency('PER1000');
-    /**.*/
-    static PER10000 = new Currency('PER10000');
+enum Currency {
+    UAH,
+    RUR,
+    USD,
+    PER10,
+    PER100,
+    PER1000,
+    PER10000
 };
 
     /** Language. */
-class Language {
-    constructor(public value:string){
-    }
-    toString(){
-        return this.value;
-    }
-    /**.*/
-    static RUS = new Language('RUS');
-    /**.*/
-    static UKR = new Language('UKR');
-    /**.*/
-    static ENG = new Language('ENG');
+enum Language {
+    RUS,
+    UKR,
+    ENG
 };
 
     /** Pennies. */
-class Pennies {
-    constructor(public value:string){
-    }
-    toString(){
-        return this.value;
-    }
-    /**.*/
-    static NUMBER = new Pennies('NUMBER');
-    /**.*/
-    static TEXT = new Pennies('TEXT');
+enum Pennies {
+    NUMBER,
+    TEXT
 };
 
 class StringBuilder {
@@ -530,8 +503,8 @@ class MoneyToStr {
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
-        var languageElement = language;
-        var items = currencyList['CurrencyList'][languageElement.toString()]['item'];
+        var languageElement = Language[language];
+        var items = currencyList['CurrencyList'][languageElement]['item'];
         this.messages = {};
         for (var index in items) {
             var languageItem = items[index];
@@ -539,16 +512,16 @@ class MoneyToStr {
                 this.messages[languageItem["-value"]] = languageItem["-text"].split(",");
             }
         }
-        var currencyItem = currencyList['CurrencyList'][currency.toString()]
+        var currencyItem = currencyList['CurrencyList'][Currency[currency]]
         var theISOElement = null;
         for (var index in currencyItem) {
-            if (currencyItem[index]["-language"] == language.toString()) {
+            if (currencyItem[index]["-language"] === languageElement) {
                 theISOElement = currencyItem[index];
                 break;
             }
         }
         if (theISOElement == null) {
-            throw new Error("Currency not found " + currency.toString());
+            throw new Error("Currency not found " + Currency[currency]);
         }
         this.rubOneUnit = theISOElement["-RubOneUnit"];
         this.rubTwoUnit = theISOElement["-RubTwoUnit"];
