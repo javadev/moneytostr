@@ -2,8 +2,8 @@ moneytostr
 ==========
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/moneytostr.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.javadev%22%20AND%20a%3A%22moneytostr%22)
-[![Build Status](https://secure.travis-ci.org/javadev/moneytostr-russian.png)](http://travis-ci.org/javadev/moneytostr-russian)
-[![Coverage Status](https://coveralls.io/repos/javadev/moneytostr-russian/badge.png)](https://coveralls.io/r/javadev/moneytostr-russian)
+[![Build Status](https://secure.travis-ci.org/javadev/moneytostr-russian.svg)](http://travis-ci.org/javadev/moneytostr-russian)
+[![Coverage Status](https://coveralls.io/repos/javadev/moneytostr-russian/badge.svg)](https://coveralls.io/r/javadev/moneytostr-russian)
 
 The tool to convert amount to words in Russian/Ukrainian/English languages
 
