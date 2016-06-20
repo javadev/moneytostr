@@ -98,7 +98,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.0.201403182114</version>
+        <version>0.7.7.201606060606</version>
         <configuration>
           <excludes>
             <exclude>**/MoneyToStrApp*.class</exclude>
@@ -116,7 +116,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.3</version>
+          <version>3.5.1</version>
           <configuration>
             <reportPlugins>
       <plugin>
