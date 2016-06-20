@@ -13,3 +13,4 @@ The tool to convert amount to words in Russian/Ukrainian/English languages
 
 [![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr3.png)](https://github.com/javadev/moneytostr-russian/)
 
+[![Dependency Status](https://www.versioneye.com/user/projects/5767d3ddfdabcd004d3fcb9e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5767d3ddfdabcd004d3fcb9e)
