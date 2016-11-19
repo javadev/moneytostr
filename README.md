@@ -9,6 +9,27 @@ moneytostr
 
 The tool to convert amount to words in Russian/Ukrainian/English languages
 
+## Download
+
+Download [latest release](https://github.com/javadev/moneytostr-russian/releases) or grab via Maven:
+
+```xml
+<dependency>
+  <groupId>com.github.javadev</groupId>
+  <artifactId>moneytostr</artifactId>
+  <version>1.13</version>
+</dependency>
+```
+or Gradle:
+
+```groovy
+dependencies {
+  ...
+  compile 'com.github.javadev:moneytostr:1.13'
+  ...
+}
+```
+
 [![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr.png)](https://github.com/javadev/moneytostr-russian/)
 
 [![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr2.png)](https://github.com/javadev/moneytostr-russian/)
