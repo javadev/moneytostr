@@ -4,7 +4,7 @@
 	"keywords": ["money", "js", "php", "java"],
 	"type": "library",
 	"homepage": "https://github.com/javadev",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"authors": [{
 		"name": "Valentyn Kolesnikov",
 		"homepage": "https://github.com/javadev"
