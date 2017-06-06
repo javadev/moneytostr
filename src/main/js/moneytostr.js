@@ -23,6 +23,10 @@ var currencyList =
     "UKR": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "мiнус"
+        },
+        {
           "-value": "0",
           "-text": "нуль"
         },
@@ -79,6 +83,10 @@ var currencyList =
     "RUS": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "минус"
+        },
+        {
           "-value": "0",
           "-text": "ноль"
         },
@@ -134,6 +142,10 @@ var currencyList =
     },
     "ENG": {
       "item": [
+        {
+          "-value": "minus",
+          "-text": "minus"
+        },
         {
           "-value": "0",
           "-text": "zero"
@@ -662,12 +674,16 @@ var MoneyToStr = (function () {
         if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
+        if (teMoney < 0) {
+            theMoney = parseFloat(theMoney.toString().slice(1));
+            negative = true;
+        }
         var intPart = parseInt(theMoney);
         var fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM100);
         if (this.currency == Currency.PER1000) {
             fractPart = Math.round((theMoney - intPart) * MoneyToStr.NUM1000);
         }
-        return this.convert(intPart, fractPart);
+        return this.convert(intPart, fractPart, negative);
     }
 
     /**
@@ -680,7 +696,7 @@ var MoneyToStr = (function () {
      *            the amount of money minor currency
      * @return the string description of money value
      */
-    MoneyToStr.prototype.convert = function (theMoney, theKopeiki) {
+    MoneyToStr.prototype.convert = function (theMoney, theKopeiki, negative) {
         if (typeof theMoney === undefined || theMoney == null) {
             throw new Error("theMoney is null");
         }
@@ -695,8 +711,11 @@ var MoneyToStr = (function () {
             money2str.append(this.messages["0"][0] + " ");
         }
         do {
+            if (negative) {
+                money2str.insert(0, this.messages["minus"][0] + " ");
+            }
             theTriad = parseInt(intPart % MoneyToStr.NUM1000);
-            money2str.insert(0, this.triad2Word(theTriad, triadNum, this.rubSex));
+            money2str.append(this.triad2Word(theTriad, triadNum, this.rubSex));
             if (triadNum == 0) {
                 var range10 = parseInt((theTriad % MoneyToStr.NUM100) / MoneyToStr.NUM10);
                 var range = parseInt(theTriad % MoneyToStr.NUM10);
