@@ -170,6 +170,13 @@ public class MoneyToStrTest {
         assertEquals("одна гривня 14 копійок", moneyToStrUAH.convert(V_1_14D));
     }
 
+    /** checkUAHUKR minus. */
+    @Test
+    public void checkUAHUKMinus() {
+        assertEquals("мінус триста гривень 00 копійок", moneyToStrUAH.convert(-V_300D));
+        assertEquals("мінус одинадцять гривень 12 копійок", moneyToStrUAH.convert(-V_11_12D));
+    }
+
     /** checkUAHRUS. */
     @Test
     public void checkUAHRUS() {

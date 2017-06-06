@@ -50,6 +50,7 @@ public class MoneyToStr {
 + " \n"
 + " <language value=\"UKR\"/>\n"
 + " <UKR>\n"
++ " <item value=\"minus\" text=\"\u043C\u0456\u043D\u0443\u0441\"/>\n"
 + " <item value=\"0\" text=\"\u043d\u0443\u043b\u044c\"/>\n"
 + " <item value=\"1000_10\" text=\"\u0442\u0438\u0441\u044f\u0447,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0456\u0432,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0456\u0432,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0456\u0432\"/>\n"
 + " <item value=\"1000_1\" text=\"\u0442\u0438\u0441\u044f\u0447\u0430,\u043c\u0456\u043b\u044c\u0439\u043e\u043d,\u043c\u0456\u043b\u044c\u044f\u0440\u0434,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\"/>\n"
@@ -65,6 +66,7 @@ public class MoneyToStr {
 + " <item value=\"pdv_value\" text=\"20\"/>\n"
 + " </UKR>\n"
 + " <RUS>\n"
++ " <item value=\"minus\" text=\"\u043C\u0438\u043D\u0443\u0441\"/>\n"
 + " <item value=\"0\" text=\"\u043d\u043e\u043b\u044c\"/>\n"
 + " <item value=\"1000_10\" text=\"\u0442\u044b\u0441\u044f\u0447,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u043e\u0432,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432\"/>\n"
 + " <item value=\"1000_1\" text=\"\u0442\u044b\u0441\u044f\u0447\u0430,\u043c\u0438\u043b\u043b\u0438\u043e\u043d,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\"/>\n"
@@ -80,6 +82,7 @@ public class MoneyToStr {
 + " <item value=\"pdv_value\" text=\"18\"/>\n"
 + " </RUS>\n"
 + " <ENG>\n"
++ " <item value=\"minus\" text=\"minus\"/>\n"
 + " <item value=\"0\" text=\"zero\"/>\n"
 + " <item value=\"1000_10\" text=\"thousand,million,billion,trillion\"/>\n"
 + " <item value=\"1000_1\" text=\"thousand,million,billion,trillion\"/>\n"
@@ -442,7 +445,7 @@ public class MoneyToStr {
         Long triadNum = 0L;
         Long theTriad;
 
-        Long intPart = theMoney;
+        Long intPart = Math.abs(theMoney);
         if (intPart == 0) {
             money2str.append(messages.get("0")[0] + " ");
         }
@@ -472,11 +475,15 @@ public class MoneyToStr {
             triadNum++;
         } while (intPart > 0);
 
+        if (theMoney < 0) {
+            money2str.insert(0, messages.get("minus")[0] + " ");
+        }
         if (pennies == Pennies.TEXT) {
             money2str.append(language == Language.ENG ? " and " : " ").append(
-                theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(theKopeiki, 0L, kopSex));
+                theKopeiki == 0 ? messages.get("0")[0] + " " : triad2Word(Math.abs(theKopeiki), 0L, kopSex));
         } else {
-            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
+            money2str.append(" " + (Math.abs(theKopeiki) < 10 ? "0" + Math.abs(theKopeiki)
+                : Math.abs(theKopeiki)) + " ");
         }
         if (theKopeiki >= NUM11 && theKopeiki <= NUM14) {
             money2str.append(kopFiveUnit);
