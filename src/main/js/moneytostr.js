@@ -23,6 +23,10 @@ var currencyList =
     "UKR": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "мінус"
+        },
+        {
           "-value": "0",
           "-text": "нуль"
         },
@@ -79,6 +83,10 @@ var currencyList =
     "RUS": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "минус"
+        },
+        {
           "-value": "0",
           "-text": "ноль"
         },
@@ -134,6 +142,10 @@ var currencyList =
     },
     "ENG": {
       "item": [
+        {
+          "-value": "minus",
+          "-text": "minus"
+        },
         {
           "-value": "0",
           "-text": "zero"
@@ -690,7 +702,7 @@ var MoneyToStr = (function () {
         var money2str = new StringBuilder();
         var triadNum = 0;
         var theTriad = 0;
-        var intPart = theMoney;
+        var intPart = Math.abs(theMoney);
         if (intPart == 0) {
             money2str.append(this.messages["0"][0] + " ");
         }
@@ -722,10 +734,15 @@ var MoneyToStr = (function () {
             triadNum++;
         } while (intPart > 0);
 
+        if (theMoney < 0) {
+            money2str.insert(0, this.messages["minus"][0] + " ");
+        }
         if (this.pennies == Pennies.TEXT) {
-            money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
+            money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " :
+                this.triad2Word(Math.abs(theKopeiki), 0, this.kopSex));
         } else {
-            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
+            money2str.append(" " + (Math.abs(theKopeiki) < 10 ? "0" + Math.abs(theKopeiki) :
+                Math.abs(theKopeiki)) + " ");
         }
         if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(this.kopFiveUnit);
