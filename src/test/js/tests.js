@@ -62,6 +62,7 @@ Static: {
 module( "tests", {
     setup: function() {
         this.moneyToStrUAH = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+        this.moneyToStrUAHRUS = new MoneyToStr(Currency.UAH, Language.RUS, Pennies.NUMBER);
         this.moneyToStrRUR = new MoneyToStr(Currency.RUR, Language.RUS, Pennies.NUMBER);
         this.moneyToStrPER100 = new MoneyToStr(Currency.PER100, Language.RUS, Pennies.TEXT);
         this.moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
@@ -116,6 +117,14 @@ test( "checkUAH", function() {
 });
 test( "checkRUR", function() {
     equal(this.moneyToStrRUR.convertValue(Const.V_777_77D), "семьсот семьдесят семь рублей 77 копеек");
+});
+test( "checkUAHUKRMinus", function() {
+    equal(this.moneyToStrUAH.convertValue(-Const.V_300D), "мінус триста гривень 00 копійок");
+    equal(this.moneyToStrUAH.convertValue(-Const.V_11_12D), "мінус одинадцять гривень 12 копійок");
+});
+test( "checkUAHRUSMinus", function() {
+    equal(this.moneyToStrUAHRUS.convertValue(-Const.V_300D), "минус триста гривень 00 копеек");
+    equal(this.moneyToStrUAHRUS.convertValue(-Const.V_11_12D), "минус одиннадцать гривень 12 копеек");
 });
 test( "checkPER100", function() {
     equal("одна целая, одна сотая процента", this.moneyToStrPER100.convertValue(Const.V_1_01D));
