@@ -1,7 +1,7 @@
 /*
 * $Id$
 *
-* Copyright 2016 Valentyn Kolesnikov
+* Copyright 2017 Valentyn Kolesnikov
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -81,6 +81,18 @@ class MoneyToStr {
  * @param pennies the pennies (NUMBER, TEXT)
  */
   constructor(currency:Currency, language:Language, pennies:Pennies) {
+    if (currency == null)
+    {
+      throw IllegalArgumentException("currency is null")
+    }
+    if (language == null)
+    {
+      throw IllegalArgumentException("language is null")
+    }
+    if (pennies == null)
+    {
+      throw IllegalArgumentException("pennies is null")
+    }
     this.currency = currency
     this.language = language
     this.pennies = pennies
@@ -95,7 +107,7 @@ class MoneyToStr {
            index += 1
          } })
     val theISOElements = (xmlDoc.getElementsByTagName(theISOstr)) as org.w3c.dom.NodeList
-    var theISOElement:org.w3c.dom.Element = null
+    var theISOElement:org.w3c.dom.Element? = null
     var index = 0
     while (index < theISOElements.getLength())
     {
@@ -106,15 +118,15 @@ class MoneyToStr {
       }
       index += 1
     }
-    rubOneUnit = theISOElement.getAttribute("RubOneUnit")
-    rubTwoUnit = theISOElement.getAttribute("RubTwoUnit")
-    rubFiveUnit = theISOElement.getAttribute("RubFiveUnit")
-    kopOneUnit = theISOElement.getAttribute("KopOneUnit")
-    kopTwoUnit = theISOElement.getAttribute("KopTwoUnit")
-    kopFiveUnit = theISOElement.getAttribute("KopFiveUnit")
-    rubSex = theISOElement.getAttribute("RubSex")
-    kopSex = theISOElement.getAttribute("KopSex")
-    rubShortUnit = if (theISOElement.hasAttribute("RubShortUnit")) theISOElement.getAttribute("RubShortUnit") else ""
+    rubOneUnit = theISOElement!!.getAttribute("RubOneUnit")
+    rubTwoUnit = theISOElement!!.getAttribute("RubTwoUnit")
+    rubFiveUnit = theISOElement!!.getAttribute("RubFiveUnit")
+    kopOneUnit = theISOElement!!.getAttribute("KopOneUnit")
+    kopTwoUnit = theISOElement!!.getAttribute("KopTwoUnit")
+    kopFiveUnit = theISOElement!!.getAttribute("KopFiveUnit")
+    rubSex = theISOElement!!.getAttribute("RubSex")
+    kopSex = theISOElement!!.getAttribute("KopSex")
+    rubShortUnit = if (theISOElement!!.hasAttribute("RubShortUnit")) theISOElement!!.getAttribute("RubShortUnit") else ""
   }
   /**
  * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
@@ -187,7 +199,7 @@ class MoneyToStr {
   /**
  * Converts amount to words. Usage: MoneyToStr moneyToStr =
  * new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
- * String result = moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+ * String result = moneyToStr.convert(123D); Expected: result = сто двадцять т��и гривні 00 копійок
  *
  * @param theMoney
  * the amount of money major currency
@@ -205,10 +217,10 @@ class MoneyToStr {
       throw IllegalArgumentException("theKopeiki is null")
     }
     val money2str = StringBuilder()
-    val triadNum = 0L
-    val theTriad:Long
-    val intPart = theMoney
-    if (intPart === 0)
+    var triadNum = 0L
+    var theTriad:Long
+    var intPart = Math.abs(theMoney)
+    if (intPart == 0L)
     {
       money2str.append(messages.get("0")[0] + " ")
     }
@@ -216,7 +228,7 @@ class MoneyToStr {
     {
       theTriad = intPart % NUM1000
       money2str.insert(0, triad2Word(theTriad, triadNum, rubSex))
-      if (triadNum === 0)
+      if (triadNum == 0L)
       {
         if ((theTriad % NUM100) / NUM10 == NUM1.toLong())
         {
@@ -235,14 +247,21 @@ class MoneyToStr {
       triadNum++
     }
     while (intPart > 0)
+    if (theMoney < 0)
+    {
+      money2str.insert(0, messages.get("minus")[0] + " ")
+    }
     if (pennies == Pennies.TEXT)
     {
       money2str.append(if (language == Language.ENG) " and " else " ").append(
-        if (theKopeiki === 0) messages.get("0")[0] + " " else triad2Word(theKopeiki, 0L, kopSex))
+        if (theKopeiki == 0) messages.get("0")[0] + " " else triad2Word(Math.abs(theKopeiki), 0L, kopSex))
     }
     else
     {
-      money2str.append(" " + (if (theKopeiki < 10) "0" + theKopeiki else theKopeiki) + " ")
+      money2str.append((" " + (if (Math.abs(theKopeiki) < 10)
+                               "0" + Math.abs(theKopeiki)
+                               else
+                               Math.abs(theKopeiki)) + " "))
     }
     if (theKopeiki >= NUM11 && theKopeiki <= NUM14)
     {
@@ -260,14 +279,14 @@ class MoneyToStr {
   }
   private fun triad2Word(triad:Long, triadNum:Long, sex:String):String {
     val triadWord = StringBuilder(NUM100)
-    if (triad === 0)
+    if (triad == 0)
     {
       return ""
     }
     triadWord.append(concat<String>(arrayOf<String>(""), messages.get("100_900"))[java.lang.Long.valueOf(triad / NUM100).toByte()])
     val range10 = (triad % NUM100) / NUM10
     triadWord.append(concat<String>(arrayOf<String>("", ""), messages.get("20_90"))[range10.toByte()])
-    if (language == Language.ENG && triadWord.length > 0 && triad % NUM10 == 0)
+    if (language == Language.ENG && triadWord.length > 0 && triad % NUM10 == 0L)
     {
       triadWord.deleteCharAt(triadWord.length - 1)
       triadWord.append(" ")
@@ -275,7 +294,7 @@ class MoneyToStr {
     check2(triadNum, sex, triadWord, triad, range10)
     when (triadNum.toByte()) {
       NUM0 -> {}
-      NUM1, NUM2, NUM3, NUM4 -> if (range10 === NUM1)
+      NUM1, NUM2, NUM3, NUM4 -> if (range10 == NUM1)
       {
         triadWord.append(messages.get("1000_10")[triadNum.toByte() - 1] + " ")
       }
@@ -301,18 +320,18 @@ class MoneyToStr {
  */
   private fun check2(triadNum:Long, sex:String, triadWord:StringBuilder, triad:Long, range10:Long) {
     val range = triad % NUM10
-    if (range10 === 1)
+    if (range10 == 1)
     {
       triadWord.append(messages.get("10_19")[range.toByte()] + " ")
     }
     else
     {
       when (range.toByte()) {
-        NUM1 -> if (triadNum === NUM1)
+        NUM1 -> if (triadNum == NUM1)
         {
           triadWord.append(messages.get("1")[INDEX_0] + " ")
         }
-        else if (triadNum === NUM2 || triadNum === NUM3 || triadNum === NUM4)
+        else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4)
         {
           triadWord.append(messages.get("1")[INDEX_1] + " ")
         }
@@ -324,11 +343,11 @@ class MoneyToStr {
         {
           triadWord.append(messages.get("1")[INDEX_3] + " ")
         }
-        NUM2 -> if (triadNum === NUM1)
+        NUM2 -> if (triadNum == NUM1)
         {
           triadWord.append(messages.get("2")[INDEX_0] + " ")
         }
-        else if (triadNum === NUM2 || triadNum === NUM3 || triadNum === NUM4)
+        else if (triadNum == NUM2 || triadNum == NUM3 || triadNum == NUM4)
         {
           triadWord.append(messages.get("2")[INDEX_1] + " ")
         }
@@ -355,7 +374,7 @@ class MoneyToStr {
     private val INDEX_2 = 2
     private val INDEX_1 = 1
     private val INDEX_0 = 0
-    private var xmlDoc:org.w3c.dom.Document
+    private val xmlDoc:org.w3c.dom.Document
     private val NUM0 = 0
     private val NUM1 = 1
     private val NUM2 = 2
@@ -372,156 +391,159 @@ class MoneyToStr {
     private val NUM100 = 100
     private val NUM1000 = 1000
     private val NUM10000 = 10000
-    private val CURRENCY_LIST =
-    """<CurrencyList>
- 
-    <language value="UKR"/>
-    <UKR>
-        <item value="0" text="нуль"/>
-        <item value="1000_10" text="тисяч,мільйонів,мільярдів,трильйонів"/>
-        <item value="1000_1" text="тисяча,мільйон,мільярд,трильйон"/>
-        <item value="1000_234" text="тисячі,мільйона,мільярда,трильйона"/>
-        <item value="1000_5" text="тисяч,мільйонів,мільярдів,трильйонів"/>
-        <item value="10_19" text="десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"/>
-        <item value="1" text="одна,один,один,одна"/>
-        <item value="2" text="дві,два,два,дві"/>
-        <item value="3_9" text="три,чотири,п’ять,шість,сім,вісім,дев’ять"/>
-        <item value="100_900" text="сто ,двісті ,триста ,чотириста ,п’ятсот ,шістсот ,сімсот ,вісімсот ,дев’ятсот "/>
-        <item value="20_90" text="двадцять ,тридцять ,сорок ,п’ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев’яносто "/>
-        <item value="pdv" text="в т.ч. ПДВ "/>
-        <item value="pdv_value" text="20"/>
-    </UKR>
-    <RUS>
-        <item value="0" text="ноль"/>
-        <item value="1000_10" text="тысяч,миллионов,миллиардов,триллионов"/>
-        <item value="1000_1" text="тысяча,миллион,миллиард,триллион"/>
-        <item value="1000_234" text="тысячи,миллиона,миллиарда,триллиона"/>
-        <item value="1000_5" text="тысяч,миллионов,миллиардов,триллионов"/>
-        <item value="10_19" text="десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать"/>
-        <item value="1" text="одна,один,один,одна"/>
-        <item value="2" text="две,два,два,две"/>
-        <item value="3_9" text="три,четыре,пять,шесть,семь,восемь,девять"/>
-        <item value="100_900" text="сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот "/>
-        <item value="20_90" text="двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто "/>
-        <item value="pdv" text="в т.ч. НДС "/>
-        <item value="pdv_value" text="18"/>
-    </RUS>
-    <ENG>
-        <item value="0" text="zero"/>
-        <item value="1000_10" text="thousand,million,billion,trillion"/>
-        <item value="1000_1" text="thousand,million,billion,trillion"/>
-        <item value="1000_234" text="thousand,million,billion,trillion"/>
-        <item value="1000_5" text="thousand,million,billion,trillion"/>
-        <item value="10_19" text="ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen"/>
-        <item value="1" text="one,one,one,one"/>
-        <item value="2" text="two,two,two,two"/>
-        <item value="3_9" text="three,four,five,six,seven,eight,nine"/>
-        <item value="100_900" text="one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred "/>
-        <item value="20_90" text="twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-"/>
-        <item value="pdv" text="including VAT "/>
-        <item value="pdv_value" text="10"/>
-    </ENG>
-
-    <RUR CurrID="810" CurrName="Российские рубли" language="RUS"
-         RubOneUnit="рубль" RubTwoUnit="рубля" RubFiveUnit="рублей" RubSex="M" RubShortUnit="руб."
-         KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
-    />
-    <UAH CurrID="980" CurrName="Украинскі гривні" language="RUS"
-         RubOneUnit="гривня" RubTwoUnit="гривни" RubFiveUnit="гривень" RubSex="F" RubShortUnit="грн."
-         KopOneUnit="копейка" KopTwoUnit="копейки" KopFiveUnit="копеек" KopSex="F"
-    />
-    <USD CurrID="840" CurrName="Долари США" language="RUS"
-         RubOneUnit="доллар" RubTwoUnit="доллара" RubFiveUnit="долларов" RubSex="M" RubShortUnit="дол."
-         KopOneUnit="цент" KopTwoUnit="цента" KopFiveUnit="центов" KopSex="M"
-    />
-
-    <RUR CurrID="810" CurrName="Российские рубли" language="UKR"
-         RubOneUnit="рубль" RubTwoUnit="рублі" RubFiveUnit="рублів" RubSex="M" RubShortUnit="руб."
-         KopOneUnit="копійка" KopTwoUnit="копійки" KopFiveUnit="копійок" KopSex="F"
-    /> 
-    <UAH CurrID="980" CurrName="Украинскі гривні" language="UKR"
-         RubOneUnit="гривня" RubTwoUnit="гривні" RubFiveUnit="гривень" RubSex="F" RubShortUnit="грн."
-         KopOneUnit="копійка" KopTwoUnit="копійки" KopFiveUnit="копійок" KopSex="F"
-    />
-    <USD CurrID="840" CurrName="Долари США" language="UKR"
-         RubOneUnit="долар" RubTwoUnit="долара" RubFiveUnit="доларів" RubSex="M" RubShortUnit="дол."
-         KopOneUnit="цент" KopTwoUnit="цента" KopFiveUnit="центів" KopSex="M"
-    />
-
-    <RUR CurrID="810" CurrName="Российские рубли" language="ENG"
-         RubOneUnit="ruble" RubTwoUnit="rubles" RubFiveUnit="rubles" RubSex="M" RubShortUnit="RUR."
-         KopOneUnit="kopeck" KopTwoUnit="kopecks" KopFiveUnit="kopecks" KopSex="M"
-    /> 
-    <UAH CurrID="980" CurrName="Украинскі гривні" language="ENG"
-         RubOneUnit="hryvnia" RubTwoUnit="hryvnias" RubFiveUnit="hryvnias" RubSex="M" RubShortUnit="UAH."
-         KopOneUnit="kopeck" KopTwoUnit="kopecks" KopFiveUnit="kopecks" KopSex="M"
-    />
-    <USD CurrID="840" CurrName="Долари США" language="ENG"
-         RubOneUnit="dollar" RubTwoUnit="dollars" RubFiveUnit="dollars" RubSex="M" RubShortUnit="USD."
-         KopOneUnit="cent" KopTwoUnit="cents" KopFiveUnit="cents" KopSex="M"
-    />
-
-    <PER10 CurrID="556" CurrName="Вiдсотки з десятими частинами" language="RUS"
-         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
-         KopOneUnit="десятая процента" KopTwoUnit="десятых процента" KopFiveUnit="десятых процента" KopSex="F"
-    />
-
-    <PER100 CurrID="557" CurrName="Вiдсотки з сотими частинами" language="RUS"
-         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
-         KopOneUnit="сотая процента" KopTwoUnit="сотых процента" KopFiveUnit="сотых процента" KopSex="F"
-    />
-
-    <PER1000 CurrID="558" CurrName="Вiдсотки з тисячними частинами" language="RUS"
-         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
-         KopOneUnit="тысячная процента" KopTwoUnit="тысячных процента" KopFiveUnit="тысячных процента" KopSex="F"
-    />
-
-    <PER10000 CurrID="559" CurrName="Вiдсотки з десяти тисячними частинами" language="RUS"
-         RubOneUnit="целая," RubTwoUnit="целых," RubFiveUnit="целых," RubSex="F"
-         KopOneUnit="десятитысячная процента" KopTwoUnit="десятитысячные процента" KopFiveUnit="десятитысячных процента" KopSex="F"
-    />
-
-    <PER10 CurrID="556" CurrName="Вiдсотки з десятими частинами" language="UKR"
-         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
-         KopOneUnit="десята відсотка" KopTwoUnit="десятих відсотка" KopFiveUnit="десятих відсотка" KopSex="F"
-    />
-
-    <PER100 CurrID="557" CurrName="Вiдсотки з сотими частинами" language="UKR"
-         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
-         KopOneUnit="сота відсотка" KopTwoUnit="сотих відсотка" KopFiveUnit="сотих відсотка" KopSex="F"
-    />
-
-    <PER1000 CurrID="558" CurrName="Вiдсотки з тисячними частинами" language="UKR"
-         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
-         KopOneUnit="тисячна відсотка" KopTwoUnit="тисячних відсотка" KopFiveUnit="тисячних відсотка" KopSex="F"
-    />
-
-    <PER10000 CurrID="559" CurrName="Вiдсотки з десяти тисячними частинами" language="UKR"
-         RubOneUnit="ціла," RubTwoUnit="цілих," RubFiveUnit="цілих," RubSex="F"
-         KopOneUnit="десятитисячна відсотка" KopTwoUnit="десятитисячних відсотка" KopFiveUnit="десятитисячних відсотка" KopSex="M"
-    />
-
-    <PER10 CurrID="560" CurrName="Вiдсотки з десятими частинами" language="ENG"
-         RubOneUnit="," RubTwoUnit="integers," RubFiveUnit="integers," RubSex="F"
-         KopOneUnit="tenth of one percent" KopTwoUnit="tenth of one percent" KopFiveUnit="tenth of one percent" KopSex="F"
-    />
-
-    <PER100 CurrID="561" CurrName="Вiдсотки з сотими частинами" language="ENG"
-         RubOneUnit="," RubTwoUnit="integers," RubFiveUnit="integers," RubSex="F"
-         KopOneUnit="hundred percent" KopTwoUnit="hundredth of percent" KopFiveUnit="hundredth of percent" KopSex="F"
-    />
-
-    <PER1000 CurrID="562" CurrName="Вiдсотки з тисячними частинами" language="ENG"
-         RubOneUnit="," RubTwoUnit="integers," RubFiveUnit="integers," RubSex="F"
-         KopOneUnit="thousandth of percent" KopTwoUnit="thousandths of percent" KopFiveUnit="thousandths of percent" KopSex="F"
-    />
-
-    <PER10000 CurrID="563" CurrName="Вiдсотки з десяти тисячними частинами" language="ENG"
-         RubOneUnit="," RubTwoUnit="integers," RubFiveUnit="integers," RubSex="F"
-         KopOneUnit="ten percent" KopTwoUnit="ten-percent" KopFiveUnit="ten-percent" KopSex="F"
-    />
-
-</CurrencyList>"""
+    private val CURRENCY_LIST = (
+      "<CurrencyList>\n"
+      + " \n"
+      + " <language value=\"UKR\"/>\n"
+      + " <UKR>\n"
+      + " <item value=\"minus\" text=\"\u043C\u0456\u043D\u0443\u0441\"/>\n"
+      + " <item value=\"0\" text=\"\u043d\u0443\u043b\u044c\"/>\n"
+      + " <item value=\"1000_10\" text=\"\u0442\u0438\u0441\u044f\u0447,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0456\u0432,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0456\u0432,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0456\u0432\"/>\n"
+      + " <item value=\"1000_1\" text=\"\u0442\u0438\u0441\u044f\u0447\u0430,\u043c\u0456\u043b\u044c\u0439\u043e\u043d,\u043c\u0456\u043b\u044c\u044f\u0440\u0434,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\"/>\n"
+      + " <item value=\"1000_234\" text=\"\u0442\u0438\u0441\u044f\u0447\u0456,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0430,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0430,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0430\"/>\n"
+      + " <item value=\"1000_5\" text=\"\u0442\u0438\u0441\u044f\u0447,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0456\u0432,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0456\u0432,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0456\u0432\"/>\n"
+      + " <item value=\"10_19\" text=\"\u0434\u0435\u0441\u044f\u0442\u044c,\u043e\u0434\u0438\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0434\u0432\u0430\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0442\u0440\u0438\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0447\u043e\u0442\u0438\u0440\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u043f\u2019\u044f\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0448i\u0441\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0441i\u043c\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0432i\u0441i\u043c\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0434\u0435\u0432\'\u044f\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c\"/>\n"
+      + " <item value=\"1\" text=\"\u043e\u0434\u043d\u0430,\u043e\u0434\u0438\u043d,\u043e\u0434\u0438\u043d,\u043e\u0434\u043d\u0430\"/>\n"
+      + " <item value=\"2\" text=\"\u0434\u0432\u0456,\u0434\u0432\u0430,\u0434\u0432\u0430,\u0434\u0432\u0456\"/>\n"
+      + " <item value=\"3_9\" text=\"\u0442\u0440\u0438,\u0447\u043e\u0442\u0438\u0440\u0438,\u043f\u2019\u044f\u0442\u044c,\u0448\u0456\u0441\u0442\u044c,\u0441\u0456\u043c,\u0432\u0456\u0441\u0456\u043c,\u0434\u0435\u0432\u2019\u044f\u0442\u044c\"/>\n"
+      + " <item value=\"100_900\" text=\"\u0441\u0442\u043e ,\u0434\u0432\u0456\u0441\u0442\u0456 ,\u0442\u0440\u0438\u0441\u0442\u0430 ,\u0447\u043e\u0442\u0438\u0440\u0438\u0441\u0442\u0430 ,\u043f\u2019\u044f\u0442\u0441\u043e\u0442 ,\u0448\u0456\u0441\u0442\u0441\u043e\u0442 ,\u0441\u0456\u043c\u0441\u043e\u0442 ,\u0432\u0456\u0441\u0456\u043c\u0441\u043e\u0442 ,\u0434\u0435\u0432\u2019\u044f\u0442\u0441\u043e\u0442 \"/>\n"
+      + " <item value=\"20_90\" text=\"\u0434\u0432\u0430\u0434\u0446\u044f\u0442\u044c ,\u0442\u0440\u0438\u0434\u0446\u044f\u0442\u044c ,\u0441\u043e\u0440\u043e\u043a ,\u043f\u2019\u044f\u0442\u0434\u0435\u0441\u044f\u0442 ,\u0448\u0456\u0441\u0442\u0434\u0435\u0441\u044f\u0442 ,\u0441\u0456\u043c\u0434\u0435\u0441\u044f\u0442 ,\u0432\u0456\u0441\u0456\u043c\u0434\u0435\u0441\u044f\u0442 ,\u0434\u0435\u0432\u2019\u044f\u043d\u043e\u0441\u0442\u043e \"/>\n"
+      + " <item value=\"pdv\" text=\"\u0432 \u0442.\u0447. \u041f\u0414\u0412 \"/>\n"
+      + " <item value=\"pdv_value\" text=\"20\"/>\n"
+      + " </UKR>\n"
+      + " <RUS>\n"
+      + " <item value=\"minus\" text=\"\u043C\u0438\u043D\u0443\u0441\"/>\n"
+      + " <item value=\"0\" text=\"\u043d\u043e\u043b\u044c\"/>\n"
+      + " <item value=\"1000_10\" text=\"\u0442\u044b\u0441\u044f\u0447,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u043e\u0432,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432\"/>\n"
+      + " <item value=\"1000_1\" text=\"\u0442\u044b\u0441\u044f\u0447\u0430,\u043c\u0438\u043b\u043b\u0438\u043e\u043d,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\"/>\n"
+      + " <item value=\"1000_234\" text=\"\u0442\u044b\u0441\u044f\u0447\u0438,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u0430,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u0430,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u0430\"/>\n"
+      + " <item value=\"1000_5\" text=\"\u0442\u044b\u0441\u044f\u0447,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u043e\u0432,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432\"/>\n"
+      + " <item value=\"10_19\" text=\"\u0434\u0435\u0441\u044f\u0442\u044c,\u043e\u0434\u0438\u043d\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0434\u0432\u0435\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0442\u0440\u0438\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0447\u0435\u0442\u044b\u0440\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u043f\u044f\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0448\u0435\u0441\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0441\u0435\u043c\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0432\u043e\u0441\u0435\u043c\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0434\u0435\u0432\u044f\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c\"/>\n"
+      + " <item value=\"1\" text=\"\u043e\u0434\u043d\u0430,\u043e\u0434\u0438\u043d,\u043e\u0434\u0438\u043d,\u043e\u0434\u043d\u0430\"/>\n"
+      + " <item value=\"2\" text=\"\u0434\u0432\u0435,\u0434\u0432\u0430,\u0434\u0432\u0430,\u0434\u0432\u0435\"/>\n"
+      + " <item value=\"3_9\" text=\"\u0442\u0440\u0438,\u0447\u0435\u0442\u044b\u0440\u0435,\u043f\u044f\u0442\u044c,\u0448\u0435\u0441\u0442\u044c,\u0441\u0435\u043c\u044c,\u0432\u043e\u0441\u0435\u043c\u044c,\u0434\u0435\u0432\u044f\u0442\u044c\"/>\n"
+      + " <item value=\"100_900\" text=\"\u0441\u0442\u043e ,\u0434\u0432\u0435\u0441\u0442\u0438 ,\u0442\u0440\u0438\u0441\u0442\u0430 ,\u0447\u0435\u0442\u044b\u0440\u0435\u0441\u0442\u0430 ,\u043f\u044f\u0442\u044c\u0441\u043e\u0442 ,\u0448\u0435\u0441\u0442\u044c\u0441\u043e\u0442 ,\u0441\u0435\u043c\u044c\u0441\u043e\u0442 ,\u0432\u043e\u0441\u0435\u043c\u044c\u0441\u043e\u0442 ,\u0434\u0435\u0432\u044f\u0442\u044c\u0441\u043e\u0442 \"/>\n"
+      + " <item value=\"20_90\" text=\"\u0434\u0432\u0430\u0434\u0446\u0430\u0442\u044c ,\u0442\u0440\u0438\u0434\u0446\u0430\u0442\u044c ,\u0441\u043e\u0440\u043e\u043a ,\u043f\u044f\u0442\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0448\u0435\u0441\u0442\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0441\u0435\u043c\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0432\u043e\u0441\u0435\u043c\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0434\u0435\u0432\u044f\u043d\u043e\u0441\u0442\u043e \"/>\n"
+      + " <item value=\"pdv\" text=\"\u0432 \u0442.\u0447. \u041d\u0414\u0421 \"/>\n"
+      + " <item value=\"pdv_value\" text=\"18\"/>\n"
+      + " </RUS>\n"
+      + " <ENG>\n"
+      + " <item value=\"minus\" text=\"minus\"/>\n"
+      + " <item value=\"0\" text=\"zero\"/>\n"
+      + " <item value=\"1000_10\" text=\"thousand,million,billion,trillion\"/>\n"
+      + " <item value=\"1000_1\" text=\"thousand,million,billion,trillion\"/>\n"
+      + " <item value=\"1000_234\" text=\"thousand,million,billion,trillion\"/>\n"
+      + " <item value=\"1000_5\" text=\"thousand,million,billion,trillion\"/>\n"
+      + " <item value=\"10_19\" text=\"ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen\"/>\n"
+      + " <item value=\"1\" text=\"one,one,one,one\"/>\n"
+      + " <item value=\"2\" text=\"two,two,two,two\"/>\n"
+      + " <item value=\"3_9\" text=\"three,four,five,six,seven,eight,nine\"/>\n"
+      + " <item value=\"100_900\" text=\"one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred \"/>\n"
+      + " <item value=\"20_90\" text=\"twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-\"/>\n"
+      + " <item value=\"pdv\" text=\"including VAT \"/>\n"
+      + " <item value=\"pdv_value\" text=\"10\"/>\n"
+      + " </ENG>\n"
+      + "\n"
+      + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0440\u0443\u0431\u043b\u044c\" RubTwoUnit=\"\u0440\u0443\u0431\u043b\u044f\" RubFiveUnit=\"\u0440\u0443\u0431\u043b\u0435\u0439\" RubSex=\"M\" RubShortUnit=\"\u0440\u0443\u0431.\"\n"
+      + " KopOneUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0435\u0435\u043a\" KopSex=\"F\"\n"
+      + " />\n"
+      + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0433\u0440\u0438\u0432\u043d\u044f\" RubTwoUnit=\"\u0433\u0440\u0438\u0432\u043d\u0438\" RubFiveUnit=\"\u0433\u0440\u0438\u0432\u0435\u043d\u044c\" RubSex=\"F\" RubShortUnit=\"\u0433\u0440\u043d.\"\n"
+      + " KopOneUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0435\u0435\u043a\" KopSex=\"F\"\n"
+      + " />\n"
+      + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
+      + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"
+      + " />\n"
+      + "\n"
+      + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0440\u0443\u0431\u043b\u044c\" RubTwoUnit=\"\u0440\u0443\u0431\u043b\u0456\" RubFiveUnit=\"\u0440\u0443\u0431\u043b\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0440\u0443\u0431.\"\n"
+      + " KopOneUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0456\u0439\u043e\u043a\" KopSex=\"F\"\n"
+      + " /> \n"
+      + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0433\u0440\u0438\u0432\u043d\u044f\" RubTwoUnit=\"\u0433\u0440\u0438\u0432\u043d\u0456\" RubFiveUnit=\"\u0433\u0440\u0438\u0432\u0435\u043d\u044c\" RubSex=\"F\" RubShortUnit=\"\u0433\u0440\u043d.\"\n"
+      + " KopOneUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0456\u0439\u043e\u043a\" KopSex=\"F\"\n"
+      + " />\n"
+      + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0434\u043e\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u0430\u0440\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
+      + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"
+      + " />\n"
+      + "\n"
+      + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"ENG\"\n"
+      + " RubOneUnit=\"ruble\" RubTwoUnit=\"rubles\" RubFiveUnit=\"rubles\" RubSex=\"M\" RubShortUnit=\"RUR.\"\n"
+      + " KopOneUnit=\"kopeck\" KopTwoUnit=\"kopecks\" KopFiveUnit=\"kopecks\" KopSex=\"M\"\n"
+      + " /> \n"
+      + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"ENG\"\n"
+      + " RubOneUnit=\"hryvnia\" RubTwoUnit=\"hryvnias\" RubFiveUnit=\"hryvnias\" RubSex=\"M\" RubShortUnit=\"UAH.\"\n"
+      + " KopOneUnit=\"kopeck\" KopTwoUnit=\"kopecks\" KopFiveUnit=\"kopecks\" KopSex=\"M\"\n"
+      + " />\n"
+      + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"ENG\"\n"
+      + " RubOneUnit=\"dollar\" RubTwoUnit=\"dollars\" RubFiveUnit=\"dollars\" RubSex=\"M\" RubShortUnit=\"USD.\"\n"
+      + " KopOneUnit=\"cent\" KopTwoUnit=\"cents\" KopFiveUnit=\"cents\" KopSex=\"M\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10 CurrID=\"556\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER100 CurrID=\"557\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0441\u043e\u0442\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0441\u043e\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0441\u043e\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER1000 CurrID=\"558\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10000 CurrID=\"559\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
+      + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0435 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10 CurrID=\"556\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER100 CurrID=\"557\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0441\u043e\u0442\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0441\u043e\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0441\u043e\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER1000 CurrID=\"558\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10000 CurrID=\"559\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
+      + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"M\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10 CurrID=\"560\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
+      + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"tenth of one percent\" KopTwoUnit=\"tenth of one percent\" KopFiveUnit=\"tenth of one percent\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER100 CurrID=\"561\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
+      + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"hundred percent\" KopTwoUnit=\"hundredth of percent\" KopFiveUnit=\"hundredth of percent\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER1000 CurrID=\"562\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
+      + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"thousandth of percent\" KopTwoUnit=\"thousandths of percent\" KopFiveUnit=\"thousandths of percent\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + " <PER10000 CurrID=\"563\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
+      + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
+      + " KopOneUnit=\"ten percent\" KopTwoUnit=\"ten-percent\" KopFiveUnit=\"ten-percent\" KopSex=\"F\"\n"
+      + " />\n"
+      + "\n"
+      + "</CurrencyList>\n")
     init{
       initXmlDoc(CURRENCY_LIST)
     }
@@ -557,8 +579,8 @@ class MoneyToStr {
         throw IllegalArgumentException("pennies is null")
       }
       val intPart = amount.toLong()
-      var fractPart = 0L
-      var result:String
+      val fractPart = 0L
+      val result:String
       if (amount.toFloat() == amount.toInt().toFloat())
       {
         result = MoneyToStr(Currency.PER10, lang, pennies).convert(amount.toLong(), 0L)
@@ -586,10 +608,10 @@ class MoneyToStr {
       return result
     }
     @JvmStatic fun main(args:Array<String>) {
-      var amount = "123.25"
-      var language = "ENG"
-      var currency = "USD"
-      var pennies = "TEXT"
+      val amount = "123.25"
+      val language = "ENG"
+      val currency = "USD"
+      val pennies = "TEXT"
       if (args.size == 0)
       {
         println("Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number")
@@ -621,3 +643,4 @@ class MoneyToStr {
     }
   }
 }
+
