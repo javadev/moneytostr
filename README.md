@@ -5,6 +5,7 @@ moneytostr
 [![Build Status](https://secure.travis-ci.org/javadev/moneytostr-russian.svg)](http://travis-ci.org/javadev/moneytostr-russian)
 [![Coverage Status](https://coveralls.io/repos/javadev/moneytostr-russian/badge.svg)](https://coveralls.io/r/javadev/moneytostr-russian)
 [![Dependency Status](https://www.versioneye.com/user/projects/5767d3ddfdabcd004d3fcb9e/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5767d3ddfdabcd004d3fcb9e)
+[![Known Vulnerabilities](https://snyk.io/test/github/javadev/moneytostr-russian/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/javadev/moneytostr-russian?targetFile=pom.xml)
 
 
 The tool to convert amount to words in Russian/Ukrainian/English languages
