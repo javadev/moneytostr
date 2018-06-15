@@ -30,8 +30,11 @@ dependencies {
 }
 ```
 
-[![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr.png)](https://github.com/javadev/moneytostr-russian/)
+### Usage
 
-[![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr2.png)](https://github.com/javadev/moneytostr-russian/)
+```java
+MoneyToStr moneyToStr = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
+moneyToStr.convert(777.77D)
 
-[![Screen short](https://raw.github.com/javadev/moneytostr-russian/master/moneytostr3.png)](https://github.com/javadev/moneytostr-russian/)
+// семьсот семьдесят семь рублей 77 копеек
+```
