@@ -2,8 +2,6 @@ language: java
 dist: precise
 
 jdk:
-  - openjdk7
-  - oraclejdk7
   - oraclejdk8
 
 addons:
