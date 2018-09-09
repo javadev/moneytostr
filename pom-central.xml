@@ -5,7 +5,7 @@
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
   <packaging>jar</packaging>
-  <version>1.14</version>
+  <version>1.17</version>
   <name>moneytostr</name>
   <description>The utility class to convert amount to words in Russian/Ukrainian/English languages</description>
   <url>https://github.com/javadev/moneytostr-russian</url>
@@ -133,7 +133,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.3.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
