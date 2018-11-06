@@ -1,0 +1,22 @@
+{
+  "name": "moneytostr",
+  "version": "1.0.0",
+  "description": "The utility class to convert amount to words in Russian/Ukrainian/English languages",
+  "keywords": [
+    "Compare",
+    "Strings"
+  ],
+  "homepage": "https://github.com/javadev/moneytostr-russian",
+  "author": "Valentyn Kolesnikov",
+  "contributors": [
+    "Valentyn Kolesnikov"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/javadev/moneytostr-russian.git"
+  },
+  "bugs:": "https://github.com/javadev/moneytostr-russian/issues",
+  "main": "./src/main/js/moneytostr.js"
+}
