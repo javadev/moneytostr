@@ -67,6 +67,7 @@ module( "tests", {
         this.moneyToStrPER100 = new MoneyToStr(Currency.PER100, Language.RUS, Pennies.TEXT);
         this.moneyToStrPER1000 = new MoneyToStr(Currency.PER1000, Language.RUS, Pennies.TEXT);
         this.moneyToStrUSDENG =  new MoneyToStr(Currency.USD, Language.ENG, Pennies.TEXT);
+        this.moneyToStrEURENG =  new MoneyToStr(Currency.EUR, Language.ENG, Pennies.TEXT);
     }
 });
 
@@ -163,4 +164,22 @@ test( "checkUSD_ENG", function() {
     equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
         + "million four hundred fifty-nine thousand eight hundred seventy dollars and forty-nine cents",
     this.moneyToStrUSDENG.convertValue(27451632459870.49));
+});
+test( "checkEUR_ENG", function() {
+    equal("one euro and zero cents", this.moneyToStrEURENG.convertValue(1));
+    equal("two euros and zero cents", this.moneyToStrEURENG.convertValue(2));
+    equal("three euros and zero cents", this.moneyToStrEURENG.convertValue(3));
+    equal("four euros and zero cents", this.moneyToStrEURENG.convertValue(4));
+    equal("five euros and zero cents", this.moneyToStrEURENG.convertValue(5));
+    equal("six euros and zero cents", this.moneyToStrEURENG.convertValue(6));
+    equal("seven euros and zero cents", this.moneyToStrEURENG.convertValue(7));
+    equal("eight euros and zero cents", this.moneyToStrEURENG.convertValue(8));
+    equal("nine euros and zero cents", this.moneyToStrEURENG.convertValue(9));
+    equal("ten euros and zero cents", this.moneyToStrEURENG.convertValue(10));
+    equal("eleven euros and zero cents", this.moneyToStrEURENG.convertValue(11));
+    equal("twelve euros and zero cents", this.moneyToStrEURENG.convertValue(12));
+    equal("thirteen euros and zero cents", this.moneyToStrEURENG.convertValue(13));
+    equal("twenty-seven trillion four hundred fifty-one billion six hundred thirty-two "
+        + "million four hundred fifty-nine thousand eight hundred seventy euros and forty-nine cents",
+    this.moneyToStrEURENG.convertValue(27451632459870.49));
 });

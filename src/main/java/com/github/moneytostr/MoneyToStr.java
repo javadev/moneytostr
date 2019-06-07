@@ -110,6 +110,9 @@ public class MoneyToStr {
 + " RubOneUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
 + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"
 + " />\n"
++ " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"RUS\""
++ " RubOneUnit=\"\u0435\u0432\u0440\u043E\" RubTwoUnit=\"\u0435\u0432\u0440\u043E\" RubFiveUnit=\"\u0435\u0432\u0440\u043E\" RubSex=\"M\" RubShortUnit=\"\u0435\u0432\u0440.\""
++ " KopOneUnit=\"\u0446\u0435\u043D\u0442\" KopTwoUnit=\"\u0446\u0435\u043D\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043D\u0442\u043E\u0432\" KopSex=\"M\" />"
 + "\n"
 + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"UKR\"\n"
 + " RubOneUnit=\"\u0440\u0443\u0431\u043b\u044c\" RubTwoUnit=\"\u0440\u0443\u0431\u043b\u0456\" RubFiveUnit=\"\u0440\u0443\u0431\u043b\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0440\u0443\u0431.\"\n"
@@ -123,6 +126,9 @@ public class MoneyToStr {
 + " RubOneUnit=\"\u0434\u043e\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u0430\u0440\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
 + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"
 + " />\n"
++ " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"UKR\""
++ " RubOneUnit=\"\u0454\u0432\u0440\u043E\" RubTwoUnit=\"\u0454\u0432\u0440\u043E\" RubFiveUnit=\"\u0454\u0432\u0440\u043E\" RubSex=\"M\" RubShortUnit=\"\u0454\u0432\u0440.\""
++ " KopOneUnit=\"\u0446\u0435\u043D\u0442\" KopTwoUnit=\"\u0446\u0435\u043D\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043D\u0442\u0456\u0432\" KopSex=\"M\" />"
 + "\n"
 + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"ENG\"\n"
 + " RubOneUnit=\"ruble\" RubTwoUnit=\"rubles\" RubFiveUnit=\"rubles\" RubSex=\"M\" RubShortUnit=\"RUR.\"\n"
@@ -136,6 +142,9 @@ public class MoneyToStr {
 + " RubOneUnit=\"dollar\" RubTwoUnit=\"dollars\" RubFiveUnit=\"dollars\" RubSex=\"M\" RubShortUnit=\"USD.\"\n"
 + " KopOneUnit=\"cent\" KopTwoUnit=\"cents\" KopFiveUnit=\"cents\" KopSex=\"M\"\n"
 + " />\n"
++ " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"ENG\""
++ " RubOneUnit=\"euro\" RubTwoUnit=\"euros\" RubFiveUnit=\"euros\" RubSex=\"M\" RubShortUnit=\"EUR.\""
++ " KopOneUnit=\"cent\" KopTwoUnit=\"cents\" KopFiveUnit=\"cents\" KopSex=\"M\" />"
 + "\n"
 + " <PER10 CurrID=\"556\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
 + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
@@ -235,6 +244,8 @@ public class MoneyToStr {
         /**.*/
         USD,
         /**.*/
+        EUR,
+        /**.*/
         PER10,
         /**.*/
         PER100,
@@ -269,7 +280,7 @@ public class MoneyToStr {
      *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
      * Definition for currency is placed into currlist.xml
      *
-     * @param currency the currency (UAH, RUR, USD)
+     * @param currency the currency (UAH, RUR, USD, EUR)
      * @param language the language (UKR, RUS, ENG)
      * @param pennies the pennies (NUMBER, TEXT)
      */
@@ -317,7 +328,7 @@ public class MoneyToStr {
      * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
      *     MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
      *
-     * @param currency the currency (UAH, RUR, USD)
+     * @param currency the currency (UAH, RUR, USD, EUR)
      * @param language the language (UKR, RUS, ENG)
      * @param pennies the pennies (NUMBER, TEXT)
      * @param names the custom names
@@ -616,7 +627,7 @@ public class MoneyToStr {
         String currency = "USD";
         String pennies = "TEXT";
         if (args.length == 0) {
-            System.out.println("Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd --pennies=text|number");
+            System.out.println("Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd|eur --pennies=text|number");
         } else {
             for (String arg : args) {
                 if (arg.startsWith("--amount=")) {
