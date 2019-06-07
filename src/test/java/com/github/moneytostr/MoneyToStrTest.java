@@ -96,6 +96,7 @@ public class MoneyToStrTest {
     private MoneyToStr moneyToStrUSD;
     private MoneyToStr moneyToStrUSDRUS;
     private MoneyToStr moneyToStrUSDENG;
+    private MoneyToStr moneyToStrEURRUS;
     private MoneyToStr moneyToStrPER100;
     private MoneyToStr moneyToStrPER1000;
     private MoneyToStr moneyToStrCustom;
@@ -112,6 +113,7 @@ public class MoneyToStrTest {
         moneyToStrUSD = new MoneyToStr(MoneyToStr.Currency.USD, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
         moneyToStrUSDRUS = new MoneyToStr(MoneyToStr.Currency.USD, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
         moneyToStrUSDENG = new MoneyToStr(MoneyToStr.Currency.USD, MoneyToStr.Language.ENG, MoneyToStr.Pennies.TEXT);
+        moneyToStrEURRUS = new MoneyToStr(MoneyToStr.Currency.EUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
         moneyToStrPER100 = new MoneyToStr(MoneyToStr.Currency.PER100, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
         moneyToStrPER1000 = new MoneyToStr(MoneyToStr.Currency.PER1000, MoneyToStr.Language.RUS, MoneyToStr.Pennies.TEXT);
         moneyToStrCustom = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER,
@@ -263,6 +265,17 @@ public class MoneyToStrTest {
                 moneyToStrUSDRUS.convert(V_234978637287197540L, V_12L));
     }
 
+    /** checkEURRUS. */
+    @Test
+    public void checkEURRUS() {
+        assertEquals("триста евро 00 центов", moneyToStrEURRUS.convert(V_300D));
+        assertEquals("девятьсот семьдесят восемь триллионов шестьсот тридцать семь миллиардов двести восемьдесят семь миллионов с"
+                + "то девяносто семь тысяч пятьсот сорок евро 12 центов", moneyToStrEURRUS.convert(V_978637287197540L, V_12L));
+        assertEquals("двести тридцать четыре ??? девятьсот семьдесят восемь триллионов шестьсот тридца"
+                + "ть семь миллиардов двести восемьдесят семь миллионов сто девяносто семь тысяч пятьсот сорок евро 12 центов",
+                moneyToStrEURRUS.convert(V_234978637287197540L, V_12L));
+    }
+
     /** checkUSD_ENG. */
     @Test
     public void checkUSDENG() {
@@ -308,9 +321,9 @@ public class MoneyToStrTest {
 
     }
 
-    /** checkEURRUS. */
+    /** checkEURRUSCustom. */
     @Test
-    public void checkEURRUS() {
+    public void checkEURRUSCustom() {
         assertEquals("триста евро 00 евроцентов", moneyToStrCustom.convert(V_300D));
         assertEquals("девятьсот семьдесят восемь триллионов шестьсот тридцать семь миллиардов двести восемьдесят семь миллионов с"
                 + "то девяносто семь тысяч пятьсот сорок евро 12 евроцентов", moneyToStrCustom.convert(V_978637287197540L, V_12L));
