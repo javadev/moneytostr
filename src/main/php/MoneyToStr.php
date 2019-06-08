@@ -2,7 +2,7 @@
 /*
  * $Id$
  *
- * Copyright 2014 Valentyn Kolesnikov
+ * Copyright 2014-2019 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -264,9 +264,9 @@ class MoneyToStr {
         "-CurrID" => "840",
         "-CurrName" => "Долари США",
         "-language" => "RUS",
-        "-RubOneUnit" => "долар",
-        "-RubTwoUnit" => "долара",
-        "-RubFiveUnit" => "доларів",
+        "-RubOneUnit" => "доллар",
+        "-RubTwoUnit" => "доллара",
+        "-RubFiveUnit" => "долларов",
         "-RubSex" => "M",
         "-KopOneUnit" => "цент",
         "-KopTwoUnit" => "цента",
@@ -293,6 +293,47 @@ class MoneyToStr {
         "-RubOneUnit" => "dollar",
         "-RubTwoUnit" => "dollars",
         "-RubFiveUnit" => "dollars",
+        "-RubSex" => "M",
+        "-KopOneUnit" => "cent",
+        "-KopTwoUnit" => "cents",
+        "-KopFiveUnit" => "cents",
+        "-KopSex" => "M"
+      )
+     ),
+    "EUR" => array(
+      array(
+        "-CurrID" => "840",
+        "-CurrName" => "Евро ЕС",
+        "-language" => "RUS",
+        "-RubOneUnit" => "евро",
+        "-RubTwoUnit" => "евро",
+        "-RubFiveUnit" => "евро",
+        "-RubSex" => "M",
+        "-KopOneUnit" => "цент",
+        "-KopTwoUnit" => "цента",
+        "-KopFiveUnit" => "центов",
+        "-KopSex" => "M"
+      ),
+      array(
+        "-CurrID" => "840",
+        "-CurrName" => "Евро ЕС",
+        "-language" => "UKR",
+        "-RubOneUnit" => "євро",
+        "-RubTwoUnit" => "євро",
+        "-RubFiveUnit" => "євро",
+        "-RubSex" => "M",
+        "-KopOneUnit" => "цент",
+        "-KopTwoUnit" => "цента",
+        "-KopFiveUnit" => "центів",
+        "-KopSex" => "M"
+      ),
+      array(
+        "-CurrID" => "840",
+        "-CurrName" => "Евро ЕС",
+        "-language" => "ENG",
+        "-RubOneUnit" => "euro",
+        "-RubTwoUnit" => "euros",
+        "-RubFiveUnit" => "euros",
         "-RubSex" => "M",
         "-KopOneUnit" => "cent",
         "-KopTwoUnit" => "cents",

@@ -78,6 +78,7 @@ class MoneyToStrTest {
     public function __construct() {
         $this->moneyToStrUAH = new MoneyToStr("UAH", "UKR", "NUMBER");
         $this->moneyToStrRUR = new MoneyToStr("RUR", "RUS", "NUMBER");
+        $this->moneyToStrEUR = new MoneyToStr("EUR", "RUS", "NUMBER");
         $this->moneyToStrUSDENG = new MoneyToStr("USD", "ENG", "TEXT");
         $this->moneyToStrPER100 = new MoneyToStr("PER100", "RUS", "TEXT");
         $this->moneyToStrPER1000 = new MoneyToStr("PER1000", "RUS", "TEXT");
@@ -144,6 +145,11 @@ class MoneyToStrTest {
         $this->assertEqual("семьсот семьдесят семь рублей 77 копеек", $this->moneyToStrRUR->convertValue(MoneyToStrTest::V_777_77D));
     }
 
+    #/** checkEUR. */
+    public function test_checkEUR() {
+        $this->assertEqual("семьсот семьдесят семь евро 77 центов", $this->moneyToStrEUR->convertValue(MoneyToStrTest::V_777_77D));
+    }
+
     #/** checkUSD_ENG. */
     public function test_checkUSDENG() {
         $this->assertEqual("one dollar and zero cents", $this->moneyToStrUSDENG->convertValue(1));
@@ -196,10 +202,11 @@ class MoneyToStrTest {
     $test = new MoneyToStrTest();
     $test->test_checkUAH();
     $test->test_checkRUR();
+    $test->test_checkEUR();
     $test->test_checkUSDENG();
     $test->test_checkPER100();
     $test->test_checkPER1000();
     $test->test_percentToStr();
     $test->test_checkPercentToStrRus();
-    echo "7 tests were passed, test_checkUAH(), test_checkRUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()\n";
+    echo "8 tests were passed, test_checkUAH(), test_checkRUR(), test_checkEUR(), test_checkUSDENG(), test_checkPER100(), test_checkPER1000(), test_percentToStr(), test_checkPercentToStrRus()\n";
 ?>
