@@ -17,7 +17,7 @@ Download [latest release](https://github.com/javadev/moneytostr-russian/releases
 <dependency>
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
-  <version>1.17</version>
+  <version>1.18</version>
 </dependency>
 ```
 or Gradle:
@@ -25,7 +25,7 @@ or Gradle:
 ```groovy
 dependencies {
   ...
-  compile 'com.github.javadev:moneytostr:1.17'
+  compile 'com.github.javadev:moneytostr:1.18'
   ...
 }
 ```
