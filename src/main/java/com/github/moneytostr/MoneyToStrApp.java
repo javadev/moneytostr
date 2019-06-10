@@ -628,7 +628,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jLabel4.setText(bundle.getString("pennies")); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD", "Custom" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD", "EUR", "Custom" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -1143,7 +1143,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         moneyToStrNum = new MoneyToStr(MoneyToStr.Currency.values()[jComboBox2.getSelectedIndex()],
                 MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
                 MoneyToStr.Pennies.NUMBER);
-        if (jComboBox2.getSelectedIndex() == 3) {
+        if (jComboBox2.getSelectedIndex() == 4) {
             String[] names = new String[8];
             names[0] = jTextField2.getText();
             names[1] = jTextField3.getText();
@@ -1160,7 +1160,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 MoneyToStr.Language.values()[jComboBox1.getSelectedIndex()],
                 MoneyToStr.Pennies.NUMBER, names);
         }
-        boolean isCustomCurrency = jComboBox2.getSelectedIndex() == 3;
+        boolean isCustomCurrency = jComboBox2.getSelectedIndex() == 4;
         jTextField2.setEnabled(isCustomCurrency);
         jTextField3.setEnabled(isCustomCurrency);
         jTextField4.setEnabled(isCustomCurrency);

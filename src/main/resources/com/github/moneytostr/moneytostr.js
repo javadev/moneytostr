@@ -23,6 +23,10 @@ var currencyList =
     "UKR": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "мінус"
+        },
+        {
           "-value": "0",
           "-text": "нуль"
         },
@@ -79,6 +83,10 @@ var currencyList =
     "RUS": {
       "item": [
         {
+          "-value": "minus",
+          "-text": "минус"
+        },
+        {
           "-value": "0",
           "-text": "ноль"
         },
@@ -134,6 +142,10 @@ var currencyList =
     },
     "ENG": {
       "item": [
+        {
+          "-value": "minus",
+          "-text": "minus"
+        },
         {
           "-value": "0",
           "-text": "zero"
@@ -312,6 +324,50 @@ var currencyList =
         "-RubOneUnit": "dollar",
         "-RubTwoUnit": "dollars",
         "-RubFiveUnit": "dollars",
+        "-RubSex": "M",
+        "-RubShortUnit": "USD.",
+        "-KopOneUnit": "cent",
+        "-KopTwoUnit": "cents",
+        "-KopFiveUnit": "cents",
+        "-KopSex": "M"
+      }
+    ],
+    "EUR": [
+      {
+        "-CurrID": "840",
+        "-CurrName": "Евро ЕС",
+        "-language": "RUS",
+        "-RubOneUnit": "евро",
+        "-RubTwoUnit": "евро",
+        "-RubFiveUnit": "евро",
+        "-RubSex": "M",
+        "-RubShortUnit": "евр.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цента",
+        "-KopFiveUnit": "центов",
+        "-KopSex": "M"
+      },
+      {
+        "-CurrID": "840",
+        "-CurrName": "Евро ЕС",
+        "-language": "UKR",
+        "-RubOneUnit": "євро",
+        "-RubTwoUnit": "євро",
+        "-RubFiveUnit": "євро",
+        "-RubSex": "M",
+        "-RubShortUnit": "дол.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цента",
+        "-KopFiveUnit": "центів",
+        "-KopSex": "M"
+      },
+      {
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "ENG",
+        "-RubOneUnit": "euro",
+        "-RubTwoUnit": "euros",
+        "-RubFiveUnit": "euros",
         "-RubSex": "M",
         "-RubShortUnit": "USD.",
         "-KopOneUnit": "cent",
@@ -503,6 +559,8 @@ var Currency = (function () {
 
     Currency.USD = 'USD';
 
+    Currency.EUR = 'EUR';
+
     Currency.PER10 = 'PER10';
 
     Currency.PER100 = 'PER100';
@@ -671,8 +729,8 @@ var MoneyToStr = (function () {
     }
 
     /**
-     * Converts number to currency. Usage: MoneyToStr moneyToStr = new MoneyToStr("UAH"); String result =
-     * moneyToStr.convert(123D); Expected: result = сто двадцять три гривні 00 копійок
+     * Converts number to currency. Usage: var moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+     * var result = moneyToStr.convertValue(123); Expected: result = сто двадцять три гривні 00 копійок
      *
      * @param theMoney
      *            the amount of money major currency
@@ -690,7 +748,7 @@ var MoneyToStr = (function () {
         var money2str = new StringBuilder();
         var triadNum = 0;
         var theTriad = 0;
-        var intPart = theMoney;
+        var intPart = Math.abs(theMoney);
         if (intPart == 0) {
             money2str.append(this.messages["0"][0] + " ");
         }
@@ -722,10 +780,15 @@ var MoneyToStr = (function () {
             triadNum++;
         } while (intPart > 0);
 
+        if (theMoney < 0) {
+            money2str.insert(0, this.messages["minus"][0] + " ");
+        }
         if (this.pennies == Pennies.TEXT) {
-            money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " : this.triad2Word(theKopeiki, 0, this.kopSex));
+            money2str.append(this.language == Language.ENG ? " and " : " ").append(theKopeiki == 0 ? this.messages["0"][0] + " " :
+                this.triad2Word(Math.abs(theKopeiki), 0, this.kopSex));
         } else {
-            money2str.append(" " + (theKopeiki < 10 ? "0" + theKopeiki : theKopeiki) + " ");
+            money2str.append(" " + (Math.abs(theKopeiki) < 10 ? "0" + Math.abs(theKopeiki) :
+                Math.abs(theKopeiki)) + " ");
         }
         if (theKopeiki >= MoneyToStr.NUM11 && theKopeiki <= MoneyToStr.NUM14) {
             money2str.append(this.kopFiveUnit);

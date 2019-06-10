@@ -666,7 +666,8 @@
                     <StringItem index="0" value="RUR"/>
                     <StringItem index="1" value="UAH"/>
                     <StringItem index="2" value="USD"/>
-                    <StringItem index="3" value="Custom"/>
+                    <StringItem index="3" value="EUR"/>
+                    <StringItem index="4" value="Custom"/>
                   </StringArray>
                 </Property>
               </Properties>
