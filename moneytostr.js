@@ -48,7 +48,7 @@ var currencyList =
         },
         {
           "-value": "10_19",
-          "-text": "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шiстнадцять,сiмнадцять,вiсiмнадцять,дев'ятнадцять"
+          "-text": "десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п’ятнадцять,шістнадцять,сімнадцять,вісімнадцять,дев’ятнадцять"
         },
         {
           "-value": "1",
@@ -332,6 +332,50 @@ var currencyList =
         "-KopSex": "M"
       }
     ],
+    "EUR": [
+      {
+        "-CurrID": "840",
+        "-CurrName": "Евро ЕС",
+        "-language": "RUS",
+        "-RubOneUnit": "евро",
+        "-RubTwoUnit": "евро",
+        "-RubFiveUnit": "евро",
+        "-RubSex": "M",
+        "-RubShortUnit": "евр.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цента",
+        "-KopFiveUnit": "центов",
+        "-KopSex": "M"
+      },
+      {
+        "-CurrID": "840",
+        "-CurrName": "Евро ЕС",
+        "-language": "UKR",
+        "-RubOneUnit": "євро",
+        "-RubTwoUnit": "євро",
+        "-RubFiveUnit": "євро",
+        "-RubSex": "M",
+        "-RubShortUnit": "дол.",
+        "-KopOneUnit": "цент",
+        "-KopTwoUnit": "цента",
+        "-KopFiveUnit": "центів",
+        "-KopSex": "M"
+      },
+      {
+        "-CurrID": "840",
+        "-CurrName": "Долари США",
+        "-language": "ENG",
+        "-RubOneUnit": "euro",
+        "-RubTwoUnit": "euros",
+        "-RubFiveUnit": "euros",
+        "-RubSex": "M",
+        "-RubShortUnit": "USD.",
+        "-KopOneUnit": "cent",
+        "-KopTwoUnit": "cents",
+        "-KopFiveUnit": "cents",
+        "-KopSex": "M"
+      }
+    ],
     "PER10": [
       {
         "-CurrID": "556",
@@ -514,6 +558,8 @@ var Currency = (function () {
     Currency.RUR = 'RUR';
 
     Currency.USD = 'USD';
+
+    Currency.EUR = 'EUR';
 
     Currency.PER10 = 'PER10';
 
