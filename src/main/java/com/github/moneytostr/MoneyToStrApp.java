@@ -1196,6 +1196,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     /**
      * @param args the command line arguments
+     * @throws Exception in case of exception
      */
     public static void main(String args[]) throws Exception {
         setLookAndFeel();
