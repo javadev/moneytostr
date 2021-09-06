@@ -203,10 +203,10 @@ public class MoneyToStrTest {
         assertEquals("тринадцять гривень 00 копійок", moneyToStrUAH.convert(V_13D));
         assertEquals("чотирнадцять гривень 00 копійок", moneyToStrUAH.convert(V_14D));
         assertEquals("п’ятнадцять гривень 00 копійок", moneyToStrUAH.convert(V_15D));
-        assertEquals("шiстнадцять гривень 00 копійок", moneyToStrUAH.convert(V_16D));
-        assertEquals("сiмнадцять гривень 00 копійок", moneyToStrUAH.convert(V_17D));
-        assertEquals("вiсiмнадцять гривень 00 копійок", moneyToStrUAH.convert(V_18D));
-        assertEquals("дев'ятнадцять гривень 00 копійок", moneyToStrUAH.convert(V_19D));
+        assertEquals("шістнадцять гривень 00 копійок", moneyToStrUAH.convert(V_16D));
+        assertEquals("сімнадцять гривень 00 копійок", moneyToStrUAH.convert(V_17D));
+        assertEquals("вісімнадцять гривень 00 копійок", moneyToStrUAH.convert(V_18D));
+        assertEquals("дев’ятнадцять гривень 00 копійок", moneyToStrUAH.convert(V_19D));
         assertEquals("одна гривня 00 копійок", moneyToStrUAH.convert(1D));
         assertEquals("дві гривні 00 копійок", moneyToStrUAH.convert(V_2D));
         assertEquals("тридцять одна гривня 00 копійок", moneyToStrUAH.convert(V_31D));

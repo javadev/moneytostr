@@ -93,10 +93,10 @@ test( "checkUAH", function() {
     equal("тринадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_13D));
     equal("чотирнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_14D));
     equal("п’ятнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_15D));
-    equal("шiстнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_16D));
-    equal("сiмнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_17D));
-    equal("вiсiмнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_18D));
-    equal("дев'ятнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_19D));
+    equal("шістнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_16D));
+    equal("сімнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_17D));
+    equal("вісімнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_18D));
+    equal("дев’ятнадцять гривень 00 копійок", this.moneyToStrUAH.convertValue(Const.V_19D));
     equal("одна гривня 00 копійок", this.moneyToStrUAH.convertValue(Const.V_1D));
     equal("дві гривні 00 копійок", this.moneyToStrUAH.convertValue(Const.V_2D));
     equal("тридцять одна гривня 00 копійок", this.moneyToStrUAH.convertValue(Const.V_31D));
