@@ -8,7 +8,7 @@ moneytostr
 [![Known Vulnerabilities](https://snyk.io/test/github/javadev/moneytostr/badge.svg?targetFile=pom.xml)](https://snyk.io/test/github/javadev/moneytostr?targetFile=pom.xml)
 
 
-The tool to convert amount to words in Russian/Ukrainian/English languages
+The tool to convert amount to words in Ukrainian/English/Russian languages
 
 ## Download
 
@@ -34,8 +34,8 @@ dependencies {
 ### Usage
 
 ```java
-MoneyToStr moneyToStr = new MoneyToStr(MoneyToStr.Currency.RUR, MoneyToStr.Language.RUS, MoneyToStr.Pennies.NUMBER);
+MoneyToStr moneyToStr = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
 moneyToStr.convert(777.77D)
 
-// семьсот семьдесят семь рублей 77 копеек
+// сімсот сімдесят сім гривень 77 копійок
 ```
