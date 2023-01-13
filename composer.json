@@ -1,5 +1,5 @@
 {
-	"name": "javadev/moneytostr-russian",
+	"name": "javadev/moneytostr",
 	"description": "The tool to convert amount to words in Ukrainian/English/Russian languages",
 	"keywords": ["money", "js", "php", "java"],
 	"type": "library",
