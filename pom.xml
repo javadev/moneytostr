@@ -4,9 +4,9 @@
     <groupId>com.github</groupId>
     <artifactId>moneytostr</artifactId>
     <packaging>jar</packaging>
-    <version>1.18-SNAPSHOT</version>
+    <version>1.19-SNAPSHOT</version>
     <name>moneytostr</name>
-    <description>The utility class to convert amount to words in Russian/Ukrainian/English languages</description>
+    <description>The utility class to convert amount to words in Ukrainian/English/Russian languages</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -96,7 +96,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.8</version>
                 <configuration>
                     <excludes>
                         <exclude>**/MoneyToStrApp*.class</exclude>
@@ -186,7 +186,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>[4.13.2,)</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
