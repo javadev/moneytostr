@@ -6,7 +6,7 @@
     "Compare",
     "Strings"
   ],
-  "homepage": "https://github.com/javadev/moneytostr-russian",
+  "homepage": "https://github.com/javadev/moneytostr",
   "author": "Valentyn Kolesnikov",
   "contributors": [
     "Valentyn Kolesnikov"
@@ -15,8 +15,8 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/javadev/moneytostr-russian.git"
+    "url": "https://github.com/javadev/moneytostr.git"
   },
-  "bugs:": "https://github.com/javadev/moneytostr-russian/issues",
+  "bugs:": "https://github.com/javadev/moneytostr/issues",
   "main": "./src/main/js/moneytostr.js"
 }
