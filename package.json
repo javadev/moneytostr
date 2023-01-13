@@ -1,7 +1,7 @@
 {
   "name": "moneytostr",
   "version": "1.0.0",
-  "description": "The utility class to convert amount to words in Russian/Ukrainian/English languages",
+  "description": "The utility class to convert amount to words in Ukrainian/English/Russian languages",
   "keywords": [
     "Compare",
     "Strings"
