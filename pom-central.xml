@@ -7,8 +7,8 @@
   <packaging>jar</packaging>
   <version>1.19</version>
   <name>moneytostr</name>
-  <description>The utility class to convert amount to words in Russian/Ukrainian/English languages</description>
-  <url>https://github.com/javadev/moneytostr-russian</url>
+  <description>The utility class to convert amount to words in Ukrainian/English/Russian languages</description>
+  <url>https://github.com/javadev/moneytostr</url>
   
   <developers>
     <developer>
@@ -25,9 +25,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git://github.com/javadev/moneytostr-russian.git</connection>
-    <developerConnection>scm:git:git://github.com/javadev/moneytostr-russian.git</developerConnection>
-    <url>https://github.com/javadev/moneytostr-russian</url>
+    <connection>scm:git:git://github.com/javadev/moneytostr.git</connection>
+    <developerConnection>scm:git:git://github.com/javadev/moneytostr.git</developerConnection>
+    <url>https://github.com/javadev/moneytostr</url>
   </scm>
 
   <properties>
@@ -35,13 +35,13 @@
   </properties>
 
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/javadev/moneytostr-russian</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/javadev/moneytostr/actions</url>
   </ciManagement>
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/javadev/moneytostr-russian</url>
+    <url>https://github.com/javadev/moneytostr</url>
   </issueManagement>
 
   <build>
@@ -133,7 +133,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
