@@ -412,18 +412,18 @@ public class MoneyToStr {
         Long intPart = amount.longValue();
         Long fractPart = 0L;
         String result;
-        if (amount.floatValue() == amount.intValue()) {
+        String amountStr = Double.toString(amount);
+        int decimalIndex = amountStr.indexOf('.');
+        int fractCount = amountStr.length() - decimalIndex - 1;
+        if (decimalIndex<0) {
             result = new MoneyToStr(Currency.PER10, lang, pennies).convert(amount.longValue(), 0L);
-        } else if (Double.valueOf(amount * NUM10).floatValue()
-                == Double.valueOf(amount * NUM10).intValue()) {
+        } else if (fractCount==1) {
             fractPart = Math.round((amount - intPart) * NUM10);
             result = new MoneyToStr(Currency.PER10, lang, pennies).convert(intPart, fractPart);
-        } else if (Double.valueOf(amount * NUM100).floatValue()
-                == Double.valueOf(amount * NUM100).intValue()) {
+        } else if (fractCount==2) {
             fractPart = Math.round((amount - intPart) * NUM100);
             result = new MoneyToStr(Currency.PER100, lang, pennies).convert(intPart, fractPart);
-        } else if (Double.valueOf(amount * NUM1000).floatValue()
-                == Double.valueOf(amount * NUM1000).intValue()) {
+        } else if (fractCount==3) {
             fractPart = Math.round((amount - intPart) * NUM1000);
             result = new MoneyToStr(Currency.PER1000, lang, pennies).convert(intPart, fractPart);
         } else {
