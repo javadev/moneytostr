@@ -496,6 +496,9 @@ public class MoneyToStrTest {
         assertEquals(
                 "двенадцать целых, триста сорок шесть тысячных процента",
                 MoneyToStr.percentToStr(12.346, MoneyToStr.Language.RUS));
+        assertEquals(
+                "шестнадцать целых, сто восемьдесят восемь тысячных процента",
+                MoneyToStr.percentToStr(16.188, MoneyToStr.Language.RUS));
     }
 
     /** check main. */
