@@ -18,7 +18,7 @@ Download [latest release](https://github.com/javadev/moneytostr/releases) or gra
 <dependency>
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
-  <version>1.19</version>
+  <version>1.20</version>
 </dependency>
 ```
 or Gradle:
@@ -26,7 +26,7 @@ or Gradle:
 ```groovy
 dependencies {
   ...
-  compile 'com.github.javadev:moneytostr:1.19'
+  compile 'com.github.javadev:moneytostr:1.20'
   ...
 }
 ```
