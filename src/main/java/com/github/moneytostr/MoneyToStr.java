@@ -17,6 +17,8 @@
  */
 package com.github.moneytostr;
 
+import java.math.BigDecimal;
+
 /**
  * Converts numbers to symbols.
  *
@@ -422,8 +424,7 @@ public class MoneyToStr {
                 == Double.valueOf(amount * NUM100).intValue()) {
             fractPart = Math.round((amount - intPart) * NUM100);
             result = new MoneyToStr(Currency.PER100, lang, pennies).convert(intPart, fractPart);
-        } else if (Double.valueOf(amount * NUM1000).floatValue()
-                == Double.valueOf(amount * NUM1000).intValue()) {
+        } else if (BigDecimal.valueOf(amount).scale() <= 3) {
             fractPart = Math.round((amount - intPart) * NUM1000);
             result = new MoneyToStr(Currency.PER1000, lang, pennies).convert(intPart, fractPart);
         } else {
