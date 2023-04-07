@@ -24,11 +24,8 @@ Download [latest release](https://github.com/javadev/moneytostr/releases) or gra
 or Gradle:
 
 ```groovy
-dependencies {
-  ...
-  compile 'com.github.javadev:moneytostr:1.20'
-  ...
-}
+implementation 'com.github.javadev:moneytostr:1.20'
+
 ```
 
 ### Usage
