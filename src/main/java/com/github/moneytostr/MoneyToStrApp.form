@@ -37,6 +37,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane6">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="16" style="0"/>
+        </Property>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -77,7 +82,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" pref="636" max="32767" attributes="0"/>
+                              <Component id="jTextField1" pref="590" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jTabbedPane1" alignment="0" max="32767" attributes="1"/>
                       </Group>
@@ -151,6 +156,11 @@
           </Layout>
           <SubComponents>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -173,6 +183,9 @@
                     <Component class="javax.swing.JTextArea" name="jTextArea7">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Monospaced" size="14" style="0"/>
+                        </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -181,6 +194,11 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -203,6 +221,9 @@
                     <Component class="javax.swing.JTextArea" name="jTextArea1">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Monospaced" size="14" style="0"/>
+                        </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -212,12 +233,20 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="enterTheDigitalAmount" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -240,6 +269,9 @@
                     <Component class="javax.swing.JTextArea" name="jTextArea4">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Monospaced" size="14" style="0"/>
+                        </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -248,6 +280,11 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane4">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -270,6 +307,9 @@
                     <Component class="javax.swing.JTextArea" name="jTextArea5">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Monospaced" size="14" style="0"/>
+                        </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -278,6 +318,11 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
+              </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
@@ -300,6 +345,9 @@
                     <Component class="javax.swing.JTextArea" name="jTextArea6">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Monospaced" size="14" style="0"/>
+                        </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
                     </Component>
@@ -507,7 +555,7 @@
                                   <Component id="jComboBox5" max="32767" attributes="0"/>
                                   <Component id="jComboBox2" max="32767" attributes="1"/>
                                   <Component id="jComboBox3" alignment="1" max="32767" attributes="1"/>
-                                  <Component id="jComboBox4" alignment="1" pref="658" max="32767" attributes="0"/>
+                                  <Component id="jComboBox4" alignment="1" pref="628" max="32767" attributes="0"/>
                                   <Component id="jComboBox1" max="32767" attributes="1"/>
                                   <Component id="jComboBox6" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -530,7 +578,7 @@
                                   <Component id="jTextField5" max="32767" attributes="0"/>
                                   <Component id="jTextField4" max="32767" attributes="0"/>
                                   <Component id="jTextField2" max="32767" attributes="0"/>
-                                  <Component id="jTextField3" pref="659" max="32767" attributes="0"/>
+                                  <Component id="jTextField3" pref="629" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jComboBox8" min="-2" max="-2" attributes="0"/>
@@ -618,7 +666,7 @@
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="207" max="32767" attributes="0"/>
+                      <EmptySpace pref="147" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -626,6 +674,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="language" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -633,11 +684,14 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
-                    <StringItem index="0" value="&#x420;&#x443;&#x441;&#x441;&#x43a;&#x438;&#x439;"/>
-                    <StringItem index="1" value="&#x423;&#x43a;&#x440;&#x430;&#x438;&#x43d;&#x441;&#x43a;&#x438;&#x439;"/>
-                    <StringItem index="2" value="&#x410;&#x43d;&#x433;&#x43b;&#x438;&#x439;&#x441;&#x438;&#x43a;&#x439;"/>
+                    <StringItem index="0" value="&#x423;&#x43a;&#x440;&#x430;&#x438;&#x43d;&#x441;&#x43a;&#x438;&#x439;"/>
+                    <StringItem index="1" value="&#x410;&#x43d;&#x433;&#x43b;&#x438;&#x439;&#x441;&#x438;&#x43a;&#x439;"/>
+                    <StringItem index="2" value="&#x420;&#x443;&#x441;&#x441;&#x43a;&#x438;&#x439;"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -647,6 +701,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="currency" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -654,6 +711,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="pennies" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -661,13 +721,15 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox2">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
-                    <StringItem index="0" value="RUR"/>
-                    <StringItem index="1" value="UAH"/>
-                    <StringItem index="2" value="USD"/>
-                    <StringItem index="3" value="EUR"/>
-                    <StringItem index="4" value="Custom"/>
+                    <StringItem index="0" value="UAH"/>
+                    <StringItem index="1" value="USD"/>
+                    <StringItem index="2" value="EUR"/>
+                    <StringItem index="3" value="RUR"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -677,6 +739,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox3">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
                     <StringItem index="0" value="&#x426;&#x438;&#x444;&#x440;&#x430;&#x43c;&#x438;"/>
@@ -690,6 +755,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="toCopyToTheBuffer" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -697,6 +765,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox4">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
                     <StringItem index="0" value="&#x43d;&#x435; &#x43a;&#x43e;&#x43f;&#x438;&#x440;&#x43e;&#x432;&#x430;&#x442;&#x44c;"/>
@@ -714,6 +785,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="vat" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -721,6 +795,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox5">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="6">
                     <StringItem index="0" value="10%"/>
@@ -739,6 +816,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="interfaceLanguage" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -746,10 +826,13 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox6">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="&#x420;&#x443;&#x441;&#x441;&#x43a;&#x438;&#x439;"/>
-                    <StringItem index="1" value="&#x423;&#x43a;&#x440;&#x430;&#x438;&#x43d;&#x441;&#x43a;&#x438;&#x439;"/>
+                    <StringItem index="0" value="&#x423;&#x43a;&#x440;&#x430;&#x438;&#x43d;&#x441;&#x43a;&#x438;&#x439;"/>
+                    <StringItem index="1" value="&#x420;&#x443;&#x441;&#x441;&#x43a;&#x438;&#x439;"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -759,6 +842,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="kopTwoUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -766,6 +852,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField5">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;"/>
               </Properties>
               <Events>
@@ -774,6 +863,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="rubFiveUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -781,6 +873,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="rubTwoUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -788,6 +883,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField3">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;"/>
               </Properties>
               <Events>
@@ -796,6 +894,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;"/>
               </Properties>
               <Events>
@@ -804,6 +905,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="kopOneUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -811,6 +915,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="rubOneUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -818,6 +925,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField4">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;"/>
               </Properties>
               <Events>
@@ -826,6 +936,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="kopFiveUnit" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -833,6 +946,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField7">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&#x43e;&#x432;"/>
               </Properties>
               <Events>
@@ -841,6 +957,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField6">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="&#x435;&#x432;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&#x430;"/>
               </Properties>
               <Events>
@@ -849,6 +968,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="rubSex" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -856,6 +978,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox7">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
                     <StringItem index="0" value="M"/>
@@ -869,6 +994,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="com/github/moneytostr/messages_ru.properties" key="kopSex" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
@@ -876,6 +1004,9 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox8">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
                     <StringItem index="0" value="M"/>
@@ -908,7 +1039,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jTabbedPane7" alignment="0" pref="614" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane7" alignment="0" pref="653" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -916,6 +1047,9 @@
             <Container class="javax.swing.JTabbedPane" name="jTabbedPane7">
               <Properties>
                 <Property name="tabPlacement" type="int" value="2"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="16" style="0"/>
+                </Property>
               </Properties>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -943,7 +1077,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -972,7 +1106,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1001,7 +1135,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1030,7 +1164,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1059,7 +1193,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1088,7 +1222,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1117,7 +1251,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1146,7 +1280,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1175,7 +1309,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1204,7 +1338,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1233,7 +1367,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -1262,7 +1396,7 @@
                           <Border info="null"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="SansSerif" size="14" style="0"/>
+                          <Font name="SansSerif" size="16" style="0"/>
                         </Property>
                       </Properties>
                     </Component>
