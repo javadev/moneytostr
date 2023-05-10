@@ -421,47 +421,65 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/github/moneytostr/messages_ru"); // NOI18N
         setTitle(bundle.getString("MONEYTOSTR")); // NOI18N
 
+        jTabbedPane6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setMaximumSize(new java.awt.Dimension(610, 444));
         jPanel2.setPreferredSize(new java.awt.Dimension(662, 447));
 
+        jTabbedPane3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea7.setColumns(20);
+        jTextArea7.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jTextArea7.setRows(5);
         jScrollPane7.setViewportView(jTextArea7);
 
         jTabbedPane3.addTab(bundle.getString("fromCapitalLetter"), jScrollPane7); // NOI18N
 
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
         jTabbedPane1.addTab(bundle.getString("result"), jScrollPane3); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel2.setText(bundle.getString("enterTheDigitalAmount")); // NOI18N
+
+        jTabbedPane2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea4.setColumns(20);
+        jTextArea4.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jTextArea4.setRows(5);
         jScrollPane4.setViewportView(jTextArea4);
 
         jTabbedPane2.addTab(bundle.getString("penniesByDigits"), jScrollPane4); // NOI18N
 
+        jTabbedPane4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea5.setColumns(20);
+        jTextArea5.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jTextArea5.setRows(5);
         jScrollPane5.setViewportView(jTextArea5);
 
         jTabbedPane4.addTab(bundle.getString("withVat"), jScrollPane5); // NOI18N
 
+        jTabbedPane5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         jScrollPane6.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea6.setColumns(20);
+        jTextArea6.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jTextArea6.setRows(5);
         jScrollPane6.setViewportView(jTextArea6);
 
@@ -561,7 +579,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jTextField1, 0, 636, Short.MAX_VALUE))
+                        .add(jTextField1, 0, 590, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -615,26 +633,32 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTabbedPane6.addTab(bundle.getString("converter"), jPanel2); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel1.setText(bundle.getString("language")); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Русский", "Украинский", "Английсикй" }));
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Украинский", "Английсикй", "Русский" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText(bundle.getString("currency")); // NOI18N
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel4.setText(bundle.getString("pennies")); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "RUR", "UAH", "USD", "EUR", "Custom" }));
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "UAH", "USD", "EUR", "RUR" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
             }
         });
 
+        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Цифрами", "Прописью" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -642,8 +666,10 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel5.setText(bundle.getString("toCopyToTheBuffer")); // NOI18N
 
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "не копировать", "Результат", "С заглавной буквы", "С НДС", "С НДС прописью", "Копейки цифрами" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,8 +677,10 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel6.setText(bundle.getString("vat")); // NOI18N
 
+        jComboBox5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10%", "12%", "18%", "20%", "22%", "25%" }));
         jComboBox5.setSelectedIndex(2);
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
@@ -661,17 +689,21 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel7.setText(bundle.getString("interfaceLanguage")); // NOI18N
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Русский", "Украинский" }));
+        jComboBox6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Украинский", "Русский" }));
         jComboBox6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox6ActionPerformed(evt);
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel12.setText(bundle.getString("kopTwoUnit")); // NOI18N
 
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField5.setText("евроцент");
         jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -679,10 +711,13 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setText(bundle.getString("rubFiveUnit")); // NOI18N
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel9.setText(bundle.getString("rubTwoUnit")); // NOI18N
 
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField3.setText("евро");
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -690,6 +725,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField2.setText("евро");
         jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -697,10 +733,13 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel11.setText(bundle.getString("kopOneUnit")); // NOI18N
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel8.setText(bundle.getString("rubOneUnit")); // NOI18N
 
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField4.setText("евро");
         jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -708,8 +747,10 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel13.setText(bundle.getString("kopFiveUnit")); // NOI18N
 
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField7.setText("евроцентов");
         jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -717,6 +758,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField6.setText("евроцента");
         jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -724,8 +766,10 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel14.setText(bundle.getString("rubSex")); // NOI18N
 
+        jComboBox7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
         jComboBox7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -733,8 +777,10 @@ public class MoneyToStrApp extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel15.setText(bundle.getString("kopSex")); // NOI18N
 
+        jComboBox8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M", "F" }));
         jComboBox8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -762,7 +808,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                             .add(jComboBox5, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jComboBox2, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 658, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox4, 0, 628, Short.MAX_VALUE)
                             .add(jComboBox1, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jComboBox6, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(jPanel1Layout.createSequentialGroup()
@@ -782,7 +828,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                             .add(jTextField5)
                             .add(jTextField4)
                             .add(jTextField2)
-                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                            .add(jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jComboBox8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -849,18 +895,19 @@ public class MoneyToStrApp extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel7)
                     .add(jComboBox6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         jTabbedPane6.addTab(bundle.getString("settings"), jPanel1); // NOI18N
 
         jTabbedPane7.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPane7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jScrollPane1.setBorder(null);
 
         jTextPane1.setEditable(false);
         jTextPane1.setBorder(null);
-        jTextPane1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane1.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane1.setViewportView(jTextPane1);
 
         jTabbedPane7.addTab("c#", jScrollPane1);
@@ -869,7 +916,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane12.setEditable(false);
         jTextPane12.setBorder(null);
-        jTextPane12.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane12.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane17.setViewportView(jTextPane12);
 
         jTabbedPane7.addTab("c++", jScrollPane17);
@@ -878,7 +925,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane11.setEditable(false);
         jTextPane11.setBorder(null);
-        jTextPane11.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane11.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane16.setViewportView(jTextPane11);
 
         jTabbedPane7.addTab("coffeescript", jScrollPane16);
@@ -887,7 +934,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane2.setEditable(false);
         jTextPane2.setBorder(null);
-        jTextPane2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane2.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane2.setViewportView(jTextPane2);
 
         jTabbedPane7.addTab("dart", jScrollPane2);
@@ -896,7 +943,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane10.setEditable(false);
         jTextPane10.setBorder(null);
-        jTextPane10.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane10.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane15.setViewportView(jTextPane10);
 
         jTabbedPane7.addTab("groovy", jScrollPane15);
@@ -905,7 +952,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane3.setEditable(false);
         jTextPane3.setBorder(null);
-        jTextPane3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane8.setViewportView(jTextPane3);
 
         jTabbedPane7.addTab("java", jScrollPane8);
@@ -914,7 +961,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane4.setEditable(false);
         jTextPane4.setBorder(null);
-        jTextPane4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane4.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane9.setViewportView(jTextPane4);
 
         jTabbedPane7.addTab("js", jScrollPane9);
@@ -923,7 +970,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane5.setEditable(false);
         jTextPane5.setBorder(null);
-        jTextPane5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane10.setViewportView(jTextPane5);
 
         jTabbedPane7.addTab("php", jScrollPane10);
@@ -932,7 +979,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane6.setEditable(false);
         jTextPane6.setBorder(null);
-        jTextPane6.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane6.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane11.setViewportView(jTextPane6);
 
         jTabbedPane7.addTab("python", jScrollPane11);
@@ -941,7 +988,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane7.setEditable(false);
         jTextPane7.setBorder(null);
-        jTextPane7.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane12.setViewportView(jTextPane7);
 
         jTabbedPane7.addTab("ruby", jScrollPane12);
@@ -950,7 +997,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane8.setEditable(false);
         jTextPane8.setBorder(null);
-        jTextPane8.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane8.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane13.setViewportView(jTextPane8);
 
         jTabbedPane7.addTab("scala", jScrollPane13);
@@ -959,7 +1006,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
 
         jTextPane9.setEditable(false);
         jTextPane9.setBorder(null);
-        jTextPane9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jTextPane9.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jScrollPane14.setViewportView(jTextPane9);
 
         jTabbedPane7.addTab("typescript", jScrollPane14);
@@ -968,11 +1015,11 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 825, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+            .add(jTabbedPane7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
         );
 
         jTabbedPane6.addTab(bundle.getString("sourceCodes"), jPanel3); // NOI18N
@@ -1059,9 +1106,9 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void setupLanguage(int selected) {
         if (selected == 1) {
-            java.util.Locale.setDefault(new java.util.Locale("ua"));
-        } else {
             java.util.Locale.setDefault(new java.util.Locale("ru"));
+        } else {
+            java.util.Locale.setDefault(new java.util.Locale("ua"));
         }
         int selectedIndex = jTabbedPane6.getSelectedIndex();
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("com/github/moneytostr/messages"); // NOI18N

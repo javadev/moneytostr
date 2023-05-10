@@ -243,13 +243,13 @@ public class MoneyToStr {
     /** Currency. */
     public enum Currency {
         /** . */
-        RUR,
-        /** . */
         UAH,
         /** . */
         USD,
         /** . */
         EUR,
+        /** . */
+        RUR,
         /** . */
         PER10,
         /** . */
@@ -265,11 +265,11 @@ public class MoneyToStr {
     /** Language. */
     public enum Language {
         /** . */
-        RUS,
-        /** . */
         UKR,
         /** . */
-        ENG
+        ENG,
+        /** . */
+        RUS
     }
 
     /** Pennies. */
