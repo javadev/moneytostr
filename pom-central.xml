@@ -5,7 +5,7 @@
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
   <packaging>jar</packaging>
-  <version>1.20</version>
+  <version>1.21</version>
   <name>moneytostr</name>
   <description>The utility class to convert amount to words in Ukrainian/English/Russian languages</description>
   <url>https://github.com/javadev/moneytostr</url>
