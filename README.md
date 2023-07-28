@@ -18,13 +18,13 @@ Download [latest release](https://github.com/javadev/moneytostr/releases) or gra
 <dependency>
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
-  <version>1.20</version>
+  <version>1.21</version>
 </dependency>
 ```
 or Gradle:
 
 ```groovy
-implementation 'com.github.javadev:moneytostr:1.20'
+implementation 'com.github.javadev:moneytostr:1.21'
 
 ```
 
