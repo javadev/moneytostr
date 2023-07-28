@@ -1,7 +1,7 @@
 moneytostr
 ==========
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/moneytostr.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.javadev%22%20AND%20a%3A%22moneytostr%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/moneytostr?style=flat-square)](https://central.sonatype.com/artifact/com.github.javadev/moneytostr/1.21)
 [![Java CI](https://github.com/javadev/moneytostr/actions/workflows/maven.yml/badge.svg)](https://github.com/javadev/moneytostr/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/javadev/moneytostr/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/javadev/moneytostr/actions/workflows/codeql-analysis.yml)
 [![Coverage Status](https://coveralls.io/repos/javadev/moneytostr-russian/badge.svg)](https://coveralls.io/r/javadev/moneytostr-russian)
