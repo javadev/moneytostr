@@ -30,14 +30,6 @@ implementation 'com.github.javadev:moneytostr:1.21'
 
 MoneyToStr - Java Class
 
-Usage:
-
-```java
-MoneyToStr moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
-String result = moneyToStr.convert(123D);
-// Expected: result = сто двадцять три гривні 00 копійок
-```
-
 Class Overview:
 The MoneyToStr class provides methods to convert numeric values into text representations of currency in various languages.
 
@@ -56,8 +48,10 @@ Public Methods:
 - String convert(Long theMoney, Long theKopeiki): Converts an amount to words.
 
 Usage Example:
+
 ```java
 MoneyToStr moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
 String result = moneyToStr.convert(123D);
-System.out.println(result);
+// Expected: result = сто двадцять три гривні 00 копійок
 ```
+
