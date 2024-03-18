@@ -28,11 +28,33 @@ implementation 'com.github.javadev:moneytostr:1.21'
 
 ```
 
-### Usage
+MoneyToStr - Java Class
 
+Usage:
+MoneyToStr moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+String result = moneyToStr.convert(123D);
+// Expected: result = сто двадцять три гривні 00 копійок
+
+Class Overview:
+The MoneyToStr class provides methods to convert numeric values into text representations of currency in various languages.
+
+Dependencies:
+- Java Standard Library
+
+Public Classes:
+- MoneyToStr: Main class for converting numbers to symbols.
+- MoneyToStr.Currency: Enum representing different currencies.
+- MoneyToStr.Language: Enum representing different languages.
+- MoneyToStr.Pennies: Enum representing pennies as numbers or text.
+
+Public Methods:
+- MoneyToStr(Currency currency, Language language, Pennies pennies): Constructor to initialize the MoneyToStr object with currency, language, and pennies.
+- String convert(Double theMoney): Converts a double value to a text description of the money value.
+- String convert(Long theMoney, Long theKopeiki): Converts an amount to words.
+
+Usage Example:
 ```java
-MoneyToStr moneyToStr = new MoneyToStr(MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
-moneyToStr.convert(777.77D)
-
-// сімсот сімдесят сім гривень 77 копійок
+MoneyToStr moneyToStr = new MoneyToStr(Currency.UAH, Language.UKR, Pennies.NUMBER);
+String result = moneyToStr.convert(123D);
+System.out.println(result);
 ```
