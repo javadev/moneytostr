@@ -91,6 +91,7 @@ public class MoneyToStrTest {
     private MoneyToStr moneyToStrUAH;
     private MoneyToStr moneyToStrUAHRUS;
     private MoneyToStr moneyToStrUAHENG;
+    private MoneyToStr moneyToStrPLZPOL;
     private MoneyToStr moneyToStrRUR;
     private MoneyToStr moneyToStrRURRUS;
     private MoneyToStr moneyToStrRURENG;
@@ -119,6 +120,11 @@ public class MoneyToStrTest {
                 new MoneyToStr(
                         MoneyToStr.Currency.UAH,
                         MoneyToStr.Language.ENG,
+                        MoneyToStr.Pennies.NUMBER);
+        moneyToStrPLZPOL =
+                new MoneyToStr(
+                        MoneyToStr.Currency.PLZ,
+                        MoneyToStr.Language.POL,
                         MoneyToStr.Pennies.NUMBER);
         moneyToStrRUR =
                 new MoneyToStr(
@@ -231,6 +237,65 @@ public class MoneyToStrTest {
         assertEquals("одна гривня 12 копійок", moneyToStrUAH.convert(V_1_12D));
         assertEquals("одна гривня 13 копійок", moneyToStrUAH.convert(V_1_13D));
         assertEquals("одна гривня 14 копійок", moneyToStrUAH.convert(V_1_14D));
+    }
+
+    @Test
+    public void checkPLZPOL() {
+        assertEquals("trzysta złotych 00 groszy", moneyToStrPLZPOL.convert(V_300D));
+        assertEquals(
+                "dziewięćset siedemdziesiąt osiem trylionów sześćset "
+                        + "trzydzieści siedem miliardów "
+                        + "dwieście osiemdziesiąt siedem milionów sto "
+                        + "dziewięćdziesiąt siedem tysięcy "
+                        + "pięćset czterdzieści złotych 12 groszy",
+                moneyToStrPLZPOL.convert(V_978637287197540L, V_12L));
+        assertEquals(
+                "dwieście trzydzieści cztery ??? dziewięćset siedemdziesiąt osiem trylionów sześćset "
+                        + "trzydzieści siedem miliardów dwieście osiemdziesiąt siedem milionów sto "
+                        + "dziewięćdziesiąt siedem tysięcy "
+                        + "pięćset czterdzieści złotych 12 groszy",
+                moneyToStrPLZPOL.convert(V_234978637287197540L, V_12L));
+        assertEquals("jedenaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_11D));
+        assertEquals("dwanaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_12D));
+        assertEquals("jedenaście złotych 12 groszy", moneyToStrPLZPOL.convert(V_11_12D));
+        assertEquals("dwanaście złotych 11 groszy", moneyToStrPLZPOL.convert(V_12_11D));
+        assertEquals("trzysta złotych 00 groszy", moneyToStrPLZPOL.convert(V_300D));
+        assertEquals("czterysta złotych 00 groszy", moneyToStrPLZPOL.convert(V_400D));
+        assertEquals("siedemset złotych 00 groszy", moneyToStrPLZPOL.convert(V_700D));
+        assertEquals("osiemset złotych 00 groszy", moneyToStrPLZPOL.convert(V_800D));
+        assertEquals("pięćdziesiąt złotych 00 groszy", moneyToStrPLZPOL.convert(V_50D));
+        assertEquals("sześćdziesiąt złotych 00 groszy", moneyToStrPLZPOL.convert(60D));
+        assertEquals("trzynaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_13D));
+        assertEquals("czternaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_14D));
+        assertEquals("piętnaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_15D));
+        assertEquals("szesnaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_16D));
+        assertEquals("siedemnaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_17D));
+        assertEquals("osiemnaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_18D));
+        assertEquals("dziewiętnaście złotych 00 groszy", moneyToStrPLZPOL.convert(V_19D));
+        assertEquals("jeden złotych 00 groszy", moneyToStrPLZPOL.convert(1D));
+        assertEquals("dwie złote 00 groszy", moneyToStrPLZPOL.convert(V_2D));
+        assertEquals("trzydzieści jeden złotych 00 groszy", moneyToStrPLZPOL.convert(V_31D));
+        assertEquals("trzydzieści dwie złote 00 groszy", moneyToStrPLZPOL.convert(V_32D));
+        assertEquals("jeden tysiąc złotych 00 groszy", moneyToStrPLZPOL.convert(1000D));
+        assertEquals("dwie tysiące złotych 00 groszy", moneyToStrPLZPOL.convert(V_2000D));
+        assertEquals("pięć tysięcy złotych 00 groszy", moneyToStrPLZPOL.convert(V_5000D));
+        assertEquals("jeden milion złotych 00 groszy", moneyToStrPLZPOL.convert(V_1000000D));
+        assertEquals("dwa miliony złotych 00 groszy", moneyToStrPLZPOL.convert(V_2000000D));
+        assertEquals("pięć milionów złotych 00 groszy", moneyToStrPLZPOL.convert(V_5000000D));
+        assertEquals("jeden miliard złotych 00 groszy", moneyToStrPLZPOL.convert(V_1000000000D));
+        assertEquals("dwa miliardy złotych 00 groszy", moneyToStrPLZPOL.convert(V_2000000000D));
+        assertEquals("pięć miliardów złotych 00 groszy", moneyToStrPLZPOL.convert(V_5000000000D));
+        assertEquals("jeden trylion złotych 00 groszy", moneyToStrPLZPOL.convert(V_1000000000000D));
+        assertEquals("dwa tryliony złotych 00 groszy", moneyToStrPLZPOL.convert(V_2000000000000D));
+        assertEquals(
+                "pięć trylionów złotych 00 groszy", moneyToStrPLZPOL.convert(V_5000000000000D));
+        assertEquals("jeden złotych 01 grosz", moneyToStrPLZPOL.convert(V_1_01D));
+        assertEquals("jeden złotych 02 grosze", moneyToStrPLZPOL.convert(V_1_02D));
+        assertEquals("jeden złotych 10 groszy", moneyToStrPLZPOL.convert(V_1_10D));
+        assertEquals("jeden złotych 11 groszy", moneyToStrPLZPOL.convert(V_1_11D));
+        assertEquals("jeden złotych 12 groszy", moneyToStrPLZPOL.convert(V_1_12D));
+        assertEquals("jeden złotych 13 groszy", moneyToStrPLZPOL.convert(V_1_13D));
+        assertEquals("jeden złotych 14 groszy", moneyToStrPLZPOL.convert(V_1_14D));
     }
 
     /** checkUAHUKR minus. */
