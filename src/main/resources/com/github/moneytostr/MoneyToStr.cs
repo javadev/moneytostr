@@ -1,4 +1,4 @@
-﻿/*
+/*
  * $Id$
  *
  * Copyright 2013 Valentyn Kolesnikov
