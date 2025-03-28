@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Copyright 2014 Valentyn Kolesnikov
+ * Copyright 2014-2025 Valentyn Kolesnikov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@
 package com.github.moneytostr;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Converts numbers to symbols.
@@ -30,7 +34,7 @@ public class MoneyToStr {
     private static final int INDEX_2 = 2;
     private static final int INDEX_1 = 1;
     private static final int INDEX_0 = 0;
-    private static org.w3c.dom.Document xmlDoc;
+    private static Map<String, Object> jsonMap;
     private static final int NUM0 = 0;
     private static final int NUM1 = 1;
     private static final int NUM2 = 2;
@@ -48,167 +52,1084 @@ public class MoneyToStr {
     private static final int NUM1000 = 1000;
     private static final int NUM10000 = 10000;
     private static final String CURRENCY_LIST =
-            "<CurrencyList>\n"
-                    + " \n"
-                    + " <language value=\"UKR\"/>\n"
-                    + " <UKR>\n"
-                    + " <item value=\"minus\" text=\"\u043C\u0456\u043D\u0443\u0441\"/>\n"
-                    + " <item value=\"0\" text=\"\u043d\u0443\u043b\u044c\"/>\n"
-                    + " <item value=\"1000_10\" text=\"\u0442\u0438\u0441\u044f\u0447,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0456\u0432,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0456\u0432,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0456\u0432\"/>\n"
-                    + " <item value=\"1000_1\" text=\"\u0442\u0438\u0441\u044f\u0447\u0430,\u043c\u0456\u043b\u044c\u0439\u043e\u043d,\u043c\u0456\u043b\u044c\u044f\u0440\u0434,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\"/>\n"
-                    + " <item value=\"1000_234\" text=\"\u0442\u0438\u0441\u044f\u0447\u0456,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0430,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0430,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0430\"/>\n"
-                    + " <item value=\"1000_5\" text=\"\u0442\u0438\u0441\u044f\u0447,\u043c\u0456\u043b\u044c\u0439\u043e\u043d\u0456\u0432,\u043c\u0456\u043b\u044c\u044f\u0440\u0434\u0456\u0432,\u0442\u0440\u0438\u043b\u044c\u0439\u043e\u043d\u0456\u0432\"/>\n"
-                    + " <item value=\"10_19\" text=\"\u0434\u0435\u0441\u044f\u0442\u044c,\u043e\u0434\u0438\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0434\u0432\u0430\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0442\u0440\u0438\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0447\u043e\u0442\u0438\u0440\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u043f\u2019\u044f\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0448\u0456\u0441\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0441\u0456\u043c\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0432\u0456\u0441\u0456\u043c\u043d\u0430\u0434\u0446\u044f\u0442\u044c,\u0434\u0435\u0432\u2019\u044f\u0442\u043d\u0430\u0434\u0446\u044f\u0442\u044c\"/>\n"
-                    + " <item value=\"1\" text=\"\u043e\u0434\u043d\u0430,\u043e\u0434\u0438\u043d,\u043e\u0434\u0438\u043d,\u043e\u0434\u043d\u0430\"/>\n"
-                    + " <item value=\"2\" text=\"\u0434\u0432\u0456,\u0434\u0432\u0430,\u0434\u0432\u0430,\u0434\u0432\u0456\"/>\n"
-                    + " <item value=\"3_9\" text=\"\u0442\u0440\u0438,\u0447\u043e\u0442\u0438\u0440\u0438,\u043f\u2019\u044f\u0442\u044c,\u0448\u0456\u0441\u0442\u044c,\u0441\u0456\u043c,\u0432\u0456\u0441\u0456\u043c,\u0434\u0435\u0432\u2019\u044f\u0442\u044c\"/>\n"
-                    + " <item value=\"100_900\" text=\"\u0441\u0442\u043e ,\u0434\u0432\u0456\u0441\u0442\u0456 ,\u0442\u0440\u0438\u0441\u0442\u0430 ,\u0447\u043e\u0442\u0438\u0440\u0438\u0441\u0442\u0430 ,\u043f\u2019\u044f\u0442\u0441\u043e\u0442 ,\u0448\u0456\u0441\u0442\u0441\u043e\u0442 ,\u0441\u0456\u043c\u0441\u043e\u0442 ,\u0432\u0456\u0441\u0456\u043c\u0441\u043e\u0442 ,\u0434\u0435\u0432\u2019\u044f\u0442\u0441\u043e\u0442 \"/>\n"
-                    + " <item value=\"20_90\" text=\"\u0434\u0432\u0430\u0434\u0446\u044f\u0442\u044c ,\u0442\u0440\u0438\u0434\u0446\u044f\u0442\u044c ,\u0441\u043e\u0440\u043e\u043a ,\u043f\u2019\u044f\u0442\u0434\u0435\u0441\u044f\u0442 ,\u0448\u0456\u0441\u0442\u0434\u0435\u0441\u044f\u0442 ,\u0441\u0456\u043c\u0434\u0435\u0441\u044f\u0442 ,\u0432\u0456\u0441\u0456\u043c\u0434\u0435\u0441\u044f\u0442 ,\u0434\u0435\u0432\u2019\u044f\u043d\u043e\u0441\u0442\u043e \"/>\n"
-                    + " <item value=\"pdv\" text=\"\u0432 \u0442.\u0447. \u041f\u0414\u0412 \"/>\n"
-                    + " <item value=\"pdv_value\" text=\"20\"/>\n"
-                    + " </UKR>\n"
-                    + " <RUS>\n"
-                    + " <item value=\"minus\" text=\"\u043C\u0438\u043D\u0443\u0441\"/>\n"
-                    + " <item value=\"0\" text=\"\u043d\u043e\u043b\u044c\"/>\n"
-                    + " <item value=\"1000_10\" text=\"\u0442\u044b\u0441\u044f\u0447,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u043e\u0432,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432\"/>\n"
-                    + " <item value=\"1000_1\" text=\"\u0442\u044b\u0441\u044f\u0447\u0430,\u043c\u0438\u043b\u043b\u0438\u043e\u043d,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\"/>\n"
-                    + " <item value=\"1000_234\" text=\"\u0442\u044b\u0441\u044f\u0447\u0438,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u0430,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u0430,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u0430\"/>\n"
-                    + " <item value=\"1000_5\" text=\"\u0442\u044b\u0441\u044f\u0447,\u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432,\u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434\u043e\u0432,\u0442\u0440\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432\"/>\n"
-                    + " <item value=\"10_19\" text=\"\u0434\u0435\u0441\u044f\u0442\u044c,\u043e\u0434\u0438\u043d\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0434\u0432\u0435\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0442\u0440\u0438\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0447\u0435\u0442\u044b\u0440\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u043f\u044f\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0448\u0435\u0441\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0441\u0435\u043c\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0432\u043e\u0441\u0435\u043c\u043d\u0430\u0434\u0446\u0430\u0442\u044c,\u0434\u0435\u0432\u044f\u0442\u043d\u0430\u0434\u0446\u0430\u0442\u044c\"/>\n"
-                    + " <item value=\"1\" text=\"\u043e\u0434\u043d\u0430,\u043e\u0434\u0438\u043d,\u043e\u0434\u0438\u043d,\u043e\u0434\u043d\u0430\"/>\n"
-                    + " <item value=\"2\" text=\"\u0434\u0432\u0435,\u0434\u0432\u0430,\u0434\u0432\u0430,\u0434\u0432\u0435\"/>\n"
-                    + " <item value=\"3_9\" text=\"\u0442\u0440\u0438,\u0447\u0435\u0442\u044b\u0440\u0435,\u043f\u044f\u0442\u044c,\u0448\u0435\u0441\u0442\u044c,\u0441\u0435\u043c\u044c,\u0432\u043e\u0441\u0435\u043c\u044c,\u0434\u0435\u0432\u044f\u0442\u044c\"/>\n"
-                    + " <item value=\"100_900\" text=\"\u0441\u0442\u043e ,\u0434\u0432\u0435\u0441\u0442\u0438 ,\u0442\u0440\u0438\u0441\u0442\u0430 ,\u0447\u0435\u0442\u044b\u0440\u0435\u0441\u0442\u0430 ,\u043f\u044f\u0442\u044c\u0441\u043e\u0442 ,\u0448\u0435\u0441\u0442\u044c\u0441\u043e\u0442 ,\u0441\u0435\u043c\u044c\u0441\u043e\u0442 ,\u0432\u043e\u0441\u0435\u043c\u044c\u0441\u043e\u0442 ,\u0434\u0435\u0432\u044f\u0442\u044c\u0441\u043e\u0442 \"/>\n"
-                    + " <item value=\"20_90\" text=\"\u0434\u0432\u0430\u0434\u0446\u0430\u0442\u044c ,\u0442\u0440\u0438\u0434\u0446\u0430\u0442\u044c ,\u0441\u043e\u0440\u043e\u043a ,\u043f\u044f\u0442\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0448\u0435\u0441\u0442\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0441\u0435\u043c\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0432\u043e\u0441\u0435\u043c\u044c\u0434\u0435\u0441\u044f\u0442 ,\u0434\u0435\u0432\u044f\u043d\u043e\u0441\u0442\u043e \"/>\n"
-                    + " <item value=\"pdv\" text=\"\u0432 \u0442.\u0447. \u041d\u0414\u0421 \"/>\n"
-                    + " <item value=\"pdv_value\" text=\"18\"/>\n"
-                    + " </RUS>\n"
-                    + " <ENG>\n"
-                    + " <item value=\"minus\" text=\"minus\"/>\n"
-                    + " <item value=\"0\" text=\"zero\"/>\n"
-                    + " <item value=\"1000_10\" text=\"thousand,million,billion,trillion\"/>\n"
-                    + " <item value=\"1000_1\" text=\"thousand,million,billion,trillion\"/>\n"
-                    + " <item value=\"1000_234\" text=\"thousand,million,billion,trillion\"/>\n"
-                    + " <item value=\"1000_5\" text=\"thousand,million,billion,trillion\"/>\n"
-                    + " <item value=\"10_19\" text=\"ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen\"/>\n"
-                    + " <item value=\"1\" text=\"one,one,one,one\"/>\n"
-                    + " <item value=\"2\" text=\"two,two,two,two\"/>\n"
-                    + " <item value=\"3_9\" text=\"three,four,five,six,seven,eight,nine\"/>\n"
-                    + " <item value=\"100_900\" text=\"one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred \"/>\n"
-                    + " <item value=\"20_90\" text=\"twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-\"/>\n"
-                    + " <item value=\"pdv\" text=\"including VAT \"/>\n"
-                    + " <item value=\"pdv_value\" text=\"10\"/>\n"
-                    + " </ENG>\n"
-                    + "\n"
-                    + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0440\u0443\u0431\u043b\u044c\" RubTwoUnit=\"\u0440\u0443\u0431\u043b\u044f\" RubFiveUnit=\"\u0440\u0443\u0431\u043b\u0435\u0439\" RubSex=\"M\" RubShortUnit=\"\u0440\u0443\u0431.\"\n"
-                    + " KopOneUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0435\u0435\u043a\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0433\u0440\u0438\u0432\u043d\u044f\" RubTwoUnit=\"\u0433\u0440\u0438\u0432\u043d\u0438\" RubFiveUnit=\"\u0433\u0440\u0438\u0432\u0435\u043d\u044c\" RubSex=\"F\" RubShortUnit=\"\u0433\u0440\u043d.\"\n"
-                    + " KopOneUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0435\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0435\u0435\u043a\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u043b\u0430\u0440\u043e\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
-                    + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u043e\u0432\" KopSex=\"M\"\n"
-                    + " />\n"
-                    + " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"RUS\""
-                    + " RubOneUnit=\"\u0435\u0432\u0440\u043E\" RubTwoUnit=\"\u0435\u0432\u0440\u043E\" RubFiveUnit=\"\u0435\u0432\u0440\u043E\" RubSex=\"M\" RubShortUnit=\"\u0435\u0432\u0440.\""
-                    + " KopOneUnit=\"\u0446\u0435\u043D\u0442\" KopTwoUnit=\"\u0446\u0435\u043D\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043D\u0442\u043E\u0432\" KopSex=\"M\" />"
-                    + "\n"
-                    + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0440\u0443\u0431\u043b\u044c\" RubTwoUnit=\"\u0440\u0443\u0431\u043b\u0456\" RubFiveUnit=\"\u0440\u0443\u0431\u043b\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0440\u0443\u0431.\"\n"
-                    + " KopOneUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0456\u0439\u043e\u043a\" KopSex=\"F\"\n"
-                    + " /> \n"
-                    + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0433\u0440\u0438\u0432\u043d\u044f\" RubTwoUnit=\"\u0433\u0440\u0438\u0432\u043d\u0456\" RubFiveUnit=\"\u0433\u0440\u0438\u0432\u0435\u043d\u044c\" RubSex=\"F\" RubShortUnit=\"\u0433\u0440\u043d.\"\n"
-                    + " KopOneUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0430\" KopTwoUnit=\"\u043a\u043e\u043f\u0456\u0439\u043a\u0438\" KopFiveUnit=\"\u043a\u043e\u043f\u0456\u0439\u043e\u043a\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0434\u043e\u043b\u0430\u0440\" RubTwoUnit=\"\u0434\u043e\u043b\u0430\u0440\u0430\" RubFiveUnit=\"\u0434\u043e\u043b\u0430\u0440\u0456\u0432\" RubSex=\"M\" RubShortUnit=\"\u0434\u043e\u043b.\"\n"
-                    + " KopOneUnit=\"\u0446\u0435\u043d\u0442\" KopTwoUnit=\"\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043d\u0442\u0456\u0432\" KopSex=\"M\"\n"
-                    + " />\n"
-                    + " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"UKR\""
-                    + " RubOneUnit=\"\u0454\u0432\u0440\u043E\" RubTwoUnit=\"\u0454\u0432\u0440\u043E\" RubFiveUnit=\"\u0454\u0432\u0440\u043E\" RubSex=\"M\" RubShortUnit=\"\u0454\u0432\u0440.\""
-                    + " KopOneUnit=\"\u0446\u0435\u043D\u0442\" KopTwoUnit=\"\u0446\u0435\u043D\u0442\u0430\" KopFiveUnit=\"\u0446\u0435\u043D\u0442\u0456\u0432\" KopSex=\"M\" />"
-                    + "\n"
-                    + " <RUR CurrID=\"810\" CurrName=\"\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0438\u0435 \u0440\u0443\u0431\u043b\u0438\" language=\"ENG\"\n"
-                    + " RubOneUnit=\"ruble\" RubTwoUnit=\"rubles\" RubFiveUnit=\"rubles\" RubSex=\"M\" RubShortUnit=\"RUR.\"\n"
-                    + " KopOneUnit=\"kopeck\" KopTwoUnit=\"kopecks\" KopFiveUnit=\"kopecks\" KopSex=\"M\"\n"
-                    + " /> \n"
-                    + " <UAH CurrID=\"980\" CurrName=\"\u0423\u043a\u0440\u0430\u0438\u043d\u0441\u043a\u0456 \u0433\u0440\u0438\u0432\u043d\u0456\" language=\"ENG\"\n"
-                    + " RubOneUnit=\"hryvnia\" RubTwoUnit=\"hryvnias\" RubFiveUnit=\"hryvnias\" RubSex=\"M\" RubShortUnit=\"UAH.\"\n"
-                    + " KopOneUnit=\"kopeck\" KopTwoUnit=\"kopecks\" KopFiveUnit=\"kopecks\" KopSex=\"M\"\n"
-                    + " />\n"
-                    + " <USD CurrID=\"840\" CurrName=\"\u0414\u043e\u043b\u0430\u0440\u0438 \u0421\u0428\u0410\" language=\"ENG\"\n"
-                    + " RubOneUnit=\"dollar\" RubTwoUnit=\"dollars\" RubFiveUnit=\"dollars\" RubSex=\"M\" RubShortUnit=\"USD.\"\n"
-                    + " KopOneUnit=\"cent\" KopTwoUnit=\"cents\" KopFiveUnit=\"cents\" KopSex=\"M\"\n"
-                    + " />\n"
-                    + " <EUR CurrID=\"840\" CurrName=\"\u0415\u0432\u0440\u043E \u0415\u0421\" language=\"ENG\""
-                    + " RubOneUnit=\"euro\" RubTwoUnit=\"euros\" RubFiveUnit=\"euros\" RubSex=\"M\" RubShortUnit=\"EUR.\""
-                    + " KopOneUnit=\"cent\" KopTwoUnit=\"cents\" KopFiveUnit=\"cents\" KopSex=\"M\" />"
-                    + "\n"
-                    + " <PER10 CurrID=\"556\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER100 CurrID=\"557\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0441\u043e\u0442\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0441\u043e\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0441\u043e\u0442\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER1000 CurrID=\"558\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER10000 CurrID=\"559\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"RUS\"\n"
-                    + " RubOneUnit=\"\u0446\u0435\u043b\u0430\u044f,\" RubTwoUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubFiveUnit=\"\u0446\u0435\u043b\u044b\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u0430\u044f \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0435 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u044b\u0441\u044f\u0447\u043d\u044b\u0445 \u043f\u0440\u043e\u0446\u0435\u043d\u0442\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER10 CurrID=\"556\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER100 CurrID=\"557\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0441\u043e\u0442\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0441\u043e\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0441\u043e\u0442\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER1000 CurrID=\"558\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER10000 CurrID=\"559\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"UKR\"\n"
-                    + " RubOneUnit=\"\u0446\u0456\u043b\u0430,\" RubTwoUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubFiveUnit=\"\u0446\u0456\u043b\u0438\u0445,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0430 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopTwoUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopFiveUnit=\"\u0434\u0435\u0441\u044f\u0442\u0438\u0442\u0438\u0441\u044f\u0447\u043d\u0438\u0445 \u0432\u0456\u0434\u0441\u043e\u0442\u043a\u0430\" KopSex=\"M\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER10 CurrID=\"560\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
-                    + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"tenth of one percent\" KopTwoUnit=\"tenth of one percent\" KopFiveUnit=\"tenth of one percent\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER100 CurrID=\"561\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0441\u043e\u0442\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
-                    + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"hundred percent\" KopTwoUnit=\"hundredth of percent\" KopFiveUnit=\"hundredth of percent\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER1000 CurrID=\"562\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
-                    + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"thousandth of percent\" KopTwoUnit=\"thousandths of percent\" KopFiveUnit=\"thousandths of percent\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + " <PER10000 CurrID=\"563\" CurrName=\"\u0412i\u0434\u0441\u043e\u0442\u043a\u0438 \u0437 \u0434\u0435\u0441\u044f\u0442\u0438 \u0442\u0438\u0441\u044f\u0447\u043d\u0438\u043c\u0438 \u0447\u0430\u0441\u0442\u0438\u043d\u0430\u043c\u0438\" language=\"ENG\"\n"
-                    + " RubOneUnit=\",\" RubTwoUnit=\"integers,\" RubFiveUnit=\"integers,\" RubSex=\"F\"\n"
-                    + " KopOneUnit=\"ten percent\" KopTwoUnit=\"ten-percent\" KopFiveUnit=\"ten-percent\" KopSex=\"F\"\n"
-                    + " />\n"
-                    + "\n"
-                    + "</CurrencyList>\n";
+            "{\n"
+                    + "  \"CurrencyList\": {\n"
+                    + "    \"language\": {\n"
+                    + "      \"-value\": \"UKR\"\n"
+                    + "    },\n"
+                    + "    \"UKR\": {\n"
+                    + "      \"item\": [\n"
+                    + "        {\n"
+                    + "          \"-value\": \"minus\",\n"
+                    + "          \"-text\": \"мінус\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"0\",\n"
+                    + "          \"-text\": \"нуль\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_10\",\n"
+                    + "          \"-text\": \"тисяч,мільйонів,мільярдів,трильйонів\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_1\",\n"
+                    + "          \"-text\": \"тисяча,мільйон,мільярд,трильйон\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_234\",\n"
+                    + "          \"-text\": \"тисячі,мільйони,мільярди,трильйони\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_5\",\n"
+                    + "          \"-text\": \"тисяч,мільйонів,мільярдів,трильйонів\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"10_19\",\n"
+                    + "          \"-text\": \"десять,одинадцять,дванадцять,тринадцять,чотирнадцять,п'ятнадцять,шістнадцять,сімнадцять,вісімнадцять,дев'ятнадцять\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1\",\n"
+                    + "          \"-text\": \"одна,один,один,одна\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"2\",\n"
+                    + "          \"-text\": \"дві,два,два,дві\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"3_9\",\n"
+                    + "          \"-text\": \"три,чотири,п'ять,шість,сім,вісім,дев'ять\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"100_900\",\n"
+                    + "          \"-text\": \"сто ,двісті ,триста ,чотириста ,п'ятсот ,шістсот ,сімсот ,вісімсот ,дев'ятсот \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"20_90\",\n"
+                    + "          \"-text\": \"двадцять ,тридцять ,сорок ,п'ятдесят ,шістдесят ,сімдесят ,вісімдесят ,дев'яносто \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv\",\n"
+                    + "          \"-text\": \"в т.ч. ПДВ \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv_value\",\n"
+                    + "          \"-text\": \"20\"\n"
+                    + "        }\n"
+                    + "      ]\n"
+                    + "    },\n"
+                    + "    \"POL\": {\n"
+                    + "      \"item\": [\n"
+                    + "        {\n"
+                    + "          \"-value\": \"minus\",\n"
+                    + "          \"-text\": \"minus\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"0\",\n"
+                    + "          \"-text\": \"zero\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_10\",\n"
+                    + "          \"-text\": \"tysięcy,milionów,miliardów,trilionów\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_1\",\n"
+                    + "          \"-text\": \"tysiąc,milion,miliard,trylion\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_234\",\n"
+                    + "          \"-text\": \"tysiące,miliony,miliardy,tryliony\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_5\",\n"
+                    + "          \"-text\": \"tysięcy,milionów,miliardów,trylionów\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"10_19\",\n"
+                    + "          \"-text\": \"dziesięć,jedenaście,dwanaście,trzynaście,czternaście,piętnaście,szesnaście,siedemnaście,osiemnaście,dziewiętnaście\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1\",\n"
+                    + "          \"-text\": \"jeden,jeden,jeden,jeden\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"2\",\n"
+                    + "          \"-text\": \"dwie,dwa,dwa,dwie\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"3_9\",\n"
+                    + "          \"-text\": \"trzy,cztery,pięć,sześć,siedem,osiem,dziewięć\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"100_900\",\n"
+                    + "          \"-text\": \"sto ,dwieście ,trzysta ,czterysta ,pięćset ,sześćset ,siedemset ,osiemset ,dziewięćset \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"20_90\",\n"
+                    + "          \"-text\": \"dwadzieścia ,trzydzieści ,czterdzieści ,pięćdziesiąt ,sześćdziesiąt ,siedemdziesiąt ,osiemdziesiąt ,dziewięćdziesiąt \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv\",\n"
+                    + "          \"-text\": \"в т.ч. ПДВ \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv_value\",\n"
+                    + "          \"-text\": \"20\"\n"
+                    + "        }\n"
+                    + "      ]\n"
+                    + "    },\n"
+                    + "    \"RUS\": {\n"
+                    + "      \"item\": [\n"
+                    + "        {\n"
+                    + "          \"-value\": \"minus\",\n"
+                    + "          \"-text\": \"минус\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"0\",\n"
+                    + "          \"-text\": \"ноль\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_10\",\n"
+                    + "          \"-text\": \"тысяч,миллионов,миллиардов,триллионов\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_1\",\n"
+                    + "          \"-text\": \"тысяча,миллион,миллиард,триллион\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_234\",\n"
+                    + "          \"-text\": \"тысячи,миллиона,миллиарда,триллиона\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_5\",\n"
+                    + "          \"-text\": \"тысяч,миллионов,миллиардов,триллионов\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"10_19\",\n"
+                    + "          \"-text\": \"десять,одиннадцать,двенадцать,тринадцать,четырнадцать,пятнадцать,шестнадцать,семнадцать,восемнадцать,девятнадцать\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1\",\n"
+                    + "          \"-text\": \"одна,один,один,одна\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"2\",\n"
+                    + "          \"-text\": \"две,два,два,две\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"3_9\",\n"
+                    + "          \"-text\": \"три,четыре,пять,шесть,семь,восемь,девять\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"100_900\",\n"
+                    + "          \"-text\": \"сто ,двести ,триста ,четыреста ,пятьсот ,шестьсот ,семьсот ,восемьсот ,девятьсот \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"20_90\",\n"
+                    + "          \"-text\": \"двадцать ,тридцать ,сорок ,пятьдесят ,шестьдесят ,семьдесят ,восемьдесят ,девяносто \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv\",\n"
+                    + "          \"-text\": \"в т.ч. НДС \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv_value\",\n"
+                    + "          \"-text\": \"18\"\n"
+                    + "        }\n"
+                    + "      ]\n"
+                    + "    },\n"
+                    + "    \"ENG\": {\n"
+                    + "      \"item\": [\n"
+                    + "        {\n"
+                    + "          \"-value\": \"minus\",\n"
+                    + "          \"-text\": \"minus\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"0\",\n"
+                    + "          \"-text\": \"zero\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_10\",\n"
+                    + "          \"-text\": \"thousand,million,billion,trillion\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_1\",\n"
+                    + "          \"-text\": \"thousand,million,billion,trillion\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_234\",\n"
+                    + "          \"-text\": \"thousand,million,billion,trillion\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1000_5\",\n"
+                    + "          \"-text\": \"thousand,million,billion,trillion\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"10_19\",\n"
+                    + "          \"-text\": \"ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"1\",\n"
+                    + "          \"-text\": \"one,one,one,one\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"2\",\n"
+                    + "          \"-text\": \"two,two,two,two\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"3_9\",\n"
+                    + "          \"-text\": \"three,four,five,six,seven,eight,nine\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"100_900\",\n"
+                    + "          \"-text\": \"one hundred ,two hundred ,three hundred ,four hundred ,five hundred ,six hundred ,seven hundred ,eight hundred ,nine hundred \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"20_90\",\n"
+                    + "          \"-text\": \"twenty-,thirty-,forty-,fifty-,sixty-,seventy-,eighty-,ninety-\"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv\",\n"
+                    + "          \"-text\": \"including VAT \"\n"
+                    + "        },\n"
+                    + "        {\n"
+                    + "          \"-value\": \"pdv_value\",\n"
+                    + "          \"-text\": \"10\"\n"
+                    + "        }\n"
+                    + "      ]\n"
+                    + "    },\n"
+                    + "    \"RUR\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"810\",\n"
+                    + "        \"-CurrName\": \"Российские рубли\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"рубль\",\n"
+                    + "        \"-RubTwoUnit\": \"рубля\",\n"
+                    + "        \"-RubFiveUnit\": \"рублей\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"руб.\",\n"
+                    + "        \"-KopOneUnit\": \"копейка\",\n"
+                    + "        \"-KopTwoUnit\": \"копейки\",\n"
+                    + "        \"-KopFiveUnit\": \"копеек\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"810\",\n"
+                    + "        \"-CurrName\": \"Российские рубли\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"рубль\",\n"
+                    + "        \"-RubTwoUnit\": \"рублі\",\n"
+                    + "        \"-RubFiveUnit\": \"рублів\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"руб.\",\n"
+                    + "        \"-KopOneUnit\": \"копійка\",\n"
+                    + "        \"-KopTwoUnit\": \"копійки\",\n"
+                    + "        \"-KopFiveUnit\": \"копійок\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"810\",\n"
+                    + "        \"-CurrName\": \"Российские рубли\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \"ruble\",\n"
+                    + "        \"-RubTwoUnit\": \"rubles\",\n"
+                    + "        \"-RubFiveUnit\": \"rubles\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"RUR.\",\n"
+                    + "        \"-KopOneUnit\": \"kopeck\",\n"
+                    + "        \"-KopTwoUnit\": \"kopecks\",\n"
+                    + "        \"-KopFiveUnit\": \"kopecks\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"985\",\n"
+                    + "        \"-CurrName\": \"Польські гроші\",\n"
+                    + "        \"-language\": \"POL\",\n"
+                    + "        \"-RubOneUnit\": \"złotych\",\n"
+                    + "        \"-RubTwoUnit\": \"złote\",\n"
+                    + "        \"-RubFiveUnit\": \"złotych\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"złot.\",\n"
+                    + "        \"-KopOneUnit\": \"grosz\",\n"
+                    + "        \"-KopTwoUnit\": \"grosze\",\n"
+                    + "        \"-KopFiveUnit\": \"groszy\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"UAH\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"гривня\",\n"
+                    + "        \"-RubTwoUnit\": \"гривни\",\n"
+                    + "        \"-RubFiveUnit\": \"гривень\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"грн.\",\n"
+                    + "        \"-KopOneUnit\": \"копейка\",\n"
+                    + "        \"-KopTwoUnit\": \"копейки\",\n"
+                    + "        \"-KopFiveUnit\": \"копеек\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"гривня\",\n"
+                    + "        \"-RubTwoUnit\": \"гривні\",\n"
+                    + "        \"-RubFiveUnit\": \"гривень\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"грн.\",\n"
+                    + "        \"-KopOneUnit\": \"копійка\",\n"
+                    + "        \"-KopTwoUnit\": \"копійки\",\n"
+                    + "        \"-KopFiveUnit\": \"копійок\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \"hryvnia\",\n"
+                    + "        \"-RubTwoUnit\": \"hryvnias\",\n"
+                    + "        \"-RubFiveUnit\": \"hryvnias\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"UAH.\",\n"
+                    + "        \"-KopOneUnit\": \"kopeck\",\n"
+                    + "        \"-KopTwoUnit\": \"kopecks\",\n"
+                    + "        \"-KopFiveUnit\": \"kopecks\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"985\",\n"
+                    + "        \"-CurrName\": \"Польські гроші\",\n"
+                    + "        \"-language\": \"POL\",\n"
+                    + "        \"-RubOneUnit\": \"złotych\",\n"
+                    + "        \"-RubTwoUnit\": \"złote\",\n"
+                    + "        \"-RubFiveUnit\": \"złotych\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"złot.\",\n"
+                    + "        \"-KopOneUnit\": \"grosz\",\n"
+                    + "        \"-KopTwoUnit\": \"grosze\",\n"
+                    + "        \"-KopFiveUnit\": \"groszy\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"PLZ\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"гривня\",\n"
+                    + "        \"-RubTwoUnit\": \"гривни\",\n"
+                    + "        \"-RubFiveUnit\": \"гривень\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"грн.\",\n"
+                    + "        \"-KopOneUnit\": \"копейка\",\n"
+                    + "        \"-KopTwoUnit\": \"копейки\",\n"
+                    + "        \"-KopFiveUnit\": \"копеек\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"гривня\",\n"
+                    + "        \"-RubTwoUnit\": \"гривні\",\n"
+                    + "        \"-RubFiveUnit\": \"гривень\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"грн.\",\n"
+                    + "        \"-KopOneUnit\": \"копійка\",\n"
+                    + "        \"-KopTwoUnit\": \"копійки\",\n"
+                    + "        \"-KopFiveUnit\": \"копійок\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"985\",\n"
+                    + "        \"-CurrName\": \"Польські гроші\",\n"
+                    + "        \"-language\": \"POL\",\n"
+                    + "        \"-RubOneUnit\": \"złotych\",\n"
+                    + "        \"-RubTwoUnit\": \"złote\",\n"
+                    + "        \"-RubFiveUnit\": \"złotych\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"złot.\",\n"
+                    + "        \"-KopOneUnit\": \"grosz\",\n"
+                    + "        \"-KopTwoUnit\": \"grosze\",\n"
+                    + "        \"-KopFiveUnit\": \"groszy\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"980\",\n"
+                    + "        \"-CurrName\": \"Украинскі гривні\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \"hryvnia\",\n"
+                    + "        \"-RubTwoUnit\": \"hryvnias\",\n"
+                    + "        \"-RubFiveUnit\": \"hryvnias\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"UAH.\",\n"
+                    + "        \"-KopOneUnit\": \"kopeck\",\n"
+                    + "        \"-KopTwoUnit\": \"kopecks\",\n"
+                    + "        \"-KopFiveUnit\": \"kopecks\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"USD\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Долари США\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"доллар\",\n"
+                    + "        \"-RubTwoUnit\": \"доллара\",\n"
+                    + "        \"-RubFiveUnit\": \"долларов\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"дол.\",\n"
+                    + "        \"-KopOneUnit\": \"цент\",\n"
+                    + "        \"-KopTwoUnit\": \"цента\",\n"
+                    + "        \"-KopFiveUnit\": \"центов\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Долари США\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"долар\",\n"
+                    + "        \"-RubTwoUnit\": \"долара\",\n"
+                    + "        \"-RubFiveUnit\": \"доларів\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"дол.\",\n"
+                    + "        \"-KopOneUnit\": \"цент\",\n"
+                    + "        \"-KopTwoUnit\": \"цента\",\n"
+                    + "        \"-KopFiveUnit\": \"центів\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Долари США\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \"dollar\",\n"
+                    + "        \"-RubTwoUnit\": \"dollars\",\n"
+                    + "        \"-RubFiveUnit\": \"dollars\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"USD.\",\n"
+                    + "        \"-KopOneUnit\": \"cent\",\n"
+                    + "        \"-KopTwoUnit\": \"cents\",\n"
+                    + "        \"-KopFiveUnit\": \"cents\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"985\",\n"
+                    + "        \"-CurrName\": \"Польські гроші\",\n"
+                    + "        \"-language\": \"POL\",\n"
+                    + "        \"-RubOneUnit\": \"złotych\",\n"
+                    + "        \"-RubTwoUnit\": \"złote\",\n"
+                    + "        \"-RubFiveUnit\": \"złotych\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"złot.\",\n"
+                    + "        \"-KopOneUnit\": \"grosz\",\n"
+                    + "        \"-KopTwoUnit\": \"grosze\",\n"
+                    + "        \"-KopFiveUnit\": \"groszy\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"EUR\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Евро ЕС\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"евро\",\n"
+                    + "        \"-RubTwoUnit\": \"евро\",\n"
+                    + "        \"-RubFiveUnit\": \"евро\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"евр.\",\n"
+                    + "        \"-KopOneUnit\": \"цент\",\n"
+                    + "        \"-KopTwoUnit\": \"цента\",\n"
+                    + "        \"-KopFiveUnit\": \"центов\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Евро ЕС\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"євро\",\n"
+                    + "        \"-RubTwoUnit\": \"євро\",\n"
+                    + "        \"-RubFiveUnit\": \"євро\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"дол.\",\n"
+                    + "        \"-KopOneUnit\": \"цент\",\n"
+                    + "        \"-KopTwoUnit\": \"цента\",\n"
+                    + "        \"-KopFiveUnit\": \"центів\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"840\",\n"
+                    + "        \"-CurrName\": \"Долари США\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \"euro\",\n"
+                    + "        \"-RubTwoUnit\": \"euros\",\n"
+                    + "        \"-RubFiveUnit\": \"euros\",\n"
+                    + "        \"-RubSex\": \"M\",\n"
+                    + "        \"-RubShortUnit\": \"USD.\",\n"
+                    + "        \"-KopOneUnit\": \"cent\",\n"
+                    + "        \"-KopTwoUnit\": \"cents\",\n"
+                    + "        \"-KopFiveUnit\": \"cents\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"985\",\n"
+                    + "        \"-CurrName\": \"Польські гроші\",\n"
+                    + "        \"-language\": \"POL\",\n"
+                    + "        \"-RubOneUnit\": \"złotych\",\n"
+                    + "        \"-RubTwoUnit\": \"złote\",\n"
+                    + "        \"-RubFiveUnit\": \"złotych\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-RubShortUnit\": \"złot.\",\n"
+                    + "        \"-KopOneUnit\": \"grosz\",\n"
+                    + "        \"-KopTwoUnit\": \"grosze\",\n"
+                    + "        \"-KopFiveUnit\": \"groszy\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"PER10\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"556\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десятими частинами\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"целая,\",\n"
+                    + "        \"-RubTwoUnit\": \"целых,\",\n"
+                    + "        \"-RubFiveUnit\": \"целых,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"десятая процента\",\n"
+                    + "        \"-KopTwoUnit\": \"десятых процента\",\n"
+                    + "        \"-KopFiveUnit\": \"десятых процента\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"556\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десятими частинами\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"ціла,\",\n"
+                    + "        \"-RubTwoUnit\": \"цілих,\",\n"
+                    + "        \"-RubFiveUnit\": \"цілих,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"десята відсотка\",\n"
+                    + "        \"-KopTwoUnit\": \"десятих відсотка\",\n"
+                    + "        \"-KopFiveUnit\": \"десятих відсотка\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"560\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десятими частинами\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \",\",\n"
+                    + "        \"-RubTwoUnit\": \"integers,\",\n"
+                    + "        \"-RubFiveUnit\": \"integers,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"tenth of one percent\",\n"
+                    + "        \"-KopTwoUnit\": \"tenth of one percent\",\n"
+                    + "        \"-KopFiveUnit\": \"tenth of one percent\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"PER100\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"557\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з сотими частинами\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"целая,\",\n"
+                    + "        \"-RubTwoUnit\": \"целых,\",\n"
+                    + "        \"-RubFiveUnit\": \"целых,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"сотая процента\",\n"
+                    + "        \"-KopTwoUnit\": \"сотых процента\",\n"
+                    + "        \"-KopFiveUnit\": \"сотых процента\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"557\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з сотими частинами\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"ціла,\",\n"
+                    + "        \"-RubTwoUnit\": \"цілих,\",\n"
+                    + "        \"-RubFiveUnit\": \"цілих,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"сота відсотка\",\n"
+                    + "        \"-KopTwoUnit\": \"сотих відсотка\",\n"
+                    + "        \"-KopFiveUnit\": \"сотих відсотка\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"561\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з сотими частинами\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \",\",\n"
+                    + "        \"-RubTwoUnit\": \"integers,\",\n"
+                    + "        \"-RubFiveUnit\": \"integers,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"hundred percent\",\n"
+                    + "        \"-KopTwoUnit\": \"hundredth of percent\",\n"
+                    + "        \"-KopFiveUnit\": \"hundredth of percent\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"PER1000\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"558\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з тисячними частинами\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"целая,\",\n"
+                    + "        \"-RubTwoUnit\": \"целых,\",\n"
+                    + "        \"-RubFiveUnit\": \"целых,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"тысячная процента\",\n"
+                    + "        \"-KopTwoUnit\": \"тысячных процента\",\n"
+                    + "        \"-KopFiveUnit\": \"тысячных процента\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"558\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з тисячними частинами\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"ціла,\",\n"
+                    + "        \"-RubTwoUnit\": \"цілих,\",\n"
+                    + "        \"-RubFiveUnit\": \"цілих,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"тисячна відсотка\",\n"
+                    + "        \"-KopTwoUnit\": \"тисячних відсотка\",\n"
+                    + "        \"-KopFiveUnit\": \"тисячних відсотка\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"562\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з тисячними частинами\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \",\",\n"
+                    + "        \"-RubTwoUnit\": \"integers,\",\n"
+                    + "        \"-RubFiveUnit\": \"integers,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"thousandth of percent\",\n"
+                    + "        \"-KopTwoUnit\": \"thousandths of percent\",\n"
+                    + "        \"-KopFiveUnit\": \"thousandths of percent\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ],\n"
+                    + "    \"PER10000\": [\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"559\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десяти тисячними частинами\",\n"
+                    + "        \"-language\": \"RUS\",\n"
+                    + "        \"-RubOneUnit\": \"целая,\",\n"
+                    + "        \"-RubTwoUnit\": \"целых,\",\n"
+                    + "        \"-RubFiveUnit\": \"целых,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"десятитысячная процента\",\n"
+                    + "        \"-KopTwoUnit\": \"десятитысячные процента\",\n"
+                    + "        \"-KopFiveUnit\": \"десятитысячных процента\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"559\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десяти тисячними частинами\",\n"
+                    + "        \"-language\": \"UKR\",\n"
+                    + "        \"-RubOneUnit\": \"ціла,\",\n"
+                    + "        \"-RubTwoUnit\": \"цілих,\",\n"
+                    + "        \"-RubFiveUnit\": \"цілих,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"десятитисячна відсотка\",\n"
+                    + "        \"-KopTwoUnit\": \"десятитисячних відсотка\",\n"
+                    + "        \"-KopFiveUnit\": \"десятитисячних відсотка\",\n"
+                    + "        \"-KopSex\": \"M\"\n"
+                    + "      },\n"
+                    + "      {\n"
+                    + "        \"-CurrID\": \"563\",\n"
+                    + "        \"-CurrName\": \"Вiдсотки з десяти тисячними частинами\",\n"
+                    + "        \"-language\": \"ENG\",\n"
+                    + "        \"-RubOneUnit\": \",\",\n"
+                    + "        \"-RubTwoUnit\": \"integers,\",\n"
+                    + "        \"-RubFiveUnit\": \"integers,\",\n"
+                    + "        \"-RubSex\": \"F\",\n"
+                    + "        \"-KopOneUnit\": \"ten percent\",\n"
+                    + "        \"-KopTwoUnit\": \"ten-percent\",\n"
+                    + "        \"-KopFiveUnit\": \"ten-percent\",\n"
+                    + "        \"-KopSex\": \"F\"\n"
+                    + "      }\n"
+                    + "    ]\n"
+                    + "  }\n"
+                    + "}";
+
+    public static class FromJson {
+        public static class ParseException extends RuntimeException {
+            private final int offset;
+            private final int line;
+            private final int column;
+
+            public ParseException(String message, int offset, int line, int column) {
+                super(message + " at " + line + ":" + column);
+                this.offset = offset;
+                this.line = line;
+                this.column = column;
+            }
+
+            public int getOffset() {
+                return offset;
+            }
+
+            public int getLine() {
+                return line;
+            }
+
+            public int getColumn() {
+                return column;
+            }
+        }
+
+        public static class JsonParser {
+            private final String json;
+            private int index;
+            private int line;
+            private int lineOffset;
+            private int current;
+            private StringBuilder captureBuffer;
+            private int captureStart;
+
+            public JsonParser(String string) {
+                this.json = string;
+                line = 1;
+                captureStart = -1;
+            }
+
+            public Object parse() {
+                read();
+                skipWhiteSpace();
+                final Object result = readValue();
+                skipWhiteSpace();
+                if (!isEndOfText()) {
+                    throw error("Unexpected character");
+                }
+                return result;
+            }
+
+            private Object readValue() {
+                switch (current) {
+                    case 'n':
+                        return readNull();
+                    case 't':
+                        return readTrue();
+                    case 'f':
+                        return readFalse();
+                    case '"':
+                        return readString();
+                    case '[':
+                        return readArray();
+                    case '{':
+                        return readObject();
+                    case '-':
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        return readNumber();
+                    default:
+                        throw expected("value");
+                }
+            }
+
+            private List<Object> readArray() {
+                read();
+                List<Object> array = new ArrayList<>();
+                skipWhiteSpace();
+                if (readChar(']')) {
+                    return array;
+                }
+                do {
+                    skipWhiteSpace();
+                    array.add(readValue());
+                    skipWhiteSpace();
+                } while (readChar(','));
+                if (!readChar(']')) {
+                    throw expected("',' or ']'");
+                }
+                return array;
+            }
+
+            private Map<String, Object> readObject() {
+                read();
+                Map<String, Object> object = new LinkedHashMap<>();
+                skipWhiteSpace();
+                if (readChar('}')) {
+                    return object;
+                }
+                do {
+                    skipWhiteSpace();
+                    String name = readName();
+                    skipWhiteSpace();
+                    if (!readChar(':')) {
+                        throw expected("':'");
+                    }
+                    skipWhiteSpace();
+                    object.put(name, readValue());
+                    skipWhiteSpace();
+                } while (readChar(','));
+                if (!readChar('}')) {
+                    throw expected("',' or '}'");
+                }
+                return object;
+            }
+
+            private String readName() {
+                if (current != '"') {
+                    throw expected("name");
+                }
+                return readString();
+            }
+
+            private String readNull() {
+                read();
+                readRequiredChar('u');
+                readRequiredChar('l');
+                readRequiredChar('l');
+                return null;
+            }
+
+            private Boolean readTrue() {
+                read();
+                readRequiredChar('r');
+                readRequiredChar('u');
+                readRequiredChar('e');
+                return Boolean.TRUE;
+            }
+
+            private Boolean readFalse() {
+                read();
+                readRequiredChar('a');
+                readRequiredChar('l');
+                readRequiredChar('s');
+                readRequiredChar('e');
+                return Boolean.FALSE;
+            }
+
+            private void readRequiredChar(char ch) {
+                if (!readChar(ch)) {
+                    throw expected("'" + ch + "'");
+                }
+            }
+
+            private String readString() {
+                read();
+                startCapture();
+                while (current != '"') {
+                    if (current == '\\') {
+                        pauseCapture();
+                        readEscape();
+                        startCapture();
+                    } else if (current < 0x20) {
+                        throw expected("valid string character");
+                    } else {
+                        read();
+                    }
+                }
+                String string = endCapture();
+                read();
+                return string;
+            }
+
+            private void readEscape() {
+                read();
+                switch (current) {
+                    case '"':
+                    case '/':
+                    case '\\':
+                        captureBuffer.append((char) current);
+                        break;
+                    case 'b':
+                        captureBuffer.append('\b');
+                        break;
+                    case 'f':
+                        captureBuffer.append('\f');
+                        break;
+                    case 'n':
+                        captureBuffer.append('\n');
+                        break;
+                    case 'r':
+                        captureBuffer.append('\r');
+                        break;
+                    case 't':
+                        captureBuffer.append('\t');
+                        break;
+                    case 'u':
+                        char[] hexChars = new char[4];
+                        boolean isHexCharsDigits = true;
+                        for (int i = 0; i < 4; i++) {
+                            read();
+                            if (!isHexDigit()) {
+                                isHexCharsDigits = false;
+                            }
+                            hexChars[i] = (char) current;
+                        }
+                        if (isHexCharsDigits) {
+                            captureBuffer.append((char) Integer.parseInt(new String(hexChars), 16));
+                        } else {
+                            captureBuffer
+                                    .append("\\u")
+                                    .append(hexChars[0])
+                                    .append(hexChars[1])
+                                    .append(hexChars[2])
+                                    .append(hexChars[3]);
+                        }
+                        break;
+                    default:
+                        throw expected("valid escape sequence");
+                }
+                read();
+            }
+
+            private Number readNumber() {
+                startCapture();
+                readChar('-');
+                int firstDigit = current;
+                if (!readDigit()) {
+                    throw expected("digit");
+                }
+                if (firstDigit != '0') {
+                    while (readDigit()) {}
+                }
+                readFraction();
+                readExponent();
+                final String number = endCapture();
+                if (number.contains(".") || number.contains("e") || number.contains("E")) {
+                    return Double.valueOf(number);
+                } else {
+                    return Long.valueOf(number);
+                }
+            }
+
+            private boolean readFraction() {
+                if (!readChar('.')) {
+                    return false;
+                }
+                if (!readDigit()) {
+                    throw expected("digit");
+                }
+                while (readDigit()) {}
+                return true;
+            }
+
+            private boolean readExponent() {
+                if (!readChar('e') && !readChar('E')) {
+                    return false;
+                }
+                if (!readChar('+')) {
+                    readChar('-');
+                }
+                if (!readDigit()) {
+                    throw expected("digit");
+                }
+                while (readDigit()) {}
+                return true;
+            }
+
+            private boolean readChar(char ch) {
+                if (current != ch) {
+                    return false;
+                }
+                read();
+                return true;
+            }
+
+            private boolean readDigit() {
+                if (!isDigit()) {
+                    return false;
+                }
+                read();
+                return true;
+            }
+
+            private void skipWhiteSpace() {
+                while (isWhiteSpace()) {
+                    read();
+                }
+            }
+
+            private void read() {
+                if (index == json.length()) {
+                    current = -1;
+                    return;
+                }
+                if (current == '\n') {
+                    line++;
+                    lineOffset = index;
+                }
+                current = json.charAt(index++);
+            }
+
+            private void startCapture() {
+                if (captureBuffer == null) {
+                    captureBuffer = new StringBuilder();
+                }
+                captureStart = index - 1;
+            }
+
+            private void pauseCapture() {
+                captureBuffer.append(json.substring(captureStart, index - 1));
+                captureStart = -1;
+            }
+
+            private String endCapture() {
+                int end = current == -1 ? index : index - 1;
+                String captured;
+                if (captureBuffer.length() > 0) {
+                    captureBuffer.append(json.substring(captureStart, end));
+                    captured = captureBuffer.toString();
+                    captureBuffer.setLength(0);
+                } else {
+                    captured = json.substring(captureStart, end);
+                }
+                captureStart = -1;
+                return captured;
+            }
+
+            private ParseException expected(String expected) {
+                if (isEndOfText()) {
+                    return error("Unexpected end of input");
+                }
+                return error("Expected " + expected);
+            }
+
+            private ParseException error(String message) {
+                int absIndex = index;
+                int column = absIndex - lineOffset;
+                int offset = isEndOfText() ? absIndex : absIndex - 1;
+                return new ParseException(message, offset, line, column - 1);
+            }
+
+            private boolean isWhiteSpace() {
+                return current == ' ' || current == '\t' || current == '\n' || current == '\r';
+            }
+
+            private boolean isDigit() {
+                return current >= '0' && current <= '9';
+            }
+
+            private boolean isHexDigit() {
+                return isDigit()
+                        || current >= 'a' && current <= 'f'
+                        || current >= 'A' && current <= 'F';
+            }
+
+            private boolean isEndOfText() {
+                return current == -1;
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        public static Map<String, Object> fromJson(String string) {
+            return (Map<String, Object>) new JsonParser(string).parse();
+        }
+    }
+
     private final java.util.Map<String, String[]> messages =
             new java.util.LinkedHashMap<String, String[]>();
     private final String rubOneUnit;
@@ -225,31 +1146,25 @@ public class MoneyToStr {
     private final Pennies pennies;
 
     static {
-        initXmlDoc(CURRENCY_LIST);
+        initJsonMap(CURRENCY_LIST);
     }
 
-    public static void initXmlDoc(final String xmlData) {
-        javax.xml.parsers.DocumentBuilderFactory docFactory =
-                javax.xml.parsers.DocumentBuilderFactory.newInstance();
-        try {
-            javax.xml.parsers.DocumentBuilder xmlDocBuilder = docFactory.newDocumentBuilder();
-            xmlDoc =
-                    xmlDocBuilder.parse(new java.io.ByteArrayInputStream(xmlData.getBytes("UTF8")));
-        } catch (Exception ex) {
-            throw new UnsupportedOperationException(ex);
-        }
+    public static void initJsonMap(final String json) {
+        jsonMap = FromJson.fromJson(json);
     }
 
     /** Currency. */
     public enum Currency {
-        /** . */
-        RUR,
         /** . */
         UAH,
         /** . */
         USD,
         /** . */
         EUR,
+        /** . */
+        PLZ,
+        /** . */
+        RUR,
         /** . */
         PER10,
         /** . */
@@ -265,11 +1180,13 @@ public class MoneyToStr {
     /** Language. */
     public enum Language {
         /** . */
-        RUS,
-        /** . */
         UKR,
         /** . */
-        ENG
+        ENG,
+        /** . */
+        POL,
+        /** . */
+        RUS
     }
 
     /** Pennies. */
@@ -281,14 +1198,14 @@ public class MoneyToStr {
     }
 
     /**
-     * Inits class with currency. Usage: MoneyToStr moneyToStr = new MoneyToStr(
-     * MoneyToStr.Currency.UAH, MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER); Definition for
-     * currency is placed into currlist.xml
+     * Usage: MoneyToStr moneyToStr = new MoneyToStr( MoneyToStr.Currency.UAH,
+     * MoneyToStr.Language.UKR, MoneyToStr.Pennies.NUMBER);
      *
      * @param currency the currency (UAH, RUR, USD, EUR)
      * @param language the language (UKR, RUS, ENG)
      * @param pennies the pennies (NUMBER, TEXT)
      */
+    @SuppressWarnings("unchecked")
     public MoneyToStr(Currency currency, Language language, Pennies pennies) {
         if (currency == null) {
             throw new IllegalArgumentException("currency is null");
@@ -303,37 +1220,36 @@ public class MoneyToStr {
         this.language = language;
         this.pennies = pennies;
         String theISOstr = currency.name();
-        org.w3c.dom.Element languageElement =
-                (org.w3c.dom.Element) (xmlDoc.getElementsByTagName(language.name())).item(0);
-        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
-        for (int index = 0; index < items.getLength(); index += 1) {
-            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
+        Map<String, Object> languageElement =
+                (Map<String, Object>)
+                        ((Map<String, Object>) jsonMap.get("CurrencyList")).get(language.name());
+        List<Map<String, Object>> items = (List<Map<String, Object>>) languageElement.get("item");
+        for (Map<String, Object> languageItem : items) {
             messages.put(
-                    languageItem.getAttribute("value"),
-                    languageItem.getAttribute("text").split(","));
+                    (String) languageItem.get("-value"),
+                    ((String) languageItem.get("-text")).split(","));
         }
-        org.w3c.dom.NodeList theISOElements =
-                (org.w3c.dom.NodeList) (xmlDoc.getElementsByTagName(theISOstr));
-        org.w3c.dom.Element theISOElement = null;
-        for (int index = 0; index < theISOElements.getLength(); index += 1) {
-            if (((org.w3c.dom.Element) theISOElements.item(index))
-                    .getAttribute("language")
-                    .equals(language.name())) {
-                theISOElement = (org.w3c.dom.Element) theISOElements.item(index);
+        List<Map<String, Object>> theISOElements =
+                (List<Map<String, Object>>)
+                        ((Map<String, Object>) jsonMap.get("CurrencyList")).get(theISOstr);
+        Map<String, Object> theISOElement = null;
+        for (Map<String, Object> theISOElementLocal : theISOElements) {
+            if (theISOElementLocal.get("-language").equals(language.name())) {
+                theISOElement = theISOElementLocal;
                 break;
             }
         }
-        rubOneUnit = theISOElement.getAttribute("RubOneUnit");
-        rubTwoUnit = theISOElement.getAttribute("RubTwoUnit");
-        rubFiveUnit = theISOElement.getAttribute("RubFiveUnit");
-        kopOneUnit = theISOElement.getAttribute("KopOneUnit");
-        kopTwoUnit = theISOElement.getAttribute("KopTwoUnit");
-        kopFiveUnit = theISOElement.getAttribute("KopFiveUnit");
-        rubSex = theISOElement.getAttribute("RubSex");
-        kopSex = theISOElement.getAttribute("KopSex");
+        rubOneUnit = (String) theISOElement.get("-RubOneUnit");
+        rubTwoUnit = (String) theISOElement.get("-RubTwoUnit");
+        rubFiveUnit = (String) theISOElement.get("-RubFiveUnit");
+        kopOneUnit = (String) theISOElement.get("-KopOneUnit");
+        kopTwoUnit = (String) theISOElement.get("-KopTwoUnit");
+        kopFiveUnit = (String) theISOElement.get("-KopFiveUnit");
+        rubSex = (String) theISOElement.get("-RubSex");
+        kopSex = (String) theISOElement.get("-KopSex");
         rubShortUnit =
-                theISOElement.hasAttribute("RubShortUnit")
-                        ? theISOElement.getAttribute("RubShortUnit")
+                theISOElement.containsKey("-RubShortUnit")
+                        ? (String) theISOElement.get("-RubShortUnit")
                         : "";
     }
 
@@ -346,6 +1262,7 @@ public class MoneyToStr {
      * @param pennies the pennies (NUMBER, TEXT)
      * @param names the custom names
      */
+    @SuppressWarnings("unchecked")
     public MoneyToStr(Currency currency, Language language, Pennies pennies, String[] names) {
         if (currency == null) {
             throw new IllegalArgumentException("currency is null");
@@ -362,14 +1279,14 @@ public class MoneyToStr {
         this.currency = currency;
         this.language = language;
         this.pennies = pennies;
-        org.w3c.dom.Element languageElement =
-                (org.w3c.dom.Element) (xmlDoc.getElementsByTagName(language.name())).item(0);
-        org.w3c.dom.NodeList items = languageElement.getElementsByTagName("item");
-        for (int index = 0; index < items.getLength(); index += 1) {
-            org.w3c.dom.Element languageItem = (org.w3c.dom.Element) items.item(index);
+        Map<String, Object> languageElement =
+                (Map<String, Object>)
+                        ((Map<String, Object>) jsonMap.get("CurrencyList")).get(language.name());
+        List<Map<String, Object>> items = (List<Map<String, Object>>) languageElement.get("item");
+        for (Map<String, Object> languageItem : items) {
             messages.put(
-                    languageItem.getAttribute("value"),
-                    languageItem.getAttribute("text").split(","));
+                    (String) languageItem.get("-value"),
+                    ((String) languageItem.get("-text")).split(","));
         }
         rubOneUnit = names[0];
         rubTwoUnit = names[1];
@@ -661,7 +1578,7 @@ public class MoneyToStr {
         String pennies = "TEXT";
         if (args.length == 0) {
             System.out.println(
-                    "Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng --currency=rur|uah|usd|eur --pennies=text|number");
+                    "Usage: java -jar moneytostr.jar --amount=123.25 --language=rus|ukr|eng|pol --currency=rur|uah|usd|eur|plz --pennies=text|number");
         } else {
             for (String arg : args) {
                 if (arg.startsWith("--amount=")) {

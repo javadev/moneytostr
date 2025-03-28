@@ -221,13 +221,13 @@ public class MoneyToStrTest {
         assertEquals("дві тисячі гривень 00 копійок", moneyToStrUAH.convert(V_2000D));
         assertEquals("п'ять тисяч гривень 00 копійок", moneyToStrUAH.convert(V_5000D));
         assertEquals("один мільйон гривень 00 копійок", moneyToStrUAH.convert(V_1000000D));
-        assertEquals("два мільйона гривень 00 копійок", moneyToStrUAH.convert(V_2000000D));
+        assertEquals("два мільйони гривень 00 копійок", moneyToStrUAH.convert(V_2000000D));
         assertEquals("п'ять мільйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000D));
         assertEquals("один мільярд гривень 00 копійок", moneyToStrUAH.convert(V_1000000000D));
-        assertEquals("два мільярда гривень 00 копійок", moneyToStrUAH.convert(V_2000000000D));
+        assertEquals("два мільярди гривень 00 копійок", moneyToStrUAH.convert(V_2000000000D));
         assertEquals("п'ять мільярдів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000D));
         assertEquals("один трильйон гривень 00 копійок", moneyToStrUAH.convert(V_1000000000000D));
-        assertEquals("два трильйона гривень 00 копійок", moneyToStrUAH.convert(V_2000000000000D));
+        assertEquals("два трильйони гривень 00 копійок", moneyToStrUAH.convert(V_2000000000000D));
         assertEquals(
                 "п'ять трильйонів гривень 00 копійок", moneyToStrUAH.convert(V_5000000000000D));
         assertEquals("одна гривня 01 копійка", moneyToStrUAH.convert(V_1_01D));
