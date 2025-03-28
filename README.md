@@ -1,7 +1,7 @@
 moneytostr
 ==========
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/moneytostr?style=flat-square)](https://central.sonatype.com/artifact/com.github.javadev/moneytostr/1.22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.javadev/moneytostr?style=flat-square)](https://central.sonatype.com/artifact/com.github.javadev/moneytostr/1.23)
 [![Java CI](https://github.com/javadev/moneytostr/actions/workflows/maven.yml/badge.svg)](https://github.com/javadev/moneytostr/actions/workflows/maven.yml)
 [![CodeQL](https://github.com/javadev/moneytostr/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/javadev/moneytostr/actions/workflows/codeql-analysis.yml)
 [![Coverage Status](https://coveralls.io/repos/javadev/moneytostr-russian/badge.svg)](https://coveralls.io/r/javadev/moneytostr-russian)
@@ -18,13 +18,13 @@ Download [latest release](https://github.com/javadev/moneytostr/releases) or gra
 <dependency>
   <groupId>com.github.javadev</groupId>
   <artifactId>moneytostr</artifactId>
-  <version>1.22</version>
+  <version>1.23</version>
 </dependency>
 ```
 or Gradle:
 
 ```groovy
-implementation 'com.github.javadev:moneytostr:1.22'
+implementation 'com.github.javadev:moneytostr:1.23'
 
 ```
 
