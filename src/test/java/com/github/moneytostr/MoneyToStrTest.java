@@ -52,6 +52,7 @@ public class MoneyToStrTest {
     private static final double V_31D = 31D;
     private static final long V_978637287197540L = 978637287197540L;
     private static final long V_234978637287197540L = 234978637287197540L;
+    private static final long V_234978637287197542L = 234978637287197542L;
     private static final double V_32D = 32D;
     private static final double V_2000D = 2000D;
     private static final double V_5000D = 5000D;
@@ -401,6 +402,12 @@ public class MoneyToStrTest {
                         + "дев'яносто сім тисяч "
                         + "п'ятсот сорок доларів 12 центів",
                 moneyToStrUSD.convert(V_234978637287197540L, V_12L));
+        assertEquals(
+                "двісті тридцять чотири ??? дев'ятсот сімдесят вісім трильйонів шістсот "
+                        + "тридцять сім мільярдів двісті вісімдесят сім мільйонів сто "
+                        + "дев'яносто сім тисяч "
+                        + "п'ятсот сорок два долари 12 центів",
+                moneyToStrUSD.convert(V_234978637287197542L, V_12L));
     }
 
     /** checkUSDRUS. */

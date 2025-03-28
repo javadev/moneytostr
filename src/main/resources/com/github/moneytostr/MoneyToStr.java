@@ -491,7 +491,7 @@ public class MoneyToStr {
                     + "        \"-CurrName\": \"Долари США\",\n"
                     + "        \"-language\": \"UKR\",\n"
                     + "        \"-RubOneUnit\": \"долар\",\n"
-                    + "        \"-RubTwoUnit\": \"долара\",\n"
+                    + "        \"-RubTwoUnit\": \"долари\",\n"
                     + "        \"-RubFiveUnit\": \"доларів\",\n"
                     + "        \"-RubSex\": \"M\",\n"
                     + "        \"-RubShortUnit\": \"дол.\",\n"
