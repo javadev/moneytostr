@@ -100,6 +100,7 @@ public class MoneyToStrTest {
     private MoneyToStr moneyToStrUSDRUS;
     private MoneyToStr moneyToStrUSDENG;
     private MoneyToStr moneyToStrEURRUS;
+    private MoneyToStr moneyToStrEURUKR;
     private MoneyToStr moneyToStrPER100;
     private MoneyToStr moneyToStrPER1000;
     private MoneyToStr moneyToStrCustom;
@@ -159,6 +160,11 @@ public class MoneyToStrTest {
                 new MoneyToStr(
                         MoneyToStr.Currency.EUR,
                         MoneyToStr.Language.RUS,
+                        MoneyToStr.Pennies.NUMBER);
+        moneyToStrEURUKR =
+                new MoneyToStr(
+                        MoneyToStr.Currency.EUR,
+                        MoneyToStr.Language.UKR,
                         MoneyToStr.Pennies.NUMBER);
         moneyToStrPER100 =
                 new MoneyToStr(
@@ -408,6 +414,7 @@ public class MoneyToStrTest {
                         + "дев'яносто сім тисяч "
                         + "п'ятсот сорок два долари 12 центів",
                 moneyToStrUSD.convert(V_234978637287197542L, V_12L));
+        assertEquals("дванадцять доларів 02 центи", moneyToStrUSD.convert(12.02));
     }
 
     /** checkUSDRUS. */
@@ -436,6 +443,12 @@ public class MoneyToStrTest {
                 "двести тридцать четыре ??? девятьсот семьдесят восемь триллионов шестьсот тридца"
                         + "ть семь миллиардов двести восемьдесят семь миллионов сто девяносто семь тысяч пятьсот сорок евро 12 центов",
                 moneyToStrEURRUS.convert(V_234978637287197540L, V_12L));
+    }
+
+    /** checkEURUKR. */
+    @Test
+    public void checkEURUKR() {
+        assertEquals("дванадцять євро 02 центи", moneyToStrEURUKR.convert(12.02));
     }
 
     /** checkUSD_ENG. */
