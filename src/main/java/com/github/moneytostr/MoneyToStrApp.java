@@ -637,7 +637,7 @@ public class MoneyToStrApp extends javax.swing.JFrame {
         jLabel1.setText(bundle.getString("language")); // NOI18N
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Украинский", "Английсикй", "Русский" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Украинский", "Английсикй", "Польский", "Русский" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
