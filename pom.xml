@@ -86,14 +86,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>2.2.0</version>
-                <configuration>
-                    <repoToken>u4dzxw91BHbOvw0hvd6yPAzFSbOQl0Pu0</repoToken>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.13</version>
