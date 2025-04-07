@@ -22,7 +22,7 @@ jobs:
         java-version: '8'
         cache: 'maven'
     - name: Build with Maven
-      run: mvn package jacoco:report coveralls:jacoco --file pom.xml -B
+      run: mvn package jacoco:report --file pom.xml -B
 
     - uses: codecov/codecov-action@v5
       with:
